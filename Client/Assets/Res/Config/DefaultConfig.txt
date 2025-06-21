@@ -1,0 +1,4 @@
+﻿#	默认配置		
+#	配置项	策划备注	配置值
+	Scene.Launcher	启动场景	0
+	Scene.GameScene	游戏场景	1
