@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityGameFramework.Runtime;
@@ -25,25 +24,6 @@ namespace GameApp.UI
         public int Depth
         {
             get { return m_CachedCanvas.sortingOrder; }
-        }
-
-        public void Close()
-        {
-            Close(false);
-        }
-
-        public void Close(bool ignoreFade)
-        {
-            StopAllCoroutines();
-
-            if (ignoreFade)
-            {
-                GameEntry.UI.CloseUIForm(this);
-            }
-            else
-            {
-                StartCoroutine(CloseCo(FadeTime));
-            }
         }
 
         public void PlayUISound(int uiSoundId)
@@ -203,12 +183,6 @@ namespace GameApp.UI
             }
 
             m_CachedCanvasContainer.Clear();
-        }
-
-        private IEnumerator CloseCo(float duration)
-        {
-            yield return m_CanvasGroup.FadeToAlpha(0f, duration);
-            GameEntry.UI.CloseUIForm(this);
         }
     }
 }

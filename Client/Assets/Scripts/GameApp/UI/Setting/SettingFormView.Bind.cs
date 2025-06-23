@@ -5,25 +5,7 @@ namespace GameApp.UI
     public partial class SettingFormView
     {
         [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
-        private UnityEngine.UI.Image m_BlackMaskImage;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
-        private UnityEngine.RectTransform m_ViewNodeRectTransform;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.Image m_BackgroundImage;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
-        private TMPro.TextMeshProUGUI m_SettingTitleTextMeshProUGUI;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
-        private UnityEngine.UI.VerticalLayoutGroup m_SettingNodeVerticalLayoutGroup;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
-        private TMPro.TextMeshProUGUI m_MusicDescribeTextMeshProUGUI;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
-        private UnityEngine.RectTransform m_MusicVolumeNodeRectTransform;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
-        private UnityEngine.UI.Slider m_MusicVolumeSlider;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
-        private UnityEngine.UI.Image m_MusicVolumeBackgroundImage;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
-        private UnityEngine.UI.Image m_MusicVolumeFilImage;
         [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.Toggle m_MusicToggle;
         [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
@@ -31,15 +13,23 @@ namespace GameApp.UI
         [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.Image m_MusicCheckmarkImage;
         [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
-        private TMPro.TextMeshProUGUI m_SoundDescribeTextMeshProUGUI;
+        private TMPro.TextMeshProUGUI m_MusicDescribeTextMeshProUGUI;
         [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
-        private UnityEngine.RectTransform m_SoundVolumeNodeRectTransform;
+        private UnityEngine.UI.Slider m_MusicVolumeSlider;
         [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
-        private UnityEngine.UI.Slider m_SoundVolumeSlider;
+        private UnityEngine.UI.Image m_MusicVolumeBackgroundImage;
         [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
-        private UnityEngine.UI.Image m_SoundVolumeBackgroundImage;
+        private UnityEngine.UI.Image m_MusicVolumeFilImage;
         [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
-        private UnityEngine.UI.Image m_SoundVolumeFilImage;
+        private UnityEngine.RectTransform m_MusicVolumeNodeRectTransform;
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        private UnityEngine.UI.Button m_OKButton;
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        private TMPro.TextMeshProUGUI m_OKDescribeTextMeshProUGUI;
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        private UnityEngine.UI.VerticalLayoutGroup m_SettingNodeVerticalLayoutGroup;
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        private TMPro.TextMeshProUGUI m_SettingTitleTextMeshProUGUI;
         [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.Toggle m_SoundToggle;
         [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
@@ -47,15 +37,15 @@ namespace GameApp.UI
         [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.Image m_SoundCheckmarkImage;
         [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
-        private TMPro.TextMeshProUGUI m_UISoundDescribeTextMeshProUGUI;
+        private TMPro.TextMeshProUGUI m_SoundDescribeTextMeshProUGUI;
         [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
-        private UnityEngine.RectTransform m_UISoundVolumeNodeRectTransform;
+        private UnityEngine.UI.Slider m_SoundVolumeSlider;
         [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
-        private UnityEngine.UI.Slider m_UISoundVolumeSlider;
+        private UnityEngine.UI.Image m_SoundVolumeBackgroundImage;
         [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
-        private UnityEngine.UI.Image m_UISoundVolumeBackgroundImage;
+        private UnityEngine.UI.Image m_SoundVolumeFilImage;
         [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
-        private UnityEngine.UI.Image m_UISoundVolumeFilImage;
+        private UnityEngine.RectTransform m_SoundVolumeNodeRectTransform;
         [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.Toggle m_UISoundToggle;
         [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
@@ -63,42 +53,17 @@ namespace GameApp.UI
         [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.Image m_UISoundCheckmarkImage;
         [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
-        private UnityEngine.UI.Button m_OKButton;
+        private TMPro.TextMeshProUGUI m_UISoundDescribeTextMeshProUGUI;
         [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
-        private TMPro.TextMeshProUGUI m_OKDescribeTextMeshProUGUI;
-
-
-        public UnityEngine.UI.Image BlackMaskImage => m_BlackMaskImage;
-        public UnityEngine.RectTransform ViewNodeRectTransform => m_ViewNodeRectTransform;
-        public UnityEngine.UI.Image BackgroundImage => m_BackgroundImage;
-        public TMPro.TextMeshProUGUI SettingTitleTextMeshProUGUI => m_SettingTitleTextMeshProUGUI;
-        public UnityEngine.UI.VerticalLayoutGroup SettingNodeVerticalLayoutGroup => m_SettingNodeVerticalLayoutGroup;
-        public TMPro.TextMeshProUGUI MusicDescribeTextMeshProUGUI => m_MusicDescribeTextMeshProUGUI;
-        public UnityEngine.RectTransform MusicVolumeNodeRectTransform => m_MusicVolumeNodeRectTransform;
-        public UnityEngine.UI.Slider MusicVolumeSlider => m_MusicVolumeSlider;
-        public UnityEngine.UI.Image MusicVolumeBackgroundImage => m_MusicVolumeBackgroundImage;
-        public UnityEngine.UI.Image MusicVolumeFilImage => m_MusicVolumeFilImage;
-        public UnityEngine.UI.Toggle MusicToggle => m_MusicToggle;
-        public UnityEngine.UI.Image MusicBackgroundImage => m_MusicBackgroundImage;
-        public UnityEngine.UI.Image MusicCheckmarkImage => m_MusicCheckmarkImage;
-        public TMPro.TextMeshProUGUI SoundDescribeTextMeshProUGUI => m_SoundDescribeTextMeshProUGUI;
-        public UnityEngine.RectTransform SoundVolumeNodeRectTransform => m_SoundVolumeNodeRectTransform;
-        public UnityEngine.UI.Slider SoundVolumeSlider => m_SoundVolumeSlider;
-        public UnityEngine.UI.Image SoundVolumeBackgroundImage => m_SoundVolumeBackgroundImage;
-        public UnityEngine.UI.Image SoundVolumeFilImage => m_SoundVolumeFilImage;
-        public UnityEngine.UI.Toggle SoundToggle => m_SoundToggle;
-        public UnityEngine.UI.Image SoundBackgroundImage => m_SoundBackgroundImage;
-        public UnityEngine.UI.Image SoundCheckmarkImage => m_SoundCheckmarkImage;
-        public TMPro.TextMeshProUGUI UISoundDescribeTextMeshProUGUI => m_UISoundDescribeTextMeshProUGUI;
-        public UnityEngine.RectTransform UISoundVolumeNodeRectTransform => m_UISoundVolumeNodeRectTransform;
-        public UnityEngine.UI.Slider UISoundVolumeSlider => m_UISoundVolumeSlider;
-        public UnityEngine.UI.Image UISoundVolumeBackgroundImage => m_UISoundVolumeBackgroundImage;
-        public UnityEngine.UI.Image UISoundVolumeFilImage => m_UISoundVolumeFilImage;
-        public UnityEngine.UI.Toggle UISoundToggle => m_UISoundToggle;
-        public UnityEngine.UI.Image UISoundBackgroundImage => m_UISoundBackgroundImage;
-        public UnityEngine.UI.Image UISoundCheckmarkImage => m_UISoundCheckmarkImage;
-        public UnityEngine.UI.Button OKButton => m_OKButton;
-        public TMPro.TextMeshProUGUI OKDescribeTextMeshProUGUI => m_OKDescribeTextMeshProUGUI;
+        private UnityEngine.UI.Slider m_UISoundVolumeSlider;
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        private UnityEngine.UI.Image m_UISoundVolumeBackgroundImage;
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        private UnityEngine.UI.Image m_UISoundVolumeFilImage;
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        private UnityEngine.RectTransform m_UISoundVolumeNodeRectTransform;
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        private UnityEngine.RectTransform m_ViewNodeRectTransform;
 
 
     }

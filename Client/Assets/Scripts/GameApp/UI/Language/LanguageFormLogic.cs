@@ -10,7 +10,6 @@ namespace GameApp.UI
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
-
             LanguageFormView _view = (LanguageFormView)m_UGuiFormView;
             _view.OnChineseChanged += OnChineseSimplifiedSelected;
             _view.OnEnglishChanged += OnEnglishSelected;
@@ -45,22 +44,21 @@ namespace GameApp.UI
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-
             LanguageFormView _view = (LanguageFormView)m_UGuiFormView;
             m_SelectedLanguage = GameEntry.Localization.Language;
             switch (m_SelectedLanguage)
             {
                 case Language.ChineseSimplified:
-                    _view.ChineseToggle.isOn = true;
+                    _view.SetChinese(true);
                     break;
                 case Language.English:
-                    _view.EnglishToggle.isOn = true;
+                    _view.SetEnglish(true);
                     break;
                 case Language.Spanish:
-                    _view.SpanishToggle.isOn = true;
+                    _view.SetSpanish(true);
                     break;
                 case Language.PortuguesePortugal:
-                    _view.PortugueseToggle.isOn = true;
+                    _view.SetPortuguese(true);
                     break;
             }
         }

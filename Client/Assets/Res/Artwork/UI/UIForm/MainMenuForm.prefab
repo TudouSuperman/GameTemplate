@@ -941,14 +941,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BackgroundImage: {fileID: 5950562235493678182}
-  m_NewGameButton: {fileID: 1732586184021358656}
-  m_LanguageButton: {fileID: 3474396402085206458}
-  m_SettingButton: {fileID: 3548047384918992014}
   m_ExitGameButton: {fileID: 2048144216968457317}
-  m_NewGameDescribeTextMeshProUGUI: {fileID: 6455641916027175387}
-  m_LanguageDescribeTextMeshProUGUI: {fileID: 7040457361884418340}
-  m_SettingDescribeTextMeshProUGUI: {fileID: 3725231487431546430}
   m_ExitGameDescribeTextMeshProUGUI: {fileID: 2024302840762267133}
+  m_LanguageButton: {fileID: 3474396402085206458}
+  m_LanguageDescribeTextMeshProUGUI: {fileID: 7040457361884418340}
+  m_NewGameButton: {fileID: 1732586184021358656}
+  m_NewGameDescribeTextMeshProUGUI: {fileID: 6455641916027175387}
+  m_SettingButton: {fileID: 3548047384918992014}
+  m_SettingDescribeTextMeshProUGUI: {fileID: 3725231487431546430}
 --- !u!114 &2015626823383271286
 MonoBehaviour:
   m_ObjectHideFlags: 0

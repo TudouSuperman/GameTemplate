@@ -7,32 +7,21 @@ namespace GameApp.UI
         [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.Image m_BackgroundImage;
         [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
-        private UnityEngine.UI.Button m_NewGameButton;
+        private UnityEngine.UI.Button m_ExitGameButton;
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        private TMPro.TextMeshProUGUI m_ExitGameDescribeTextMeshProUGUI;
         [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.Button m_LanguageButton;
         [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
-        private UnityEngine.UI.Button m_SettingButton;
+        private TMPro.TextMeshProUGUI m_LanguageDescribeTextMeshProUGUI;
         [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
-        private UnityEngine.UI.Button m_ExitGameButton;
+        private UnityEngine.UI.Button m_NewGameButton;
         [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
         private TMPro.TextMeshProUGUI m_NewGameDescribeTextMeshProUGUI;
         [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
-        private TMPro.TextMeshProUGUI m_LanguageDescribeTextMeshProUGUI;
+        private UnityEngine.UI.Button m_SettingButton;
         [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
         private TMPro.TextMeshProUGUI m_SettingDescribeTextMeshProUGUI;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
-        private TMPro.TextMeshProUGUI m_ExitGameDescribeTextMeshProUGUI;
-
-
-        public UnityEngine.UI.Image BackgroundImage => m_BackgroundImage;
-        public UnityEngine.UI.Button NewGameButton => m_NewGameButton;
-        public UnityEngine.UI.Button LanguageButton => m_LanguageButton;
-        public UnityEngine.UI.Button SettingButton => m_SettingButton;
-        public UnityEngine.UI.Button ExitGameButton => m_ExitGameButton;
-        public TMPro.TextMeshProUGUI NewGameDescribeTextMeshProUGUI => m_NewGameDescribeTextMeshProUGUI;
-        public TMPro.TextMeshProUGUI LanguageDescribeTextMeshProUGUI => m_LanguageDescribeTextMeshProUGUI;
-        public TMPro.TextMeshProUGUI SettingDescribeTextMeshProUGUI => m_SettingDescribeTextMeshProUGUI;
-        public TMPro.TextMeshProUGUI ExitGameDescribeTextMeshProUGUI => m_ExitGameDescribeTextMeshProUGUI;
 
 
     }

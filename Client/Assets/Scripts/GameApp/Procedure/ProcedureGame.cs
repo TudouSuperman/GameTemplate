@@ -35,7 +35,7 @@ namespace GameApp.Procedure
 
             if (m_MenuForm != null)
             {
-                m_MenuForm.Close(isShutdown);
+                GameEntry.UI.CloseUIForm(m_MenuForm);
                 m_MenuForm = null;
             }
         }

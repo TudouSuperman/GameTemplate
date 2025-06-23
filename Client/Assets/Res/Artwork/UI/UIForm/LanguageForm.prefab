@@ -1417,7 +1417,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5982780529066017524}
+  - {fileID: 7371537598512265476}
   - {fileID: 3615694357825132394}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1438,34 +1438,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcf86f113b7b406fbac19349fced4798, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BlackMaskImage: {fileID: 6655045356175548234}
-  m_ViewNodeRectTransform: {fileID: 3615694357825132394}
   m_BackgroundImage: {fileID: 5950562235493678182}
-  m_LanguageTitleTextMeshProUGUI: {fileID: 7329903102568049561}
-  m_LanguageNodeVerticalLayoutGroup: {fileID: 3954817285806669789}
-  m_LanguageNodeToggleGroup: {fileID: 8674177397910688466}
-  m_ChineseNodeRectTransform: {fileID: 4085750437460757725}
   m_ChineseToggle: {fileID: 8494715444904925954}
   m_ChineseBackgroundImage: {fileID: 527244216536209143}
   m_ChineseCheckmarkImage: {fileID: 2916000660368715804}
   m_ChineseLabelTextMeshProUGUI: {fileID: 874329004888495201}
-  m_EnglishNodeRectTransform: {fileID: 2271788075613022155}
+  m_ChineseNodeRectTransform: {fileID: 4085750437460757725}
   m_EnglishToggle: {fileID: 5616531259443631445}
   m_EnglishBackgroundImage: {fileID: 2203982325647497420}
   m_EnglishCheckmarkImage: {fileID: 1521952798755213999}
   m_EnglishLabelTextMeshProUGUI: {fileID: 1385495704634097439}
-  m_SpanishNodeRectTransform: {fileID: 4013454150984224172}
-  m_SpanishToggle: {fileID: 3658336360548768808}
-  m_SpanishBackgroundImage: {fileID: 3161860821345875537}
-  m_SpanishCheckmarkImage: {fileID: 2226932951090530046}
-  m_SpanishLabelTextMeshProUGUI: {fileID: 4108374109804810521}
-  m_PortugueseNodeRectTransform: {fileID: 4678693844557921647}
+  m_EnglishNodeRectTransform: {fileID: 2271788075613022155}
+  m_LanguageNodeToggleGroup: {fileID: 8674177397910688466}
+  m_LanguageNodeVerticalLayoutGroup: {fileID: 3954817285806669789}
+  m_LanguageTitleTextMeshProUGUI: {fileID: 7329903102568049561}
+  m_OKButton: {fileID: 1732586184021358656}
+  m_OKDescribeTextMeshProUGUI: {fileID: 7073306613344987454}
   m_PortugueseToggle: {fileID: 2302131431248738214}
   m_PortugueseBackgroundImage: {fileID: 6081735209785674257}
   m_PortugueseCheckmarkImage: {fileID: 8248690750878100250}
   m_PortugueseLabelTextMeshProUGUI: {fileID: 7435456931017525787}
-  m_OKButton: {fileID: 1732586184021358656}
-  m_OKDescribeTextMeshProUGUI: {fileID: 7073306613344987454}
+  m_PortugueseNodeRectTransform: {fileID: 4678693844557921647}
+  m_SpanishToggle: {fileID: 3658336360548768808}
+  m_SpanishBackgroundImage: {fileID: 3161860821345875537}
+  m_SpanishCheckmarkImage: {fileID: 2226932951090530046}
+  m_SpanishLabelTextMeshProUGUI: {fileID: 4108374109804810521}
+  m_SpanishNodeRectTransform: {fileID: 4013454150984224172}
+  m_ViewNodeRectTransform: {fileID: 3615694357825132394}
 --- !u!114 &-1364931546469435227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2302,7 +2301,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 600, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1001 &6971217887817658239
+--- !u!1001 &6193945826136462479
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -2312,7 +2311,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2818965449437770078, guid: 4a753a4923a65ff4d8bb7a86c0f9395a, type: 3}
       propertyPath: m_Name
-      value: BlackMask-Image
+      value: BlackMask
       objectReference: {fileID: 0}
     - target: {fileID: 3727193281266904459, guid: 4a753a4923a65ff4d8bb7a86c0f9395a, type: 3}
       propertyPath: m_Pivot.x
@@ -2399,19 +2398,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a753a4923a65ff4d8bb7a86c0f9395a, type: 3}
---- !u!224 &5982780529066017524 stripped
+--- !u!224 &7371537598512265476 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3727193281266904459, guid: 4a753a4923a65ff4d8bb7a86c0f9395a, type: 3}
-  m_PrefabInstance: {fileID: 6971217887817658239}
+  m_PrefabInstance: {fileID: 6193945826136462479}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6655045356175548234 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4388130866368131125, guid: 4a753a4923a65ff4d8bb7a86c0f9395a, type: 3}
-  m_PrefabInstance: {fileID: 6971217887817658239}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

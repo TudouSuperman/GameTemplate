@@ -1,6 +1,6 @@
-﻿using GameFramework.Localization;
-using System;
+﻿using System;
 using System.Xml;
+using GameFramework.Localization;
 using UnityGameFramework.Runtime;
 
 namespace GameApp

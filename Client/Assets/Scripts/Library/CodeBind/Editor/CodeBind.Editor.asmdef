@@ -3,7 +3,6 @@
     "rootNamespace": "CodeBind.Editor",
     "references": [
         "CodeBind",
-        "StateController",
         "Unity.TextMeshPro"
     ],
     "includePlatforms": [

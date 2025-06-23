@@ -1,5 +1,5 @@
-﻿using CodeBind;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
+using CodeBind;
 
 namespace GameApp.UI.Extension
 {

@@ -23,12 +23,12 @@
         {
             base.OnOpen(userData);
             SettingFormView _view = (SettingFormView)m_UGuiFormView;
-            _view.MusicToggle.isOn = !GameEntry.Sound.IsMuted("Music");
-            _view.MusicVolumeSlider.value = GameEntry.Sound.GetVolume("Music");
-            _view.SoundToggle.isOn = !GameEntry.Sound.IsMuted("Sound");
-            _view.SoundVolumeSlider.value = GameEntry.Sound.GetVolume("Sound");
-            _view.UISoundToggle.isOn = !GameEntry.Sound.IsMuted("UISound");
-            _view.UISoundVolumeSlider.value = GameEntry.Sound.GetVolume("UISound");
+            _view.SetMusic(!GameEntry.Sound.IsMuted("Music"));
+            _view.SetMusicVolume(GameEntry.Sound.GetVolume("Music"));
+            _view.SetSound(!GameEntry.Sound.IsMuted("Sound"));
+            _view.SetSoundVolume(GameEntry.Sound.GetVolume("Sound"));
+            _view.SetUISound(!GameEntry.Sound.IsMuted("UISound"));
+            _view.SetUISoundVolume(GameEntry.Sound.GetVolume("UISound"));
         }
 
         private void OnMusicMuteChanged(bool isOn) => GameEntry.Sound.Mute("Music", !isOn);

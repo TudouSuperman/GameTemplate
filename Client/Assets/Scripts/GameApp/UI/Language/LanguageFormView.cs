@@ -1,5 +1,5 @@
-﻿using CodeBind;
-using GameFramework;
+﻿using GameFramework;
+using CodeBind;
 
 namespace GameApp.UI
 {
@@ -14,11 +14,16 @@ namespace GameApp.UI
 
         public override void OnInit()
         {
-            ChineseToggle.onValueChanged.AddListener((isOn) => { OnChineseChanged?.Invoke(isOn); });
-            EnglishToggle.onValueChanged.AddListener((isOn) => { OnEnglishChanged?.Invoke(isOn); });
-            SpanishToggle.onValueChanged.AddListener((isOn) => { OnSpanishChanged?.Invoke(isOn); });
-            PortugueseToggle.onValueChanged.AddListener((isOn) => { OnPortugueseChanged?.Invoke(isOn); });
-            OKButton.onClick.AddListener(() => { OnOkClicked?.Invoke(); });
+            m_ChineseToggle.onValueChanged.AddListener((isOn) => { OnChineseChanged?.Invoke(isOn); });
+            m_EnglishToggle.onValueChanged.AddListener((isOn) => { OnEnglishChanged?.Invoke(isOn); });
+            m_SpanishToggle.onValueChanged.AddListener((isOn) => { OnSpanishChanged?.Invoke(isOn); });
+            m_PortugueseToggle.onValueChanged.AddListener((isOn) => { OnPortugueseChanged?.Invoke(isOn); });
+            m_OKButton.onClick.AddListener(() => { OnOkClicked?.Invoke(); });
         }
+
+        public void SetChinese(bool flag) => m_ChineseToggle.isOn = flag;
+        public void SetEnglish(bool flag) => m_EnglishToggle.isOn = flag;
+        public void SetSpanish(bool flag) => m_SpanishToggle.isOn = flag;
+        public void SetPortuguese(bool flag) => m_PortugueseToggle.isOn = flag;
     }
 }

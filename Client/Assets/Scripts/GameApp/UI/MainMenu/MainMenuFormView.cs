@@ -13,10 +13,10 @@ namespace GameApp.UI
 
         public override void OnInit()
         {
-            NewGameButton.onClick.AddListener(() => { OnNewGameClicked?.Invoke(); });
-            LanguageButton.onClick.AddListener(() => { OnLanguageClicked?.Invoke(); });
-            SettingButton.onClick.AddListener(() => { OnSettingClicked?.Invoke(); });
-            ExitGameButton.onClick.AddListener(() => { OnExitGameClicked?.Invoke(); });
+            m_NewGameButton.onClick.AddListener(() => { OnNewGameClicked?.Invoke(); });
+            m_LanguageButton.onClick.AddListener(() => { OnLanguageClicked?.Invoke(); });
+            m_SettingButton.onClick.AddListener(() => { OnSettingClicked?.Invoke(); });
+            m_ExitGameButton.onClick.AddListener(() => { OnExitGameClicked?.Invoke(); });
         }
     }
 }

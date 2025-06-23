@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace CodeBind
 {
+    /// <summary>
+    /// 非Mono类绑定数据的Mono
+    /// </summary>
     [CodeBind]
     [CodeBindName("CSCodeBindMono")]
     [DisallowMultipleComponent]
@@ -19,16 +22,18 @@ namespace CodeBind
 
 #if UNITY_EDITOR
         [SerializeField]
-        private char m_SeparatorChar = '_';
+        private char m_SeparatorChar;
 
         [SerializeField]
         private UnityEditor.MonoScript m_BindScript;
-        
+
         [SerializeField]
         private string[] m_BindComponentNames;
 
         public char SeparatorChar => m_SeparatorChar;
+
         public UnityEditor.MonoScript BindScript => m_BindScript;
+
         public string[] BindComponentNames => m_BindComponentNames;
 
         public void SetBindComponents(string[] names, UnityEngine.Object[] components)

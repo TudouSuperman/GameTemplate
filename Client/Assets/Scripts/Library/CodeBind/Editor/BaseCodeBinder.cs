@@ -5,9 +5,12 @@ using UnityEngine;
 
 namespace CodeBind.Editor
 {
+    /// <summary>
+    /// 基础代码绑定器
+    /// </summary>
     internal abstract class BaseCodeBinder : BaseBinder
     {
-        private readonly string m_BindScriptFullPath;
+        protected readonly string m_BindScriptFullPath;
 
         protected readonly string m_ScriptNameSpace;
 
@@ -45,7 +48,7 @@ namespace CodeBind.Editor
             string codeStr = GetGeneratedCode().Replace("\t", "    ");
             if (File.Exists(m_BindScriptFullPath) && string.Equals(codeStr, File.ReadAllText(m_BindScriptFullPath)))
             {
-                Debug.Log("文件内容相同。不需要重新生成。");
+                Debug.Log("文件内容相同，不需要重新生成。");
                 return;
             }
             using StreamWriter sw = new StreamWriter(m_BindScriptFullPath);

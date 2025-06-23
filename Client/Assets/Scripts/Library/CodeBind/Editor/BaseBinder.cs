@@ -7,19 +7,19 @@ using UnityEngine;
 
 namespace CodeBind.Editor
 {
+    /// <summary>
+    /// 基础绑定器
+    /// </summary>
     internal abstract class BaseBinder
     {
-        private readonly char m_SeparatorChar;
-
-        private readonly Transform m_RootTransform;
-
+        protected readonly char m_SeparatorChar;
+        protected readonly Transform m_RootTransform;
         protected readonly List<CodeBindData> m_BindDatas;
         protected readonly List<CodeBindData> m_BindArrayDatas;
         protected readonly SortedDictionary<string, List<CodeBindData>> m_BindArrayDataDict;
 
         private readonly Regex m_ArrayIndexRegex;
         private readonly Regex m_VariableNameRegex;
-
         private readonly List<Component> m_ComponentCacheList;
 
         protected BaseBinder(Transform rootTransform, char separatorChar)
@@ -138,15 +138,18 @@ namespace CodeBind.Editor
             m_BindArrayDatas.Clear();
             m_BindArrayDataDict.Clear();
 #if STATE_CONTROLLER_CODE_BIND
-            //如果根节点有StateControllerMono，生成Root
-            Type scmType = typeof(StateController.StateControllerMono);
-            if (CodeBindNameTypeCollection.BindTypeNameDict.TryGetValue(scmType, out var bindPrefix))
+            if (!m_RootTransform.name.Contains(m_SeparatorChar))
             {
-                StateController.StateControllerMono scm = m_RootTransform.GetComponent<StateController.StateControllerMono>();
-                if (scm != null)
+                //如果根节点有StateControllerMono，生成Root
+                Type scmType = typeof(StateController.StateControllerMono);
+                if (CodeBindNameTypeCollection.BindTypeNameDict.TryGetValue(scmType, out var bindPrefix))
                 {
-                    CodeBindData bindData = new CodeBindData("Root", scmType, bindPrefix, m_RootTransform);
-                    m_BindDatas.Add(bindData);
+                    StateController.StateControllerMono scm = m_RootTransform.GetComponent<StateController.StateControllerMono>();
+                    if (scm != null)
+                    {
+                        CodeBindData bindData = new CodeBindData("Root", scmType, bindPrefix, m_RootTransform);
+                        m_BindDatas.Add(bindData);
+                    }
                 }
             }
 #endif
@@ -205,6 +208,8 @@ namespace CodeBind.Editor
                     bindDatas.Add(bindData);
                 }
             }
+            //进行排序，保证不同名字相同节点顺序不同的预制可以公用绑定脚本
+            m_BindDatas.Sort();
             return true;
         }
 
@@ -369,30 +374,35 @@ namespace CodeBind.Editor
             return target != null;
         }
 
-        private bool CheckIsInOtherBind(Transform child)
+        private bool CheckIsInOtherBind(Transform transform)
         {
+            transform = transform.parent;
             //检查父节点有没有bind，支持bind嵌套
-            Transform parent = child.parent;
             bool nearestCodeBind = true;
-            while (parent != null)
+            while (transform != null)
             {
-                MonoBehaviour[] components = parent.GetComponents<MonoBehaviour>();
+                //子节点可以绑定，创建代码类型不需要判断特性
+                if(transform == m_RootTransform)
+                {
+                    return false;
+                }
+                MonoBehaviour[] components = transform.GetComponents<MonoBehaviour>();
                 foreach (MonoBehaviour component in components)
                 {
                     if (component.GetType().GetCustomAttributes(typeof(CodeBindAttribute), true).Length > 0)
                     {
-                        if (nearestCodeBind && parent == m_RootTransform)
+                        if (nearestCodeBind && transform == m_RootTransform)
                         {
                             return false;
                         }
-                        if (parent != m_RootTransform)
+                        if (transform != m_RootTransform)
                         {
                             return true;
                         }
                         nearestCodeBind = false;
                     }
                 }
-                parent = parent.parent;
+                transform = transform.parent;
             }
             return false;
         }

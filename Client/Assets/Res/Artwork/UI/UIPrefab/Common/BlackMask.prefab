@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8516515131865954091}
   - component: {fileID: 4388130866368131125}
   m_Layer: 0
-  m_Name: BlackMask-Image
+  m_Name: BlackMask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

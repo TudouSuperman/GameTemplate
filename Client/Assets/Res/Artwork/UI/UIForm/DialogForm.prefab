@@ -810,7 +810,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2085077934096742156}
+  - {fileID: 1983262129237577464}
   - {fileID: 3615694357825132394}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -831,22 +831,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2db887a7ecad4768ba787e38f60e1320, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BlackMaskImage: {fileID: 1419702718657276594}
-  m_ViewNodeRectTransform: {fileID: 3615694357825132394}
   m_BackgroundImage: {fileID: 5950562235493678182}
-  m_TitleBackgroundImage: {fileID: 4832959710127544598}
-  m_TitleTextMeshProUGUI: {fileID: 3128731510076386174}
-  m_MessageTextMeshProUGUI: {fileID: 3735181961337512096}
-  m_ModeNodeHorizontalLayoutGroup: {fileID: 59715576095157700}
-  m_ConfirmNodeRectTransform: {fileID: 3410322136279699239}
-  m_ConfirmButton: {fileID: 1732586184021358656}
-  m_ConfirmDescribeTextMeshProUGUI: {fileID: 7073306613344987454}
-  m_CancelNodeRectTransform: {fileID: 3610485487243719016}
   m_CancelButton: {fileID: 8833845172144381701}
   m_CancelDescribeTextMeshProUGUI: {fileID: 7150709890988267952}
-  m_OtherNodeRectTransform: {fileID: 4536220836515711981}
+  m_CancelNodeRectTransform: {fileID: 3610485487243719016}
+  m_ConfirmButton: {fileID: 1732586184021358656}
+  m_ConfirmDescribeTextMeshProUGUI: {fileID: 7073306613344987454}
+  m_ConfirmNodeRectTransform: {fileID: 3410322136279699239}
+  m_MessageTextMeshProUGUI: {fileID: 3735181961337512096}
+  m_ModeNodeHorizontalLayoutGroup: {fileID: 59715576095157700}
   m_OtherButton: {fileID: 1165617996978054779}
   m_OtherDescribeTextMeshProUGUI: {fileID: 6046668636450732089}
+  m_OtherNodeRectTransform: {fileID: 4536220836515711981}
+  m_TitleTextMeshProUGUI: {fileID: 3128731510076386174}
+  m_TitleBackgroundImage: {fileID: 4832959710127544598}
+  m_ViewNodeRectTransform: {fileID: 3615694357825132394}
 --- !u!114 &3998721740366093046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1475,7 +1474,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!1001 &3410924624483293831
+--- !u!1001 &2899281237456855923
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1485,7 +1484,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2818965449437770078, guid: 4a753a4923a65ff4d8bb7a86c0f9395a, type: 3}
       propertyPath: m_Name
-      value: BlackMask-Image
+      value: BlackMask
       objectReference: {fileID: 0}
     - target: {fileID: 3727193281266904459, guid: 4a753a4923a65ff4d8bb7a86c0f9395a, type: 3}
       propertyPath: m_Pivot.x
@@ -1572,19 +1571,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a753a4923a65ff4d8bb7a86c0f9395a, type: 3}
---- !u!114 &1419702718657276594 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4388130866368131125, guid: 4a753a4923a65ff4d8bb7a86c0f9395a, type: 3}
-  m_PrefabInstance: {fileID: 3410924624483293831}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!224 &2085077934096742156 stripped
+--- !u!224 &1983262129237577464 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3727193281266904459, guid: 4a753a4923a65ff4d8bb7a86c0f9395a, type: 3}
-  m_PrefabInstance: {fileID: 3410924624483293831}
+  m_PrefabInstance: {fileID: 2899281237456855923}
   m_PrefabAsset: {fileID: 0}

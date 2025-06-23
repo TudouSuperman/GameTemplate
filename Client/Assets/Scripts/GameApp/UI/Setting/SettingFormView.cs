@@ -1,5 +1,5 @@
-﻿using CodeBind;
-using GameFramework;
+﻿using GameFramework;
+using CodeBind;
 
 namespace GameApp.UI
 {
@@ -16,13 +16,20 @@ namespace GameApp.UI
 
         public override void OnInit()
         {
-            MusicToggle.onValueChanged.AddListener((isOn) => { OnMusicMuteChanged?.Invoke(isOn); });
-            MusicVolumeSlider.onValueChanged.AddListener((volume) => { OnMusicVolumeChanged?.Invoke(volume); });
-            SoundToggle.onValueChanged.AddListener((isOn) => { OnSoundMuteChanged?.Invoke(isOn); });
-            SoundVolumeSlider.onValueChanged.AddListener((volume) => { OnSoundVolumeChanged?.Invoke(volume); });
-            UISoundToggle.onValueChanged.AddListener((isOn) => { OnUISoundMuteChanged?.Invoke(isOn); });
-            UISoundVolumeSlider.onValueChanged.AddListener((volume) => { OnUISoundVolumeChanged?.Invoke(volume); });
-            OKButton.onClick.AddListener(() => { OnOkClicked?.Invoke(); });
+            m_MusicToggle.onValueChanged.AddListener((isOn) => { OnMusicMuteChanged?.Invoke(isOn); });
+            m_MusicVolumeSlider.onValueChanged.AddListener((volume) => { OnMusicVolumeChanged?.Invoke(volume); });
+            m_SoundToggle.onValueChanged.AddListener((isOn) => { OnSoundMuteChanged?.Invoke(isOn); });
+            m_SoundVolumeSlider.onValueChanged.AddListener((volume) => { OnSoundVolumeChanged?.Invoke(volume); });
+            m_UISoundToggle.onValueChanged.AddListener((isOn) => { OnUISoundMuteChanged?.Invoke(isOn); });
+            m_UISoundVolumeSlider.onValueChanged.AddListener((volume) => { OnUISoundVolumeChanged?.Invoke(volume); });
+            m_OKButton.onClick.AddListener(() => { OnOkClicked?.Invoke(); });
         }
+
+        public void SetMusic(bool flag) => m_MusicToggle.isOn = flag;
+        public void SetMusicVolume(float value) => m_MusicVolumeSlider.value = value;
+        public void SetSound(bool flag) => m_SoundToggle.isOn = flag;
+        public void SetSoundVolume(float value) => m_SoundVolumeSlider.value = value;
+        public void SetUISound(bool flag) => m_UISoundToggle.isOn = flag;
+        public void SetUISoundVolume(float value) => m_UISoundVolumeSlider.value = value;
     }
 }
