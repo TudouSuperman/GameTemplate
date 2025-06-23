@@ -15,6 +15,7 @@ namespace GameApp
         
         private void OnApplicationQuit()
         {
+            GameApp.UI.ModelManager.Instance.Clear();
             UnityGameFramework.Runtime.GameEntry.Shutdown(UnityGameFramework.Runtime.ShutdownType.Quit);
         }
     }
