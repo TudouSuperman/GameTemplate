@@ -12,12 +12,12 @@ namespace GameApp
         private Camera m_UICamera;
 
         /// <summary>
-        /// 主相机
+        /// 主相机。
         /// </summary>
         public Camera MainCamera => m_MainCamera;
 
         /// <summary>
-        /// UI相机
+        /// UI 相机。
         /// </summary>
         public Camera UICamera => m_UICamera;
     }

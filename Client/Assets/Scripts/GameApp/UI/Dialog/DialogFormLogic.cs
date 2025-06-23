@@ -68,12 +68,6 @@ namespace GameApp.UI
         protected override void OnClose(bool isShutdown, object userData)
         {
             base.OnClose(isShutdown, userData);
-            DialogFormView _view = (DialogFormView)m_UGuiFormView;
-            _view.RefreshTitleText(string.Empty);
-            _view.RefreshMessageText(string.Empty);
-            _view.RefreshConfirmText(string.Empty);
-            _view.RefreshCancelText(string.Empty);
-            _view.RefreshOtherText(string.Empty);
             m_DialogParams = null;
             RefreshPauseGame(false);
         }

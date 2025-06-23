@@ -21,18 +21,8 @@
         SettingForm = 3,
 
         /// <summary>
-        /// 遮罩界面。
-        /// </summary>
-        MaskForm = 100,
-
-        /// <summary>
         /// 弹出框。
         /// </summary>
         DialogForm = 3000,
-
-        /// <summary>
-        /// Wordle 玩法界面。
-        /// </summary>
-        WordleForm = 1000,
     }
 }
