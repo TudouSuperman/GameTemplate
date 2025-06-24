@@ -36,11 +36,11 @@ namespace GameApp.UI
             m_CachedCanvas.overrideSorting = true;
             m_CachedCanvas.sortingOrder = DepthFactor * m_Depth;
 
-            RectTransform transform = GetComponent<RectTransform>();
-            transform.anchorMin = Vector2.zero;
-            transform.anchorMax = Vector2.one;
-            transform.anchoredPosition = Vector2.zero;
-            transform.sizeDelta = Vector2.zero;
+            RectTransform _transform = GetComponent<RectTransform>();
+            _transform.anchorMin = Vector2.zero;
+            _transform.anchorMax = Vector2.one;
+            _transform.anchoredPosition = Vector2.zero;
+            _transform.sizeDelta = Vector2.zero;
         }
     }
 }
