@@ -9,6 +9,7 @@ namespace GameApp.UI
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
+            
             DialogFormView _view = (DialogFormView)m_UGuiFormView;
             _view.OnConfirmClicked += () =>
             {
@@ -30,6 +31,7 @@ namespace GameApp.UI
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
+            
             m_DialogParams = (DialogParams)userData;
             if (null == m_DialogParams)
             {
@@ -68,6 +70,7 @@ namespace GameApp.UI
         protected override void OnClose(bool isShutdown, object userData)
         {
             base.OnClose(isShutdown, userData);
+            
             m_DialogParams = null;
             RefreshPauseGame(false);
         }

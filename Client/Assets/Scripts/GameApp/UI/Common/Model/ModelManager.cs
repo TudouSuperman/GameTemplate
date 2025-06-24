@@ -12,6 +12,14 @@ namespace GameApp.UI
             m_ModelDic = new Dictionary<string, IModel>();
         }
 
+        public override void Clear()
+        {
+            foreach (KeyValuePair<string, IModel> _kv in m_ModelDic)
+            {
+                _kv.Value.Clear();
+            }
+        }
+
         public T AddModel<T>() where T : IModel, new()
         {
             string _fullName = typeof(T).FullName;
@@ -86,14 +94,6 @@ namespace GameApp.UI
             }
 
             return _model;
-        }
-
-        public override void Clear()
-        {
-            foreach (KeyValuePair<string, IModel> _kv in m_ModelDic)
-            {
-                _kv.Value.Clear();
-            }
         }
     }
 }

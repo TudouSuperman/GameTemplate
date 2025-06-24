@@ -9,7 +9,7 @@ namespace GameApp.UI
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
-
+            
             MainMenuFormView _view = (MainMenuFormView)m_UGuiFormView;
             _view.OnNewGameClicked += () => m_ProcedureGame.StartGame();
             _view.OnSettingClicked += () => GameEntry.UI.OpenUIForm(EUIFormID.SettingForm);
@@ -20,7 +20,7 @@ namespace GameApp.UI
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-
+            
             m_ProcedureGame = (Procedure.ProcedureGame)userData;
             if (m_ProcedureGame == null)
             {
@@ -31,8 +31,9 @@ namespace GameApp.UI
 
         protected override void OnClose(bool isShutdown, object userData)
         {
-            m_ProcedureGame = null;
             base.OnClose(isShutdown, userData);
+            
+            m_ProcedureGame = null;
         }
     }
 }

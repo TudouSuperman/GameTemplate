@@ -5,6 +5,7 @@
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
+            
             SettingFormView _view = (SettingFormView)m_UGuiFormView;
             _view.OnMusicMuteChanged += OnMusicMuteChanged;
             _view.OnMusicVolumeChanged += OnMusicVolumeChanged;
@@ -22,6 +23,7 @@
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
+            
             SettingFormView _view = (SettingFormView)m_UGuiFormView;
             _view.SetMusic(!GameEntry.Sound.IsMuted("Music"));
             _view.SetMusicVolume(GameEntry.Sound.GetVolume("Music"));
