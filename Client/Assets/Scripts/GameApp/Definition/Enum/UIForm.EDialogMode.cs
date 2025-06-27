@@ -8,7 +8,7 @@
         /// <summary>
         /// 单按钮模式。
         /// </summary>
-        OneButtonMode,
+        OneButtonMode = 0,
 
         /// <summary>
         /// 双按钮模式。

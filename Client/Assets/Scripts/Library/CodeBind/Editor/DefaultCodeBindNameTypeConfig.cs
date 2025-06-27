@@ -38,6 +38,9 @@ namespace CodeBind
 #if STATE_CONTROLLER_CODE_BIND
             { "StateControllerMono", typeof(StateController.StateControllerMono)},
 #endif
+#if ENABLE_INPUT_SYSTEM
+            { "PlayerInput", typeof(UnityEngine.InputSystem.PlayerInput) },
+#endif
         };
     }
 }

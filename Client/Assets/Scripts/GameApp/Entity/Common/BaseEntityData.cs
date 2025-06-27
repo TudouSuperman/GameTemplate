@@ -1,10 +1,10 @@
 ﻿using System;
 using UnityEngine;
 
-namespace GameApp
+namespace GameApp.Entity
 {
     [Serializable]
-    public abstract class EntityData
+    public abstract class BaseEntityData
     {
         [SerializeField]
         private int m_Id = 0;
@@ -18,7 +18,7 @@ namespace GameApp
         [SerializeField]
         private Quaternion m_Rotation = Quaternion.identity;
 
-        public EntityData(int entityId, int typeId)
+        public BaseEntityData(int entityId, int typeId)
         {
             m_Id = entityId;
             m_TypeId = typeId;

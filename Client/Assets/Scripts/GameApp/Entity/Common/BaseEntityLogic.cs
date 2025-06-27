@@ -1,20 +1,13 @@
-﻿using GameFramework;
-using UnityEngine;
+﻿using UnityEngine;
+using GameFramework;
 using UnityGameFramework.Runtime;
 
-namespace GameApp
+namespace GameApp.Entity
 {
-    public abstract class Entity : EntityLogic
+    public abstract class BaseEntityLogic : EntityLogic
     {
-        private EntityData m_EntityData = null;
-
-        public int Id
-        {
-            get
-            {
-                return Entity.Id;
-            }
-        }
+        protected BaseEntityData m_EntityData = null;
+        protected BaseEntityView m_EntityView = null;
 
 #if UNITY_2017_3_OR_NEWER
         protected override void OnInit(object userData)
@@ -23,6 +16,9 @@ namespace GameApp
 #endif
         {
             base.OnInit(userData);
+
+            m_EntityView = GetComponent<BaseEntityView>();
+            m_EntityView.OnInit();
         }
 
 #if UNITY_2017_3_OR_NEWER
@@ -42,14 +38,14 @@ namespace GameApp
         {
             base.OnShow(userData);
 
-            m_EntityData = userData as EntityData;
+            m_EntityData = userData as BaseEntityData;
             if (m_EntityData == null)
             {
                 Log.Error("Entity data is invalid.");
                 return;
             }
 
-            Name = Utility.Text.Format("[Entity {0}]", Id);
+            Name = Utility.Text.Format("[Entity {0}]", Entity.Id);
             CachedTransform.localPosition = m_EntityData.Position;
             CachedTransform.localRotation = m_EntityData.Rotation;
             CachedTransform.localScale = Vector3.one;

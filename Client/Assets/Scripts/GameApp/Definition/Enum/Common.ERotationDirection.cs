@@ -1,14 +1,14 @@
 ﻿namespace GameApp
 {
     /// <summary>
-    /// 旋转方向枚举
+    /// 旋转方向。
     /// </summary>
     public enum ERotationDirection : byte
     {
         /// <summary>
         /// 顺时针。
         /// </summary>
-        Clockwise,
+        Clockwise = 0,
 
         /// <summary>
         /// 逆时针。

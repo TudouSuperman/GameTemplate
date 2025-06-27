@@ -2,7 +2,7 @@
 using GameFramework.DataTable;
 using UnityGameFramework.Runtime;
 
-namespace GameApp
+namespace GameApp.Entity
 {
     public static class EntityExtension
     {
@@ -12,7 +12,7 @@ namespace GameApp
         // 负值用于本地生成的临时实体（如特效、FakeObject等）
         private static int s_SerialId = 0;
 
-        public static Entity GetGameEntity(this EntityComponent entityComponent, int entityId)
+        public static BaseEntityLogic GetGameEntity(this EntityComponent entityComponent, int entityId)
         {
             UnityGameFramework.Runtime.Entity entity = entityComponent.GetEntity(entityId);
             if (entity == null)
@@ -20,20 +20,20 @@ namespace GameApp
                 return null;
             }
 
-            return (Entity)entity.Logic;
+            return (BaseEntityLogic)entity.Logic;
         }
 
-        public static void HideEntity(this EntityComponent entityComponent, Entity entity)
+        public static void HideEntity(this EntityComponent entityComponent, BaseEntityLogic entity)
         {
             entityComponent.HideEntity(entity.Entity);
         }
 
-        public static void AttachEntity(this EntityComponent entityComponent, Entity entity, int ownerId, string parentTransformPath = null, object userData = null)
+        public static void AttachEntity(this EntityComponent entityComponent, BaseEntityLogic entity, int ownerId, string parentTransformPath = null, object userData = null)
         {
             entityComponent.AttachEntity(entity.Entity, ownerId, parentTransformPath, userData);
         }
-        
-        public static void ShowEntity(this EntityComponent entityComponent, Type logicType, EntityData data)
+
+        public static void ShowEntity(this EntityComponent entityComponent, Type logicType, BaseEntityData data)
         {
             if (data == null)
             {
