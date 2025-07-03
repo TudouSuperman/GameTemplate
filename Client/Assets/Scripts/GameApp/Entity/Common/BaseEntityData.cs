@@ -1,64 +1,41 @@
 ﻿using System;
 using UnityEngine;
+using GameFramework;
 
 namespace GameApp.Entity
 {
     [Serializable]
-    public abstract class BaseEntityData
+    public abstract class BaseEntityData : IReference
     {
         [SerializeField]
-        private int m_Id = 0;
+        protected int m_Id = 0;
 
         [SerializeField]
-        private int m_TypeId = 0;
+        protected int m_TypeId = 0;
 
         [SerializeField]
-        private Vector3 m_Position = Vector3.zero;
+        protected Vector3 m_Position = Vector3.zero;
 
         [SerializeField]
-        private Quaternion m_Rotation = Quaternion.identity;
-
-        public BaseEntityData(int entityId, int typeId)
-        {
-            m_Id = entityId;
-            m_TypeId = typeId;
-        }
+        protected Quaternion m_Rotation = Quaternion.identity;
 
         /// <summary>
         /// 实体编号。
         /// </summary>
-        public int Id
-        {
-            get
-            {
-                return m_Id;
-            }
-        }
+        public int Id => m_Id;
 
         /// <summary>
         /// 实体类型编号。
         /// </summary>
-        public int TypeId
-        {
-            get
-            {
-                return m_TypeId;
-            }
-        }
+        public int TypeId => m_TypeId;
 
         /// <summary>
         /// 实体位置。
         /// </summary>
         public Vector3 Position
         {
-            get
-            {
-                return m_Position;
-            }
-            set
-            {
-                m_Position = value;
-            }
+            get => m_Position;
+            set => m_Position = value;
         }
 
         /// <summary>
@@ -66,14 +43,16 @@ namespace GameApp.Entity
         /// </summary>
         public Quaternion Rotation
         {
-            get
-            {
-                return m_Rotation;
-            }
-            set
-            {
-                m_Rotation = value;
-            }
+            get => m_Rotation;
+            set => m_Rotation = value;
+        }
+
+        public virtual void Clear()
+        {
+            m_Id = 0;
+            m_TypeId = 0;
+            m_Position = Vector3.zero;
+            Rotation = Quaternion.identity;
         }
     }
 }
