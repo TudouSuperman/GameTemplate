@@ -17,7 +17,40 @@ namespace GameApp.UI.Extension
         [SerializeField]
         private float[] m_Percents;
 
-        public void Refresh()
+        /// <summary>
+        /// 动态设置单个方向的百分比。
+        /// </summary>
+        public void SetPercent(int index, float value)
+        {
+            if (index < 0 || index >= m_Percents.Length)
+            {
+                Debug.LogError("Index out of range");
+                return;
+            }
+
+            m_Percents[index] = Mathf.Clamp01(value);
+            RefreshView();
+        }
+
+        /// <summary>
+        /// 动态设置所有百分比值。
+        /// </summary>
+        public void SetAllPercents(float[] percents)
+        {
+            if (percents == null || percents.Length != m_Percents.Length)
+            {
+                Debug.LogError("Invalid percents array length");
+                return;
+            }
+
+            m_Percents = percents;
+            RefreshView();
+        }
+
+        /// <summary>
+        /// 刷新变动。
+        /// </summary>
+        public void RefreshView()
         {
             SetVerticesDirty();
         }
@@ -45,6 +78,7 @@ namespace GameApp.UI.Extension
                 _vert.position = new Vector3(_x, _y, 0);
                 vh.AddVert(_vert);
             }
+
             // 三角形绘制。
             for (int i = 1; i <= _count; i++)
             {
@@ -57,7 +91,7 @@ namespace GameApp.UI.Extension
         protected override void OnValidate()
         {
             base.OnValidate();
-            Refresh();
+            RefreshView();
         }
 #endif
     }
