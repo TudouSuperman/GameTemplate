@@ -19,8 +19,8 @@ public static class UnityExtension
     /// <summary>
     /// 获取或增加组件。
     /// </summary>
-    /// <typeparam name="T">要获取或增加的组件。</typeparam>
     /// <param name="gameObject">目标对象。</param>
+    /// <typeparam name="T">要获取或增加的组件。</typeparam>
     /// <returns>获取或增加的组件。</returns>
     public static T GetOrAddComponent<T>(this GameObject gameObject) where T : Component
     {
@@ -51,6 +51,17 @@ public static class UnityExtension
     }
 
     /// <summary>
+    /// 获取组件（完全避免类型检查开销）。
+    /// </summary>
+    /// <param name="gameObject">目标对象。</param>
+    /// <typeparam name="T">要获取或增加的组件。</typeparam>
+    /// <returns>获取的组件。</returns>
+    public static T GetComponentNoAlloc<T>(this GameObject gameObject) where T : Component
+    {
+        return gameObject.TryGetComponent(out T component) ? component : null;
+    }
+
+    /// <summary>
     /// 获取 GameObject 是否在场景中。
     /// </summary>
     /// <param name="gameObject">目标对象。</param>
@@ -59,6 +70,31 @@ public static class UnityExtension
     public static bool InScene(this GameObject gameObject)
     {
         return gameObject.scene.name != null;
+    }
+
+    /// <summary>
+    /// 设置游戏对象显隐。
+    /// </summary>
+    /// <param name="gameObject">目标对象。</param>
+    /// <param name="active">显隐状态。</param>
+    public static void SelfSetActive(this GameObject gameObject, bool active)
+    {
+        if (gameObject.activeSelf == active)
+        {
+            return;
+        }
+
+        gameObject.SetActive(active);
+    }
+
+    /// <summary>
+    /// 设置游戏对象的层次。
+    /// </summary>
+    /// <param name="gameObject">目标对象。</param>
+    /// <param name="layer">目标层次的编号。</param>
+    public static void SetLayer(this GameObject gameObject, int layer)
+    {
+        gameObject.layer = layer;
     }
 
     /// <summary>

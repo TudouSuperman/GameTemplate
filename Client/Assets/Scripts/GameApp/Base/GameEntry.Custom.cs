@@ -1,5 +1,5 @@
-﻿using UnityGameFramework.Extensions;
-using UnityGameFramework.Runtime;
+﻿using UnityGameFramework.Runtime;
+using UnityGameFramework.Extensions;
 
 namespace GameApp
 {

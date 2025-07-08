@@ -1,27 +1,40 @@
 ﻿using System;
 
-namespace GameApp
+namespace GameApp.Singleton
 {
-    public abstract class Singleton<T> where T : class
+    public abstract class Singleton<T> : ISingleton where T : Singleton<T>, new()
     {
-        private static T m_Instance;
+        private bool m_Disposed;
+        private static T s_Instance;
+        public static T Instance => s_Instance;
 
-        public static T Instance
+        public void Register()
         {
-            get
+            if (Instance != null)
             {
-                if (null != m_Instance)
-                {
-                    return m_Instance;
-                }
-
-                // 通过反射创建实例（即使构造函数是 non-public）。
-                m_Instance = Activator.CreateInstance(typeof(T), true) as T;
-                if (null == m_Instance) throw new Exception($"单例：{typeof(T).Name} 构造失败！");
-                return m_Instance;
+                throw new Exception($"Singleton register twice! {typeof(T).Name}");
             }
+            s_Instance = (T)this;
         }
 
-        public abstract void Clear();
+        public void Destroy()
+        {
+            if (m_Disposed)
+            {
+                return;
+            }
+
+            m_Disposed = true;
+
+            T _t = s_Instance;
+            s_Instance = null;
+            _t.Dispose();
+        }
+
+        public bool IsDispose() => m_Disposed;
+
+        public virtual void Dispose()
+        {
+        }
     }
 }

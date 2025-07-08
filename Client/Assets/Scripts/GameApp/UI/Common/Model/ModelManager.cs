@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using GameApp.Singleton;
 
 namespace GameApp.UI
 {
@@ -7,13 +8,14 @@ namespace GameApp.UI
     {
         private readonly Dictionary<string, IModel> m_ModelDic;
 
-        private ModelManager()
+        public ModelManager()
         {
             m_ModelDic = new Dictionary<string, IModel>();
         }
 
-        public override void Clear()
+        public override void Dispose()
         {
+            base.Dispose();
             foreach (KeyValuePair<string, IModel> _kv in m_ModelDic)
             {
                 _kv.Value.Clear();
