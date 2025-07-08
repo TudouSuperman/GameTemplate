@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 namespace GameApp.UI.Extension
 {
-    public class SimpleButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
+    public sealed class ButtonSimple : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
     {
         private const float FadeTime = 0.3f;
         private const float OnHoverAlpha = 0.7f;

@@ -7,7 +7,7 @@ namespace GameApp.UI.Extension
     /// 在 UGUI 中绘制雷达图组件。
     /// </summary>
     [RequireComponent(typeof(CanvasRenderer))]
-    public sealed class RadarGraphic : MaskableGraphic
+    public sealed class GraphicRadar : MaskableGraphic
     {
         [Range(0f, 300f)]
         [SerializeField]
