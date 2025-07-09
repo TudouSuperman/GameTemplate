@@ -88,6 +88,36 @@ public static class UnityExtension
     }
 
     /// <summary>
+    /// 设置游戏对象显隐。
+    /// </summary>
+    /// <param name="rectTransform">目标对象。</param>
+    /// <param name="active">显隐状态。</param>
+    public static void SelfSetActive(this RectTransform rectTransform, bool active)
+    {
+        if (rectTransform.gameObject.activeSelf == active)
+        {
+            return;
+        }
+
+        rectTransform.gameObject.SetActive(active);
+    }
+
+    /// <summary>
+    /// 设置游戏对象显隐。
+    /// </summary>
+    /// <param name="transform">目标对象。</param>
+    /// <param name="active">显隐状态。</param>
+    public static void SelfSetActive(this Transform transform, bool active)
+    {
+        if (transform.gameObject.activeSelf == active)
+        {
+            return;
+        }
+
+        transform.gameObject.SetActive(active);
+    }
+
+    /// <summary>
     /// 设置游戏对象的层次。
     /// </summary>
     /// <param name="gameObject">目标对象。</param>

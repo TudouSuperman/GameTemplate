@@ -27,6 +27,6 @@ namespace GameApp
             ModelManager = SingletonManager.AddSingleton<ModelManager>();
         }
 
-        private static void ClearSingletons() => SingletonManager.Clear();
+        public static void ClearSingletons() => SingletonManager.Clear();
     }
 }

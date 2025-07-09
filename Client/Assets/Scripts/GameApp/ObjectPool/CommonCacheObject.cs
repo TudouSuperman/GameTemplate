@@ -22,7 +22,7 @@ namespace GameApp
                 return;
             }
 
-            _instance.gameObject.SetActive(true);
+            _instance.SelfSetActive(true);
         }
 
         protected override void OnUnspawn()
@@ -35,7 +35,7 @@ namespace GameApp
             }
 
             _instance.transform.SetParent(GameEntry.ObjectPool.transform);
-            _instance.gameObject.SetActive(false);
+            _instance.SelfSetActive(false);
             _instance.transform.localPosition = Vector3.zero;
         }
 

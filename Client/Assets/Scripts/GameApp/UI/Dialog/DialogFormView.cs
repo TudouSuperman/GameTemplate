@@ -17,12 +17,12 @@ namespace GameApp.UI
             m_OtherButton.onClick.AddListener(() => { OnOtherClicked?.Invoke(); });
         }
 
-        public void ShowConfirmNode() => m_ConfirmNodeRectTransform.gameObject.SetActive(true);
-        public void HideConfirmNode() => m_ConfirmNodeRectTransform.gameObject.SetActive(false);
-        public void ShowCancelNode() => m_CancelNodeRectTransform.gameObject.SetActive(true);
-        public void HideCancelNode() => m_CancelNodeRectTransform.gameObject.SetActive(false);
-        public void ShowOtherNode() => m_OtherNodeRectTransform.gameObject.SetActive(true);
-        public void HideOtherNode() => m_OtherNodeRectTransform.gameObject.SetActive(false);
+        public void ShowConfirmNode() => m_ConfirmNodeRectTransform.SelfSetActive(true);
+        public void HideConfirmNode() => m_ConfirmNodeRectTransform.SelfSetActive(false);
+        public void ShowCancelNode() => m_CancelNodeRectTransform.SelfSetActive(true);
+        public void HideCancelNode() => m_CancelNodeRectTransform.SelfSetActive(false);
+        public void ShowOtherNode() => m_OtherNodeRectTransform.SelfSetActive(true);
+        public void HideOtherNode() => m_OtherNodeRectTransform.SelfSetActive(false);
 
         public void RefreshTitleText(string text) => m_TitleTextMeshProUGUI.text = text;
         public void RefreshMessageText(string text) => m_MessageTextMeshProUGUI.text = text;

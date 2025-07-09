@@ -201,7 +201,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="visible">界面的可见性。</param>
         protected virtual void InternalSetVisible(bool visible)
         {
-            gameObject.SetActive(visible);
+            gameObject.SelfSetActive(visible);
         }
     }
 }
