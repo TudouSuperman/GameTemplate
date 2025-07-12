@@ -43,6 +43,12 @@ namespace GameApp
             get;
             private set;
         }
+        
+        public static CursorComponent Cursor
+        {
+            get;
+            private set;
+        }
 
         private static void InitCustomComponents()
         {
@@ -52,6 +58,7 @@ namespace GameApp
             Camera = UnityGameFramework.Runtime.GameEntry.GetComponent<CameraComponent>();
             Platform = UnityGameFramework.Runtime.GameEntry.GetComponent<PlatformComponent>();
             Screen = UnityGameFramework.Runtime.GameEntry.GetComponent<ScreenComponent>();
+            Cursor = UnityGameFramework.Runtime.GameEntry.GetComponent<CursorComponent>();
         }
     }
 }
