@@ -301,7 +301,7 @@ PrefabInstance:
       objectReference: {fileID: 400015763}
     - target: {fileID: 11454530, guid: adb3eb1c35fcff14f89fba7b05c9d71c, type: 3}
       propertyPath: m_UIGroups.Array.size
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 11454530, guid: adb3eb1c35fcff14f89fba7b05c9d71c, type: 3}
       propertyPath: m_UIGroupHelperTypeName
@@ -1347,6 +1347,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_InstanceRoot: {fileID: 1701098049}
+  m_MainCamera: {fileID: 728938345}
+  m_UICanvas: {fileID: 400015766}
+  m_WorldHeightOffset: 0.1
+  m_CursorOffset: {x: 0, y: 0}
+  m_CursorFollowFlag: 0
+  <ScreenPosition>k__BackingField: {x: 0, y: 0}
+  <WorldPosition>k__BackingField: {x: 0, y: 0, z: 0}
+  <LocalPosition>k__BackingField: {x: 0, y: 0}
+  <CursorRects>k__BackingField: []
 --- !u!1 &1701098048
 GameObject:
   m_ObjectHideFlags: 0
@@ -1446,7 +1455,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 32767
   m_TargetDisplay: 0
 --- !u!1 &1819366661
 GameObject:

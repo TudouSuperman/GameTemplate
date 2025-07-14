@@ -1107,5 +1107,46 @@ namespace GameApp
 
             return path;
         }
+
+        /// <summary>
+        /// 屏幕坐标转 UI 坐标。
+        /// </summary>
+        /// <param name="screenPosition">屏幕坐标。</param>
+        /// <param name="canvas">画布。</param>
+        /// <returns>UI 坐标。</returns>
+        public static Vector2 ScreenToUIPosition(Vector2 screenPosition, Canvas canvas)
+        {
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                canvas.transform as RectTransform,
+                screenPosition,
+                canvas.worldCamera, // 对于 Overlay 模式为 null。
+                out Vector2 localPos
+            );
+            return localPos;
+        }
+
+        /// <summary>
+        /// UI 坐标转屏幕坐标。
+        /// </summary>
+        /// <param name="uiPosition">UI坐标。</param>
+        /// <param name="canvas">画布。</param>
+        /// <returns>屏幕坐标。</returns>
+        public static Vector2 UIToScreenPosition(Vector2 uiPosition, Canvas canvas)
+        {
+            // 对于 Overlay 模式。
+            if (canvas.renderMode == RenderMode.ScreenSpaceOverlay)
+            {
+                Vector2 screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
+                return screenCenter + uiPosition;
+            }
+            // 对于 Camera 模式。
+            else
+            {
+                return RectTransformUtility.WorldToScreenPoint(
+                    canvas.worldCamera,
+                    canvas.transform.TransformPoint(uiPosition)
+                );
+            }
+        }
     }
 }
