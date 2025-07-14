@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Runtime.InteropServices;
 using UnityEngine;
-using ThinkingAnalytics;
-using UnityGameFramework.Runtime;
 using GameFramework.DataTable;
+using UnityGameFramework.Runtime;
+using ThinkingAnalytics;
 
 namespace GameApp
 {

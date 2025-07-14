@@ -4,7 +4,7 @@ using UnityEngine.Rendering;
 using UnityEngine.Scripting;
 
 [Preserve]
-public class SkipSplashImage : MonoBehaviour 
+public sealed class SkipSplashImage : MonoBehaviour 
 {
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSplashScreen)]
     private static void Run()

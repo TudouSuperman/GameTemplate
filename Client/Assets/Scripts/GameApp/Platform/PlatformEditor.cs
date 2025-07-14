@@ -9,6 +9,7 @@ namespace GameApp
     public class PlatformEditor : IPlatform
     {
         private StringBuilder m_TrackEventStringBuilder;
+
         public void Init()
         {
             m_TrackEventStringBuilder = new StringBuilder(100);
@@ -16,7 +17,6 @@ namespace GameApp
 
         public void ShowRewardAd(string tag)
         {
-            
         }
 
         IEnumerator DelayRewardCallBack(string tag)
@@ -32,7 +32,6 @@ namespace GameApp
 
         public void ShowInteractionAd()
         {
-            
         }
 
         public bool BannerAdIsShow()
@@ -42,12 +41,10 @@ namespace GameApp
 
         public void ShowBannerAd()
         {
-            
         }
 
         public void OnPressEscape()
         {
-            
         }
 
         public string GetPkgId()
@@ -62,7 +59,6 @@ namespace GameApp
 
         public void AppRate()
         {
-           
         }
 
         public bool CanAppRate()
@@ -74,11 +70,12 @@ namespace GameApp
         {
             m_TrackEventStringBuilder.Clear();
             m_TrackEventStringBuilder.AppendFormat("EventName:{0}, ", eventName);
-            foreach (KeyValuePair<string,object> keyValuePair in properties)
+            foreach (KeyValuePair<string, object> keyValuePair in properties)
             {
                 m_TrackEventStringBuilder.AppendFormat("{0}:", keyValuePair.Key);
                 m_TrackEventStringBuilder.AppendFormat("{0}, ", keyValuePair.Value);
             }
+
             Log.Info(m_TrackEventStringBuilder.ToString());
         }
     }
