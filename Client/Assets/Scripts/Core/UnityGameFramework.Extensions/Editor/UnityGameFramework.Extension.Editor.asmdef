@@ -1,0 +1,22 @@
+{
+    "name": "UnityGameFramework.Extension.Editor",
+    "rootNamespace": "UnityGameFramework.Extension.Editor",
+    "references": [
+        "GameFramework",
+        "UnityGameFramework.Editor",
+        "UnityGameFramework.Runtime",
+        "UnityGameFramework.Extension",
+        "Unity.InternalAPIEngineBridge.006"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

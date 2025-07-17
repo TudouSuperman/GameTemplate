@@ -10,7 +10,7 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 using UnityGameFramework.Runtime;
-using UnityGameFramework.Extensions;
+using UnityGameFramework.Extension;
 
 
 namespace GameApp
@@ -71,10 +71,10 @@ namespace GameApp
 
         public override bool ParseDataRow(string dataRowString, object userData)
         {
-            string[] columnStrings = dataRowString.Split(UnityGameFramework.Extensions.DataTableExtension.DataSplitSeparators);
+            string[] columnStrings = dataRowString.Split(UnityGameFramework.Extension.DataTableExtension.DataSplitSeparators);
             for (int i = 0; i < columnStrings.Length; i++)
             {
-                columnStrings[i] = columnStrings[i].Trim(UnityGameFramework.Extensions.DataTableExtension.DataTrimSeparators);
+                columnStrings[i] = columnStrings[i].Trim(UnityGameFramework.Extension.DataTableExtension.DataTrimSeparators);
             }
 
             int index = 0;

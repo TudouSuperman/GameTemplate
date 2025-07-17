@@ -10,7 +10,7 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 using UnityGameFramework.Runtime;
-using UnityGameFramework.Extensions;
+using UnityGameFramework.Extension;
 
 
 namespace GameApp
@@ -116,10 +116,10 @@ namespace GameApp
 
         public override bool ParseDataRow(string dataRowString, object userData)
         {
-            string[] columnStrings = dataRowString.Split(UnityGameFramework.Extensions.DataTableExtension.DataSplitSeparators);
+            string[] columnStrings = dataRowString.Split(UnityGameFramework.Extension.DataTableExtension.DataSplitSeparators);
             for (int i = 0; i < columnStrings.Length; i++)
             {
-                columnStrings[i] = columnStrings[i].Trim(UnityGameFramework.Extensions.DataTableExtension.DataTrimSeparators);
+                columnStrings[i] = columnStrings[i].Trim(UnityGameFramework.Extension.DataTableExtension.DataTrimSeparators);
             }
 
             int index = 0;
@@ -134,7 +134,7 @@ namespace GameApp
 			ItemCountArray = DataTableExtension.ParseInt32Array(columnStrings[index++]);
 			ItemCountV3 = DataTableExtension.ParseVector3Array(columnStrings[index++]);
 			ItemCountDic = DataTableExtension.ParseInt32StringDictionary(columnStrings[index++]);
-			Cur = UnityGameFramework.Extensions.DataTableExtension.EnumParse<GameApp.EDirection>(columnStrings[index++]);
+			Cur = UnityGameFramework.Extension.DataTableExtension.EnumParse<GameApp.EDirection>(columnStrings[index++]);
             GeneratePropertyArray();
             return true;
         }

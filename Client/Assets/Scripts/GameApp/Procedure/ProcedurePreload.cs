@@ -4,7 +4,7 @@ using GameFramework;
 using GameFramework.Event;
 using GameFramework.Resource;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
-using UnityGameFramework.Extensions;
+using UnityGameFramework.Extension;
 using UnityGameFramework.Runtime;
 using TMPro;
 using GameApp.UI;
@@ -91,7 +91,7 @@ namespace GameApp.Procedure
         private void LoaTableData(string dataTableName)
         {
             string dataTableAssetName = AssetPathUtility.GetTableDataAsset(dataTableName);
-            GameEntry.DataTable.LoadDataTable(dataTableName, dataTableAssetName, this);
+            GameEntry.DataTable.LoadDataTable(dataTableName, dataTableAssetName, Constant.AssetPriority.DataTable_Asset, this);
             m_LoadedFlag.Add(dataTableAssetName, false);
         }
 
