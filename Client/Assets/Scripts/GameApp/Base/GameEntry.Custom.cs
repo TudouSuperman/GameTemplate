@@ -1,4 +1,5 @@
 ﻿using UnityGameFramework.Runtime;
+using UnityGameFramework.Extension;
 
 namespace GameApp
 {
@@ -42,6 +43,48 @@ namespace GameApp
             get;
             private set;
         }
+        
+        public static WebSocketComponent WebSocket
+        {
+            get;
+            private set;
+        }
+        
+        public static NetworkServiceComponent NetworkService
+        {
+            get;
+            private set;
+        }
+        
+        public static TimerComponent Timer
+        {
+            get;
+            private set;
+        }
+        
+        public static TimingWheelComponent TimingWheel
+        {
+            get;
+            private set;
+        }
+        
+        public static TextureSetComponent TextureSet
+        {
+            get;
+            private set;
+        }
+        
+        public static SpriteCollectionComponent SpriteCollection
+        {
+            get;
+            private set;
+        }
+        
+        public static CodeRunnerComponent CodeRunner
+        {
+            get;
+            private set;
+        }
 
         private static void InitCustomComponents()
         {
@@ -51,6 +94,13 @@ namespace GameApp
             Platform = UnityGameFramework.Runtime.GameEntry.GetComponent<PlatformComponent>();
             Screen = UnityGameFramework.Runtime.GameEntry.GetComponent<ScreenComponent>();
             Cursor = UnityGameFramework.Runtime.GameEntry.GetComponent<CursorComponent>();
+            WebSocket = UnityGameFramework.Runtime.GameEntry.GetComponent<WebSocketComponent>();
+            NetworkService = UnityGameFramework.Runtime.GameEntry.GetComponent<NetworkServiceComponent>();
+            Timer = UnityGameFramework.Runtime.GameEntry.GetComponent<TimerComponent>();
+            TimingWheel = UnityGameFramework.Runtime.GameEntry.GetComponent<TimingWheelComponent>();
+            TextureSet = UnityGameFramework.Runtime.GameEntry.GetComponent<TextureSetComponent>();
+            SpriteCollection = UnityGameFramework.Runtime.GameEntry.GetComponent<SpriteCollectionComponent>();
+            CodeRunner = UnityGameFramework.Runtime.GameEntry.GetComponent<CodeRunnerComponent>();
         }
     }
 }
