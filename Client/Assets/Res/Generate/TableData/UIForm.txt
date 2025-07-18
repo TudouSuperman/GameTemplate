@@ -1,0 +1,8 @@
+﻿#	界面配置表					
+#	Id		AssetName	UIGroupName	AllowMultiInstance	PauseCoveredUIForm
+#	Int32		String	String	Boolean	Boolean
+#	界面编号	策划备注	资源名称	界面组名称	是否允许多个界面实例	是否暂停被其覆盖的界面
+	1	主菜单界面	MainMenuForm	Default	FALSE	TRUE
+	2	多语言界面	LanguageForm	Default	FALSE	FALSE
+	3	设置界面	SettingForm	Default	FALSE	FALSE
+	3000	对话框界面	DialogForm	Pop	TRUE	FALSE

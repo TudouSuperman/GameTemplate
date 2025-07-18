@@ -1,5 +1,4 @@
 ﻿using UnityGameFramework.Runtime;
-using UnityGameFramework.Extensions;
 
 namespace GameApp
 {
@@ -15,12 +14,6 @@ namespace GameApp
         }
         
         public static ItemComponent Item
-        {
-            get;
-            private set;
-        }
-        
-        public static DataTableExtensionComponent DataTable2
         {
             get;
             private set;
@@ -54,7 +47,6 @@ namespace GameApp
         {
             BuiltinData = UnityGameFramework.Runtime.GameEntry.GetComponent<BuiltinDataComponent>();
             Item = UnityGameFramework.Runtime.GameEntry.GetComponent<ItemComponent>();
-            DataTable2 = UnityGameFramework.Runtime.GameEntry.GetComponent<DataTableExtensionComponent>();
             Camera = UnityGameFramework.Runtime.GameEntry.GetComponent<CameraComponent>();
             Platform = UnityGameFramework.Runtime.GameEntry.GetComponent<PlatformComponent>();
             Screen = UnityGameFramework.Runtime.GameEntry.GetComponent<ScreenComponent>();

@@ -1,18 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using GameFramework;
 using GameFramework.Event;
 using GameFramework.Resource;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
-using UnityGameFramework.Extensions;
 using UnityGameFramework.Runtime;
 using TMPro;
 using GameApp.UI;
+using GameApp.DataTable;
 
 namespace GameApp.Procedure
 {
     public class ProcedurePreload : ProcedureBase
     {
+        public static readonly string[] DataTableNames = new string[]
+        {
+            "UIForm",
+            "UIItem",
+            "UISound",
+            "Entity",
+            "Music",
+            "Scene",
+            "Sound",
+        };
+
         private Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();
 
         public override bool UseNativeDialog => true;
@@ -66,13 +76,10 @@ namespace GameApp.Procedure
             LoadConfig("DefaultConfig");
 
             // Preload data tables
-            LoaTableData("UIForm");
-            LoaTableData("UISound");
-            LoaTableData("UIItem");
-            LoaTableData("Entity");
-            LoaTableData("Music");
-            LoaTableData("Scene");
-            LoaTableData("Sound");
+            foreach (string dataTableName in DataTableNames)
+            {
+                LoaTableData(dataTableName);
+            }
 
             // Preload dictionaries
             LoadDictionary("Default");
@@ -93,13 +100,6 @@ namespace GameApp.Procedure
             string dataTableAssetName = AssetPathUtility.GetTableDataAsset(dataTableName);
             GameEntry.DataTable.LoadDataTable(dataTableName, dataTableAssetName, this);
             m_LoadedFlag.Add(dataTableAssetName, false);
-        }
-
-        private void LoaTableData2(Type type, string dataTableName)
-        {
-            string dataTableAssetName = AssetPathUtility.GetTableDataAsset(dataTableName);
-            GameEntry.DataTable2.LoadDataTableRowConfig(type, dataTableAssetName);
-            m_LoadedFlag.Add(dataTableAssetName, true);
         }
 
         private void LoadDictionary(string dictionaryName)

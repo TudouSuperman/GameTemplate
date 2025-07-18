@@ -1,31 +1,34 @@
 ﻿//------------------------------------------------------------
+// Game Framework
+// Copyright © 2013-2021 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
+//------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2025-03-27 11:25:31.166
+// 生成时间：2025-07-18 20:26:36.154
 //------------------------------------------------------------
 
-using GameFramework;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Collections.Generic;
 using UnityEngine;
+using GameFramework;
 using UnityGameFramework.Runtime;
-using UnityGameFramework.Extensions;
-
 
 namespace GameApp
 {
     /// <summary>
     /// 界面动态加载资源配置表。
     /// </summary>
-    public class DRUIItem : DataRowBase
+    public sealed class DRUIItem : DataRowBase
     {
-        private int m_Id = 0;
+        private Int32 m_Id = 0;
 
         /// <summary>
         /// 获取配置编号。
         /// </summary>
-        public override int Id
+        public override Int32 Id
         {
             get
             {
@@ -78,63 +81,24 @@ namespace GameApp
             private set;
         }
 
-        /// <summary>
-        /// 获取资源个数。
-        /// </summary>
-        public int[] ItemCountArray
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取资源个数。
-        /// </summary>
-        public Vector3[] ItemCountV3
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取资源个数。
-        /// </summary>
-        public Dictionary<int,string> ItemCountDic
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取资源枚举。
-        /// </summary>
-        public GameApp.EDirection Cur
-        {
-            get;
-            private set;
-        }
-
         public override bool ParseDataRow(string dataRowString, object userData)
         {
-            string[] columnStrings = dataRowString.Split(UnityGameFramework.Extensions.DataTableExtension.DataSplitSeparators);
+            string[] columnStrings = dataRowString.Split(GameApp.DataTable.DataTableExtension.DataSplitSeparators);
             for (int i = 0; i < columnStrings.Length; i++)
             {
-                columnStrings[i] = columnStrings[i].Trim(UnityGameFramework.Extensions.DataTableExtension.DataTrimSeparators);
+                columnStrings[i] = columnStrings[i].Trim(GameApp.DataTable.DataTableExtension.DataTrimSeparators);
             }
 
             int index = 0;
             index++;
             m_Id = int.Parse(columnStrings[index++]);
             index++;
-			Name = columnStrings[index++];
-			AssetId = int.Parse(columnStrings[index++]);
-			ItemGroupId = int.Parse(columnStrings[index++]);
-			AssetName = columnStrings[index++];
-			ItemGroupName = columnStrings[index++];
-			ItemCountArray = DataTableExtension.ParseInt32Array(columnStrings[index++]);
-			ItemCountV3 = DataTableExtension.ParseVector3Array(columnStrings[index++]);
-			ItemCountDic = DataTableExtension.ParseInt32StringDictionary(columnStrings[index++]);
-			Cur = UnityGameFramework.Extensions.DataTableExtension.EnumParse<GameApp.EDirection>(columnStrings[index++]);
+            Name = columnStrings[index++];
+            AssetId = int.Parse(columnStrings[index++]);
+            ItemGroupId = int.Parse(columnStrings[index++]);
+            AssetName = columnStrings[index++];
+            ItemGroupName = columnStrings[index++];
+
             GeneratePropertyArray();
             return true;
         }
@@ -151,10 +115,6 @@ namespace GameApp
                     ItemGroupId = binaryReader.Read7BitEncodedInt32();
                     AssetName = binaryReader.ReadString();
                     ItemGroupName = binaryReader.ReadString();
-					ItemCountArray = binaryReader.ReadInt32Array();
-					ItemCountV3 = binaryReader.ReadVector3Array();
-					ItemCountDic = binaryReader.ReadInt32StringDictionary();
-					Cur = (GameApp.EDirection)binaryReader.Read7BitEncodedInt32();
                 }
             }
 
@@ -162,45 +122,9 @@ namespace GameApp
             return true;
         }
 
-        private KeyValuePair<int, Vector3[]>[] m_ItemCountV = null;
-
-        public int ItemCountVCount
-        {
-            get
-            {
-                return m_ItemCountV.Length;
-            }
-        }
-
-        public Vector3[] GetItemCountV(int id)
-        {
-            foreach (KeyValuePair<int, Vector3[]> i in m_ItemCountV)
-            {
-                if (i.Key == id)
-                {
-                    return i.Value;
-                }
-            }
-
-            throw new GameFrameworkException(Utility.Text.Format("GetItemCountV with invalid id '{0}'.", id.ToString()));
-        }
-
-        public Vector3[] GetItemCountVAt(int index)
-        {
-            if (index < 0 || index >= m_ItemCountV.Length)
-            {
-                throw new GameFrameworkException(Utility.Text.Format("GetItemCountVAt with invalid index '{0}'.", index.ToString()));
-            }
-
-            return m_ItemCountV[index].Value;
-        }
-
         private void GeneratePropertyArray()
         {
-            m_ItemCountV = new KeyValuePair<int, Vector3[]>[]
-            {
-                new KeyValuePair<int, Vector3[]>(3, ItemCountV3),
-            };
+
         }
     }
 }

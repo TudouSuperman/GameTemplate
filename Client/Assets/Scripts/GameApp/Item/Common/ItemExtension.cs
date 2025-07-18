@@ -35,8 +35,8 @@ namespace GameApp
 
         public static void ShowItem(this ItemComponent itemComponent, int serialId, int uiItemID, Type logicType, object userData = null)
         {
-            IDataTable<DRItem> dtItem = GameEntry.DataTable.GetDataTable<DRItem>();
-            DRItem drItem = dtItem.GetDataRow(uiItemID);
+            IDataTable<DRUIItem> dtItem = GameEntry.DataTable.GetDataTable<DRUIItem>();
+            DRUIItem drItem = dtItem.GetDataRow(uiItemID);
 
             if (drItem == null)
             {

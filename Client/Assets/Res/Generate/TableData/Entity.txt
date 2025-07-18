@@ -1,0 +1,5 @@
+#	实体表				
+#	Id		AssetName	GroupName	Priority
+#	Int32		String	String	Int32
+#	实体编号	策划备注	资源名称	实体组名称	实体加载优先级
+	1	宿主实体	HostEntity	Host	0

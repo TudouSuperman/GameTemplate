@@ -1,31 +1,34 @@
 ﻿//------------------------------------------------------------
+// Game Framework
+// Copyright © 2013-2021 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
+//------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-07-29 22:00:44.235
+// 生成时间：2025-07-18 20:26:36.155
 //------------------------------------------------------------
 
-using GameFramework;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Collections.Generic;
 using UnityEngine;
+using GameFramework;
 using UnityGameFramework.Runtime;
-using UnityGameFramework.Extensions;
-
 
 namespace GameApp
 {
     /// <summary>
     /// 界面声音配置表。
     /// </summary>
-    public class DRUISound : DataRowBase
+    public sealed class DRUISound : DataRowBase
     {
-        private int m_Id = 0;
+        private Int32 m_Id = 0;
 
         /// <summary>
         /// 获取声音编号。
         /// </summary>
-        public override int Id
+        public override Int32 Id
         {
             get
             {
@@ -62,19 +65,20 @@ namespace GameApp
 
         public override bool ParseDataRow(string dataRowString, object userData)
         {
-            string[] columnStrings = dataRowString.Split(UnityGameFramework.Extensions.DataTableExtension.DataSplitSeparators);
+            string[] columnStrings = dataRowString.Split(GameApp.DataTable.DataTableExtension.DataSplitSeparators);
             for (int i = 0; i < columnStrings.Length; i++)
             {
-                columnStrings[i] = columnStrings[i].Trim(UnityGameFramework.Extensions.DataTableExtension.DataTrimSeparators);
+                columnStrings[i] = columnStrings[i].Trim(GameApp.DataTable.DataTableExtension.DataTrimSeparators);
             }
 
             int index = 0;
             index++;
             m_Id = int.Parse(columnStrings[index++]);
             index++;
-			AssetName = columnStrings[index++];
-			Priority = int.Parse(columnStrings[index++]);
-			Volume = float.Parse(columnStrings[index++]);
+            AssetName = columnStrings[index++];
+            Priority = int.Parse(columnStrings[index++]);
+            Volume = float.Parse(columnStrings[index++]);
+
             GeneratePropertyArray();
             return true;
         }
