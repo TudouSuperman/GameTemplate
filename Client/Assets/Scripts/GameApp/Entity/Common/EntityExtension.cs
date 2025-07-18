@@ -4,7 +4,7 @@ using UnityGameFramework.Runtime;
 
 namespace GameApp.Entity
 {
-    public static class EntityExtension
+    public static partial class EntityExtension
     {
         // 关于 EntityId 的约定：
         // 0 为无效
@@ -26,6 +26,14 @@ namespace GameApp.Entity
         public static void HideEntity(this EntityComponent entityComponent, BaseEntityLogic entity)
         {
             entityComponent.HideEntity(entity.Entity);
+        }
+
+        public static void TryHideEntity(this EntityComponent entityComponent, int serialId)
+        {
+            if (entityComponent.HasEntity(serialId))
+            {
+                entityComponent.HideEntity(serialId);
+            }
         }
 
         public static void AttachEntity(this EntityComponent entityComponent, BaseEntityLogic entity, int ownerId, string parentTransformPath = null, object userData = null)

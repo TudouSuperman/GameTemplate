@@ -1,4 +1,11 @@
-﻿using ProtoBuf;
+﻿//------------------------------------------------------------
+// Game Framework
+// Copyright © 2013-2021 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
+//------------------------------------------------------------
+
+using ProtoBuf;
 using System;
 
 namespace GameApp
@@ -6,10 +13,6 @@ namespace GameApp
     [Serializable, ProtoContract(Name = @"CSHeartBeat")]
     public class CSHeartBeat : CSPacketBase
     {
-        public CSHeartBeat()
-        {
-        }
-
         public override int Id
         {
             get

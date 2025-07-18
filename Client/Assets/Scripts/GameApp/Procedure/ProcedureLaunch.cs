@@ -2,6 +2,7 @@
 using GameFramework.Localization;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 using UnityGameFramework.Runtime;
+using UnityGameFramework.Extension;
 
 namespace GameApp.Procedure
 {
@@ -12,6 +13,9 @@ namespace GameApp.Procedure
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
+
+            // 注册异步需要的事件
+            Awaitable.SubscribeEvent();
 
             // 构建信息：发布版本时，把一些数据以 Json 的格式写入 Assets/GameMain/Configs/BuildInfo.txt，供游戏逻辑读取
             GameEntry.BuiltinData.InitBuildInfo();
@@ -36,6 +40,12 @@ namespace GameApp.Procedure
 
             // 运行一帧即切换到 Splash 展示流程
             ChangeState<ProcedureSplash>(procedureOwner);
+        }
+
+        protected override void OnDestroy(ProcedureOwner procedureOwner)
+        {
+            Awaitable.UnsubscribeEvent();
+            base.OnDestroy(procedureOwner);
         }
 
         private void InitLanguageSettings()
