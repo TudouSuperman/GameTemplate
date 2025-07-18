@@ -5,8 +5,7 @@
         "GameFramework",
         "UnityGameFramework.Editor",
         "UnityGameFramework.Runtime",
-        "UnityGameFramework.Extension",
-        "Unity.InternalAPIEngineBridge.006"
+        "UnityGameFramework.Extension"
     ],
     "includePlatforms": [
         "Editor"
