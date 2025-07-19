@@ -540,7 +540,7 @@ GameObject:
   - component: {fileID: 261953989}
   - component: {fileID: 261953990}
   m_Layer: 0
-  m_Name: TextureSet
+  m_Name: Texture Set
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -819,7 +819,7 @@ GameObject:
   - component: {fileID: 407501079}
   - component: {fileID: 407501080}
   m_Layer: 0
-  m_Name: CodeRunner
+  m_Name: Code Runner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1090,7 +1090,7 @@ GameObject:
   - component: {fileID: 825569976}
   - component: {fileID: 825569977}
   m_Layer: 0
-  m_Name: SpriteCollection
+  m_Name: Sprite Collection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
