@@ -3,9 +3,9 @@
     "rootNamespace": "UnityGameFramework.Extension.Editor",
     "references": [
         "GameFramework",
-        "UnityGameFramework.Editor",
         "UnityGameFramework.Runtime",
-        "UnityGameFramework.Extension"
+        "UnityGameFramework.Editor",
+        "UnityGameFramework.Extension.Runtime"
     ],
     "includePlatforms": [
         "Editor"
