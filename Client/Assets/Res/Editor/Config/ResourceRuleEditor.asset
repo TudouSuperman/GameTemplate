@@ -1,0 +1,186 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50ad2d721b5da424096e85539f9ff262, type: 3}
+  m_Name: ResourceRuleEditor
+  m_EditorClassIdentifier: 
+  isActivate: 1
+  rules:
+  - valid: 1
+    name: UI.UIForm
+    variant: 
+    fileSystem: 
+    groups: 
+    assetsDirectoryPath: Assets/Res/Artwork/UI/UIForm
+    loadType: 0
+    packed: 0
+    filterType: 1
+    searchPatterns: '*.*'
+  - valid: 1
+    name: UI.UIPrefab
+    variant: 
+    fileSystem: 
+    groups: 
+    assetsDirectoryPath: Assets/Res/Artwork/UI/UIPrefab
+    loadType: 0
+    packed: 0
+    filterType: 1
+    searchPatterns: '*.*'
+  - valid: 1
+    name: UI.UIItem
+    variant: 
+    fileSystem: 
+    groups: 
+    assetsDirectoryPath: Assets/Res/Artwork/UI/UIItem
+    loadType: 0
+    packed: 0
+    filterType: 1
+    searchPatterns: '*.*'
+  - valid: 1
+    name: UI.UISprite
+    variant: 
+    fileSystem: 
+    groups: 
+    assetsDirectoryPath: Assets/Res/Artwork/UI/UISprite
+    loadType: 0
+    packed: 0
+    filterType: 2
+    searchPatterns: '*.*'
+  - valid: 1
+    name: UI.UISound
+    variant: 
+    fileSystem: 
+    groups: 
+    assetsDirectoryPath: Assets/Res/Artwork/UI/UISound
+    loadType: 0
+    packed: 0
+    filterType: 1
+    searchPatterns: '*.*'
+  - valid: 1
+    name: UI.UIEffect
+    variant: 
+    fileSystem: 
+    groups: 
+    assetsDirectoryPath: Assets/Res/Artwork/UI/UIEffect
+    loadType: 0
+    packed: 0
+    filterType: 1
+    searchPatterns: '*.*'
+  - valid: 1
+    name: Font
+    variant: 
+    fileSystem: 
+    groups: 
+    assetsDirectoryPath: Assets/Res/Artwork/Font
+    loadType: 0
+    packed: 0
+    filterType: 0
+    searchPatterns: '*.*'
+  - valid: 1
+    name: Entity
+    variant: 
+    fileSystem: 
+    groups: 
+    assetsDirectoryPath: Assets/Res/Artwork/Entity
+    loadType: 0
+    packed: 0
+    filterType: 1
+    searchPatterns: '*.*'
+  - valid: 1
+    name: Config
+    variant: 
+    fileSystem: GameData
+    groups: 
+    assetsDirectoryPath: Assets/Res/Config
+    loadType: 0
+    packed: 0
+    filterType: 0
+    searchPatterns: '*.*'
+  - valid: 1
+    name: TableData
+    variant: 
+    fileSystem: GameData
+    groups: 
+    assetsDirectoryPath: Assets/Res/Generate/TableData
+    loadType: 0
+    packed: 0
+    filterType: 0
+    searchPatterns: '*.*'
+  - valid: 1
+    name: Prefab
+    variant: 
+    fileSystem: 
+    groups: 
+    assetsDirectoryPath: Assets/Res/Artwork/Prefab
+    loadType: 0
+    packed: 0
+    filterType: 1
+    searchPatterns: '*.*'
+  - valid: 1
+    name: Mesh
+    variant: 
+    fileSystem: 
+    groups: 
+    assetsDirectoryPath: Assets/Res/Artwork/Mesh
+    loadType: 0
+    packed: 0
+    filterType: 1
+    searchPatterns: '*.*'
+  - valid: 1
+    name: Music
+    variant: 
+    fileSystem: 
+    groups: 
+    assetsDirectoryPath: Assets/Res/Artwork/Music
+    loadType: 0
+    packed: 0
+    filterType: 1
+    searchPatterns: '*.*'
+  - valid: 1
+    name: Sound
+    variant: 
+    fileSystem: 
+    groups: 
+    assetsDirectoryPath: Assets/Res/Artwork/Sound
+    loadType: 0
+    packed: 0
+    filterType: 1
+    searchPatterns: '*.*'
+  - valid: 1
+    name: Localization
+    variant: 
+    fileSystem: 
+    groups: 
+    assetsDirectoryPath: Assets/Res/Localization
+    loadType: 0
+    packed: 0
+    filterType: 2
+    searchPatterns: '*.*'
+  - valid: 1
+    name: Scene
+    variant: 
+    fileSystem: 
+    groups: 
+    assetsDirectoryPath: Assets/Res/Scene
+    loadType: 0
+    packed: 0
+    filterType: 1
+    searchPatterns: '*.unity'
+  - valid: 1
+    name: Material
+    variant: 
+    fileSystem: 
+    groups: 
+    assetsDirectoryPath: Assets/Res/Artwork/Material
+    loadType: 0
+    packed: 0
+    filterType: 1
+    searchPatterns: '*.*'

@@ -1,0 +1,70 @@
+{
+    "LabelColor": {
+        "r": 1.0,
+        "g": 1.0,
+        "b": 1.0,
+        "a": 1.0
+    },
+    "FoldersData": {
+        "Keys": [
+            "29d502b568c824f468fbaf461615522e",
+            "d7c295fa610ea4847aac89b109d406fc",
+            "4cb9fb0c0e0b2104294932aa26461667",
+            "9ba84d9ffc58926499ae9e284dde3943"
+        ],
+        "Values": [
+            {
+                "_guid": "29d502b568c824f468fbaf461615522e",
+                "_isScene": false,
+                "_color": {
+                    "r": 0.0,
+                    "g": 0.7120530009269714,
+                    "b": 0.9921568632125855,
+                    "a": 0.5176470875740051
+                },
+                "_recursive": false,
+                "_tag": "美术",
+                "_desc": ""
+            },
+            {
+                "_guid": "d7c295fa610ea4847aac89b109d406fc",
+                "_isScene": false,
+                "_color": {
+                    "r": 0.0,
+                    "g": 0.0,
+                    "b": 0.0,
+                    "a": 1.0
+                },
+                "_recursive": false,
+                "_tag": "程序",
+                "_desc": ""
+            },
+            {
+                "_guid": "4cb9fb0c0e0b2104294932aa26461667",
+                "_isScene": false,
+                "_color": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0,
+                    "a": 0.4470588266849518
+                },
+                "_recursive": false,
+                "_tag": "策划",
+                "_desc": ""
+            },
+            {
+                "_guid": "9ba84d9ffc58926499ae9e284dde3943",
+                "_isScene": false,
+                "_color": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0,
+                    "a": 0.4470588266849518
+                },
+                "_recursive": false,
+                "_tag": "策划",
+                "_desc": ""
+            }
+        ]
+    }
+}

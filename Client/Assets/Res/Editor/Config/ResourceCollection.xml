@@ -1,7 +1,47 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <UnityGameFramework>
   <ResourceCollection>
-    <Resources />
-    <Assets />
+    <Resources>
+      <Resource Name="Config" FileSystem="GameData" LoadType="0" Packed="False" />
+      <Resource Name="Font" LoadType="0" Packed="False" />
+      <Resource Name="Res/Artwork/Entity/HostEntity" LoadType="0" Packed="False" />
+      <Resource Name="Res/Artwork/UI/UIForm/DialogForm" LoadType="0" Packed="False" />
+      <Resource Name="Res/Artwork/UI/UIForm/LanguageForm" LoadType="0" Packed="False" />
+      <Resource Name="Res/Artwork/UI/UIForm/MainMenuForm" LoadType="0" Packed="False" />
+      <Resource Name="Res/Artwork/UI/UIForm/SettingForm" LoadType="0" Packed="False" />
+      <Resource Name="Res/Artwork/UI/UIPrefab/Common/BlackMask" LoadType="0" Packed="False" />
+      <Resource Name="Res/Localization/ChineseSimplified" LoadType="0" Packed="False" />
+      <Resource Name="Res/Localization/English" LoadType="0" Packed="False" />
+      <Resource Name="Res/Scene/GameScene" LoadType="0" Packed="False" />
+      <Resource Name="TableData" FileSystem="GameData" LoadType="0" Packed="False" />
+    </Resources>
+    <Assets>
+      <Asset Guid="0856145530843244c80c5e6c1b443d5e" ResourceName="Res/Artwork/Entity/HostEntity" />
+      <Asset Guid="14869ac0d4433f04db1704e39d03412e" ResourceName="Res/Localization/English" />
+      <Asset Guid="17b5b7a61f608db40a6fc9673693699d" ResourceName="TableData" />
+      <Asset Guid="1e8e8c14a127b334d9db9b197433b604" ResourceName="TableData" />
+      <Asset Guid="1f9a44d1c75b68742952c728767cc476" ResourceName="TableData" />
+      <Asset Guid="26160e3abc51bb84db77e7fdef95eaa8" ResourceName="TableData" />
+      <Asset Guid="26c1e11af78dbcc448a8d4c632ce3e5a" ResourceName="Res/Artwork/UI/UIForm/DialogForm" />
+      <Asset Guid="2b4c6279ec3219846abb879cacabd659" ResourceName="TableData" />
+      <Asset Guid="2bf1477a833535d4db38ed51103fe918" ResourceName="TableData" />
+      <Asset Guid="4366a5ef7581e1a4687e7789509e0065" ResourceName="TableData" />
+      <Asset Guid="44c8db52241385c45bbb14a1718f17bf" ResourceName="Config" />
+      <Asset Guid="4a753a4923a65ff4d8bb7a86c0f9395a" ResourceName="Res/Artwork/UI/UIPrefab/Common/BlackMask" />
+      <Asset Guid="85468b8dca0efde478df080090a240d9" ResourceName="Font" />
+      <Asset Guid="87626bccb5c94024fa79b1069e4bfabb" ResourceName="Res/Artwork/UI/UIForm/MainMenuForm" />
+      <Asset Guid="9be2e1e45f4edd74c8764538ad306b78" ResourceName="Res/Localization/ChineseSimplified" />
+      <Asset Guid="a32828399c006014e84dd1cd86cc8135" ResourceName="Font" />
+      <Asset Guid="a9cd51c6ea8d39a4490ebcf3ba118b35" ResourceName="TableData" />
+      <Asset Guid="b3ee8d4ed977d3d418ff9357f4d90ca8" ResourceName="TableData" />
+      <Asset Guid="b64ef1fe32fa21d46a2103764a15baed" ResourceName="TableData" />
+      <Asset Guid="b706e644bcd255740b9c44d509fafdc4" ResourceName="TableData" />
+      <Asset Guid="d966b39b1d173ff43b47d74552f62205" ResourceName="TableData" />
+      <Asset Guid="ddf5f3ac9afdf3f43a1db133714ec7c3" ResourceName="Res/Scene/GameScene" />
+      <Asset Guid="e2e750f2dbbdb00418151338c1bdd618" ResourceName="Res/Artwork/UI/UIForm/LanguageForm" />
+      <Asset Guid="f03cf7a6da9e1034f87dfeb02b63646e" ResourceName="TableData" />
+      <Asset Guid="f6619efab548683439e7c44be74ac779" ResourceName="TableData" />
+      <Asset Guid="fe9ca325b9a010042af82392390471b0" ResourceName="Res/Artwork/UI/UIForm/SettingForm" />
+    </Assets>
   </ResourceCollection>
 </UnityGameFramework>

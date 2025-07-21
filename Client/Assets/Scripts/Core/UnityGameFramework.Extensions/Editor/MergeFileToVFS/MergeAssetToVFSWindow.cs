@@ -19,7 +19,7 @@ namespace UnityGameFramework.Extension
             window.Show();
         }
 
-        private string m_MergeAssetScriptableObjectSaveFolder = "Assets/Res/Configs/";
+        private string m_MergeAssetScriptableObjectSaveFolder = "Assets/Res/Editor/Config/VFS/";
         private MergeAssetScriptableObject m_MergeAssetScriptableObject;
         private MergeAssetEditorData m_MergeAssetEditorData;
         private ReorderableList m_ReorderableList;
