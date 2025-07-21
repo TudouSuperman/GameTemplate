@@ -12,7 +12,8 @@
         "CodeBind",
         "LitJson",
         "protobuf-net",
-        "UnityWebSocket.Runtime"
+        "UnityWebSocket.Runtime",
+        "ZString"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

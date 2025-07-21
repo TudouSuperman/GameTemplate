@@ -664,7 +664,7 @@ PlayerSettings:
     QNX: UNITY_VISUAL_SCRIPTING;DOTWEEN
     Server: UNITY_VISUAL_SCRIPTING
     Stadia: DOTWEEN
-    Standalone: ODIN_INSPECTOR;ODIN_INSPECTOR_3;ODIN_INSPECTOR_3_1;ODIN_VALIDATOR;ODIN_VALIDATOR_3_1;UNITY_VISUAL_SCRIPTING;DOTWEEN;ENABLE_LOG
+    Standalone: ODIN_INSPECTOR;ODIN_INSPECTOR_3;ODIN_INSPECTOR_3_1;ODIN_VALIDATOR;ODIN_VALIDATOR_3_1;UNITY_VISUAL_SCRIPTING;DOTWEEN;ENABLE_LOG;ZSTRING_TEXTMESHPRO_SUPPORT;STATE_CONTROLLER_CODE_BIND
     VisionOS: UNITY_VISUAL_SCRIPTING;DOTWEEN
     WebGL: UNITY_VISUAL_SCRIPTING;DOTWEEN;ENABLE_LOG
     Windows Store Apps: UNITY_VISUAL_SCRIPTING;DOTWEEN;ENABLE_LOG
@@ -673,7 +673,8 @@ PlayerSettings:
     tvOS: UNITY_VISUAL_SCRIPTING;DOTWEEN
   additionalCompilerArguments: {}
   platformArchitecture: {}
-  scriptingBackend: {}
+  scriptingBackend:
+    Standalone: 1
   il2cppCompilerConfiguration: {}
   il2cppCodeGeneration: {}
   managedStrippingLevel:
@@ -697,7 +698,7 @@ PlayerSettings:
   useDeterministicCompilation: 1
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 1
-  gcIncremental: 1
+  gcIncremental: 0
   gcWBarrierValidation: 0
   apiCompatibilityLevelPerPlatform: {}
   m_RenderingPath: 1
@@ -774,7 +775,7 @@ PlayerSettings:
   embeddedLinuxEnableGamepadInput: 1
   hmiLogStartupTiming: 0
   hmiCpuConfiguration: 
-  apiCompatibilityLevel: 6
+  apiCompatibilityLevel: 3
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
   cloudProjectId: 

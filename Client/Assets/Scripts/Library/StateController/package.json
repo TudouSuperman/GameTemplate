@@ -1,0 +1,29 @@
+{
+  "name": "me.xw.statecontroller",
+  "version": "1.0.6",
+  "displayName": "StateController",
+  "description": "better StateController",
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/XuToWei/StateController.git"
+  },
+  "unity": "2019.4",
+  "documentationUrl": "",
+  "licensesUrl": "https://github.com/XuToWei/StateController/blob/master/LICENSE.md",
+  "dependencies": {
+  },
+  "keywords": [
+  ],
+  "author": {
+    "name": "Xu Wei",
+    "email": "",
+    "url": ""
+  },
+  "samples": [
+    {
+      "displayName": "Demo",
+      "description": "Contains StateController demo",
+      "path": "Samples~/Demo"
+    }
+  ]
+}
