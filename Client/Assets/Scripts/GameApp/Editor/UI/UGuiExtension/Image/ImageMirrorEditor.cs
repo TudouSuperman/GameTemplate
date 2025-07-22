@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEditor.UI;
 
-namespace GameApp.UI.Extension
+namespace GameApp.UI.Extension.Editor
 {
     [CustomEditor(typeof(ImageMirror))]
     public sealed class ImageMirrorEditor : ImageEditor

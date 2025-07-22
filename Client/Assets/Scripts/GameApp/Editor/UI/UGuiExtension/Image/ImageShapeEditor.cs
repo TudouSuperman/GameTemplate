@@ -2,7 +2,7 @@
 using UnityEditor.UI;
 using UnityEngine;
 
-namespace GameApp.UI.Extension
+namespace GameApp.UI.Extension.Editor
 {
     [CustomEditor(typeof(ImageShape))]
     public sealed class ImageShapeEditor : ImageEditor
