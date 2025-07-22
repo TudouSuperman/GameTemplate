@@ -14,7 +14,7 @@ namespace GameApp
             return Utility.Text.Format("Assets/Res/Generate/TableData/{0}.{1}", assetName, fromBytes ? "bytes" : "txt");
         }
 
-        public static string GetDictionaryAsset(string assetName, bool fromBytes)
+        public static string GetDictionaryAsset(string assetName, bool fromBytes = true)
         {
             return Utility.Text.Format("Assets/Res/Localization/{0}/Dictionaries/{1}.{2}", GameEntry.Localization.Language, assetName, fromBytes ? "bytes" : "xml");
         }

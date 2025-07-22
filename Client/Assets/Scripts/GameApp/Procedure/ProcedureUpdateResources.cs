@@ -1,23 +1,22 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using GameFramework;
+﻿using GameFramework;
 using GameFramework.Event;
-using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityGameFramework.Runtime;
-using GameApp.UI;
+using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 
 namespace GameApp.Procedure
 {
     public class ProcedureUpdateResources : ProcedureBase
     {
+        public override bool UseNativeDialog => true;
+        
         private bool m_UpdateResourcesComplete = false;
         private int m_UpdateCount = 0;
         private long m_UpdateTotalCompressedLength = 0L;
         private int m_UpdateSuccessCount = 0;
         private List<UpdateLengthData> m_UpdateLengthData = new List<UpdateLengthData>();
-        private UpdateResourceForm m_UpdateResourceForm = null;
-
-        public override bool UseNativeDialog => true;
+        private BuiltinUpdateResourceForm m_UpdateResourceForm = null;
 
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
@@ -39,9 +38,9 @@ namespace GameApp.Procedure
 
             if (Application.internetReachability == NetworkReachability.ReachableViaCarrierDataNetwork)
             {
-                GameEntry.UI.OpenDialog(new DialogParams
+                GameEntry.BuiltinData.OpenDialogForm(new BuiltinDialogParams
                 {
-                    Mode = EDialogMode.TwoButtonMode,
+                    Mode = 2,
                     Title = GameEntry.Localization.GetString("UpdateResourceViaCarrierDataNetwork.Title"),
                     Message = GameEntry.Localization.GetString("UpdateResourceViaCarrierDataNetwork.Message"),
                     ConfirmText = GameEntry.Localization.GetString("UpdateResourceViaCarrierDataNetwork.UpdateButton"),

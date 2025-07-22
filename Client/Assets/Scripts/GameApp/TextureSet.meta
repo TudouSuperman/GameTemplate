@@ -1,8 +1,7 @@
 fileFormatVersion: 2
-guid: a6c731de80e9d824d8f657301a357269
-labels:
-- ResourceExclusive
-PrefabImporter:
+guid: bbce40d67d74a13439ff62eb92daa9b5
+folderAsset: yes
+DefaultImporter:
   externalObjects: {}
   userData: 
   assetBundleName: 
