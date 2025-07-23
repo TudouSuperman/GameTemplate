@@ -10,7 +10,8 @@
             "29d502b568c824f468fbaf461615522e",
             "d7c295fa610ea4847aac89b109d406fc",
             "4cb9fb0c0e0b2104294932aa26461667",
-            "9ba84d9ffc58926499ae9e284dde3943"
+            "9ba84d9ffc58926499ae9e284dde3943",
+            "e49bcc46fbc9f0f42a906288bf89d685"
         ],
         "Values": [
             {
@@ -24,7 +25,7 @@
                 },
                 "_recursive": false,
                 "_tag": "美术     ",
-                "_desc": ""
+                "_desc": "美术&程序"
             },
             {
                 "_guid": "d7c295fa610ea4847aac89b109d406fc",
@@ -50,7 +51,7 @@
                 },
                 "_recursive": false,
                 "_tag": "策划     ",
-                "_desc": ""
+                "_desc": "策划&程序"
             },
             {
                 "_guid": "9ba84d9ffc58926499ae9e284dde3943",
@@ -63,7 +64,20 @@
                 },
                 "_recursive": false,
                 "_tag": "策划     ",
-                "_desc": ""
+                "_desc": "策划&程序"
+            },
+            {
+                "_guid": "e49bcc46fbc9f0f42a906288bf89d685",
+                "_isScene": false,
+                "_color": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0,
+                    "a": 0.3137255012989044
+                },
+                "_recursive": false,
+                "_tag": "策划     ",
+                "_desc": "策划&程序"
             }
         ]
     }
