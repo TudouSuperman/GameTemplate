@@ -9,7 +9,7 @@
       <AdditionalCompressionSelected>True</AdditionalCompressionSelected>
       <ForceRebuildAssetBundleSelected>True</ForceRebuildAssetBundleSelected>
       <BuildEventHandlerTypeName>GameApp.Editor.DefaultBuildEvent</BuildEventHandlerTypeName>
-      <OutputDirectory>D:/GameTemplate/ClientBuild/Build_AssetBundle</OutputDirectory>
+      <OutputDirectory>../ClientBuild/Build_AssetBundle</OutputDirectory>
       <OutputPackageSelected>True</OutputPackageSelected>
       <OutputFullSelected>True</OutputFullSelected>
       <OutputPackedSelected>True</OutputPackedSelected>
