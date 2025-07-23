@@ -12,3 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d5e8076e0d2abe4db6f59242b9e06ed, type: 3}
   m_Name: UGFBuildInfoRelease
   m_EditorClassIdentifier: 
+  m_GameVersion: 
+  m_InternalGameVersion: 0
+  m_CheckVersionUrl: "\u6B63\u5F0F\u670D\u5730\u5740"
+  m_WindowsAppUrl: 
+  m_MacOSAppUrl: 
+  m_IOSAppUrl: 
+  m_AndroidAppUrl: 

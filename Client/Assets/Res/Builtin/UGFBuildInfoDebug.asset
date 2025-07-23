@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_GameVersion: 
   m_InternalGameVersion: 0
-  m_CheckVersionUrl: http://127.0.0.1:8088/{0}Version.txt
+  m_CheckVersionUrl: http://192.168.1.18/{0}Version.txt
   m_WindowsAppUrl: 
   m_MacOSAppUrl: 
   m_IOSAppUrl: 

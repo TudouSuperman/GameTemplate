@@ -12,16 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f84dac6a330c478988ed9b2576369bfe, type: 3}
   m_Name: VersionInfoEditorData
   m_EditorClassIdentifier: 
-  m_Active: Normal
+  m_Active: "\u6D4B\u8BD5\u670D"
   m_ActiveIndex: 0
   m_VersionInfos:
-  - m_Key: Normal
+  - m_Key: "\u6D4B\u8BD5\u670D"
     m_Value:
       m_ForceUpdateGame: 0
-      m_LatestGameVersion: 
+      m_LatestGameVersion: 0_5
       m_InternalGameVersion: 0
-      m_ServerPath: 127.0.0.1:8088
-      m_ResourceVersion: 
+      m_ServerPath: 192.168.1.18:80
+      m_ResourceVersion: 0_5_0
+      m_Platform: 0
+      m_VersionListLength: 0
+      m_InternalResourceVersion: 0
+      m_VersionListHashCode: 0
+      m_VersionListCompressedLength: 0
+      m_VersionListCompressedHashCode: 0
+  - m_Key: "\u6B63\u5F0F\u670D"
+    m_Value:
+      m_ForceUpdateGame: 0
+      m_LatestGameVersion: 0_5
+      m_InternalGameVersion: 0
+      m_ServerPath: 192.168.1.18:80
+      m_ResourceVersion: 0_5_0
       m_Platform: 0
       m_VersionListLength: 0
       m_InternalResourceVersion: 0
@@ -29,4 +42,4 @@ MonoBehaviour:
       m_VersionListCompressedLength: 0
       m_VersionListCompressedHashCode: 0
   m_IsGenerateToFullPath: 1
-  m_OutPath: 
+  m_OutPath: D:/GameTemplate/ClientBuild/Build_AssetBundle/WindowsVersion.txt

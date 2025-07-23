@@ -12,7 +12,8 @@
         "CodeBind",
         "Unity.InternalAPIEngineBridge.006",
         "ToolbarExtension.Editor",
-        "GameApp.Runtime"
+        "GameApp.Runtime",
+        "LitJson"
     ],
     "includePlatforms": [
         "Editor"
