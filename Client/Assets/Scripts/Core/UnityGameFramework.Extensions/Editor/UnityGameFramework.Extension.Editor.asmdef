@@ -5,7 +5,8 @@
         "GameFramework",
         "UnityGameFramework.Runtime",
         "UnityGameFramework.Editor",
-        "UnityGameFramework.Extension.Runtime"
+        "UnityGameFramework.Extension.Runtime",
+        "LitJson"
     ],
     "includePlatforms": [
         "Editor"
