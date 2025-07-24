@@ -53,5 +53,10 @@ namespace GameApp
         {
             return Utility.Text.Format("Assets/Res/Artwork/UI/UISound/{0}.wav", assetName);
         }
+        
+        public static string GetGameHotAsset(string assetName)
+        {
+            return Utility.Text.Format("Assets/Res/HotUpdate/{0}", assetName);
+        }
     }
 }

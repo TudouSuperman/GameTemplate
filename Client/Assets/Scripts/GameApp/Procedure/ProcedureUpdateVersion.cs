@@ -4,7 +4,7 @@ using UnityGameFramework.Runtime;
 
 namespace GameApp.Procedure
 {
-    public class ProcedureUpdateVersion : ProcedureBase
+    public sealed class ProcedureUpdateVersion : ProcedureBase
     {
         private bool m_UpdateVersionComplete = false;
         private UpdateVersionListCallbacks m_UpdateVersionListCallbacks = null;

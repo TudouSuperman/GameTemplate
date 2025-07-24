@@ -4,7 +4,7 @@ using UnityGameFramework.Runtime;
 
 namespace GameApp.Procedure
 {
-    public class ProcedureSplash : ProcedureBase
+    public sealed class ProcedureSplash : ProcedureBase
     {
         public override bool UseNativeDialog => true;
 

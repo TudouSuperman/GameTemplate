@@ -6,7 +6,7 @@ using UnityGameFramework.Extension;
 
 namespace GameApp.Procedure
 {
-    public class ProcedureLaunch : ProcedureBase
+    public sealed class ProcedureLaunch : ProcedureBase
     {
         public override bool UseNativeDialog => true;
 

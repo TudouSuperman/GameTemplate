@@ -67,7 +67,7 @@ namespace GameApp.Procedure
                 }
             }
 
-            ChangeState<ProcedureInitGame>(procedureOwner);
+            ChangeState<ProcedureGameHot>(procedureOwner);
         }
 
         private void PreloadResources()

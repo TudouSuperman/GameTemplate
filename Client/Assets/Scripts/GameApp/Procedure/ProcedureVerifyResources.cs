@@ -4,7 +4,7 @@ using UnityGameFramework.Runtime;
 
 namespace GameApp.Procedure
 {
-    public class ProcedureVerifyResources : ProcedureBase
+    public sealed class ProcedureVerifyResources : ProcedureBase
     {
         private bool m_VerifyResourcesComplete = false;
 

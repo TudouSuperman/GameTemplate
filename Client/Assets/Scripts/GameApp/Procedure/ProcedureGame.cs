@@ -5,7 +5,7 @@ using GameApp.UI;
 
 namespace GameApp.Procedure
 {
-    public class ProcedureGame : ProcedureBase
+    public sealed class ProcedureGame : ProcedureBase
     {
         private bool m_StartGame = false;
         private MainMenuFormLogic m_MenuForm = null;

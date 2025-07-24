@@ -9,7 +9,7 @@ using GameApp.UI;
 
 namespace GameApp.Procedure
 {
-    public class ProcedureCheckVersion : ProcedureBase
+    public sealed class ProcedureCheckVersion : ProcedureBase
     {
         private bool m_CheckVersionComplete = false;
         private bool m_NeedUpdateVersion = false;

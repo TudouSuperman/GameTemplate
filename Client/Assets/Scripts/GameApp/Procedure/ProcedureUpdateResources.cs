@@ -7,7 +7,7 @@ using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedure
 
 namespace GameApp.Procedure
 {
-    public class ProcedureUpdateResources : ProcedureBase
+    public sealed class ProcedureUpdateResources : ProcedureBase
     {
         public override bool UseNativeDialog => true;
         

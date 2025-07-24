@@ -3,7 +3,7 @@ using UnityGameFramework.Runtime;
 
 namespace GameApp.Procedure
 {
-    public class ProcedureCheckResources : ProcedureBase
+    public sealed class ProcedureCheckResources : ProcedureBase
     {
         private bool m_CheckResourcesComplete = false;
         private bool m_NeedUpdateResources = false;

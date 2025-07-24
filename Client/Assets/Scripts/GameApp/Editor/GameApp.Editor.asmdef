@@ -13,7 +13,9 @@
         "Unity.InternalAPIEngineBridge.006",
         "ToolbarExtension.Editor",
         "GameApp.Runtime",
-        "LitJson"
+        "LitJson",
+        "HybridCLR.Runtime",
+        "HybridCLR.Editor"
     ],
     "includePlatforms": [
         "Editor"

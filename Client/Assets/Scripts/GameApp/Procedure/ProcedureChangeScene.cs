@@ -5,7 +5,7 @@ using UnityGameFramework.Runtime;
 
 namespace GameApp.Procedure
 {
-    public class ProcedureChangeScene : ProcedureBase
+    public sealed class ProcedureChangeScene : ProcedureBase
     {
         private const int GameSceneId = 1;
 
