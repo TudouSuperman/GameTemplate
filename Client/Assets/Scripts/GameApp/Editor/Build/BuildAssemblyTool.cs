@@ -12,11 +12,11 @@ namespace GameApp.Hot.Editor
     {
         public static readonly string CodeDir = "Assets/Res/HotUpdate/Code";
         public static readonly string[] ExtraScriptingDefines = new[] { "UNITY_COMPILE", "UNITY_GAMEHOT" };
-        public static readonly string[] DllNames = new[] { "GameApp.Hot.Code.Runtime" };
+        public static readonly string[] DllNames = new[] { "GameApp.Hot.Runtime" };
 
         public static void Build(BuildTarget target, ScriptCompilationOptions options)
         {
-            BuildAssemblyHelper.CompileDlls(target, ExtraScriptingDefines, options);
+            // BuildAssemblyHelper.CompileDlls(target, ExtraScriptingDefines, options);
             BuildAssemblyHelper.CopyHotUpdateDlls(target, CodeDir, DllNames);
             AssetDatabase.Refresh();
         }

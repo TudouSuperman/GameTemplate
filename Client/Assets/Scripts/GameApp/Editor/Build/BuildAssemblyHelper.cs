@@ -13,7 +13,7 @@ namespace GameApp.Editor
     public static class BuildAssemblyHelper
     {
         public static string ExternalHotUpdateAssemblyDir => "./Temp/HybridCLRBin";
-        public static string BuildOutputDir => "./Temp/Bin/Debug";
+        public static string BuildOutputDir => "./HybridCLRData/HotUpdateDlls";
         private static SynchronizationContext s_UnitySynchronizationContext;
 
         [InitializeOnLoadMethod]

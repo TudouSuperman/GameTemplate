@@ -46,8 +46,8 @@ namespace GameApp.Hot
             // AppDomain.CurrentDomain.UnhandledException += (sender, e) => { Log.Error(e.ExceptionObject.ToString()); };
             if (Define.EnableHotfix && GameEntry.CodeRunner.EnableCodeBytesMode)
             {
-                byte[] _dllBytes = await LoadCodeBytesAsync("GameApp.Hot.Code.Runtime.dll.bytes");
-                byte[] _pdbBytes = await LoadCodeBytesAsync("GameApp.Hot.Code.Runtime.pdb.bytes");
+                byte[] _dllBytes = await LoadCodeBytesAsync("GameApp.Hot.Runtime.dll.bytes");
+                byte[] _pdbBytes = await LoadCodeBytesAsync("GameApp.Hot.Runtime.pdb.bytes");
                 Assembly.Load(_dllBytes, _pdbBytes);
             }
 
