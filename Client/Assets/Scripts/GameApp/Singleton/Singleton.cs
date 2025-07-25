@@ -1,4 +1,5 @@
 ﻿using System;
+using GameFramework;
 
 namespace GameApp.Singleton
 {
@@ -12,8 +13,9 @@ namespace GameApp.Singleton
         {
             if (Instance != null)
             {
-                throw new Exception($"Singleton register twice! {typeof(T).Name}");
+                throw new Exception(Utility.Text.Format("Singleton register twice! {0}", typeof(T).Name));
             }
+
             s_Instance = (T)this;
         }
 

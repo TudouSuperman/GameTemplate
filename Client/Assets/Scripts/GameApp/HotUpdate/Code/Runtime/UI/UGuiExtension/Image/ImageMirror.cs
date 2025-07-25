@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Sprites;
+using GameFramework;
+using UnityGameFramework.Runtime;
 
 namespace GameApp.Hot.UI.Extension
 {
@@ -387,7 +389,7 @@ namespace GameApp.Hot.UI.Extension
 
         static void AddQuad(VertexHelper vertexHelper, Vector2 posMin, Vector2 posMax, Color32 color, Vector2 uvMin, Vector2 uvMax)
         {
-            //Debug.Log($"posMin:{posMin},posMax:{posMax},uvMin:{uvMin},uvMax:{uvMax}");
+            Log.Debug(Utility.Text.Format("AddQuad -> posMin:{0},posMax:{1},uvMin:{2},uvMax:{3}", posMin, posMax, uvMin, uvMax));
             int startIndex = vertexHelper.currentVertCount;
 
             vertexHelper.AddVert(new Vector3(posMin.x, posMin.y, 0), color, new Vector2(uvMin.x, uvMin.y));

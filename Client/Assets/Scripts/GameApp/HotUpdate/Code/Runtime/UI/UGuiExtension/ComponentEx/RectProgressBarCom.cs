@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using GameFramework;
 
 namespace GameApp.Hot.UI.Extension
 {
@@ -181,7 +182,7 @@ namespace GameApp.Hot.UI.Extension
             SaveOriginalTransform();
             m_AnchorMode = mode;
             ApplyAnchorMode();
-            Debug.Log($"已应用 {mode} 锚点模式");
+            Debug.Log(Utility.Text.Format("已应用 {0} 锚点模式", mode));
         }
 
         private void OnValidate()

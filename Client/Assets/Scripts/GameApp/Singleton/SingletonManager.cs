@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using GameFramework;
 using UnityGameFramework.Runtime;
 
 namespace GameApp.Singleton
@@ -32,7 +33,7 @@ namespace GameApp.Singleton
             Type _singletonType = singleton.GetType();
             if (!m_SingletonTypes.TryAdd(_singletonType, singleton))
             {
-                throw new Exception($"already exist singleton: {_singletonType.Name}");
+                throw new Exception(Utility.Text.Format("already exist singleton: {0}", _singletonType.Name));
             }
 
             m_Singletons.Push(singleton);

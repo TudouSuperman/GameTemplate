@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Text;
 using System.Collections.Generic;
+using GameFramework;
 using UnityEditor;
 using UnityEngine;
 
@@ -25,7 +26,6 @@ namespace GameApp.DataTable.Editor
         }
     }
 
-    
 
     public class DataTableEditingWindow : EditorWindow
     {
@@ -57,6 +57,7 @@ namespace GameApp.DataTable.Editor
         private string m_PageField;
 
         private float m_LastHeight = 0;
+
         public void OpenWindow(string path, Encoding encoding)
         {
             m_encoding = encoding;
@@ -80,18 +81,18 @@ namespace GameApp.DataTable.Editor
 
                 RowDataTempList.Add(data);
             }
-            
+
 
             if (RowDataList == null)
                 return;
-            
+
             LightMode = EditorPrefs.GetInt("DataTableEditor_" + Application.productName + "_LightMode", 0);
             m_ShowCount = (int)((this.position.height - 60) / 21);
             RowDataShowList = new List<DataTableRowData>();
             SetPage();
             SkipToPage(0);
         }
-        
+
 
         private void SetPage()
         {
@@ -104,6 +105,7 @@ namespace GameApp.DataTable.Editor
             m_CurrentPage = 0;
             m_PageField = m_CurrentPage.ToString();
         }
+
         private void SkipToPage(int page)
         {
             if (page * m_ShowCount >= RowDataList.Count)
@@ -114,17 +116,18 @@ namespace GameApp.DataTable.Editor
             m_CurrentPage = page;
             int i = page * m_ShowCount;
             int count = i + m_ShowCount;
-            if (count >RowDataList.Count)
+            if (count > RowDataList.Count)
             {
                 count = RowDataList.Count;
             }
+
             RowDataShowList.Clear();
             for (; i < count; i++)
             {
                 RowDataShowList.Add(RowDataList[i]);
             }
         }
-        
+
         private void OnGUI()
         {
             if (Math.Abs(position.height - m_LastHeight) > 0.000001f)
@@ -132,11 +135,11 @@ namespace GameApp.DataTable.Editor
                 m_ShowCount = (int)((this.position.height - 60) / 21);
                 SetPage();
                 var index = RowDataList.IndexOf(RowDataShowList[0]);
-                
-                SkipToPage(index/m_ShowCount);
+
+                SkipToPage(index / m_ShowCount);
                 m_LastHeight = position.height;
             }
-            
+
             m_scrollViewPos = GUILayout.BeginScrollView(m_scrollViewPos);
             if (RowDataList == null || RowDataList.Count == 0)
             {
@@ -191,7 +194,7 @@ namespace GameApp.DataTable.Editor
                                 this.Theme);
                     }
                 };
-                
+
 
                 reorderableList.onAddCallback = list =>
                 {
@@ -204,7 +207,7 @@ namespace GameApp.DataTable.Editor
                         {
                             RowDataList.Add(new DataTableRowData()
                             {
-                                Data = new List<string>() {"", "", "", ""}
+                                Data = new List<string>() { "", "", "", "" }
                             });
                         }
                         else
@@ -224,6 +227,7 @@ namespace GameApp.DataTable.Editor
                         for (int i = 0; i < RowDataList.Count; i++)
                             RowDataList[i].Data.Add("");
                     }
+
                     SetPage();
                     SkipToPage(m_AllPage);
                     Focus();
@@ -245,6 +249,7 @@ namespace GameApp.DataTable.Editor
                             RowDataList[i].Data.RemoveAt(RowDataList[i].Data.Count - 1);
                         }
                     }
+
                     SkipToPage(m_CurrentPage);
                     Focus();
                 };
@@ -252,20 +257,20 @@ namespace GameApp.DataTable.Editor
                 reorderableList.drawHeaderCallback = (Rect rect) =>
                 {
                     var filePathRect = rect;
-                    filePathRect.width = rect.width/3;
+                    filePathRect.width = rect.width / 3;
                     EditorGUI.LabelField(filePathRect, FilePath);
 
                     var pageRect = rect;
-                    pageRect.x = rect.width/3*2-50;
+                    pageRect.x = rect.width / 3 * 2 - 50;
                     pageRect.width = 80;
-                    
-                    
+
+
                     if (m_CurrentPage <= 0)
                     {
                         GUI.enabled = false;
                     }
 
-                    if (GUI.Button(pageRect,"上一页"))
+                    if (GUI.Button(pageRect, "上一页"))
                     {
                         SkipToPage(--m_CurrentPage);
                     }
@@ -275,27 +280,28 @@ namespace GameApp.DataTable.Editor
                     // m_PageField = m_CurrentPage.ToString();
                     pageRect.x += 80;
                     pageRect.width = 50;
-                    m_PageField = EditorGUI.TextField(pageRect, (m_CurrentPage+1).ToString(),
-                        new GUIStyle("TextField") {alignment = TextAnchor.MiddleCenter});
+                    m_PageField = EditorGUI.TextField(pageRect, (m_CurrentPage + 1).ToString(),
+                        new GUIStyle("TextField") { alignment = TextAnchor.MiddleCenter });
                     pageRect.x += 50;
                     pageRect.width = 50;
-                    EditorGUI.LabelField(pageRect,$"/{m_AllPage}");
-                    if (int.TryParse(m_PageField, out int page) && page <= m_AllPage && page>0 && page!= (m_CurrentPage+1) )
+                    EditorGUI.LabelField(pageRect, $"/{m_AllPage}");
+                    if (int.TryParse(m_PageField, out int page) && page <= m_AllPage && page > 0 && page != (m_CurrentPage + 1))
                     {
-                        SkipToPage(page-1);
+                        SkipToPage(page - 1);
                     }
                     else
                     {
-                        m_PageField = (m_CurrentPage+1).ToString();
+                        m_PageField = (m_CurrentPage + 1).ToString();
                     }
 
-                    if (m_CurrentPage >= (m_AllPage-1))
+                    if (m_CurrentPage >= (m_AllPage - 1))
                     {
                         GUI.enabled = false;
                     }
+
                     pageRect.x += 50;
                     pageRect.width = 80;
-                    if (GUI.Button(pageRect,"下一页"))
+                    if (GUI.Button(pageRect, "下一页"))
                     {
                         SkipToPage(++m_CurrentPage);
                     }
@@ -315,8 +321,8 @@ namespace GameApp.DataTable.Editor
                     EditorPrefs
                         .SetInt("DataTableEditor_" + Application.productName + "_LightMode",
                             LightMode);
-                  
-                    // Debug.Log($"滑动条 x:{m_scrollViewPos.x} rect: {rect}  比例 {m_scrollViewPos.x / rect.width}");
+
+                    // UnityGameFramework.Runtime.Log.Debug(Utility.Text.Format("滑动条 x:{0} rect: {1}  比例 {2}", m_scrollViewPos.x, rect, m_scrollViewPos.x / rect.width));
                 };
             }
 
@@ -330,7 +336,7 @@ namespace GameApp.DataTable.Editor
                     float listX = 0f;
                     listItemWidth = (position.width - 20) / 10;
                     listX = listItemWidth * (RowDataList[0].Data.Count - 1) + 20;
-                    GUILayout.Label("", new GUIStyle() {fixedWidth = listX});
+                    GUILayout.Label("", new GUIStyle() { fixedWidth = listX });
                 }
             }
 
@@ -400,6 +406,7 @@ namespace GameApp.DataTable.Editor
             {
                 SaveDataTable();
             }
+
             Focus();
         }
 

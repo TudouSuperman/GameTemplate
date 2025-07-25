@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityGameFramework.Runtime;
 
 namespace GameApp
 {
@@ -68,7 +69,7 @@ namespace GameApp
         {
             if (array == null || array.Length == 0)
             {
-                Debug.LogError("RandomArray: 数组为空或长度为零");
+                Log.Error("RandomArray: 数组为空或长度为零");
                 return default;
             }
 
@@ -85,7 +86,7 @@ namespace GameApp
         {
             if (list == null || list.Count == 0)
             {
-                Debug.LogError("RandomList: 列表为空或长度为零");
+                Log.Error("RandomList: 列表为空或长度为零");
                 return default;
             }
 
@@ -103,7 +104,7 @@ namespace GameApp
         {
             if (array == null || array.Length == 0)
             {
-                Debug.LogError("RandomMultiple: 数组为空或长度为零");
+                Log.Error("RandomMultiple: 数组为空或长度为零");
                 return new T[0];
             }
 
@@ -135,7 +136,7 @@ namespace GameApp
         {
             if (weights == null || weights.Length == 0)
             {
-                Debug.LogError("RandomByWeights: 权重数组为空");
+                Log.Error("RandomByWeights: 权重数组为空");
                 return -1;
             }
 

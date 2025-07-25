@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using GameFramework;
 using GameApp.Singleton;
 
 namespace GameApp.Hot.UI
@@ -27,7 +28,7 @@ namespace GameApp.Hot.UI
             string _fullName = typeof(T).FullName;
             if (string.IsNullOrEmpty(_fullName) || m_ModelDic.ContainsKey(_fullName))
             {
-                throw new Exception($"Model type '{_fullName}' already exist.");
+                throw new Exception(Utility.Text.Format("Model type '{0}' already exist.", _fullName));
             }
 
             T _model = new T();
@@ -49,13 +50,13 @@ namespace GameApp.Hot.UI
 
             if (!typeof(IModel).IsAssignableFrom(modelType))
             {
-                throw new Exception($"Model type '{modelType.FullName}' is invalid.");
+                throw new Exception(Utility.Text.Format("Model type '{0}' is invalid.", modelType.FullName));
             }
 
             string _typeName = modelType.FullName;
             if (string.IsNullOrEmpty(_typeName) || m_ModelDic.ContainsKey(_typeName))
             {
-                throw new Exception($"Model type '{_typeName}' already exist.");
+                throw new Exception(Utility.Text.Format("Model type '{0}' already exist.", _typeName));
             }
 
             IModel _model = (IModel)Activator.CreateInstance(modelType);
@@ -82,7 +83,7 @@ namespace GameApp.Hot.UI
 
             if (!typeof(IModel).IsAssignableFrom(modelType))
             {
-                throw new Exception($"Model type '{modelType.FullName}' is invalid.");
+                throw new Exception(Utility.Text.Format("Model type '{0}' is invalid.", modelType.FullName));
             }
 
             return InternalGetModel(modelType.FullName);
@@ -92,7 +93,7 @@ namespace GameApp.Hot.UI
         {
             if (!m_ModelDic.TryGetValue(modelName, out IModel _model))
             {
-                throw new Exception($"Model type '{modelName}' not exist.");
+                throw new Exception(Utility.Text.Format("Model type '{0}' not exist.", modelName));
             }
 
             return _model;

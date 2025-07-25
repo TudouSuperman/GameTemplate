@@ -37,7 +37,7 @@ namespace GameApp.Hot.UI.Extension
 
             slider.value = value;
         }
-        
+
         public static void Set(this UnityEvent unityEvent, UnityAction unityAction)
         {
             unityEvent.RemoveAllListeners();
@@ -57,7 +57,7 @@ namespace GameApp.Hot.UI.Extension
                     throw new GameFrameworkException("Unity Event error", e);
                 }
             }
-            
+
             void OnClick()
             {
                 OnClickAsync().Forget();
@@ -77,7 +77,7 @@ namespace GameApp.Hot.UI.Extension
                 }
                 catch (Exception e)
                 {
-                    throw new GameFrameworkException($"{button.name} click error", e);
+                    throw new GameFrameworkException(Utility.Text.Format("{0} click error", button.name), e);
                 }
                 finally
                 {

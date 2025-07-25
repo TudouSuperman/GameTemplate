@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using GameFramework;
 using UnityGameFramework.Runtime;
 using Sirenix.OdinInspector;
 
@@ -79,6 +80,7 @@ namespace GameApp
                 Log.Error("UI Root CanvasScaler is not assigned!");
                 return;
             }
+
             Set(m_DefaultStandardWidth, m_DefaultStandardHeight);
         }
 
@@ -91,23 +93,25 @@ namespace GameApp
         {
             if (standardWidth <= 0 || standardHeight <= 0)
             {
-                Log.Error($"Invalid screen size: {standardWidth}x{standardHeight}");
+                Log.Error(Utility.Text.Format("Invalid screen size: {0} x {1}", standardWidth, standardHeight));
                 return;
             }
+
             if (m_UIRootCanvasScaler == null)
             {
                 Log.Error("CanvasScaler reference is missing!");
                 return;
             }
+
             SafeArea = Screen.safeArea;
             Width = Screen.width;
             Height = Screen.height;
-            Log.Info($"Screen safe area: {SafeArea}");
-            Log.Info($"Physical size: {Width}x{Height}");
+            Log.Info(Utility.Text.Format("Screen safe area: {0}", SafeArea));
+            Log.Info(Utility.Text.Format("Physical size: {0} x {1}", Width, Height));
             // 设置标准参数。
             StandardWidth = standardWidth;
             StandardHeight = standardHeight;
-            Log.Info($"Reference resolution: {StandardWidth}x{StandardHeight}");
+            Log.Info(Utility.Text.Format("Reference resolution: {0} x {1}", StandardWidth, StandardHeight));
             // 计算比例值（缓存计算结果避免重复计算）。
             StandardVerticalRatio = (float)StandardHeight / StandardWidth;
             StandardHorizontalRatio = (float)StandardWidth / StandardHeight;
@@ -122,7 +126,7 @@ namespace GameApp
             Vector2 sizeDelta = m_UIRootCanvasScaler.GetComponent<RectTransform>().sizeDelta;
             UIWidth = sizeDelta.x;
             UIHeight = sizeDelta.y;
-            Log.Info($"UI dimensions: {UIWidth}x{UIHeight}");
+            Log.Info(Utility.Text.Format("UI dimensions: {0} x {1}", UIWidth, UIHeight));
         }
 
         /// <summary>

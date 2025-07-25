@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using GameFramework;
+using UnityGameFramework.Runtime;
 
 namespace GameApp.Hot.UI.Extension
 {
@@ -102,7 +104,6 @@ namespace GameApp.Hot.UI.Extension
             }
         }
 
-
 #if UNITY_EDITOR
         /// <summary>
         /// 编辑器工具：重置安全边距为默认值。
@@ -114,7 +115,7 @@ namespace GameApp.Hot.UI.Extension
             m_PaddingRight = 10f;
             m_PaddingTop = 10f;
             m_PaddingBottom = 10f;
-            Debug.Log("安全边距已重置为默认值");
+            Log.Debug("安全边距已重置为默认值");
         }
 
         /// <summary>
@@ -124,7 +125,7 @@ namespace GameApp.Hot.UI.Extension
         private void RefreshSizeCacheEditor()
         {
             RefreshSizeCache();
-            Debug.Log($"尺寸缓存已刷新 | Canvas: {m_UICanvasSizeCache} | Window: {m_SelfWindowSizeCache}");
+            Log.Debug(Utility.Text.Format("尺寸缓存已刷新 | Canvas: {0} | Window: {1}", m_UICanvasSizeCache, m_SelfWindowSizeCache));
         }
 #endif
     }
