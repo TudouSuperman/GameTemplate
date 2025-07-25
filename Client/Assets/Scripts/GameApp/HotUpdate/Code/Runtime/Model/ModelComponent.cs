@@ -7,7 +7,7 @@ namespace GameApp.Hot.Model
     public sealed class ModelComponent : HotComponent
     {
         private Dictionary<string, IModel> m_ModelDic;
-        protected override int Priority => 2;
+        protected override int Priority => (int)EHotComponentPriority.ModelComponent;
 
         protected override void OnInitialize()
         {

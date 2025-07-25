@@ -10,7 +10,7 @@ namespace GameApp.Hot.Procedure
     {
         private IFsmManager m_FsmManager;
         private IFsm<HotProcedureComponent> m_ProcedureFsm;
-        protected override int Priority => 1;
+        protected override int Priority => (int)EHotComponentPriority.HotProcedureComponent;
 
         public ProcedureBase CurrentProcedure
         {
