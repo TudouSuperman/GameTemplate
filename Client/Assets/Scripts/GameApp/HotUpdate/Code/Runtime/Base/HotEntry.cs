@@ -1,5 +1,8 @@
 using UnityEngine;
 using UnityGameFramework.Runtime;
+using GameApp.Singleton;
+using GameApp.Hot.UI;
+using GameApp.Hot.Procedure;
 
 namespace GameApp.Hot
 {
@@ -28,11 +31,13 @@ namespace GameApp.Hot
             HotComponentEntry.Shutdown();
         }
 
-        public static GameApp.Hot.Procedure.ProcedureComponent Procedure { get; private set; }
+        public static HotProcedureComponent Procedure { get; private set; }
+        public static ModelManager ModelManager { get; private set; }
 
         private void InitComponents()
         {
-            Procedure = HotComponentEntry.GetComponent<GameApp.Hot.Procedure.ProcedureComponent>();
+            Procedure = HotComponentEntry.GetComponent<HotProcedureComponent>();
+            ModelManager = SingletonManager.AddSingleton<ModelManager>();
         }
     }
 }

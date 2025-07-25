@@ -1,6 +1,7 @@
 ﻿using GameFramework.Localization;
-using GameApp.UI;
 using UnityGameFramework.Runtime;
+using GameApp.Singleton;
+using GameApp.UI;
 
 namespace GameApp.Hot.UI
 {
@@ -35,7 +36,7 @@ namespace GameApp.Hot.UI
                         GameEntry.Setting.SetString(Constant.Setting.Language, m_SelectedLanguage.ToString());
                         GameEntry.Setting.Save();
                         GameEntry.Sound.StopMusic();
-                        GameEntry.ClearSingletons();
+                        SingletonManager.Clear();
                         UnityGameFramework.Runtime.GameEntry.Shutdown(ShutdownType.Restart);
                     },
                     OnClickCancel = (data) => { GameEntry.UI.CloseUIForm(UIForm); },

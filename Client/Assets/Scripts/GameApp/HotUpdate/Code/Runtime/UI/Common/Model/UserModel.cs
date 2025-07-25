@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GameApp.UI
+namespace GameApp.Hot.UI
 {
     public sealed class UserModel : IModel
     {

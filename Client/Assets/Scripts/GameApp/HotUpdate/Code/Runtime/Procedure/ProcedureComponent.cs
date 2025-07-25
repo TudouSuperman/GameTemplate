@@ -6,10 +6,10 @@ using UnityGameFramework.Extension;
 
 namespace GameApp.Hot.Procedure
 {
-    public sealed class ProcedureComponent : HotComponent
+    public sealed class HotProcedureComponent : HotComponent
     {
         private IFsmManager m_FsmManager;
-        private IFsm<ProcedureComponent> m_ProcedureFsm;
+        private IFsm<HotProcedureComponent> m_ProcedureFsm;
         protected override int Priority => -2;
 
         public ProcedureBase CurrentProcedure
@@ -49,7 +49,7 @@ namespace GameApp.Hot.Procedure
             Type procedureBaseType = typeof(ProcedureBase);
             Assembly assembly = Assembly.GetExecutingAssembly();
             Type[] types = assembly.GetTypes();
-            using UGFList<FsmState<ProcedureComponent>> procedures = UGFList<FsmState<ProcedureComponent>>.Create();
+            using UGFList<FsmState<HotProcedureComponent>> procedures = UGFList<FsmState<HotProcedureComponent>>.Create();
             for (int i = 0; i < types.Length; i++)
             {
                 if (!types[i].IsClass || types[i].IsAbstract)

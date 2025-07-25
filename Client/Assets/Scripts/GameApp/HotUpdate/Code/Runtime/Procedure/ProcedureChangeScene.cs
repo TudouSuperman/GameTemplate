@@ -1,6 +1,6 @@
 ﻿using GameFramework.DataTable;
 using GameFramework.Event;
-using ProcedureOwner = GameFramework.Fsm.IFsm<GameApp.Hot.Procedure.ProcedureComponent>;
+using HotProcedureOwner = GameFramework.Fsm.IFsm<GameApp.Hot.Procedure.HotProcedureComponent>;
 using UnityGameFramework.Runtime;
 
 namespace GameApp.Hot.Procedure
@@ -13,7 +13,7 @@ namespace GameApp.Hot.Procedure
         private bool m_IsChangeSceneComplete = false;
         private int m_BackgroundMusicId = 0;
 
-        protected override void OnEnter(ProcedureOwner procedureOwner)
+        protected override void OnEnter(HotProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
 
@@ -56,7 +56,7 @@ namespace GameApp.Hot.Procedure
             m_BackgroundMusicId = drScene.BackgroundMusicId;
         }
 
-        protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
+        protected override void OnLeave(HotProcedureOwner procedureOwner, bool isShutdown)
         {
             GameEntry.Event.Unsubscribe(LoadSceneSuccessEventArgs.EventId, OnLoadSceneSuccess);
             GameEntry.Event.Unsubscribe(LoadSceneFailureEventArgs.EventId, OnLoadSceneFailure);
@@ -66,7 +66,7 @@ namespace GameApp.Hot.Procedure
             base.OnLeave(procedureOwner, isShutdown);
         }
 
-        protected override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
+        protected override void OnUpdate(HotProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
 

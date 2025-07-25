@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using GameApp.Singleton;
 
-namespace GameApp.UI
+namespace GameApp.Hot.UI
 {
     public sealed class ModelManager : Singleton<ModelManager>
     {

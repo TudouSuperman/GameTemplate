@@ -1,5 +1,5 @@
 ﻿using GameFramework.Event;
-using ProcedureOwner = GameFramework.Fsm.IFsm<GameApp.Hot.Procedure.ProcedureComponent>;
+using HotProcedureOwner = GameFramework.Fsm.IFsm<GameApp.Hot.Procedure.HotProcedureComponent>;
 using UnityGameFramework.Runtime;
 using GameApp.UI;
 using GameApp.Hot.UI;
@@ -16,7 +16,7 @@ namespace GameApp.Hot.Procedure
             m_StartGame = true;
         }
 
-        protected override void OnEnter(ProcedureOwner procedureOwner)
+        protected override void OnEnter(HotProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
 
@@ -26,7 +26,7 @@ namespace GameApp.Hot.Procedure
             GameEntry.UI.OpenUIForm((int)EUIFormID.MainMenuForm, this);
         }
 
-        protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
+        protected override void OnLeave(HotProcedureOwner procedureOwner, bool isShutdown)
         {
             base.OnLeave(procedureOwner, isShutdown);
 
@@ -39,7 +39,7 @@ namespace GameApp.Hot.Procedure
             }
         }
 
-        protected override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
+        protected override void OnUpdate(HotProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
 
