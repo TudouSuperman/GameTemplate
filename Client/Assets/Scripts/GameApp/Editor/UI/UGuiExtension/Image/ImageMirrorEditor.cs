@@ -1,5 +1,6 @@
 ﻿using UnityEditor;
 using UnityEditor.UI;
+using GameApp.Hot.UI.Extension;
 
 namespace GameApp.UI.Extension.Editor
 {

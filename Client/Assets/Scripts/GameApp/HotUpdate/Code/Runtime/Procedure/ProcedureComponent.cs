@@ -4,7 +4,7 @@ using GameFramework;
 using GameFramework.Fsm;
 using UnityGameFramework.Extension;
 
-namespace GameApp.Hot
+namespace GameApp.Hot.Procedure
 {
     public sealed class ProcedureComponent : HotComponent
     {
@@ -40,7 +40,7 @@ namespace GameApp.Hot
 
         protected override void OnInitialize()
         {
-            var fsmManager = GameFrameworkEntry.GetModule<IFsmManager>();
+            IFsmManager fsmManager = GameFrameworkEntry.GetModule<IFsmManager>();
             if (fsmManager == null)
             {
                 throw new GameFrameworkException("FSM manager is invalid.");

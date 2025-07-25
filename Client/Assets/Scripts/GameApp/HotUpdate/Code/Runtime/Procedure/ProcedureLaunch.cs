@@ -1,6 +1,6 @@
 using GameFramework.Fsm;
 
-namespace GameApp.Hot
+namespace GameApp.Hot.Procedure
 {
     public sealed class ProcedureLaunch : ProcedureBase
     {
@@ -12,6 +12,7 @@ namespace GameApp.Hot
         protected override void OnUpdate(IFsm<ProcedureComponent> procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
+
             ChangeState<ProcedurePreload>(procedureOwner);
         }
     }

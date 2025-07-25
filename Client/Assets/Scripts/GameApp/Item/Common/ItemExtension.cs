@@ -8,21 +8,6 @@ namespace GameApp
     {
         private static int s_SerialId = 0;
 
-        public static void ShowItem(this ItemComponent itemComponent, int serialId, EUIItemID uiItemID, object userData = null)
-        {
-            itemComponent.ShowItem(serialId, uiItemID, null, userData);
-        }
-
-        public static void ShowItem<T>(this ItemComponent itemComponent, int serialId, EUIItemID uiItemID, object userData = null)
-        {
-            itemComponent.ShowItem(serialId, uiItemID, typeof(T), userData);
-        }
-
-        public static void ShowItem(this ItemComponent itemComponent, int serialId, EUIItemID uiItemID, Type logicType, object userData = null)
-        {
-            itemComponent.ShowItem(serialId, (int)uiItemID, logicType, userData);
-        }
-
         public static void ShowItem(this ItemComponent itemComponent, int serialId, int itemId, object userData = null)
         {
             itemComponent.ShowItem(serialId, itemId, null, userData);

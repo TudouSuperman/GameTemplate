@@ -12,7 +12,7 @@ namespace GameApp.Hot
         private void Start()
         {
             Log.Info("GameApp.Hot.Code Start!");
-            
+
             InitComponents();
 
             HotComponentEntry.Initialize();
@@ -28,11 +28,11 @@ namespace GameApp.Hot
             HotComponentEntry.Shutdown();
         }
 
-        public static ProcedureComponent Procedure { get; private set; }
+        public static GameApp.Hot.Procedure.ProcedureComponent Procedure { get; private set; }
 
         private void InitComponents()
         {
-            Procedure = HotComponentEntry.GetComponent<ProcedureComponent>();
+            Procedure = HotComponentEntry.GetComponent<GameApp.Hot.Procedure.ProcedureComponent>();
         }
     }
 }

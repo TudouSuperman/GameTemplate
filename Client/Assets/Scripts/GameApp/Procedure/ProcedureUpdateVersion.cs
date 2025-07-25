@@ -9,8 +9,6 @@ namespace GameApp.Procedure
         private bool m_UpdateVersionComplete = false;
         private UpdateVersionListCallbacks m_UpdateVersionListCallbacks = null;
 
-        public override bool UseNativeDialog => true;
-
         protected override void OnInit(ProcedureOwner procedureOwner)
         {
             base.OnInit(procedureOwner);

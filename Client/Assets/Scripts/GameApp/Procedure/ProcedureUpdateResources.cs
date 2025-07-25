@@ -9,8 +9,6 @@ namespace GameApp.Procedure
 {
     public sealed class ProcedureUpdateResources : ProcedureBase
     {
-        public override bool UseNativeDialog => true;
-        
         private bool m_UpdateResourcesComplete = false;
         private int m_UpdateCount = 0;
         private long m_UpdateTotalCompressedLength = 0L;

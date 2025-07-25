@@ -1,7 +1,7 @@
 using GameFramework.Fsm;
-using ProcedureOwner = GameFramework.Fsm.IFsm<GameApp.Hot.ProcedureComponent>;
+using ProcedureOwner = GameFramework.Fsm.IFsm<GameApp.Hot.Procedure.ProcedureComponent>;
 
-namespace GameApp.Hot
+namespace GameApp.Hot.Procedure
 {
     /// <summary>
     /// 流程基类。

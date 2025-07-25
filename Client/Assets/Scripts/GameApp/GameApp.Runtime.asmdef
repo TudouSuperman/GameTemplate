@@ -10,10 +10,10 @@
         "UnityGameFramework.Extension.Runtime",
         "UnityWebSocket.Runtime",
         "UniTask",
-        "CodeBind",
         "LitJson",
         "protobuf-net",
         "ZString",
+        "CodeBind",
         "HybridCLR.Runtime"
     ],
     "includePlatforms": [],

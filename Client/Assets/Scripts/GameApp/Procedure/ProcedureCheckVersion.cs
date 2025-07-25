@@ -5,7 +5,6 @@ using GameFramework.Resource;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 using UnityGameFramework.Runtime;
 using UnityGameFramework.Extension;
-using GameApp.UI;
 
 namespace GameApp.Procedure
 {
@@ -14,8 +13,6 @@ namespace GameApp.Procedure
         private bool m_CheckVersionComplete = false;
         private bool m_NeedUpdateVersion = false;
         private VersionInfo m_VersionInfo = null;
-
-        public override bool UseNativeDialog => true;
 
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
@@ -104,15 +101,15 @@ namespace GameApp.Procedure
             if (m_VersionInfo.ForceUpdateGame)
             {
                 // 需要强制更新游戏应用
-                GameEntry.UI.OpenDialog(new DialogParams
+                GameEntry.BuiltinData.OpenDialogForm(new BuiltinDialogParams
                 {
-                    Mode = EDialogMode.TwoButtonMode,
+                    Mode = 2,
                     Title = GameEntry.Localization.GetString("ForceUpdate.Title"),
                     Message = GameEntry.Localization.GetString("ForceUpdate.Message"),
                     ConfirmText = GameEntry.Localization.GetString("ForceUpdate.UpdateButton"),
                     OnClickConfirm = GotoUpdateApp,
                     CancelText = GameEntry.Localization.GetString("ForceUpdate.QuitButton"),
-                    OnClickCancel = delegate(object userData) { UnityGameFramework.Runtime.GameEntry.Shutdown(ShutdownType.Quit); },
+                    OnClickCancel = delegate (object userData) { UnityGameFramework.Runtime.GameEntry.Shutdown(ShutdownType.Quit); },
                 });
 
                 return;

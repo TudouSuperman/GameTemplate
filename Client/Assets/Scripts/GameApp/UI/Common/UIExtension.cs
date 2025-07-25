@@ -6,11 +6,6 @@ namespace GameApp.UI
 {
     public static class UIExtension
     {
-        public static bool HasUIForm(this UIComponent uiComponent, EUIFormID uiFormId, string uiGroupName = null)
-        {
-            return uiComponent.HasUIForm((int)uiFormId, uiGroupName);
-        }
-
         public static bool HasUIForm(this UIComponent uiComponent, int uiFormId, string uiGroupName = null)
         {
             IDataTable<DRUIForm> dtUIForm = GameEntry.DataTable.GetDataTable<DRUIForm>();
@@ -33,11 +28,6 @@ namespace GameApp.UI
             }
 
             return uiGroup.HasUIForm(assetName);
-        }
-
-        public static UGuiFormLogic GetUIForm(this UIComponent uiComponent, EUIFormID uiFormId, string uiGroupName = null)
-        {
-            return uiComponent.GetUIForm((int)uiFormId, uiGroupName);
         }
 
         public static UGuiFormLogic GetUIForm(this UIComponent uiComponent, int uiFormId, string uiGroupName = null)
@@ -77,16 +67,6 @@ namespace GameApp.UI
             return (UGuiFormLogic)uiForm.Logic;
         }
 
-        public static void CloseUIForm(this UIComponent uiComponent, UGuiFormLogic uiForm)
-        {
-            uiComponent.CloseUIForm(uiForm.UIForm);
-        }
-
-        public static int? OpenUIForm(this UIComponent uiComponent, EUIFormID uiFormId, object userData = null)
-        {
-            return uiComponent.OpenUIForm((int)uiFormId, userData);
-        }
-
         public static int? OpenUIForm(this UIComponent uiComponent, int uiFormId, object userData = null)
         {
             IDataTable<DRUIForm> dtUIForm = GameEntry.DataTable.GetDataTable<DRUIForm>();
@@ -112,27 +92,6 @@ namespace GameApp.UI
             }
 
             return uiComponent.OpenUIForm(assetName, drUIForm.UIGroupName, Constant.AssetPriority.UIForm_Asset, drUIForm.PauseCoveredUIForm, userData);
-        }
-
-        public static void OpenDialog(this UIComponent uiComponent, DialogParams dialogParams)
-        {
-            if (((Procedure.ProcedureBase)GameEntry.Procedure.CurrentProcedure).UseNativeDialog)
-            {
-                OpenNativeDialog(dialogParams);
-            }
-            else
-            {
-                uiComponent.OpenUIForm(EUIFormID.DialogForm, dialogParams);
-            }
-        }
-
-        private static void OpenNativeDialog(DialogParams dialogParams)
-        {
-            // TODO：这里应该弹出原生对话框，先简化实现为直接按确认按钮
-            if (dialogParams.OnClickConfirm != null)
-            {
-                dialogParams.OnClickConfirm(dialogParams.UserData);
-            }
         }
     }
 }

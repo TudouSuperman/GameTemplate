@@ -10,8 +10,6 @@ namespace GameApp.Procedure
         private int m_UpdateResourceCount = 0;
         private long m_UpdateResourceTotalCompressedLength = 0L;
 
-        public override bool UseNativeDialog => true;
-
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);

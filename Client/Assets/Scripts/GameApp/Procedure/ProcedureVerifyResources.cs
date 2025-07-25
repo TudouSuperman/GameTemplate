@@ -8,8 +8,6 @@ namespace GameApp.Procedure
     {
         private bool m_VerifyResourcesComplete = false;
 
-        public override bool UseNativeDialog => true;
-
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);

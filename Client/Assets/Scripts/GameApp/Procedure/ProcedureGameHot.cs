@@ -5,8 +5,6 @@ namespace GameApp.Procedure
 {
     public sealed class ProcedureGameHot : ProcedureBase
     {
-        public override bool UseNativeDialog => false;
-
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);

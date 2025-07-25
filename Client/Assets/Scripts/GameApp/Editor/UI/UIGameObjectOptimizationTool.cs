@@ -2,7 +2,7 @@ using System.Text;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
-using GameApp.UI.Extension;
+using GameApp.Hot.UI.Extension;
 
 namespace GameApp.UI.Editor
 {

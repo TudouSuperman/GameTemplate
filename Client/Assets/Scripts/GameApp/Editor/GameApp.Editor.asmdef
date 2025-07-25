@@ -15,7 +15,8 @@
         "GameApp.Runtime",
         "LitJson",
         "HybridCLR.Runtime",
-        "HybridCLR.Editor"
+        "HybridCLR.Editor",
+        "GameApp.Hot.Runtime"
     ],
     "includePlatforms": [
         "Editor"
