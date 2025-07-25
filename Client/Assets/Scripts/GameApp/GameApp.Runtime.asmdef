@@ -13,6 +13,10 @@
         "LitJson",
         "protobuf-net",
         "ZString",
+        "Coffee.UIEffect",
+        "Coffee.UIParticle",
+        "Coffee.SoftMaskForUGUI",
+        "Coffee.UnmaskForUGUI",
         "CodeBind",
         "HybridCLR.Runtime"
     ],

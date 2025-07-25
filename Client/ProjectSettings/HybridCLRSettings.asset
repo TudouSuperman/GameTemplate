@@ -51,9 +51,13 @@ MonoBehaviour:
   - LitJson
   - DOTween
   - StateController
+  - Coffee.UIEffect
+  - Coffee.UIParticle
+  - Coffee.SoftMaskForUGUI
+  - Coffee.UnmaskForUGUI
   - ICSharpCode.SharpZipLib
-  - GameApp.Runtime
   - GameApp.Hot.Loader
+  - GameApp.Runtime
   outputLinkFile: Res/Editor/HybridCLR/Generate/link.xml
   outputAOTGenericReferenceFile: Res/Editor/HybridCLR/Generate/AOTGenericReferences.cs
   maxGenericReferenceIteration: 10
