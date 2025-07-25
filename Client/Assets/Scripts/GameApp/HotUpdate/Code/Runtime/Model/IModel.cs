@@ -1,4 +1,4 @@
-﻿namespace GameApp.Hot.UI
+﻿namespace GameApp.Hot.Model
 {
     public interface IModel
     {

@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using GameApp.Singleton;
-
-namespace GameApp
+﻿namespace GameApp
 {
     /// <summary>
     /// 游戏入口。
@@ -14,19 +11,8 @@ namespace GameApp
             InitCustomComponents();
         }
 
-        private void Update()
-        {
-            SingletonManager.Update(Time.deltaTime, Time.unscaledDeltaTime);
-        }
-
-        private void LateUpdate()
-        {
-            SingletonManager.LateUpdate();
-        }
-
         private void OnApplicationQuit()
         {
-            SingletonManager.Clear();
             UnityGameFramework.Runtime.GameEntry.Shutdown(UnityGameFramework.Runtime.ShutdownType.Quit);
         }
     }

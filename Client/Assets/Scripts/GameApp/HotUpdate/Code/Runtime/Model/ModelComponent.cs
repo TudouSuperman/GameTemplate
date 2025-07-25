@@ -1,26 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using GameFramework;
-using GameApp.Singleton;
 
-namespace GameApp.Hot.UI
+namespace GameApp.Hot.Model
 {
-    public sealed class ModelManager : Singleton<ModelManager>
+    public sealed class ModelComponent : HotComponent
     {
-        private readonly Dictionary<string, IModel> m_ModelDic;
+        private Dictionary<string, IModel> m_ModelDic;
+        protected override int Priority => 2;
 
-        public ModelManager()
+        protected override void OnInitialize()
         {
             m_ModelDic = new Dictionary<string, IModel>();
         }
 
-        public override void Dispose()
+        protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
-            base.Dispose();
+        }
+
+        protected override void OnShutdown()
+        {
             foreach (KeyValuePair<string, IModel> _kv in m_ModelDic)
             {
                 _kv.Value.Clear();
             }
+
+            m_ModelDic = null;
         }
 
         public T AddModel<T>() where T : IModel, new()

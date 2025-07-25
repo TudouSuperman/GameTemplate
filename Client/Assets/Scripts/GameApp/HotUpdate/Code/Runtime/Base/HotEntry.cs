@@ -1,17 +1,12 @@
 using UnityEngine;
 using UnityGameFramework.Runtime;
-using GameApp.Singleton;
-using GameApp.Hot.UI;
 using GameApp.Hot.Procedure;
+using GameApp.Hot.Model;
 
 namespace GameApp.Hot
 {
     public sealed class HotEntry : MonoBehaviour
     {
-        /// <summary>
-        /// 程序入口
-        /// </summary>
-        /// <returns></returns>
         private void Start()
         {
             Log.Info("GameApp.Hot.Code Start!");
@@ -32,12 +27,12 @@ namespace GameApp.Hot
         }
 
         public static HotProcedureComponent Procedure { get; private set; }
-        public static ModelManager ModelManager { get; private set; }
+        public static ModelComponent Model { get; private set; }
 
         private void InitComponents()
         {
             Procedure = HotComponentEntry.GetComponent<HotProcedureComponent>();
-            ModelManager = SingletonManager.AddSingleton<ModelManager>();
+            Model = HotComponentEntry.GetComponent<ModelComponent>();
         }
     }
 }

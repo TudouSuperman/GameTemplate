@@ -3,7 +3,7 @@
     public static partial class Constant
     {
         /// <summary>
-        /// 资源优先级。
+        /// 资源优先级（数值大的优先加载）。
         /// </summary>
         public static class AssetPriority
         {
