@@ -29,6 +29,10 @@
     <assembly fullname="LitJson" preserve="all" />
     <assembly fullname="DOTween" preserve="all" />
     <assembly fullname="StateController" preserve="all" />
+    <assembly fullname="Coffee.UIEffect" preserve="all" />
+    <assembly fullname="Coffee.UIParticle" preserve="all" />
+    <assembly fullname="Coffee.SoftMaskForUGUI" preserve="all" />
+    <assembly fullname="Coffee.UnmaskForUGUI" preserve="all" />
     
     <assembly fullname="ICSharpCode.SharpZipLib" preserve="all" />
     
