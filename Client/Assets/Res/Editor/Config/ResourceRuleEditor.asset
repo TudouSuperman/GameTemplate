@@ -189,7 +189,7 @@ MonoBehaviour:
     variant: 
     fileSystem: GameData
     groups: 
-    assetsDirectoryPath: Assets/Res/HotUpdate/Code
+    assetsDirectoryPath: Assets/Res/HotUpdate
     loadType: 0
     packed: 0
     filterType: 0

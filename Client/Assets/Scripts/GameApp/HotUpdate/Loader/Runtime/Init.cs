@@ -1,9 +1,7 @@
-using System;
 using System.Reflection;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using GameFramework;
-using UnityGameFramework.Runtime;
 using UnityGameFramework.Extension;
 
 namespace GameApp.Hot
@@ -28,15 +26,15 @@ namespace GameApp.Hot
 
         private void OnDestroy()
         {
-            if (this.m_HotEntryGameObject != null)
+            if (m_HotEntryGameObject != null)
             {
-                DestroyImmediate(this.m_HotEntryGameObject);
-                this.m_HotEntryGameObject = null;
+                DestroyImmediate(m_HotEntryGameObject);
+                m_HotEntryGameObject = null;
             }
 
-            if (this.m_HotEntryAsset != null)
+            if (m_HotEntryAsset != null)
             {
-                GameEntry.Resource.UnloadAsset(this.m_HotEntryAsset);
+                GameEntry.Resource.UnloadAsset(m_HotEntryAsset);
                 m_HotEntryAsset = null;
             }
         }
@@ -51,8 +49,8 @@ namespace GameApp.Hot
                 Assembly.Load(_dllBytes, _pdbBytes);
             }
 
-            this.m_HotEntryAsset = await GameEntry.Resource.LoadAssetAsync<GameObject>(AssetPathUtility.GetEntityAsset("HotEntry"));
-            this.m_HotEntryGameObject = GameObject.Instantiate(this.m_HotEntryAsset, GameEntry.CodeRunner.transform);
+            m_HotEntryAsset = await GameEntry.Resource.LoadAssetAsync<GameObject>(AssetPathUtility.GetGameHotAsset("HotEntry.prefab"));
+            m_HotEntryGameObject = Instantiate(m_HotEntryAsset, GameEntry.CodeRunner.transform);
         }
 
         private async UniTask<byte[]> LoadCodeBytesAsync(string fileName)
