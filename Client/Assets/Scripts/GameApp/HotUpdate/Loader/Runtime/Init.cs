@@ -46,6 +46,10 @@ namespace GameApp.Hot
             {
                 byte[] _dllBytes = await LoadCodeBytesAsync("GameApp.Hot.Runtime.dll.bytes");
                 byte[] _pdbBytes = await LoadCodeBytesAsync("GameApp.Hot.Runtime.pdb.bytes");
+                // TODO 作者。
+                // GameFramework 的 Shutdown 重启功能，并没有退出 App 只是再 App 里重启走了一遍框架，
+                // 但是这个加载到内存里的热更程序集没有卸载导致出现重复加载程序集到内存的报错。
+                // 因为在游戏过程中涉及到突然通知的热更，需要重复加载热更程序集，只能考虑退出游戏让玩家重启，或者调用相关代码重启了。
                 Assembly.Load(_dllBytes, _pdbBytes);
             }
 
