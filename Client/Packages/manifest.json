@@ -24,7 +24,6 @@
     "com.unity.timeline": "1.7.6",
     "com.unity.ugui": "1.0.0",
     "com.unity.visualscripting": "1.9.1",
-    "me.xw.codebind": "https://github.com/XuToWei/CodeBind.git",
     "me.xw.statecontroller": "https://github.com/XuToWei/StateController.git",
     "me.xw.toolbarextension": "https://github.com/XuToWei/ToolbarExtension.git",
     "com.unity.modules.ai": "1.0.0",

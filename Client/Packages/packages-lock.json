@@ -458,13 +458,6 @@
       },
       "url": "https://packages.unity.cn"
     },
-    "me.xw.codebind": {
-      "version": "https://github.com/XuToWei/CodeBind.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "930abf2a8cb37070a8130b838d3a31b53e39a10f"
-    },
     "me.xw.statecontroller": {
       "version": "https://github.com/XuToWei/StateController.git",
       "depth": 0,
