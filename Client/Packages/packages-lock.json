@@ -42,12 +42,26 @@
       "dependencies": {},
       "hash": "33356da2c43fa28397192baee70910c978e3169f"
     },
+    "com.cysharp.unitask": {
+      "version": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask#2.5.10",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "7c0f199fe0d3fc528024488ccd671e6c7b27745b"
+    },
     "com.cysharp.zstring": {
       "version": "https://github.com/Cysharp/ZString.git?path=src/ZString.Unity/Assets/Scripts/ZString",
       "depth": 0,
       "source": "git",
       "dependencies": {},
       "hash": "5fefbaa7df300643e53954cf07a73b3299665883"
+    },
+    "com.psygames.unitywebsocket": {
+      "version": "https://github.com/psygames/UnityWebSocket.git#upm",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "369f2a56f68e7a133d3d1acfdc26d4693cd74497"
     },
     "com.unity.2d.animation": {
       "version": "9.0.4",
@@ -443,6 +457,27 @@
         "com.unity.modules.jsonserialize": "1.0.0"
       },
       "url": "https://packages.unity.cn"
+    },
+    "me.xw.codebind": {
+      "version": "https://github.com/XuToWei/CodeBind.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "930abf2a8cb37070a8130b838d3a31b53e39a10f"
+    },
+    "me.xw.statecontroller": {
+      "version": "https://github.com/XuToWei/StateController.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "6b41e24c6a9f504c2bd3fe004998ed0acdda89ba"
+    },
+    "me.xw.toolbarextension": {
+      "version": "https://github.com/XuToWei/ToolbarExtension.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "29b61c47e5ff4ba7f1976918ec0d4b9b4ecb1576"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
