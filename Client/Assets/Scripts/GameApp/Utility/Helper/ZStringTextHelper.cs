@@ -4,7 +4,7 @@ using Cysharp.Text;
 namespace GameApp
 {
     /// <summary>
-    /// 默认字符辅助器。
+    /// ZString 字符辅助器。
     /// </summary>
     public class ZStringTextHelper : Utility.Text.ITextHelper
     {
