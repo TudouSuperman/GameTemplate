@@ -16,7 +16,7 @@ namespace GameApp
 
         public static string GetDictionaryAsset(string assetName, bool fromBytes = true)
         {
-            return Utility.Text.Format("Assets/Res/Localization/{0}/Dictionaries/{1}.{2}", GameEntry.Localization.Language, assetName, fromBytes ? "bytes" : "xml");
+            return Utility.Text.Format("Assets/Res/Generate/Localization/{0}.{1}", assetName, fromBytes ? "bytes" : "xml");
         }
 
         public static string GetFontAsset(string assetName)
@@ -53,7 +53,7 @@ namespace GameApp
         {
             return Utility.Text.Format("Assets/Res/Artwork/UI/UISound/{0}.wav", assetName);
         }
-        
+
         public static string GetGameHotAsset(string assetName)
         {
             return Utility.Text.Format("Assets/Res/HotUpdate/{0}", assetName);

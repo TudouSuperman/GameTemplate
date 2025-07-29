@@ -1,0 +1,24 @@
+﻿#	本地化配置表			
+#	Key		ChineseSimplified	English
+#	String		String	String
+#	语言主键	策划备注	简体中文	英语
+	MainMenu.NewGame		新游戏	NEW GAME
+	MainMenu.Setting		设置	SETTING
+	MainMenu.Language		语言	LANGUAGE
+	MainMenu.ExitGame		退出游戏	EXIT GAME
+	Dialog.Confirm		确定	OK
+	Dialog.Cancel		取消	CANCEL
+	Dialog.Other			
+	ForceUpdate.Title		强制更新	OUT OF DATE
+	ForceUpdate.Message		当前游戏版本过旧，是否前往更新？	The current game version is out-of-date. Would you like to go for update now?
+	ForceUpdate.Update		更新	UPDATE
+	ForceUpdate.Quit		退出	QUIT
+	Language.Title		选择你的语言	SELECT YOUR LANGUAGE
+	Language.OK		保存	OK
+	Language.AskQuitGame.Title		确认退出	CONFIRM TO QUIT
+	Language.AskQuitGame.Message		更改语言需要重启游戏	Language change demands restarting.
+	Setting.Title		设置	SETTINGS
+	Setting.Music		音乐	MUSIC
+	Setting.Sound		音效	SOUND FX
+	Setting.UISound		界面音效	UI SOUND FX
+	Setting.OK		保存	OK

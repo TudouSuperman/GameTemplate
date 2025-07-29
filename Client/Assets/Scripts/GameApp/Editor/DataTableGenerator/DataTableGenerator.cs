@@ -17,7 +17,8 @@ namespace GameApp.DataTable.Editor
 {
     public sealed class DataTableGenerator
     {
-        private const string DataTablePath = "Assets/Res/Generate/TableData";
+        private const string SourceDataTablePath = "Assets/Res/Editor/TableData";
+        private const string GenDataTablePath = "Assets/Res/Generate/TableData";
         private const string CSharpCodePath = "Assets/Scripts/GameApp/Generate/TableCode";
         private const string CSharpCodeTemplateFileName = "Assets/Res/Editor/Config/DataTableCodeTemplate.txt";
         private static readonly Regex EndWithNumberRegex = new Regex(@"\d+$");
@@ -25,7 +26,7 @@ namespace GameApp.DataTable.Editor
 
         public static DataTableProcessor CreateDataTableProcessor(string dataTableName)
         {
-            return new DataTableProcessor(Utility.Path.GetRegularPath(Path.Combine(DataTablePath, dataTableName + ".txt")), Encoding.UTF8, 1, 2, null, 3, 4, 1);
+            return new DataTableProcessor(Utility.Path.GetRegularPath(Path.Combine(SourceDataTablePath, dataTableName + ".txt")), Encoding.UTF8, 1, 2, null, 3, 4, 1);
         }
 
         public static bool CheckRawData(DataTableProcessor dataTableProcessor, string dataTableName)
@@ -50,7 +51,7 @@ namespace GameApp.DataTable.Editor
 
         public static void GenerateDataFile(DataTableProcessor dataTableProcessor, string dataTableName)
         {
-            string binaryDataFileName = Utility.Path.GetRegularPath(Path.Combine(DataTablePath, dataTableName + ".bytes"));
+            string binaryDataFileName = Utility.Path.GetRegularPath(Path.Combine(GenDataTablePath, dataTableName + ".bytes"));
             if (!dataTableProcessor.GenerateDataFile(binaryDataFileName) && File.Exists(binaryDataFileName))
             {
                 File.Delete(binaryDataFileName);

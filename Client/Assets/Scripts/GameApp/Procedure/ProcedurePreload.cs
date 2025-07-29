@@ -80,7 +80,7 @@ namespace GameApp.Procedure
             }
 
             // Preload dictionaries
-            LoadDictionary("Default");
+            LoadDictionary(GameEntry.Localization.Language.ToString());
 
             // Preload fonts
             LoadFont("HarmonyOS_SansSC_Black SDF");

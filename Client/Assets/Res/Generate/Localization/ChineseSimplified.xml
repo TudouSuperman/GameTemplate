@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Dictionaries>
+  <Dictionary Language="ChineseSimplified">
+    <String Key="MainMenu.NewGame" Value="新游戏" />
+    <String Key="MainMenu.Setting" Value="设置" />
+    <String Key="MainMenu.Language" Value="语言" />
+    <String Key="MainMenu.ExitGame" Value="退出游戏" />
+    <String Key="Dialog.Confirm" Value="确定" />
+    <String Key="Dialog.Cancel" Value="取消" />
+    <String Key="Dialog.Other" Value="" />
+    <String Key="ForceUpdate.Title" Value="强制更新" />
+    <String Key="ForceUpdate.Message" Value="当前游戏版本过旧，是否前往更新？" />
+    <String Key="ForceUpdate.Update" Value="更新" />
+    <String Key="ForceUpdate.Quit" Value="退出" />
+    <String Key="Language.Title" Value="选择你的语言" />
+    <String Key="Language.OK" Value="保存" />
+    <String Key="Language.AskQuitGame.Title" Value="确认退出" />
+    <String Key="Language.AskQuitGame.Message" Value="更改语言需要重启游戏" />
+    <String Key="Setting.Title" Value="设置" />
+    <String Key="Setting.Music" Value="音乐" />
+    <String Key="Setting.Sound" Value="音效" />
+    <String Key="Setting.UISound" Value="界面音效" />
+    <String Key="Setting.OK" Value="保存" />
+  </Dictionary>
+</Dictionaries>

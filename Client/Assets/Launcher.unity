@@ -1453,9 +1453,7 @@ MonoBehaviour:
   m_BuildInfoDebug: {fileID: 11400000, guid: b1031378de14f7d42add6fc4841c13ec, type: 2}
   m_LocalizationDictionaries:
   - {fileID: 11400000, guid: 4896147b713f9aa4abd840e4ca33bd47, type: 2}
-  - {fileID: 11400000, guid: 99b23739d64635c4bbfba2da32b27e9f, type: 2}
-  - {fileID: 11400000, guid: 369a8562a7b6662459e9134740a51846, type: 2}
-  - {fileID: 11400000, guid: 8f96a4a3135153c40a9a6bd8589f6c4c, type: 2}
+  - {fileID: 11400000, guid: 4ae66f25ab307fc4e89712d591d8dcb7, type: 2}
   m_UpdateResourceFormTemplate: {fileID: 5642876425673278357, guid: a6c731de80e9d824d8f657301a357269, type: 3}
   m_DialogFormTemplate: {fileID: 0}
 --- !u!1 &1418190307

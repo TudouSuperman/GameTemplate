@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GameApp
 {
-    [CreateAssetMenu(menuName = "Game/Create HybridCLRConfig", fileName = "HybridCLRConfig", order = 0)]
+    [CreateAssetMenu(menuName = "GameApp/Create HybridCLRConfig", fileName = "HybridCLRConfig", order = 0)]
     public class HybridCLRConfig : ScriptableObject
     {
         [SerializeField]

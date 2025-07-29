@@ -80,7 +80,7 @@ namespace GameApp.DataTable.Editor
         private void ButtonLoad()
         {
             var m_DataTableEditingWindow = new DataTableEditingWindowInstance();
-            string filePath = EditorUtility.OpenFilePanel("加载数据表格文件", Application.dataPath + "/Res/Generate/TableData", "txt");
+            string filePath = EditorUtility.OpenFilePanel("加载数据表格文件", Application.dataPath + "/Res/Editor/TableData", "txt");
             if (!string.IsNullOrEmpty(filePath))
             {
                 m_DataTableEditingWindow.SetData(filePath, m_CurrentEncoding);

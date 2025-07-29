@@ -15,8 +15,6 @@ namespace GameApp.Hot.UI
             LanguageFormView _view = (LanguageFormView)m_UGuiFormView;
             _view.OnChineseChanged += OnChineseSimplifiedSelected;
             _view.OnEnglishChanged += OnEnglishSelected;
-            _view.OnSpanishChanged += OnSpanishSelected;
-            _view.OnPortugueseChanged += OnPortugueseSelected;
             _view.OnOkClicked += () =>
             {
                 GameEntry.UI.OpenUIForm((int)EUIFormID.DialogForm, new DialogParams
@@ -57,12 +55,6 @@ namespace GameApp.Hot.UI
                 case Language.English:
                     _view.SetEnglish(true);
                     break;
-                case Language.Spanish:
-                    _view.SetSpanish(true);
-                    break;
-                case Language.PortuguesePortugal:
-                    _view.SetPortuguese(true);
-                    break;
             }
         }
 
@@ -84,27 +76,6 @@ namespace GameApp.Hot.UI
             }
 
             m_SelectedLanguage = Language.English;
-        }
-
-
-        private void OnSpanishSelected(bool isOn)
-        {
-            if (!isOn)
-            {
-                return;
-            }
-
-            m_SelectedLanguage = Language.Spanish;
-        }
-
-        private void OnPortugueseSelected(bool isOn)
-        {
-            if (!isOn)
-            {
-                return;
-            }
-
-            m_SelectedLanguage = Language.PortuguesePortugal;
         }
     }
 }
