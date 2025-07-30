@@ -26,7 +26,7 @@
     <assembly fullname="CodeBind" preserve="all" />
     <assembly fullname="ZString" preserve="all" />
     <assembly fullname="protobuf-net" preserve="all" />   
-    <assembly fullname="LitJson" preserve="all" />
+    <assembly fullname="Newtonsoft.Json" preserve="all" />
     <assembly fullname="DOTween" preserve="all" />
     <assembly fullname="StateController" preserve="all" />
     <assembly fullname="Coffee.UIEffect" preserve="all" />

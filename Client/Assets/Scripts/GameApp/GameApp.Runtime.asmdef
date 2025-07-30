@@ -10,7 +10,6 @@
         "UnityGameFramework.Extension.Runtime",
         "UnityWebSocket.Runtime",
         "UniTask",
-        "LitJson",
         "protobuf-net",
         "ZString",
         "Coffee.UIEffect",

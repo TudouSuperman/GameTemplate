@@ -166,7 +166,7 @@ namespace UnityGameFramework.Extension.Editor
 
         public string ToVersionInfoJson()
         {
-            return LitJson.JsonMapper.ToJson(this);
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
         }
 
         public void AutoIncrementInternalGameVersion()

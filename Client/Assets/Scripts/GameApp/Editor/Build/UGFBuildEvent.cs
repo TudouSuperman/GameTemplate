@@ -31,7 +31,7 @@ namespace GameApp.Editor
                 Debug.LogError($"{versionInfo.UpdatePrefixUri} is wrong, please check!");
             }
 
-            File.WriteAllText(localServerFilePath, LitJson.JsonMapper.ToJson(versionInfo));
+            File.WriteAllText(localServerFilePath, Newtonsoft.Json.JsonConvert.SerializeObject(versionInfo));
         }
     }
 }

@@ -12,7 +12,6 @@
         "UnityWebSocket.Runtime",
         "UniTask",
         "CodeBind",
-        "LitJson",
         "protobuf-net",
         "ZString",
         "Coffee.UIEffect",

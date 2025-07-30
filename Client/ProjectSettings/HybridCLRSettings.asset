@@ -48,7 +48,7 @@ MonoBehaviour:
   - CodeBind
   - ZString
   - protobuf-net
-  - LitJson
+  - Newtonsoft.Json
   - DOTween
   - StateController
   - Coffee.UIEffect
