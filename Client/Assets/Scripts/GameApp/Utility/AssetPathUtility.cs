@@ -11,12 +11,7 @@ namespace GameApp
 
         public static string GetTableDataAsset(string assetName, bool fromBytes = true)
         {
-            return Utility.Text.Format("Assets/Res/Generate/TableData/{0}.{1}", assetName, fromBytes ? "bytes" : "txt");
-        }
-
-        public static string GetDictionaryAsset(string assetName, bool fromBytes = true)
-        {
-            return Utility.Text.Format("Assets/Res/Generate/Localization/{0}.{1}", assetName, fromBytes ? "bytes" : "xml");
+            return Utility.Text.Format("Assets/Res/Generate/NoHot/TableData/{0}.{1}", assetName, fromBytes ? "bytes" : "txt");
         }
 
         public static string GetFontAsset(string assetName)
@@ -54,9 +49,19 @@ namespace GameApp
             return Utility.Text.Format("Assets/Res/Artwork/UI/UISound/{0}.wav", assetName);
         }
 
-        public static string GetGameHotAsset(string assetName)
+        public static string GetHotDictionaryAsset(string assetName, bool fromBytes = true)
+        {
+            return Utility.Text.Format("Assets/Res/Generate/Hot/Localization/{0}.{1}", assetName, fromBytes ? "bytes" : "xml");
+        }
+
+        public static string GetHotGameAsset(string assetName)
         {
             return Utility.Text.Format("Assets/Res/HotUpdate/{0}", assetName);
+        }
+
+        public static string GetHotTableDataAsset(string assetName, bool fromBytes = true)
+        {
+            return Utility.Text.Format("Assets/Res/Generate/Hot/TableData/{0}.{1}", assetName, fromBytes ? "bytes" : "txt");
         }
     }
 }

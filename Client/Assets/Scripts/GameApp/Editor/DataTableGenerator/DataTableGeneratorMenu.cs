@@ -5,8 +5,8 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using System;
 using System.IO;
-using GameApp.Procedure;
 using GameFramework;
 using OfficeOpenXml;
 using UnityEditor;
@@ -19,7 +19,7 @@ namespace GameApp.DataTable.Editor
         [MenuItem("GameApp/DataTable/Generate/Txt To Bin", priority = 1)]
         private static void GenerateDataTables()
         {
-            foreach (string dataTableName in ProcedurePreload.DataTableNames)
+            foreach (string dataTableName in Procedure.ProcedurePreload.DataTableNames)
             {
                 DataTableProcessor dataTableProcessor = DataTableGenerator.CreateDataTableProcessor(dataTableName);
                 if (!DataTableGenerator.CheckRawData(dataTableProcessor, dataTableName))
@@ -28,8 +28,8 @@ namespace GameApp.DataTable.Editor
                     break;
                 }
 
-                DataTableGenerator.GenerateDataFile(dataTableProcessor, dataTableName);
-                DataTableGenerator.GenerateCodeFile(dataTableProcessor, dataTableName);
+                DataTableGenerator.GenerateDataFile(dataTableProcessor, dataTableName, DataTableConfig.GetDataTableConfig().DataTableFolderPath);
+                DataTableGenerator.GenerateCodeFile(dataTableProcessor, dataTableName, DataTableConfig.GetDataTableConfig().CSharpCodePath);
             }
 
             AssetDatabase.Refresh();
@@ -57,8 +57,8 @@ namespace GameApp.DataTable.Editor
                                 break;
                             }
 
-                            DataTableGenerator.GenerateDataFile(dataTableProcessor, sheet.Name);
-                            DataTableGenerator.GenerateCodeFile(dataTableProcessor, sheet.Name);
+                            DataTableGenerator.GenerateDataFile(dataTableProcessor, sheet.Name, DataTableConfig.GetDataTableConfig().DataTableFolderPath);
+                            DataTableGenerator.GenerateCodeFile(dataTableProcessor, sheet.Name, DataTableConfig.GetDataTableConfig().CSharpCodePath);
                         }
                     }
                 }
@@ -67,7 +67,7 @@ namespace GameApp.DataTable.Editor
             AssetDatabase.Refresh();
         }
 
-        [MenuItem("GameApp/DataTable/Generate/Excel To Txt", priority = 10)]
+        [MenuItem("GameApp/DataTable/Generate/Excel To Txt", priority = 3)]
         public static void ExcelToTxt()
         {
             DataTableConfig.GetDataTableConfig().RefreshDataTables();
@@ -78,6 +78,71 @@ namespace GameApp.DataTable.Editor
             }
 
             ExcelExtension.ExcelToTxt(DataTableConfig.GetDataTableConfig().ExcelsFolder, DataTableConfig.GetDataTableConfig().DataTableFolderPath);
+            AssetDatabase.Refresh();
+        }
+
+        [MenuItem("GameApp/DataTable/Generate/Hot Txt To Bin", priority = 21)]
+        private static void HotGenerateDataTables()
+        {
+            foreach ((string dataTableName, Type dataRowType) in Hot.Procedure.ProcedurePreload.DataTableNames)
+            {
+                DataTableProcessor dataTableProcessor = DataTableGenerator.CreateDataTableProcessor(dataTableName);
+                if (!DataTableGenerator.CheckRawData(dataTableProcessor, dataTableName))
+                {
+                    Debug.LogError(Utility.Text.Format("Check raw data failure. DataTableName='{0}'", dataTableName));
+                    break;
+                }
+
+                DataTableGenerator.GenerateDataFile(dataTableProcessor, dataTableName, DataTableConfig.GetDataTableConfig().HotDataTableFolderPath);
+                DataTableGenerator.GenerateCodeFile(dataTableProcessor, dataTableName, DataTableConfig.GetDataTableConfig().HotCSharpCodePath);
+            }
+
+            AssetDatabase.Refresh();
+        }
+
+        [MenuItem("GameApp/DataTable/Generate/Hot Excel To Bin", priority = 22)]
+        public static void HotGenerateDataTablesFormExcelNotFileSystem()
+        {
+            DataTableConfig.GetDataTableConfig().RefreshHotDataTables();
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            foreach (var excelFile in DataTableConfig.GetDataTableConfig().ExcelFilePaths)
+            {
+                using (FileStream fileStream = new FileStream(excelFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                {
+                    using (ExcelPackage excelPackage = new ExcelPackage(fileStream))
+                    {
+                        for (int i = 0; i < excelPackage.Workbook.Worksheets.Count; i++)
+                        {
+                            ExcelWorksheet sheet = excelPackage.Workbook.Worksheets[i];
+                            var dataTableProcessor = DataTableGenerator.CreateExcelDataTableProcessor(sheet);
+                            if (!DataTableGenerator.CheckRawData(dataTableProcessor, sheet.Name))
+                            {
+                                Debug.LogError(Utility.Text.Format("Check raw data failure. DataTableName='{0}'",
+                                    sheet.Name));
+                                break;
+                            }
+
+                            DataTableGenerator.GenerateDataFile(dataTableProcessor, sheet.Name, DataTableConfig.GetDataTableConfig().HotDataTableFolderPath);
+                            DataTableGenerator.GenerateCodeFile(dataTableProcessor, sheet.Name, DataTableConfig.GetDataTableConfig().HotCSharpCodePath);
+                        }
+                    }
+                }
+            }
+
+            AssetDatabase.Refresh();
+        }
+
+        [MenuItem("GameApp/DataTable/Generate/Hot Excel To Txt", priority = 23)]
+        public static void HotExcelToTxt()
+        {
+            DataTableConfig.GetDataTableConfig().RefreshHotDataTables();
+            if (!Directory.Exists(DataTableConfig.GetDataTableConfig().HotExcelsFolder))
+            {
+                Debug.LogError($"{DataTableConfig.GetDataTableConfig().HotExcelsFolder} is not exist!");
+                return;
+            }
+
+            ExcelExtension.ExcelToTxt(DataTableConfig.GetDataTableConfig().HotExcelsFolder, DataTableConfig.GetDataTableConfig().HotDataTableFolderPath);
             AssetDatabase.Refresh();
         }
 

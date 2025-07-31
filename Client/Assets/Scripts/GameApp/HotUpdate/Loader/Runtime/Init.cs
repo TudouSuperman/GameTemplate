@@ -53,13 +53,13 @@ namespace GameApp.Hot
                 Assembly.Load(_dllBytes, _pdbBytes);
             }
 
-            m_HotEntryAsset = await GameEntry.Resource.LoadAssetAsync<GameObject>(AssetPathUtility.GetGameHotAsset("HotEntry.prefab"));
+            m_HotEntryAsset = await GameEntry.Resource.LoadAssetAsync<GameObject>(AssetPathUtility.GetHotGameAsset("HotEntry.prefab"));
             m_HotEntryGameObject = Instantiate(m_HotEntryAsset, GameEntry.CodeRunner.transform);
         }
 
         private async UniTask<byte[]> LoadCodeBytesAsync(string fileName)
         {
-            fileName = AssetPathUtility.GetGameHotAsset(Utility.Text.Format("Code/{0}", fileName));
+            fileName = AssetPathUtility.GetHotGameAsset(Utility.Text.Format("Code/{0}", fileName));
             TextAsset textAsset = await GameEntry.Resource.LoadAssetAsync<TextAsset>(fileName);
             byte[] bytes = textAsset.bytes;
             GameEntry.Resource.UnloadAsset(textAsset);

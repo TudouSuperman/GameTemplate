@@ -4,7 +4,6 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using GameFramework;
-using UnityGameFramework.Runtime;
 
 namespace GameApp.DataTable.Editor
 {
@@ -19,17 +18,32 @@ namespace GameApp.DataTable.Editor
         public string DataTableFolderPath;
 
         /// <summary>
-        /// Excel存放的文件夹路径
+        /// Hot 数据表存放文件夹路径
+        /// </summary>
+        public string HotDataTableFolderPath;
+
+        /// <summary>
+        /// Excel 存放的文件夹路径
         /// </summary>
         public string ExcelsFolder;
 
         /// <summary>
-        /// 数据表C#实体类生成文件夹路径
+        /// Hot Excel 存放的文件夹路径
+        /// </summary>
+        public string HotExcelsFolder;
+
+        /// <summary>
+        /// 数据表 C# 实体类生成文件夹路径
         /// </summary>
         public string CSharpCodePath;
 
         /// <summary>
-        /// 数据表C#实体类模板存放路径
+        /// Hot 数据表 C# 实体类生成文件夹路径
+        /// </summary>
+        public string HotCSharpCodePath;
+
+        /// <summary>
+        /// 数据表 C# 实体类模板存放路径
         /// </summary>
         public string CSharpCodeTemplateFileName;
 
@@ -78,7 +92,7 @@ namespace GameApp.DataTable.Editor
         public int ContentStartRow;
 
         /// <summary>
-        /// id所在列
+        /// id 所在列
         /// </summary>
         public int IdColumn;
 
@@ -98,7 +112,29 @@ namespace GameApp.DataTable.Editor
             if (Directory.Exists(ExcelsFolder))
             {
                 var excelFolder = new DirectoryInfo(ExcelsFolder);
-                ExcelFilePaths = excelFolder.GetFiles("*.xlsx", SearchOption.TopDirectoryOnly)
+                ExcelFilePaths = excelFolder.GetFiles("*.xlsx", SearchOption.AllDirectories)
+                    .Where(_ => !_.Name.StartsWith("~$") && !_.Name.StartsWith("$")).Select(_ => Utility.Path.GetRegularPath(_.FullName))
+                    .ToArray();
+            }
+        }
+
+        public void RefreshHotDataTables()
+        {
+            if (Directory.Exists(HotDataTableFolderPath))
+            {
+                var txtFolder = new DirectoryInfo(HotDataTableFolderPath);
+                TxtFilePaths = txtFolder.GetFiles("*.txt", SearchOption.TopDirectoryOnly)
+                    .Select(_ => Utility.Path.GetRegularPath(_.FullName))
+                    .ToArray();
+                DataTableNames = txtFolder.GetFiles("*.txt", SearchOption.TopDirectoryOnly)
+                    .Select(file => Path.GetFileNameWithoutExtension(file.Name))
+                    .ToArray();
+            }
+
+            if (Directory.Exists(HotExcelsFolder))
+            {
+                var excelFolder = new DirectoryInfo(HotExcelsFolder);
+                ExcelFilePaths = excelFolder.GetFiles("*.xlsx", SearchOption.AllDirectories)
                     .Where(_ => !_.Name.StartsWith("~$") && !_.Name.StartsWith("$")).Select(_ => Utility.Path.GetRegularPath(_.FullName))
                     .ToArray();
             }
@@ -143,9 +179,12 @@ namespace GameApp.DataTable.Editor
             }
 
             DataTableConfig codeGeneratorSettingConfig = CreateInstance<DataTableConfig>();
-            codeGeneratorSettingConfig.DataTableFolderPath = "Assets/Res/Generate/TableData";
-            codeGeneratorSettingConfig.ExcelsFolder = $"{Application.dataPath}/../../ClientExcel";
+            codeGeneratorSettingConfig.DataTableFolderPath = "Assets/Res/Generate/TableData/NoHot";
+            codeGeneratorSettingConfig.HotDataTableFolderPath = "Assets/Res/Generate/TableData/Hot";
+            codeGeneratorSettingConfig.ExcelsFolder = $"{Application.dataPath}/../../ClientExcel/NoHot";
+            codeGeneratorSettingConfig.HotExcelsFolder = $"{Application.dataPath}/../../ClientExcel/Hot";
             codeGeneratorSettingConfig.CSharpCodePath = "Assets/Scripts/GameApp/Generate/TableCode";
+            codeGeneratorSettingConfig.HotCSharpCodePath = "Assets/Scripts/GameApp/HotUpdate/Code/Runtime/Generate/TableCode";
             codeGeneratorSettingConfig.CSharpCodeTemplateFileName = "Assets/Res/Editor/Config/DataTableCodeTemplate.txt";
             codeGeneratorSettingConfig.NameSpace = "GameApp.DataTable";
 
@@ -176,9 +215,12 @@ namespace GameApp.DataTable.Editor
                 return;
             }
 
-            s_DataTableConfig.DataTableFolderPath = "Assets/Res/Generate/TableData";
-            s_DataTableConfig.ExcelsFolder = $"{Application.dataPath}/../../ClientExcel";
+            s_DataTableConfig.DataTableFolderPath = "Assets/Res/Generate/NoHot/TableData";
+            s_DataTableConfig.HotDataTableFolderPath = "Assets/Res/Generate/Hot/TableData";
+            s_DataTableConfig.ExcelsFolder = $"{Application.dataPath}/../../ClientExcel/NoHot";
+            s_DataTableConfig.HotExcelsFolder = $"{Application.dataPath}/../../ClientExcel/Hot";
             s_DataTableConfig.CSharpCodePath = "Assets/Scripts/GameApp/Generate/TableCode";
+            s_DataTableConfig.HotCSharpCodePath = "Assets/Scripts/GameApp/HotUpdate/Code/Runtime/Generate/TableCode";
             s_DataTableConfig.CSharpCodeTemplateFileName = "Assets/Res/Editor/Config/DataTableCodeTemplate.txt";
             s_DataTableConfig.NameSpace = "GameApp.DataTable";
 

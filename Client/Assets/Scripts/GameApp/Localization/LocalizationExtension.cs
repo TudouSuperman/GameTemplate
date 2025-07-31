@@ -11,7 +11,7 @@ namespace GameApp
         {
             GameEntry.Localization.RemoveAllRawStrings();
             GameEntry.BuiltinData.InitDefaultDictionary(language);
-            return localizationComponent.ReadDataAsync(AssetPathUtility.GetDictionaryAsset(language.ToString(), false), Constant.AssetPriority.Dictionary_Asset);
+            return localizationComponent.ReadDataAsync(AssetPathUtility.GetHotDictionaryAsset(language.ToString(), false), Constant.AssetPriority.Dictionary_Asset);
         }
     }
 }

@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2025-07-31 11:54:30.009
+// 生成时间：2025-07-31 18:13:57.682
 //------------------------------------------------------------
 
 using System;
@@ -19,14 +19,14 @@ using UnityGameFramework.Runtime;
 namespace GameApp.DataTable
 {
     /// <summary>
-    /// 本地化配置表。
+    /// 新手引导配置表。
     /// </summary>
-    public sealed class DRLanguage : DataRowBase
+    public sealed class DRGuide : DataRowBase
     {
         private Int32 m_Id = 0;
 
         /// <summary>
-        /// 获取语言主键。
+        /// 获取步骤编号。
         /// </summary>
         public override Int32 Id
         {
@@ -37,18 +37,9 @@ namespace GameApp.DataTable
         }
 
         /// <summary>
-        /// 获取简体中文。
+        /// 获取下一步的编号。
         /// </summary>
-        public string ChineseSimplified
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取英语。
-        /// </summary>
-        public string English
+        public int NextId
         {
             get;
             private set;
@@ -66,10 +57,7 @@ namespace GameApp.DataTable
             index++;
             m_Id = int.Parse(columnStrings[index++]);
             index++;
-            ChineseSimplified = columnStrings[index++];
-            English = columnStrings[index++];
-            index++;
-            index++;
+            NextId = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -82,8 +70,7 @@ namespace GameApp.DataTable
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
-                    ChineseSimplified = binaryReader.ReadString();
-                    English = binaryReader.ReadString();
+                    NextId = binaryReader.Read7BitEncodedInt32();
                 }
             }
 

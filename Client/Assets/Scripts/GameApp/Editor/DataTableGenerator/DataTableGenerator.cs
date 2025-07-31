@@ -52,21 +52,24 @@ namespace GameApp.DataTable.Editor
             return true;
         }
 
-        public static void GenerateDataFile(DataTableProcessor dataTableProcessor, string dataTableName)
+        public static void GenerateDataFile(DataTableProcessor dataTableProcessor, string dataTableName, string folderPath)
         {
-            string binaryDataFileName = Utility.Path.GetRegularPath(Path.Combine(DataTableConfig.GetDataTableConfig().DataTableFolderPath, dataTableName + ".bytes"));
+            // 确保输出目录存在
+            Directory.CreateDirectory(folderPath);
+            string binaryDataFileName = Utility.Path.GetRegularPath(Path.Combine(folderPath, dataTableName + ".bytes"));
             if (!dataTableProcessor.GenerateDataFile(binaryDataFileName) && File.Exists(binaryDataFileName))
             {
                 File.Delete(binaryDataFileName);
             }
         }
 
-        public static void GenerateCodeFile(DataTableProcessor dataTableProcessor, string dataTableName)
+        public static void GenerateCodeFile(DataTableProcessor dataTableProcessor, string dataTableName, string folderPath)
         {
+            // 确保输出目录存在
+            Directory.CreateDirectory(folderPath);
             dataTableProcessor.SetCodeTemplate(DataTableConfig.GetDataTableConfig().CSharpCodeTemplateFileName, Encoding.UTF8);
             dataTableProcessor.SetCodeGenerator(DataTableCodeGenerator);
-
-            string csharpCodeFileName = Utility.Path.GetRegularPath(Path.Combine(DataTableConfig.GetDataTableConfig().CSharpCodePath, "DR" + dataTableName + ".cs"));
+            string csharpCodeFileName = Utility.Path.GetRegularPath(Path.Combine(folderPath, "DR" + dataTableName + ".cs"));
             if (!dataTableProcessor.GenerateCodeFile(csharpCodeFileName, Encoding.UTF8, dataTableName) && File.Exists(csharpCodeFileName))
             {
                 File.Delete(csharpCodeFileName);

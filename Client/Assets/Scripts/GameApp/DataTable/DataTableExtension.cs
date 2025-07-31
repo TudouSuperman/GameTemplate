@@ -15,8 +15,8 @@ namespace GameApp.DataTable
     public static class DataTableExtension
     {
         private const string DataRowClassPrefixName = "GameApp.DataTable.DR";
-        internal static readonly char[] DataSplitSeparators = new char[] { '\t' };
-        internal static readonly char[] DataTrimSeparators = new char[] { '\"' };
+        public static readonly char[] DataSplitSeparators = new char[] { '\t' };
+        public static readonly char[] DataTrimSeparators = new char[] { '\"' };
 
         public static void LoadDataTable(this DataTableComponent dataTableComponent, string dataTableName, string dataTableAssetName, object userData)
         {
@@ -41,6 +41,47 @@ namespace GameApp.DataTable
                 return;
             }
 
+            string name = splitedNames.Length > 1 ? splitedNames[1] : null;
+            DataTableBase dataTable = dataTableComponent.CreateDataTable(dataRowType, name);
+            dataTable.ReadData(dataTableAssetName, Constant.AssetPriority.DataTable_Asset, userData);
+        }
+
+        public static void LoadDataTable(this DataTableComponent dataTableComponent, string dataTableName, string dataTableAssetName, Type dataRowType, object userData)
+        {
+            if (string.IsNullOrEmpty(dataTableName))
+            {
+                Log.Warning("Data table name is invalid.");
+                return;
+            }
+
+            string[] splitedNames = dataTableName.Split('_');
+            if (splitedNames.Length > 2)
+            {
+                Log.Warning("Data table name is invalid.");
+                return;
+            }
+
+            string name = splitedNames.Length > 1 ? splitedNames[1] : null;
+            DataTableBase dataTable = dataTableComponent.CreateDataTable(dataRowType, name);
+            dataTable.ReadData(dataTableAssetName, Constant.AssetPriority.DataTable_Asset, userData);
+        }
+
+        public static void LoadDataTable<T>(this DataTableComponent dataTableComponent, string dataTableName, string dataTableAssetName, object userData) where T : DataTableBase
+        {
+            if (string.IsNullOrEmpty(dataTableName))
+            {
+                Log.Warning("Data table name is invalid.");
+                return;
+            }
+
+            string[] splitedNames = dataTableName.Split('_');
+            if (splitedNames.Length > 2)
+            {
+                Log.Warning("Data table name is invalid.");
+                return;
+            }
+
+            Type dataRowType = typeof(T);
             string name = splitedNames.Length > 1 ? splitedNames[1] : null;
             DataTableBase dataTable = dataTableComponent.CreateDataTable(dataRowType, name);
             dataTable.ReadData(dataTableAssetName, Constant.AssetPriority.DataTable_Asset, userData);

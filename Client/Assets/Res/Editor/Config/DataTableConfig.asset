@@ -12,13 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79973fe77d5f15a4e8b6a6b61eaa9781, type: 3}
   m_Name: DataTableConfig
   m_EditorClassIdentifier: 
-  DataTableFolderPath: 
-  ExcelsFolder: 
-  CSharpCodePath: 
-  CSharpCodeTemplateFileName: 
-  NameSpace: 
-  NameRow: 0
-  TypeRow: 0
-  CommentRow: 0
-  ContentStartRow: 0
-  IdColumn: 0
+  DataTableFolderPath: Assets/Res/Generate/TableData/NoHot
+  HotDataTableFolderPath: Assets/Res/Generate/TableData/Hot
+  ExcelsFolder: D:/GameTemplate/Client/Assets/../../ClientExcel/NoHot
+  HotExcelsFolder: D:/GameTemplate/Client/Assets/../../ClientExcel/Hot
+  CSharpCodePath: Assets/Scripts/GameApp/Generate/TableCode
+  HotCSharpCodePath: Assets/Scripts/GameApp/HotUpdate/Code/Runtime/Generate/TableCode
+  CSharpCodeTemplateFileName: Assets/Res/Editor/Config/DataTableCodeTemplate.txt
+  NameSpace: GameApp.DataTable
+  NameRow: 1
+  TypeRow: 2
+  CommentRow: 3
+  ContentStartRow: 4
+  IdColumn: 1
