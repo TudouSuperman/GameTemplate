@@ -155,19 +155,39 @@ MonoBehaviour:
     filterType: 1
     searchPatterns: '*.*'
   - valid: 1
-    name: Localization
+    name: GameHot.Code
     variant: 
     fileSystem: 
     groups: 
-    assetsDirectoryPath: Assets/Res/Generate/Localization
+    assetsDirectoryPath: Assets/Res/HotUpdate
     loadType: 0
     packed: 0
-    filterType: 1
+    filterType: 0
+    searchPatterns: '*.*'
+  - valid: 1
+    name: Localization.Hot
+    variant: 
+    fileSystem: 
+    groups: 
+    assetsDirectoryPath: Assets/Res/Generate/Hot/Localization
+    loadType: 0
+    packed: 0
+    filterType: 0
+    searchPatterns: '*.*'
+  - valid: 1
+    name: TableData.Hot
+    variant: 
+    fileSystem: 
+    groups: 
+    assetsDirectoryPath: Assets/Res/Generate/Hot/TableData
+    loadType: 0
+    packed: 0
+    filterType: 0
     searchPatterns: '*.*'
   - valid: 1
     name: Config
     variant: 
-    fileSystem: GameData
+    fileSystem: 
     groups: 
     assetsDirectoryPath: Assets/Res/Config
     loadType: 0
@@ -175,21 +195,11 @@ MonoBehaviour:
     filterType: 0
     searchPatterns: '*.*'
   - valid: 1
-    name: TableData
+    name: TableData.NoHot
     variant: 
-    fileSystem: GameData
+    fileSystem: 
     groups: 
-    assetsDirectoryPath: Assets/Res/Generate/TableData
-    loadType: 0
-    packed: 0
-    filterType: 0
-    searchPatterns: '*.*'
-  - valid: 1
-    name: GameHot.Code
-    variant: 
-    fileSystem: GameData
-    groups: 
-    assetsDirectoryPath: Assets/Res/HotUpdate
+    assetsDirectoryPath: Assets/Res/Generate/NoHot/TableData
     loadType: 0
     packed: 0
     filterType: 0

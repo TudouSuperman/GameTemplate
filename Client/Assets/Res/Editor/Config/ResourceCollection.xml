@@ -2,42 +2,43 @@
 <UnityGameFramework>
   <ResourceCollection>
     <Resources>
-      <Resource Name="Config" FileSystem="GameData" LoadType="0" Packed="False" />
+      <Resource Name="Config" LoadType="0" Packed="False" />
       <Resource Name="Font" LoadType="0" Packed="False" />
-      <Resource Name="GameHot.Code" FileSystem="GameData" LoadType="0" Packed="False" />
+      <Resource Name="GameHot.Code" LoadType="0" Packed="False" />
+      <Resource Name="Localization.Hot" LoadType="0" Packed="False" />
       <Resource Name="Res/Artwork/Entity/HostEntity" LoadType="0" Packed="False" />
       <Resource Name="Res/Artwork/UI/UIForm/DialogForm" LoadType="0" Packed="False" />
       <Resource Name="Res/Artwork/UI/UIForm/LanguageForm" LoadType="0" Packed="False" />
       <Resource Name="Res/Artwork/UI/UIForm/MainMenuForm" LoadType="0" Packed="False" />
       <Resource Name="Res/Artwork/UI/UIForm/SettingForm" LoadType="0" Packed="False" />
       <Resource Name="Res/Artwork/UI/UIPrefab/Common/BlackMask" LoadType="0" Packed="False" />
-      <Resource Name="Res/Generate/Localization/ChineseSimplified" LoadType="0" Packed="False" />
-      <Resource Name="Res/Generate/Localization/English" LoadType="0" Packed="False" />
       <Resource Name="Res/Scene/GameScene" LoadType="0" Packed="False" />
-      <Resource Name="TableData" FileSystem="GameData" LoadType="0" Packed="False" />
+      <Resource Name="TableData.Hot" LoadType="0" Packed="False" />
+      <Resource Name="TableData.NoHot" LoadType="0" Packed="False" />
     </Resources>
     <Assets>
       <Asset Guid="0856145530843244c80c5e6c1b443d5e" ResourceName="Res/Artwork/Entity/HostEntity" />
-      <Asset Guid="17b5b7a61f608db40a6fc9673693699d" ResourceName="TableData" />
+      <Asset Guid="17b5b7a61f608db40a6fc9673693699d" ResourceName="TableData.NoHot" />
       <Asset Guid="26c1e11af78dbcc448a8d4c632ce3e5a" ResourceName="Res/Artwork/UI/UIForm/DialogForm" />
       <Asset Guid="368113b9275b4d341902ec9015c86903" ResourceName="GameHot.Code" />
-      <Asset Guid="4366a5ef7581e1a4687e7789509e0065" ResourceName="TableData" />
+      <Asset Guid="4366a5ef7581e1a4687e7789509e0065" ResourceName="TableData.NoHot" />
       <Asset Guid="44c8db52241385c45bbb14a1718f17bf" ResourceName="Config" />
       <Asset Guid="4a753a4923a65ff4d8bb7a86c0f9395a" ResourceName="Res/Artwork/UI/UIPrefab/Common/BlackMask" />
       <Asset Guid="4c44a8f8525a4bc41aa18d8385e06c8c" ResourceName="GameHot.Code" />
       <Asset Guid="85468b8dca0efde478df080090a240d9" ResourceName="Font" />
       <Asset Guid="87626bccb5c94024fa79b1069e4bfabb" ResourceName="Res/Artwork/UI/UIForm/MainMenuForm" />
       <Asset Guid="a32828399c006014e84dd1cd86cc8135" ResourceName="Font" />
-      <Asset Guid="a9cd51c6ea8d39a4490ebcf3ba118b35" ResourceName="TableData" />
-      <Asset Guid="b0da9279d3e2e1147b1962f44c2da3f7" ResourceName="Res/Generate/Localization/English" />
-      <Asset Guid="b3ee8d4ed977d3d418ff9357f4d90ca8" ResourceName="TableData" />
-      <Asset Guid="b64ef1fe32fa21d46a2103764a15baed" ResourceName="TableData" />
-      <Asset Guid="b706e644bcd255740b9c44d509fafdc4" ResourceName="TableData" />
-      <Asset Guid="d6bf6a36f44769e48bf520fd8282ffbe" ResourceName="Res/Generate/Localization/ChineseSimplified" />
+      <Asset Guid="a9cd51c6ea8d39a4490ebcf3ba118b35" ResourceName="TableData.NoHot" />
+      <Asset Guid="b3ee8d4ed977d3d418ff9357f4d90ca8" ResourceName="TableData.NoHot" />
+      <Asset Guid="b64ef1fe32fa21d46a2103764a15baed" ResourceName="TableData.NoHot" />
+      <Asset Guid="b706e644bcd255740b9c44d509fafdc4" ResourceName="TableData.NoHot" />
+      <Asset Guid="d2011533218a68b42b117f0c041604c4" ResourceName="Localization.Hot" />
       <Asset Guid="ddf5f3ac9afdf3f43a1db133714ec7c3" ResourceName="Res/Scene/GameScene" />
       <Asset Guid="dff598a90c710a24683413c5d9e4b7c8" ResourceName="GameHot.Code" />
       <Asset Guid="e2e750f2dbbdb00418151338c1bdd618" ResourceName="Res/Artwork/UI/UIForm/LanguageForm" />
-      <Asset Guid="f6619efab548683439e7c44be74ac779" ResourceName="TableData" />
+      <Asset Guid="e50c89860046dba42ab6523bc7c0ea55" ResourceName="Localization.Hot" />
+      <Asset Guid="ec982508cad495b44a3934154b0998e3" ResourceName="TableData.Hot" />
+      <Asset Guid="f6619efab548683439e7c44be74ac779" ResourceName="TableData.NoHot" />
       <Asset Guid="fe9ca325b9a010042af82392390471b0" ResourceName="Res/Artwork/UI/UIForm/SettingForm" />
     </Assets>
   </ResourceCollection>
