@@ -21,7 +21,7 @@ namespace GameApp.Hot.Editor
             AssetDatabase.Refresh();
         }
         
-        [MenuItem("GameHot/Compile Dll")]
+        [MenuItem("GameApp/Copy Compile Dll")]
         public static void Build()
         {
             BuildTarget target = EditorUserBuildSettings.activeBuildTarget;

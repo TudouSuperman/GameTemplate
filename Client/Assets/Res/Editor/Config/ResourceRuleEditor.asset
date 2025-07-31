@@ -169,7 +169,7 @@ MonoBehaviour:
     variant: 
     fileSystem: 
     groups: 
-    assetsDirectoryPath: Assets/Res/Generate/Hot/Localization
+    assetsDirectoryPath: Assets/Res/Generate/GameHot/Localization
     loadType: 0
     packed: 0
     filterType: 0
@@ -179,7 +179,7 @@ MonoBehaviour:
     variant: 
     fileSystem: 
     groups: 
-    assetsDirectoryPath: Assets/Res/Generate/Hot/TableData
+    assetsDirectoryPath: Assets/Res/Generate/GameHot/TableData
     loadType: 0
     packed: 0
     filterType: 0
@@ -199,7 +199,7 @@ MonoBehaviour:
     variant: 
     fileSystem: 
     groups: 
-    assetsDirectoryPath: Assets/Res/Generate/NoHot/TableData
+    assetsDirectoryPath: Assets/Res/Generate/Game/TableData
     loadType: 0
     packed: 0
     filterType: 0

@@ -179,10 +179,10 @@ namespace GameApp.DataTable.Editor
             }
 
             DataTableConfig codeGeneratorSettingConfig = CreateInstance<DataTableConfig>();
-            codeGeneratorSettingConfig.DataTableFolderPath = "Assets/Res/Generate/TableData/NoHot";
-            codeGeneratorSettingConfig.HotDataTableFolderPath = "Assets/Res/Generate/TableData/Hot";
-            codeGeneratorSettingConfig.ExcelsFolder = $"{Application.dataPath}/../../ClientExcel/NoHot";
-            codeGeneratorSettingConfig.HotExcelsFolder = $"{Application.dataPath}/../../ClientExcel/Hot";
+            codeGeneratorSettingConfig.DataTableFolderPath = "Assets/Res/Generate/TableData/Game";
+            codeGeneratorSettingConfig.HotDataTableFolderPath = "Assets/Res/Generate/TableData/GameHot";
+            codeGeneratorSettingConfig.ExcelsFolder = $"{Application.dataPath}/../../ClientExcel/Game";
+            codeGeneratorSettingConfig.HotExcelsFolder = $"{Application.dataPath}/../../ClientExcel/GameHot";
             codeGeneratorSettingConfig.CSharpCodePath = "Assets/Scripts/GameApp/Generate/TableCode";
             codeGeneratorSettingConfig.HotCSharpCodePath = "Assets/Scripts/GameApp/HotUpdate/Code/Runtime/Generate/TableCode";
             codeGeneratorSettingConfig.CSharpCodeTemplateFileName = "Assets/Res/Editor/Config/DataTableCodeTemplate.txt";
@@ -215,10 +215,10 @@ namespace GameApp.DataTable.Editor
                 return;
             }
 
-            s_DataTableConfig.DataTableFolderPath = "Assets/Res/Generate/NoHot/TableData";
-            s_DataTableConfig.HotDataTableFolderPath = "Assets/Res/Generate/Hot/TableData";
-            s_DataTableConfig.ExcelsFolder = $"{Application.dataPath}/../../ClientExcel/NoHot";
-            s_DataTableConfig.HotExcelsFolder = $"{Application.dataPath}/../../ClientExcel/Hot";
+            s_DataTableConfig.DataTableFolderPath = "Assets/Res/Generate/Game/TableData";
+            s_DataTableConfig.HotDataTableFolderPath = "Assets/Res/Generate/GameHot/TableData";
+            s_DataTableConfig.ExcelsFolder = $"{Application.dataPath}/../../ClientExcel/Game";
+            s_DataTableConfig.HotExcelsFolder = $"{Application.dataPath}/../../ClientExcel/GameHot";
             s_DataTableConfig.CSharpCodePath = "Assets/Scripts/GameApp/Generate/TableCode";
             s_DataTableConfig.HotCSharpCodePath = "Assets/Scripts/GameApp/HotUpdate/Code/Runtime/Generate/TableCode";
             s_DataTableConfig.CSharpCodeTemplateFileName = "Assets/Res/Editor/Config/DataTableCodeTemplate.txt";
