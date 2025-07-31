@@ -1,4 +1,0 @@
-#	界面动态加载资源配置表						
-#	Id		Name	AssetId	ItemGroupId	AssetName	ItemGroupName
-#	Int32		String	Int32	Int32	String	String
-#	配置编号	策划备注	物体名字	资源编号	物体组编号	资源名称	资源组名称

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79973fe77d5f15a4e8b6a6b61eaa9781, type: 3}
+  m_Name: DataTableConfig
+  m_EditorClassIdentifier: 
+  DataTableFolderPath: 
+  ExcelsFolder: 
+  CSharpCodePath: 
+  CSharpCodeTemplateFileName: 
+  NameSpace: 
+  NameRow: 0
+  TypeRow: 0
+  CommentRow: 0
+  ContentStartRow: 0
+  IdColumn: 0

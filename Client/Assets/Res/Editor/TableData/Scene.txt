@@ -1,5 +1,0 @@
-#	场景配置表			
-#	Id		AssetName	BackgroundMusicId
-#	Int32		String	Int32
-#	场景编号	备注	资源名称	背景音乐编号
-	1	游戏场景	GameScene	1

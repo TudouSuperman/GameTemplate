@@ -3,6 +3,7 @@ using GameFramework.DataTable;
 using GameFramework.Sound;
 using UnityGameFramework.Runtime;
 using GameApp.Entity;
+using GameApp.DataTable;
 
 namespace GameApp
 {

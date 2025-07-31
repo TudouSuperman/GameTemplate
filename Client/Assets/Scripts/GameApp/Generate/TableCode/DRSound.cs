@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2025-07-29 16:10:42.190
+// 生成时间：2025-07-31 14:10:02.113
 //------------------------------------------------------------
 
 using System;
@@ -16,7 +16,7 @@ using UnityEngine;
 using GameFramework;
 using UnityGameFramework.Runtime;
 
-namespace GameApp
+namespace GameApp.DataTable
 {
     /// <summary>
     /// 声音配置表。

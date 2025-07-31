@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2025-07-31 14:10:00.942
+// 生成时间：2025-07-31 11:54:30.009
 //------------------------------------------------------------
 
 using System;
@@ -19,14 +19,14 @@ using UnityGameFramework.Runtime;
 namespace GameApp.DataTable
 {
     /// <summary>
-    /// 实体表。
+    /// 本地化配置表。
     /// </summary>
-    public sealed class DREntity : DataRowBase
+    public sealed class DRLanguage : DataRowBase
     {
         private Int32 m_Id = 0;
 
         /// <summary>
-        /// 获取实体编号。
+        /// 获取语言主键。
         /// </summary>
         public override Int32 Id
         {
@@ -37,27 +37,18 @@ namespace GameApp.DataTable
         }
 
         /// <summary>
-        /// 获取资源名称。
+        /// 获取简体中文。
         /// </summary>
-        public string AssetName
+        public string ChineseSimplified
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取实体组名称。
+        /// 获取英语。
         /// </summary>
-        public string GroupName
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取实体加载优先级。
-        /// </summary>
-        public int Priority
+        public string English
         {
             get;
             private set;
@@ -75,9 +66,10 @@ namespace GameApp.DataTable
             index++;
             m_Id = int.Parse(columnStrings[index++]);
             index++;
-            AssetName = columnStrings[index++];
-            GroupName = columnStrings[index++];
-            Priority = int.Parse(columnStrings[index++]);
+            ChineseSimplified = columnStrings[index++];
+            English = columnStrings[index++];
+            index++;
+            index++;
 
             GeneratePropertyArray();
             return true;
@@ -90,9 +82,8 @@ namespace GameApp.DataTable
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
-                    AssetName = binaryReader.ReadString();
-                    GroupName = binaryReader.ReadString();
-                    Priority = binaryReader.Read7BitEncodedInt32();
+                    ChineseSimplified = binaryReader.ReadString();
+                    English = binaryReader.ReadString();
                 }
             }
 

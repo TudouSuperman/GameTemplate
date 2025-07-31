@@ -1,6 +1,7 @@
 ﻿using GameFramework.DataTable;
 using GameFramework.UI;
 using UnityGameFramework.Runtime;
+using GameApp.DataTable;
 
 namespace GameApp.UI
 {

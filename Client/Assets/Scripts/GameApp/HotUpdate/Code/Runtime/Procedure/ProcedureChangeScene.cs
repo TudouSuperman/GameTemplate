@@ -2,6 +2,7 @@
 using GameFramework.Event;
 using HotProcedureOwner = GameFramework.Fsm.IFsm<GameApp.Hot.Procedure.HotProcedureComponent>;
 using UnityGameFramework.Runtime;
+using GameApp.DataTable;
 
 namespace GameApp.Hot.Procedure
 {

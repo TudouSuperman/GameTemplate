@@ -14,7 +14,7 @@ namespace GameApp.DataTable
 {
     public static class DataTableExtension
     {
-        private const string DataRowClassPrefixName = "GameApp.DR";
+        private const string DataRowClassPrefixName = "GameApp.DataTable.DR";
         internal static readonly char[] DataSplitSeparators = new char[] { '\t' };
         internal static readonly char[] DataTrimSeparators = new char[] { '\"' };
 

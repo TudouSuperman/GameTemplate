@@ -17,16 +17,19 @@ namespace GameApp.DataTable.Editor
 {
     public sealed class DataTableGenerator
     {
-        private const string SourceDataTablePath = "Assets/Res/Editor/TableData";
-        private const string GenDataTablePath = "Assets/Res/Generate/TableData";
-        private const string CSharpCodePath = "Assets/Scripts/GameApp/Generate/TableCode";
-        private const string CSharpCodeTemplateFileName = "Assets/Res/Editor/Config/DataTableCodeTemplate.txt";
         private static readonly Regex EndWithNumberRegex = new Regex(@"\d+$");
         private static readonly Regex NameRegex = new Regex(@"^[A-Z][A-Za-z0-9_]*$");
 
+        private static DataTableConfig s_DataTableConfig;
+
         public static DataTableProcessor CreateDataTableProcessor(string dataTableName)
         {
-            return new DataTableProcessor(Utility.Path.GetRegularPath(Path.Combine(SourceDataTablePath, dataTableName + ".txt")), Encoding.UTF8, 1, 2, null, 3, 4, 1);
+            return new DataTableProcessor(Utility.Path.GetRegularPath(Path.Combine(DataTableConfig.GetDataTableConfig().DataTableFolderPath, dataTableName + ".txt")), Encoding.UTF8, 1, 2, null, 3, 4, 1);
+        }
+
+        public static DataTableProcessor CreateExcelDataTableProcessor(OfficeOpenXml.ExcelWorksheet sheet)
+        {
+            return new DataTableProcessor(sheet, 1, 2, null, 3, 4, 1);
         }
 
         public static bool CheckRawData(DataTableProcessor dataTableProcessor, string dataTableName)
@@ -51,7 +54,7 @@ namespace GameApp.DataTable.Editor
 
         public static void GenerateDataFile(DataTableProcessor dataTableProcessor, string dataTableName)
         {
-            string binaryDataFileName = Utility.Path.GetRegularPath(Path.Combine(GenDataTablePath, dataTableName + ".bytes"));
+            string binaryDataFileName = Utility.Path.GetRegularPath(Path.Combine(DataTableConfig.GetDataTableConfig().DataTableFolderPath, dataTableName + ".bytes"));
             if (!dataTableProcessor.GenerateDataFile(binaryDataFileName) && File.Exists(binaryDataFileName))
             {
                 File.Delete(binaryDataFileName);
@@ -60,10 +63,10 @@ namespace GameApp.DataTable.Editor
 
         public static void GenerateCodeFile(DataTableProcessor dataTableProcessor, string dataTableName)
         {
-            dataTableProcessor.SetCodeTemplate(CSharpCodeTemplateFileName, Encoding.UTF8);
+            dataTableProcessor.SetCodeTemplate(DataTableConfig.GetDataTableConfig().CSharpCodeTemplateFileName, Encoding.UTF8);
             dataTableProcessor.SetCodeGenerator(DataTableCodeGenerator);
 
-            string csharpCodeFileName = Utility.Path.GetRegularPath(Path.Combine(CSharpCodePath, "DR" + dataTableName + ".cs"));
+            string csharpCodeFileName = Utility.Path.GetRegularPath(Path.Combine(DataTableConfig.GetDataTableConfig().CSharpCodePath, "DR" + dataTableName + ".cs"));
             if (!dataTableProcessor.GenerateCodeFile(csharpCodeFileName, Encoding.UTF8, dataTableName) && File.Exists(csharpCodeFileName))
             {
                 File.Delete(csharpCodeFileName);
@@ -75,7 +78,7 @@ namespace GameApp.DataTable.Editor
             string dataTableName = (string)userData;
 
             codeContent.Replace("__DATA_TABLE_CREATE_TIME__", DateTime.UtcNow.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss.fff"));
-            codeContent.Replace("__DATA_TABLE_NAME_SPACE__", "GameApp");
+            codeContent.Replace("__DATA_TABLE_NAME_SPACE__", DataTableConfig.GetDataTableConfig().NameSpace);
             codeContent.Replace("__DATA_TABLE_CLASS_NAME__", "DR" + dataTableName);
             codeContent.Replace("__DATA_TABLE_COMMENT__", dataTableProcessor.GetValue(0, 1) + "。");
             codeContent.Replace("__DATA_TABLE_ID_COMMENT__", "获取" + dataTableProcessor.GetComment(dataTableProcessor.IdColumn) + "。");
@@ -372,26 +375,17 @@ namespace GameApp.DataTable.Editor
 
             public string Name
             {
-                get
-                {
-                    return m_Name;
-                }
+                get { return m_Name; }
             }
 
             public string LanguageKeyword
             {
-                get
-                {
-                    return m_LanguageKeyword;
-                }
+                get { return m_LanguageKeyword; }
             }
 
             public int ItemCount
             {
-                get
-                {
-                    return m_Items.Count;
-                }
+                get { return m_Items.Count; }
             }
 
             public KeyValuePair<int, string> GetItem(int index)

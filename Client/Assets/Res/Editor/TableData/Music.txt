@@ -1,4 +1,0 @@
-#	音乐配置表		
-#	Id		AssetName
-#	Int32		String
-#	音乐编号	策划备注	资源名称

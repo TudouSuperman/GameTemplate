@@ -17,7 +17,7 @@ namespace GameApp.DataTable.Editor
         [SerializeField] private SearchableData m_Data;
         private SerializedProperty m_DataProperty;
 
-        [MenuItem("GameApp/DataTableEditor &1", priority = 0)]
+        [MenuItem("GameApp/DataTable/DataTableEditor &1", priority = 0)]
         public static void OpenWindow()
         {
             LauncherEditorWindow window = GetWindow<LauncherEditorWindow>();
