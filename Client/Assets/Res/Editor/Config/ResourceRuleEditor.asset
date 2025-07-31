@@ -95,26 +95,6 @@ MonoBehaviour:
     filterType: 1
     searchPatterns: '*.*'
   - valid: 1
-    name: Config
-    variant: 
-    fileSystem: GameData
-    groups: 
-    assetsDirectoryPath: Assets/Res/Config
-    loadType: 0
-    packed: 0
-    filterType: 0
-    searchPatterns: '*.*'
-  - valid: 1
-    name: TableData
-    variant: 
-    fileSystem: GameData
-    groups: 
-    assetsDirectoryPath: Assets/Res/Generate/TableData
-    loadType: 0
-    packed: 0
-    filterType: 0
-    searchPatterns: '*.*'
-  - valid: 1
     name: Prefab
     variant: 
     fileSystem: 
@@ -155,16 +135,6 @@ MonoBehaviour:
     filterType: 1
     searchPatterns: '*.*'
   - valid: 1
-    name: Localization
-    variant: 
-    fileSystem: 
-    groups: 
-    assetsDirectoryPath: Assets/Res/Localization
-    loadType: 0
-    packed: 0
-    filterType: 2
-    searchPatterns: '*.*'
-  - valid: 1
     name: Scene
     variant: 
     fileSystem: 
@@ -183,6 +153,36 @@ MonoBehaviour:
     loadType: 0
     packed: 0
     filterType: 1
+    searchPatterns: '*.*'
+  - valid: 1
+    name: Localization
+    variant: 
+    fileSystem: 
+    groups: 
+    assetsDirectoryPath: Assets/Res/Generate/Localization
+    loadType: 0
+    packed: 0
+    filterType: 1
+    searchPatterns: '*.*'
+  - valid: 1
+    name: Config
+    variant: 
+    fileSystem: GameData
+    groups: 
+    assetsDirectoryPath: Assets/Res/Config
+    loadType: 0
+    packed: 0
+    filterType: 0
+    searchPatterns: '*.*'
+  - valid: 1
+    name: TableData
+    variant: 
+    fileSystem: GameData
+    groups: 
+    assetsDirectoryPath: Assets/Res/Generate/TableData
+    loadType: 0
+    packed: 0
+    filterType: 0
     searchPatterns: '*.*'
   - valid: 1
     name: GameHot.Code
