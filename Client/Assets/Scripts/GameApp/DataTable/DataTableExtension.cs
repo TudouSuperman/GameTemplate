@@ -87,6 +87,19 @@ namespace GameApp.DataTable
             dataTable.ReadData(dataTableAssetName, Constant.AssetPriority.DataTable_Asset, userData);
         }
 
+        public static TDataRow GetDataRow<TDataRow>(this DataTableComponent dataTableComponent, int dataRowId) where TDataRow : DataRowBase
+        {
+            IDataTable<TDataRow> dtAsset = GameEntry.DataTable.GetDataTable<TDataRow>();
+            TDataRow drDataRow = dtAsset.GetDataRow(dataRowId);
+            if (drDataRow == null)
+            {
+                Log.Warning("Can not load {0} '{1}' from data table.", typeof(TDataRow), dataRowId.ToString());
+                return null;
+            }
+
+            return drDataRow;
+        }
+
         public static Color32 ParseColor32(string value)
         {
             string[] splitedValue = value.Split(',');

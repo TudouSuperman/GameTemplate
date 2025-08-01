@@ -7,6 +7,7 @@ using UnityGameFramework.Runtime;
 using TMPro;
 using GameApp.UI;
 using GameApp.DataTable;
+using GameFramework.DataTable;
 
 namespace GameApp.Procedure
 {
@@ -14,6 +15,8 @@ namespace GameApp.Procedure
     {
         public static readonly string[] DataTableNames = new string[]
         {
+            "Asset",
+            "UIGroup",
             "UIForm",
             "UIItem",
             "UISound",
@@ -61,6 +64,7 @@ namespace GameApp.Procedure
                 }
             }
 
+            SetComponents();
             ChangeState<ProcedureGameHot>(procedureOwner);
         }
 
@@ -73,6 +77,20 @@ namespace GameApp.Procedure
             foreach (string dataTableName in DataTableNames)
             {
                 LoaTableData(dataTableName);
+            }
+        }
+
+        private void SetComponents()
+        {
+            SetUIComponent();
+
+            void SetUIComponent()
+            {
+                IDataTable<DRUIGroup> _groups = GameEntry.DataTable.GetDataTable<DRUIGroup>();
+                foreach (DRUIGroup _group in _groups)
+                {
+                    GameEntry.UI.AddUIGroup(_group.GroupName, _group.GroupDepth);
+                }
             }
         }
 

@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2025-07-31 19:11:55.048
+// 生成时间：2025-08-01 17:53:18.810
 //------------------------------------------------------------
 
 using System;
@@ -46,6 +46,15 @@ namespace GameApp.DataTable
         }
 
         /// <summary>
+        /// 获取资源编号。
+        /// </summary>
+        public int AssetId
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// 获取优先级（默认0，128最高，-128最低）。
         /// </summary>
         public int Priority
@@ -76,6 +85,7 @@ namespace GameApp.DataTable
             m_Id = int.Parse(columnStrings[index++]);
             index++;
             AssetName = columnStrings[index++];
+            AssetId = int.Parse(columnStrings[index++]);
             Priority = int.Parse(columnStrings[index++]);
             Volume = float.Parse(columnStrings[index++]);
 
@@ -91,6 +101,7 @@ namespace GameApp.DataTable
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
                     AssetName = binaryReader.ReadString();
+                    AssetId = binaryReader.Read7BitEncodedInt32();
                     Priority = binaryReader.Read7BitEncodedInt32();
                     Volume = binaryReader.ReadSingle();
                 }

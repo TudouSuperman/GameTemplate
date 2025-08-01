@@ -53,7 +53,7 @@ namespace GameApp.Hot.Procedure
                 return;
             }
 
-            GameEntry.Scene.LoadScene(AssetPathUtility.GetSceneAsset(drScene.AssetName), Constant.AssetPriority.Scene_Asset, this);
+            GameEntry.Scene.LoadScene(AssetHotPathUtility.GetSceneAsset(drScene.AssetName), Constant.AssetPriority.Scene_Asset, this);
             m_BackgroundMusicId = drScene.BackgroundMusicId;
         }
 

@@ -76,7 +76,7 @@ namespace GameApp.Hot.Procedure
 
         private void LoadDictionary(string dictionaryName)
         {
-            string dictionaryAssetName = AssetPathUtility.GetHotDictionaryAsset(dictionaryName, false);
+            string dictionaryAssetName = AssetHotPathUtility.GetHotDictionaryAsset(dictionaryName, false);
             m_LoadedFlag.Add(dictionaryAssetName, false);
             GameEntry.Localization.ReadData(dictionaryAssetName, this);
         }
@@ -84,7 +84,7 @@ namespace GameApp.Hot.Procedure
         private void LoadFont(string fontName)
         {
             m_LoadedFlag.Add(Utility.Text.Format("Font.{0}", fontName), false);
-            GameEntry.Resource.LoadAsset(AssetPathUtility.GetFontAsset(fontName), Constant.AssetPriority.Font_Asset,
+            GameEntry.Resource.LoadAsset(AssetHotPathUtility.GetFontAsset(fontName), Constant.AssetPriority.Font_Asset,
                 new LoadAssetCallbacks
                 (
                     (assetName, asset, duration, userData) =>
@@ -100,7 +100,7 @@ namespace GameApp.Hot.Procedure
 
         private void LoaTableData(string dataTableName, Type dataRowType)
         {
-            string dataTableAssetName = AssetPathUtility.GetHotTableDataAsset(dataTableName);
+            string dataTableAssetName = AssetHotPathUtility.GetHotTableDataAsset(dataTableName);
             GameEntry.DataTable.LoadDataTable(dataTableName, dataTableAssetName, dataRowType, this);
             m_LoadedFlag.Add(dataTableAssetName, false);
         }

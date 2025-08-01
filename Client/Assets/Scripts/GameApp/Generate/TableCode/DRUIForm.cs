@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2025-07-31 19:11:54.281
+// 生成时间：2025-08-01 17:53:17.483
 //------------------------------------------------------------
 
 using System;
@@ -46,9 +46,18 @@ namespace GameApp.DataTable
         }
 
         /// <summary>
-        /// 获取界面组名称。
+        /// 获取资源编号。
         /// </summary>
-        public string UIGroupName
+        public int AssetId
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取界面组编号。
+        /// </summary>
+        public int UIGroupId
         {
             get;
             private set;
@@ -85,10 +94,10 @@ namespace GameApp.DataTable
             m_Id = int.Parse(columnStrings[index++]);
             index++;
             AssetName = columnStrings[index++];
-            UIGroupName = columnStrings[index++];
+            AssetId = int.Parse(columnStrings[index++]);
+            UIGroupId = int.Parse(columnStrings[index++]);
             AllowMultiInstance = bool.Parse(columnStrings[index++]);
             PauseCoveredUIForm = bool.Parse(columnStrings[index++]);
-            index++;
 
             GeneratePropertyArray();
             return true;
@@ -102,7 +111,8 @@ namespace GameApp.DataTable
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
                     AssetName = binaryReader.ReadString();
-                    UIGroupName = binaryReader.ReadString();
+                    AssetId = binaryReader.Read7BitEncodedInt32();
+                    UIGroupId = binaryReader.Read7BitEncodedInt32();
                     AllowMultiInstance = binaryReader.ReadBoolean();
                     PauseCoveredUIForm = binaryReader.ReadBoolean();
                 }

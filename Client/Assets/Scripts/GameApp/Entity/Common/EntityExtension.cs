@@ -50,15 +50,19 @@ namespace GameApp.Entity
                 return;
             }
 
-            IDataTable<DREntity> dtEntity = GameEntry.DataTable.GetDataTable<DREntity>();
-            DREntity drEntity = dtEntity.GetDataRow(data.TypeId);
+            DREntity drEntity = GameEntry.DataTable.GetDataRow<DREntity>(data.TypeId);
             if (drEntity == null)
             {
-                Log.Warning("Can not load entity id '{0}' from data table.", data.TypeId.ToString());
                 return;
             }
 
-            entityComponent.ShowEntity(data.Id, logicType, AssetPathUtility.GetEntityAsset(drEntity.AssetName), drEntity.GroupName, drEntity.Priority, data);
+            DRAsset drAsset = GameEntry.DataTable.GetDataRow<DRAsset>(drEntity.AssetId);
+            if (drAsset == null)
+            {
+                return;
+            }
+
+            entityComponent.ShowEntity(data.Id, logicType, drAsset.AssetPath, drEntity.GroupName, drEntity.Priority, data);
         }
 
         public static int GenerateSerialId(this EntityComponent entityComponent)

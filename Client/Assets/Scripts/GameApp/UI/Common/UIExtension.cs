@@ -1,5 +1,4 @@
-﻿using GameFramework.DataTable;
-using GameFramework.UI;
+﻿using GameFramework.UI;
 using UnityGameFramework.Runtime;
 using GameApp.DataTable;
 
@@ -7,44 +6,64 @@ namespace GameApp.UI
 {
     public static class UIExtension
     {
-        public static bool HasUIForm(this UIComponent uiComponent, int uiFormId, string uiGroupName = null)
+        public static bool HasUIForm(this UIComponent uiComponent, int uiFormId)
         {
-            IDataTable<DRUIForm> dtUIForm = GameEntry.DataTable.GetDataTable<DRUIForm>();
-            DRUIForm drUIForm = dtUIForm.GetDataRow(uiFormId);
+            DRUIForm drUIForm = GameEntry.DataTable.GetDataRow<DRUIForm>(uiFormId);
             if (drUIForm == null)
             {
                 return false;
             }
 
-            string assetName = AssetPathUtility.GetUIFormAsset(drUIForm.AssetName);
-            if (string.IsNullOrEmpty(uiGroupName))
+            DRAsset drAsset = GameEntry.DataTable.GetDataRow<DRAsset>(drUIForm.AssetId);
+            if (drAsset == null)
             {
-                return uiComponent.HasUIForm(assetName);
+                return false;
             }
 
-            IUIGroup uiGroup = uiComponent.GetUIGroup(uiGroupName);
+            DRUIGroup drUIGroup = GameEntry.DataTable.GetDataRow<DRUIGroup>(drUIForm.UIGroupId);
+            if (drUIGroup == null)
+            {
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(drUIGroup.GroupName))
+            {
+                return uiComponent.HasUIForm(drAsset.AssetPath);
+            }
+
+            IUIGroup uiGroup = uiComponent.GetUIGroup(drUIGroup.GroupName);
             if (uiGroup == null)
             {
                 return false;
             }
 
-            return uiGroup.HasUIForm(assetName);
+            return uiGroup.HasUIForm(drAsset.AssetPath);
         }
 
-        public static UGuiFormLogic GetUIForm(this UIComponent uiComponent, int uiFormId, string uiGroupName = null)
+        public static UGuiFormLogic GetUIForm(this UIComponent uiComponent, int uiFormId)
         {
-            IDataTable<DRUIForm> dtUIForm = GameEntry.DataTable.GetDataTable<DRUIForm>();
-            DRUIForm drUIForm = dtUIForm.GetDataRow(uiFormId);
+            DRUIForm drUIForm = GameEntry.DataTable.GetDataRow<DRUIForm>(uiFormId);
             if (drUIForm == null)
             {
                 return null;
             }
 
-            string assetName = AssetPathUtility.GetUIFormAsset(drUIForm.AssetName);
-            UIForm uiForm = null;
-            if (string.IsNullOrEmpty(uiGroupName))
+            DRAsset drAsset = GameEntry.DataTable.GetDataRow<DRAsset>(drUIForm.AssetId);
+            if (drAsset == null)
             {
-                uiForm = uiComponent.GetUIForm(assetName);
+                return null;
+            }
+
+            DRUIGroup drUIGroup = GameEntry.DataTable.GetDataRow<DRUIGroup>(drUIForm.UIGroupId);
+            if (drUIGroup == null)
+            {
+                return null;
+            }
+
+            UIForm uiForm = null;
+            if (string.IsNullOrEmpty(drUIGroup.GroupName))
+            {
+                uiForm = uiComponent.GetUIForm(drAsset.AssetPath);
                 if (uiForm == null)
                 {
                     return null;
@@ -53,13 +72,13 @@ namespace GameApp.UI
                 return (UGuiFormLogic)uiForm.Logic;
             }
 
-            IUIGroup uiGroup = uiComponent.GetUIGroup(uiGroupName);
+            IUIGroup uiGroup = uiComponent.GetUIGroup(drUIGroup.GroupName);
             if (uiGroup == null)
             {
                 return null;
             }
 
-            uiForm = (UIForm)uiGroup.GetUIForm(assetName);
+            uiForm = (UIForm)uiGroup.GetUIForm(drAsset.AssetPath);
             if (uiForm == null)
             {
                 return null;
@@ -70,15 +89,25 @@ namespace GameApp.UI
 
         public static int? OpenUIForm(this UIComponent uiComponent, int uiFormId, object userData = null)
         {
-            IDataTable<DRUIForm> dtUIForm = GameEntry.DataTable.GetDataTable<DRUIForm>();
-            DRUIForm drUIForm = dtUIForm.GetDataRow(uiFormId);
+            DRUIForm drUIForm = GameEntry.DataTable.GetDataRow<DRUIForm>(uiFormId);
             if (drUIForm == null)
             {
-                Log.Warning("Can not load UI form '{0}' from data table.", uiFormId.ToString());
                 return null;
             }
 
-            string assetName = AssetPathUtility.GetUIFormAsset(drUIForm.AssetName);
+            DRAsset drAsset = GameEntry.DataTable.GetDataRow<DRAsset>(drUIForm.AssetId);
+            if (drAsset == null)
+            {
+                return null;
+            }
+
+            DRUIGroup drUIGroup = GameEntry.DataTable.GetDataRow<DRUIGroup>(drUIForm.UIGroupId);
+            if (drUIGroup == null)
+            {
+                return null;
+            }
+
+            string assetName = drAsset.AssetPath;
             if (!drUIForm.AllowMultiInstance)
             {
                 if (uiComponent.IsLoadingUIForm(assetName))
@@ -92,7 +121,7 @@ namespace GameApp.UI
                 }
             }
 
-            return uiComponent.OpenUIForm(assetName, drUIForm.UIGroupName, Constant.AssetPriority.UIForm_Asset, drUIForm.PauseCoveredUIForm, userData);
+            return uiComponent.OpenUIForm(assetName, drUIGroup.GroupName, Constant.AssetPriority.UIForm_Asset, drUIForm.PauseCoveredUIForm, userData);
         }
     }
 }

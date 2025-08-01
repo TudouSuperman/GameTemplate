@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2025-07-31 19:11:53.133
+// 生成时间：2025-08-01 17:53:16.296
 //------------------------------------------------------------
 
 using System;
@@ -45,6 +45,15 @@ namespace GameApp.DataTable
             private set;
         }
 
+        /// <summary>
+        /// 获取资源编号。
+        /// </summary>
+        public int AssetId
+        {
+            get;
+            private set;
+        }
+
         public override bool ParseDataRow(string dataRowString, object userData)
         {
             string[] columnStrings = dataRowString.Split(GameApp.DataTable.DataTableExtension.DataSplitSeparators);
@@ -58,6 +67,7 @@ namespace GameApp.DataTable
             m_Id = int.Parse(columnStrings[index++]);
             index++;
             AssetName = columnStrings[index++];
+            AssetId = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -71,6 +81,7 @@ namespace GameApp.DataTable
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
                     AssetName = binaryReader.ReadString();
+                    AssetId = binaryReader.Read7BitEncodedInt32();
                 }
             }
 

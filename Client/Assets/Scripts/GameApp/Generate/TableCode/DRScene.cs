@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2025-07-31 19:11:53.516
+// 生成时间：2025-08-01 17:53:16.689
 //------------------------------------------------------------
 
 using System;
@@ -46,6 +46,15 @@ namespace GameApp.DataTable
         }
 
         /// <summary>
+        /// 获取资源编号。
+        /// </summary>
+        public int AssetId
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// 获取背景音乐编号。
         /// </summary>
         public int BackgroundMusicId
@@ -67,6 +76,7 @@ namespace GameApp.DataTable
             m_Id = int.Parse(columnStrings[index++]);
             index++;
             AssetName = columnStrings[index++];
+            AssetId = int.Parse(columnStrings[index++]);
             BackgroundMusicId = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
@@ -81,6 +91,7 @@ namespace GameApp.DataTable
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
                     AssetName = binaryReader.ReadString();
+                    AssetId = binaryReader.Read7BitEncodedInt32();
                     BackgroundMusicId = binaryReader.Read7BitEncodedInt32();
                 }
             }

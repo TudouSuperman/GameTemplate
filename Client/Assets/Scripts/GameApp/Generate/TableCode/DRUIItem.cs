@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2025-07-31 19:11:54.666
+// 生成时间：2025-08-01 17:53:18.323
 //------------------------------------------------------------
 
 using System;
@@ -37,9 +37,9 @@ namespace GameApp.DataTable
         }
 
         /// <summary>
-        /// 获取物体名字。
+        /// 获取资源名称。
         /// </summary>
-        public string Name
+        public string AssetName
         {
             get;
             private set;
@@ -55,25 +55,7 @@ namespace GameApp.DataTable
         }
 
         /// <summary>
-        /// 获取物体组编号。
-        /// </summary>
-        public int ItemGroupId
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取资源名称。
-        /// </summary>
-        public string AssetName
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取资源组名称。
+        /// 获取物品组名称。
         /// </summary>
         public string ItemGroupName
         {
@@ -93,10 +75,8 @@ namespace GameApp.DataTable
             index++;
             m_Id = int.Parse(columnStrings[index++]);
             index++;
-            Name = columnStrings[index++];
-            AssetId = int.Parse(columnStrings[index++]);
-            ItemGroupId = int.Parse(columnStrings[index++]);
             AssetName = columnStrings[index++];
+            AssetId = int.Parse(columnStrings[index++]);
             ItemGroupName = columnStrings[index++];
 
             GeneratePropertyArray();
@@ -110,10 +90,8 @@ namespace GameApp.DataTable
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
-                    Name = binaryReader.ReadString();
-                    AssetId = binaryReader.Read7BitEncodedInt32();
-                    ItemGroupId = binaryReader.Read7BitEncodedInt32();
                     AssetName = binaryReader.ReadString();
+                    AssetId = binaryReader.Read7BitEncodedInt32();
                     ItemGroupName = binaryReader.ReadString();
                 }
             }
