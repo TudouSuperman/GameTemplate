@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace GameApp.DataTable
 {
-    public static class BinaryReaderExtension
+    public static partial class BinaryReaderExtension
     {
         public static Color32 ReadColor32(this BinaryReader binaryReader)
         {

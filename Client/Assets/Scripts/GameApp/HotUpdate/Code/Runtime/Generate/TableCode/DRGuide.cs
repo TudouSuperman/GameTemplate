@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2025-07-31 19:12:07.250
+// 生成时间：2025-08-01 20:26:47.585
 //------------------------------------------------------------
 
 using System;
@@ -45,6 +45,42 @@ namespace GameApp.DataTable
             private set;
         }
 
+        /// <summary>
+        /// 获取测试数组。
+        /// </summary>
+        public int[] TestArray
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取测试数组2。
+        /// </summary>
+        public Vector3[] TestArray2
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取测试列表。
+        /// </summary>
+        public List<int> TestList
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取测试字典。
+        /// </summary>
+        public Dictionary<int,int> TestDic
+        {
+            get;
+            private set;
+        }
+
         public override bool ParseDataRow(string dataRowString, object userData)
         {
             string[] columnStrings = dataRowString.Split(GameApp.DataTable.DataTableExtension.DataSplitSeparators);
@@ -58,6 +94,10 @@ namespace GameApp.DataTable
             m_Id = int.Parse(columnStrings[index++]);
             index++;
             NextId = int.Parse(columnStrings[index++]);
+			TestArray = DataTableExtension.ParseInt32Array(columnStrings[index++]);
+			TestArray2 = DataTableExtension.ParseVector3Array(columnStrings[index++]);
+			TestList = DataTableExtension.ParseInt32List(columnStrings[index++]);
+			TestDic = DataTableExtension.ParseInt32Int32Dictionary(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -71,6 +111,10 @@ namespace GameApp.DataTable
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
                     NextId = binaryReader.Read7BitEncodedInt32();
+					TestArray = binaryReader.ReadInt32Array();
+					TestArray2 = binaryReader.ReadVector3Array();
+					TestList = binaryReader.ReadInt32List();
+					TestDic = binaryReader.ReadInt32Int32Dictionary();
                 }
             }
 
@@ -78,9 +122,45 @@ namespace GameApp.DataTable
             return true;
         }
 
+        private KeyValuePair<int, Vector3[]>[] m_TestArray = null;
+
+        public int TestArrayCount
+        {
+            get
+            {
+                return m_TestArray.Length;
+            }
+        }
+
+        public Vector3[] GetTestArray(int id)
+        {
+            foreach (KeyValuePair<int, Vector3[]> i in m_TestArray)
+            {
+                if (i.Key == id)
+                {
+                    return i.Value;
+                }
+            }
+
+            throw new GameFrameworkException(Utility.Text.Format("GetTestArray with invalid id '{0}'.", id));
+        }
+
+        public Vector3[] GetTestArrayAt(int index)
+        {
+            if (index < 0 || index >= m_TestArray.Length)
+            {
+                throw new GameFrameworkException(Utility.Text.Format("GetTestArrayAt with invalid index '{0}'.", index));
+            }
+
+            return m_TestArray[index].Value;
+        }
+
         private void GeneratePropertyArray()
         {
-
+            m_TestArray = new KeyValuePair<int, Vector3[]>[]
+            {
+                new KeyValuePair<int, Vector3[]>(2, TestArray2),
+            };
         }
     }
 }

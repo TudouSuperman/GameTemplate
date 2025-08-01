@@ -184,42 +184,54 @@ namespace GameApp.DataTable.Editor
 
         public int RawRowCount
         {
-            get
-            {
-                return m_RawValues.Length;
-            }
+            get { return m_RawValues.Length; }
         }
 
         public int RawColumnCount
         {
-            get
-            {
-                return m_RawValues.Length > 0 ? m_RawValues[0].Length : 0;
-            }
+            get { return m_RawValues.Length > 0 ? m_RawValues[0].Length : 0; }
         }
 
         public int StringCount
         {
-            get
-            {
-                return m_Strings.Length;
-            }
+            get { return m_Strings.Length; }
         }
 
         public int ContentStartRow
         {
-            get
-            {
-                return m_ContentStartRow;
-            }
+            get { return m_ContentStartRow; }
         }
 
         public int IdColumn
         {
-            get
-            {
-                return m_IdColumn;
-            }
+            get { return m_IdColumn; }
+        }
+
+        public bool IsListColumn(int rawColumn)
+        {
+            if (rawColumn < 0 || rawColumn >= RawColumnCount)
+                throw new GameFrameworkException(Utility.Text.Format("Raw column '{0}' is out of range.",
+                    rawColumn.ToString()));
+
+            return m_DataProcessor[rawColumn].GetTypeStrings()[0].Equals("List<{0}>");
+        }
+
+        public bool IsArrayColumn(int rawColumn)
+        {
+            if (rawColumn < 0 || rawColumn >= RawColumnCount)
+                throw new GameFrameworkException(Utility.Text.Format("Raw column '{0}' is out of range.",
+                    rawColumn.ToString()));
+
+            return m_DataProcessor[rawColumn].GetTypeStrings()[0].Equals("{0}[]");
+        }
+
+        public bool IsDictionaryColumn(int rawColumn)
+        {
+            if (rawColumn < 0 || rawColumn >= RawColumnCount)
+                throw new GameFrameworkException(Utility.Text.Format("Raw column '{0}' is out of range.",
+                    rawColumn.ToString()));
+
+            return m_DataProcessor[rawColumn].GetTypeStrings()[0].Equals("Dictionary<{0},{1}>");
         }
 
         public bool IsIdColumn(int rawColumn)
@@ -493,6 +505,11 @@ namespace GameApp.DataTable.Editor
                     return memoryStream.ToArray();
                 }
             }
+        }
+
+        public DataProcessor GetDataProcessor(int rawColumn)
+        {
+            return m_DataProcessor[rawColumn];
         }
     }
 }

@@ -12,7 +12,7 @@ using UnityGameFramework.Runtime;
 
 namespace GameApp.DataTable
 {
-    public static class DataTableExtension
+    public static partial class DataTableExtension
     {
         private const string DataRowClassPrefixName = "GameApp.DataTable.DR";
         public static readonly char[] DataSplitSeparators = new char[] { '\t' };

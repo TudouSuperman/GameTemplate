@@ -63,6 +63,11 @@ namespace GameApp.DataTable.Editor
         public string NameSpace;
 
         /// <summary>
+        /// 数据表扩展类文件夹路径
+        /// </summary>
+        public string ExtensionDirectoryPath;
+
+        /// <summary>
         /// 数据表文件路径
         /// </summary>
         [NonSerialized]
@@ -199,6 +204,7 @@ namespace GameApp.DataTable.Editor
             codeGeneratorSettingConfig.EnumCodeTemplateFileName = "Assets/Res/Editor/Config/EnumCodeTemplate.txt";
             codeGeneratorSettingConfig.HotEnumCodePath = "Assets/Scripts/GameApp/HotUpdate/Code/Runtime/Generate/TableEnum";
             codeGeneratorSettingConfig.NameSpace = "GameApp.DataTable";
+            codeGeneratorSettingConfig.ExtensionDirectoryPath = "Assets/Scripts/GameApp/DataTable";
 
             codeGeneratorSettingConfig.NameRow = 1;
             codeGeneratorSettingConfig.TypeRow = 2;
@@ -237,6 +243,7 @@ namespace GameApp.DataTable.Editor
             s_DataTableConfig.EnumCodeTemplateFileName = "Assets/Res/Editor/Config/EnumCodeTemplate.txt";
             s_DataTableConfig.HotEnumCodePath = "Assets/Scripts/GameApp/HotUpdate/Code/Runtime/Generate/TableEnum";
             s_DataTableConfig.NameSpace = "GameApp.DataTable";
+            s_DataTableConfig.ExtensionDirectoryPath = "Assets/Scripts/GameApp/DataTable";
 
             s_DataTableConfig.NameRow = 1;
             s_DataTableConfig.TypeRow = 2;

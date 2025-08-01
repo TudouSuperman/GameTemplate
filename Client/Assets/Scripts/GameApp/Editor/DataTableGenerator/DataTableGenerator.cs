@@ -175,7 +175,46 @@ namespace GameApp.DataTable.Editor
                 }
                 else
                 {
-                    stringBuilder.AppendFormat("            {0} = GameApp.DataTable.DataTableExtension.Parse{1}(columnStrings[index++]);", dataTableProcessor.GetName(i), dataTableProcessor.GetType(i).Name).AppendLine();
+                    if (dataTableProcessor.IsListColumn(i))
+                    {
+                        var t = dataTableProcessor.GetDataProcessor(i).GetType().GetGenericArguments();
+                        var dataProcessor = Activator.CreateInstance(t[0]) as DataTableProcessor.DataProcessor;
+                        string typeName = dataProcessor.Type.Name;
+                        stringBuilder
+                            .AppendFormat("\t\t\t{0} = DataTableExtension.Parse{1}List(columnStrings[index++]);",
+                                dataTableProcessor.GetName(i), typeName).AppendLine();
+                        continue;
+                    }
+
+                    if (dataTableProcessor.IsArrayColumn(i))
+                    {
+                        var t = dataTableProcessor.GetDataProcessor(i).GetType().GetGenericArguments();
+                        var dataProcessor =
+                            Activator.CreateInstance(t[0]) as DataTableProcessor.DataProcessor;
+                        string typeName = dataProcessor.Type.Name;
+                        stringBuilder
+                            .AppendFormat("\t\t\t{0} = DataTableExtension.Parse{1}Array(columnStrings[index++]);",
+                                dataTableProcessor.GetName(i), typeName).AppendLine();
+                        continue;
+                    }
+
+                    if (dataTableProcessor.IsDictionaryColumn(i))
+                    {
+                        var t = dataTableProcessor.GetDataProcessor(i).GetType().GetGenericArguments();
+                        var dataProcessorT1 =
+                            Activator.CreateInstance(t[0]) as DataTableProcessor.DataProcessor;
+                        var dataProcessorT2 =
+                            Activator.CreateInstance(t[1]) as DataTableProcessor.DataProcessor;
+                        var dataProcessorT1TypeName = dataProcessorT1.Type.Name;
+                        var dataProcessorT2TypeName = dataProcessorT2.Type.Name;
+                        stringBuilder.AppendFormat(
+                                "\t\t\t{0} = DataTableExtension.Parse{1}{2}Dictionary(columnStrings[index++]);",
+                                dataTableProcessor.GetName(i), dataProcessorT1TypeName, dataProcessorT2TypeName)
+                            .AppendLine();
+                        continue;
+                    }
+
+                    stringBuilder.AppendFormat("\t\t\t{0} = DataTableExtension.Parse{1}(columnStrings[index++]);", dataTableProcessor.GetName(i), dataTableProcessor.GetType(i).Name).AppendLine();
                 }
             }
 
@@ -191,13 +230,11 @@ namespace GameApp.DataTable.Editor
                 .AppendLine("                using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))")
                 .AppendLine("                {");
 
-            for (int i = 0; i < dataTableProcessor.RawColumnCount; i++)
+            for (var i = 0; i < dataTableProcessor.RawColumnCount; i++)
             {
                 if (dataTableProcessor.IsCommentColumn(i))
-                {
                     // 注释列
                     continue;
-                }
 
                 if (dataTableProcessor.IsIdColumn(i))
                 {
@@ -206,15 +243,57 @@ namespace GameApp.DataTable.Editor
                     continue;
                 }
 
-                string languageKeyword = dataTableProcessor.GetLanguageKeyword(i);
-                if (languageKeyword == "int" || languageKeyword == "uint" || languageKeyword == "long" || languageKeyword == "ulong")
+                if (dataTableProcessor.IsIdColumn(i))
                 {
-                    stringBuilder.AppendFormat("                    {0} = binaryReader.Read7BitEncoded{1}();", dataTableProcessor.GetName(i), dataTableProcessor.GetType(i).Name).AppendLine();
+                    // 编号列
+                    stringBuilder.AppendLine("                m_Id = binaryReader.ReadInt32();");
+                    continue;
                 }
+
+                var languageKeyword = dataTableProcessor.GetLanguageKeyword(i);
+                if (dataTableProcessor.IsListColumn(i))
+                {
+                    var t = dataTableProcessor.GetDataProcessor(i).GetType().GetGenericArguments();
+                    var dataProcessor =
+                        Activator.CreateInstance(t[0]) as DataTableProcessor.DataProcessor;
+                    string typeName = dataProcessor.Type.Name;
+                    stringBuilder.AppendFormat("\t\t\t\t\t{0} = binaryReader.Read{1}List();",
+                        dataTableProcessor.GetName(i), typeName).AppendLine();
+                    continue;
+                }
+
+                if (dataTableProcessor.IsArrayColumn(i))
+                {
+                    var t = dataTableProcessor.GetDataProcessor(i).GetType().GetGenericArguments();
+                    var dataProcessor = Activator.CreateInstance(t[0]) as DataTableProcessor.DataProcessor;
+                    string typeName = dataProcessor.Type.Name;
+                    stringBuilder.AppendFormat("\t\t\t\t\t{0} = binaryReader.Read{1}Array();",
+                        dataTableProcessor.GetName(i), typeName).AppendLine();
+                    continue;
+                }
+
+                if (dataTableProcessor.IsDictionaryColumn(i))
+                {
+                    var t = dataTableProcessor.GetDataProcessor(i).GetType().GetGenericArguments();
+                    var dataProcessorT1 =
+                        Activator.CreateInstance(t[0]) as DataTableProcessor.DataProcessor;
+                    var dataProcessorT2 =
+                        Activator.CreateInstance(t[1]) as DataTableProcessor.DataProcessor;
+                    var dataProcessorT1TypeName = dataProcessorT1.Type.Name;
+                    var dataProcessorT2TypeName = dataProcessorT2.Type.Name;
+                    stringBuilder.AppendFormat("\t\t\t\t\t{0} = binaryReader.Read{1}{2}Dictionary();",
+                            dataTableProcessor.GetName(i), dataProcessorT1TypeName, dataProcessorT2TypeName)
+                        .AppendLine();
+                    continue;
+                }
+
+                if (languageKeyword == "int" || languageKeyword == "uint" || languageKeyword == "long" ||
+                    languageKeyword == "ulong")
+                    stringBuilder.AppendFormat("                    {0} = binaryReader.Read7BitEncoded{1}();",
+                        dataTableProcessor.GetName(i), dataTableProcessor.GetType(i).Name).AppendLine();
                 else
-                {
-                    stringBuilder.AppendFormat("                    {0} = binaryReader.Read{1}();", dataTableProcessor.GetName(i), dataTableProcessor.GetType(i).Name).AppendLine();
-                }
+                    stringBuilder.AppendFormat("                    {0} = binaryReader.Read{1}();",
+                        dataTableProcessor.GetName(i), dataTableProcessor.GetType(i).Name).AppendLine();
             }
 
             stringBuilder
