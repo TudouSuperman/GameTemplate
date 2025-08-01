@@ -1,13 +1,9 @@
 ﻿using System.Collections.Generic;
-using GameFramework;
 using GameFramework.Event;
-using GameFramework.Resource;
+using GameFramework.DataTable;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 using UnityGameFramework.Runtime;
-using TMPro;
-using GameApp.UI;
 using GameApp.DataTable;
-using GameFramework.DataTable;
 
 namespace GameApp.Procedure
 {
