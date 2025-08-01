@@ -48,6 +48,16 @@ namespace GameApp.DataTable.Editor
         public string CSharpCodeTemplateFileName;
 
         /// <summary>
+        /// 数据表 枚举 实体类模板存放路径
+        /// </summary>
+        public string EnumCodeTemplateFileName;
+
+        /// <summary>
+        /// Hot 数据表 枚举 实体类生成文件夹路径
+        /// </summary>
+        public string HotEnumCodePath;
+
+        /// <summary>
         /// 数据表命名空间
         /// </summary>
         public string NameSpace;
@@ -186,6 +196,8 @@ namespace GameApp.DataTable.Editor
             codeGeneratorSettingConfig.CSharpCodePath = "Assets/Scripts/GameApp/Generate/TableCode";
             codeGeneratorSettingConfig.HotCSharpCodePath = "Assets/Scripts/GameApp/HotUpdate/Code/Runtime/Generate/TableCode";
             codeGeneratorSettingConfig.CSharpCodeTemplateFileName = "Assets/Res/Editor/Config/DataTableCodeTemplate.txt";
+            codeGeneratorSettingConfig.EnumCodeTemplateFileName = "Assets/Res/Editor/Config/EnumCodeTemplate.txt";
+            codeGeneratorSettingConfig.HotEnumCodePath = "Assets/Scripts/GameApp/HotUpdate/Code/Runtime/Generate/TableEnum";
             codeGeneratorSettingConfig.NameSpace = "GameApp.DataTable";
 
             codeGeneratorSettingConfig.NameRow = 1;
@@ -222,6 +234,8 @@ namespace GameApp.DataTable.Editor
             s_DataTableConfig.CSharpCodePath = "Assets/Scripts/GameApp/Generate/TableCode";
             s_DataTableConfig.HotCSharpCodePath = "Assets/Scripts/GameApp/HotUpdate/Code/Runtime/Generate/TableCode";
             s_DataTableConfig.CSharpCodeTemplateFileName = "Assets/Res/Editor/Config/DataTableCodeTemplate.txt";
+            s_DataTableConfig.EnumCodeTemplateFileName = "Assets/Res/Editor/Config/EnumCodeTemplate.txt";
+            s_DataTableConfig.HotEnumCodePath = "Assets/Scripts/GameApp/HotUpdate/Code/Runtime/Generate/TableEnum";
             s_DataTableConfig.NameSpace = "GameApp.DataTable";
 
             s_DataTableConfig.NameRow = 1;

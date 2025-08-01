@@ -10,9 +10,9 @@ using UnityEngine;
 
 namespace GameApp.DataTable.Editor
 {
-    public static class LocalizationGenerator
+    public static class DataTableLocalizationGenerator
     {
-        [MenuItem("GameApp/DataTable/Generate/Excel To Language", priority = 40)]
+        [MenuItem("GameApp/DataTable/Generate/Hot Excel To Language XML", priority = (short)EDataTableMenuPriority.HotExcelToLanguageXML)]
         public static void GenerateLocalizationFiles()
         {
             try
@@ -86,6 +86,8 @@ namespace GameApp.DataTable.Editor
                     Debug.Log(Utility.Text.Format("Parse data table '{0}' success.", Path.Combine(outputPath, fileName)));
                 }
             }
+
+            AssetDatabase.Refresh();
         }
 
         private static void GenerateXmlFile(string languageName, Dictionary<string, string> dict, string filePath)

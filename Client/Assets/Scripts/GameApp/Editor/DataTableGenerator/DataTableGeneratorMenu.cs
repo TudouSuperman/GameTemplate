@@ -16,7 +16,7 @@ namespace GameApp.DataTable.Editor
 {
     public sealed class DataTableGeneratorMenu
     {
-        [MenuItem("GameApp/DataTable/Generate/Txt To Bin", priority = 1)]
+        [MenuItem("GameApp/DataTable/Generate/Txt To Bin", priority = (short)EDataTableMenuPriority.TxtToBin)]
         private static void GenerateDataTables()
         {
             foreach (string dataTableName in Procedure.ProcedurePreload.DataTableNames)
@@ -35,7 +35,7 @@ namespace GameApp.DataTable.Editor
             AssetDatabase.Refresh();
         }
 
-        [MenuItem("GameApp/DataTable/Generate/Excel To Bin", priority = 2)]
+        [MenuItem("GameApp/DataTable/Generate/Excel To Bin", priority = (short)EDataTableMenuPriority.ExcelToBin)]
         public static void GenerateDataTablesFormExcelNotFileSystem()
         {
             DataTableConfig.GetDataTableConfig().RefreshDataTables();
@@ -52,8 +52,7 @@ namespace GameApp.DataTable.Editor
                             var dataTableProcessor = DataTableGenerator.CreateExcelDataTableProcessor(sheet);
                             if (!DataTableGenerator.CheckRawData(dataTableProcessor, sheet.Name))
                             {
-                                Debug.LogError(Utility.Text.Format("Check raw data failure. DataTableName='{0}'",
-                                    sheet.Name));
+                                Debug.LogError(Utility.Text.Format("Check raw data failure. DataTableName='{0}'", sheet.Name));
                                 break;
                             }
 
@@ -67,7 +66,7 @@ namespace GameApp.DataTable.Editor
             AssetDatabase.Refresh();
         }
 
-        [MenuItem("GameApp/DataTable/Generate/Excel To Txt", priority = 3)]
+        [MenuItem("GameApp/DataTable/Generate/Excel To Txt", priority = (short)EDataTableMenuPriority.ExcelToTxt)]
         public static void ExcelToTxt()
         {
             DataTableConfig.GetDataTableConfig().RefreshDataTables();
@@ -81,7 +80,7 @@ namespace GameApp.DataTable.Editor
             AssetDatabase.Refresh();
         }
 
-        [MenuItem("GameApp/DataTable/Generate/Hot Txt To Bin", priority = 21)]
+        [MenuItem("GameApp/DataTable/Generate/Hot Txt To Bin", priority = (short)EDataTableMenuPriority.HotTxtToBin)]
         private static void HotGenerateDataTables()
         {
             foreach ((string dataTableName, Type dataRowType) in Hot.Procedure.ProcedurePreload.DataTableNames)
@@ -100,7 +99,7 @@ namespace GameApp.DataTable.Editor
             AssetDatabase.Refresh();
         }
 
-        [MenuItem("GameApp/DataTable/Generate/Hot Excel To Bin", priority = 22)]
+        [MenuItem("GameApp/DataTable/Generate/Hot Excel To Bin", priority = (short)EDataTableMenuPriority.HotExcelToBin)]
         public static void HotGenerateDataTablesFormExcelNotFileSystem()
         {
             DataTableConfig.GetDataTableConfig().RefreshHotDataTables();
@@ -117,8 +116,7 @@ namespace GameApp.DataTable.Editor
                             var dataTableProcessor = DataTableGenerator.CreateExcelDataTableProcessor(sheet);
                             if (!DataTableGenerator.CheckRawData(dataTableProcessor, sheet.Name))
                             {
-                                Debug.LogError(Utility.Text.Format("Check raw data failure. DataTableName='{0}'",
-                                    sheet.Name));
+                                Debug.LogError(Utility.Text.Format("Check raw data failure. DataTableName='{0}'", sheet.Name));
                                 break;
                             }
 
@@ -132,7 +130,7 @@ namespace GameApp.DataTable.Editor
             AssetDatabase.Refresh();
         }
 
-        [MenuItem("GameApp/DataTable/Generate/Hot Excel To Txt", priority = 23)]
+        [MenuItem("GameApp/DataTable/Generate/Hot Excel To Txt", priority = (short)EDataTableMenuPriority.HotExcelToTxt)]
         public static void HotExcelToTxt()
         {
             DataTableConfig.GetDataTableConfig().RefreshHotDataTables();
