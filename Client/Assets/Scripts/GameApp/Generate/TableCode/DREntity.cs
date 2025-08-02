@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2025-08-01 19:57:11.527
+// 生成时间：2025-08-02 18:54:33.898
 //------------------------------------------------------------
 
 using System;
@@ -55,18 +55,9 @@ namespace GameApp.DataTable
         }
 
         /// <summary>
-        /// 获取实体组名称。
+        /// 获取实体组编号。
         /// </summary>
-        public string GroupName
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取实体加载优先级。
-        /// </summary>
-        public int Priority
+        public int EntityGroupId
         {
             get;
             private set;
@@ -86,8 +77,7 @@ namespace GameApp.DataTable
             index++;
             AssetName = columnStrings[index++];
             AssetId = int.Parse(columnStrings[index++]);
-            GroupName = columnStrings[index++];
-            Priority = int.Parse(columnStrings[index++]);
+            EntityGroupId = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -102,8 +92,7 @@ namespace GameApp.DataTable
                     m_Id = binaryReader.Read7BitEncodedInt32();
                     AssetName = binaryReader.ReadString();
                     AssetId = binaryReader.Read7BitEncodedInt32();
-                    GroupName = binaryReader.ReadString();
-                    Priority = binaryReader.Read7BitEncodedInt32();
+                    EntityGroupId = binaryReader.Read7BitEncodedInt32();
                 }
             }
 

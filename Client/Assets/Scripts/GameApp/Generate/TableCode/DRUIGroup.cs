@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2025-08-01 19:57:13.506
+// 生成时间：2025-08-02 18:54:37.515
 //------------------------------------------------------------
 
 using System;
@@ -19,7 +19,7 @@ using UnityGameFramework.Runtime;
 namespace GameApp.DataTable
 {
     /// <summary>
-    /// UI组配置表。
+    /// 界面组配置表。
     /// </summary>
     public sealed class DRUIGroup : DataRowBase
     {

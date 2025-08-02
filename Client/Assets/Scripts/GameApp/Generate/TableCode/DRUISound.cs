@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2025-08-01 19:57:14.295
+// 生成时间：2025-08-02 18:54:39.069
 //------------------------------------------------------------
 
 using System;
@@ -72,6 +72,15 @@ namespace GameApp.DataTable
             private set;
         }
 
+        /// <summary>
+        /// 获取界面组编号。
+        /// </summary>
+        public int SoundGroupId
+        {
+            get;
+            private set;
+        }
+
         public override bool ParseDataRow(string dataRowString, object userData)
         {
             string[] columnStrings = dataRowString.Split(GameApp.DataTable.DataTableExtension.DataSplitSeparators);
@@ -88,6 +97,7 @@ namespace GameApp.DataTable
             AssetId = int.Parse(columnStrings[index++]);
             Priority = int.Parse(columnStrings[index++]);
             Volume = float.Parse(columnStrings[index++]);
+            SoundGroupId = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -104,6 +114,7 @@ namespace GameApp.DataTable
                     AssetId = binaryReader.Read7BitEncodedInt32();
                     Priority = binaryReader.Read7BitEncodedInt32();
                     Volume = binaryReader.ReadSingle();
+                    SoundGroupId = binaryReader.Read7BitEncodedInt32();
                 }
             }
 

@@ -21,16 +21,25 @@ namespace GameApp
 
         public static void ShowItem(this ItemComponent itemComponent, int serialId, int uiItemID, Type logicType, object userData = null)
         {
-            IDataTable<DRUIItem> dtItem = GameEntry.DataTable.GetDataTable<DRUIItem>();
-            DRUIItem drItem = dtItem.GetDataRow(uiItemID);
-
+            DRUIItem drItem = GameEntry.DataTable.GetDataRow<DRUIItem>(uiItemID);
             if (drItem == null)
             {
-                Log.Warning("Can not load item id '{0}' from data table.", drItem.Id.ToString());
                 return;
             }
 
-            itemComponent.ShowItem(serialId, logicType, drItem.AssetName, drItem.ItemGroupName, Constant.AssetPriority.Item_Asset, userData);
+            DRAsset drAsset = GameEntry.DataTable.GetDataRow<DRAsset>(drItem.AssetId);
+            if (drAsset == null)
+            {
+                return;
+            }
+
+            DRSoundGroup drSoundGroup = GameEntry.DataTable.GetDataRow<DRSoundGroup>(drItem.ItemGroupId);
+            if (drSoundGroup == null)
+            {
+                return;
+            }
+
+            itemComponent.ShowItem(serialId, logicType, drAsset.AssetPath, drSoundGroup.GroupName, Constant.AssetPriority.Item_Asset, userData);
         }
 
         public static int GenerateSerialId(this ItemComponent itemComponent)

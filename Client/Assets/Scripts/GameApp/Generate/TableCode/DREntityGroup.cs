@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2025-08-02 18:54:35.959
+// 生成时间：2025-08-02 18:54:34.412
 //------------------------------------------------------------
 
 using System;
@@ -19,14 +19,14 @@ using UnityGameFramework.Runtime;
 namespace GameApp.DataTable
 {
     /// <summary>
-    /// 声音配置表。
+    /// 实体组配置表。
     /// </summary>
-    public sealed class DRSound : DataRowBase
+    public sealed class DREntityGroup : DataRowBase
     {
         private Int32 m_Id = 0;
 
         /// <summary>
-        /// 获取声音编号。
+        /// 获取组编号。
         /// </summary>
         public override Int32 Id
         {
@@ -37,72 +37,45 @@ namespace GameApp.DataTable
         }
 
         /// <summary>
-        /// 获取资源名称。
+        /// 获取组名称。
         /// </summary>
-        public string AssetName
+        public string GroupName
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取资源编号。
+        /// 获取实体实例对象池自动释放可释放对象的间隔秒数。
         /// </summary>
-        public int AssetId
+        public float InstanceAutoReleaseInterval
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取优先级（默认0，128最高，-128最低）。
+        /// 获取实体实例对象池容量。
         /// </summary>
-        public int Priority
+        public int InstanceCapacity
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取是否循环。
+        /// 获取实体实例对象池对象过期秒数。
         /// </summary>
-        public bool Loop
+        public float InstanceExpireTime
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取音量（0~1）。
+        /// 获取实体实例对象池的优先级。
         /// </summary>
-        public float Volume
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取声音空间混合量（0为2D，1为3D，中间值混合效果）。
-        /// </summary>
-        public float SpatialBlend
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取声音最大距离。
-        /// </summary>
-        public float MaxDistance
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取声音组编号。
-        /// </summary>
-        public int SoundGroupId
+        public int InstancePriority
         {
             get;
             private set;
@@ -120,14 +93,11 @@ namespace GameApp.DataTable
             index++;
             m_Id = int.Parse(columnStrings[index++]);
             index++;
-            AssetName = columnStrings[index++];
-            AssetId = int.Parse(columnStrings[index++]);
-            Priority = int.Parse(columnStrings[index++]);
-            Loop = bool.Parse(columnStrings[index++]);
-            Volume = float.Parse(columnStrings[index++]);
-            SpatialBlend = float.Parse(columnStrings[index++]);
-            MaxDistance = float.Parse(columnStrings[index++]);
-            SoundGroupId = int.Parse(columnStrings[index++]);
+            GroupName = columnStrings[index++];
+            InstanceAutoReleaseInterval = float.Parse(columnStrings[index++]);
+            InstanceCapacity = int.Parse(columnStrings[index++]);
+            InstanceExpireTime = float.Parse(columnStrings[index++]);
+            InstancePriority = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -140,14 +110,11 @@ namespace GameApp.DataTable
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
-                    AssetName = binaryReader.ReadString();
-                    AssetId = binaryReader.Read7BitEncodedInt32();
-                    Priority = binaryReader.Read7BitEncodedInt32();
-                    Loop = binaryReader.ReadBoolean();
-                    Volume = binaryReader.ReadSingle();
-                    SpatialBlend = binaryReader.ReadSingle();
-                    MaxDistance = binaryReader.ReadSingle();
-                    SoundGroupId = binaryReader.Read7BitEncodedInt32();
+                    GroupName = binaryReader.ReadString();
+                    InstanceAutoReleaseInterval = binaryReader.ReadSingle();
+                    InstanceCapacity = binaryReader.Read7BitEncodedInt32();
+                    InstanceExpireTime = binaryReader.ReadSingle();
+                    InstancePriority = binaryReader.Read7BitEncodedInt32();
                 }
             }
 

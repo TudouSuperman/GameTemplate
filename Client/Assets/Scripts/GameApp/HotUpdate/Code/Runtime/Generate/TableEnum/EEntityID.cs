@@ -4,7 +4,7 @@
 
 namespace GameApp.Hot
 {
-    public enum EEntityID : int
+    public enum   EEntityID : int
     {
         /// <summary>
         /// 无

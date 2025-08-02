@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GameFramework;
 using GameFramework.Event;
 using GameFramework.DataTable;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
@@ -13,13 +14,16 @@ namespace GameApp.Procedure
         {
             "Asset",
             "UIGroup",
-            "UIForm",
+            "UIItemGroup",
+            "EntityGroup",
+            "SoundGroup",
             "UIItem",
-            "UISound",
+            "UIForm",
             "Entity",
+            "UISound",
             "Music",
-            "Scene",
             "Sound",
+            "Scene",
         };
 
         private readonly Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();
@@ -79,6 +83,9 @@ namespace GameApp.Procedure
         private void SetComponents()
         {
             SetUIComponent();
+            SetItemComponent();
+            SetEntityComponent();
+            SetSoundComponent();
 
             void SetUIComponent()
             {
@@ -87,6 +94,43 @@ namespace GameApp.Procedure
                 {
                     GameEntry.UI.AddUIGroup(_group.GroupName, _group.GroupDepth);
                 }
+
+                Log.Info("Init UI Group settings complete.");
+            }
+
+            void SetItemComponent()
+            {
+                IDataTable<DRUIItemGroup> _groups = GameEntry.DataTable.GetDataTable<DRUIItemGroup>();
+                foreach (DRUIItemGroup _group in _groups)
+                {
+                    GameEntry.Item.AddItemGroup(_group.GroupName, _group.InstanceAutoReleaseInterval, _group.InstanceCapacity, _group.InstanceExpireTime, _group.InstancePriority);
+                }
+
+                Log.Info("Init Item Group settings complete.");
+            }
+
+            void SetEntityComponent()
+            {
+                IDataTable<DREntityGroup> _groups = GameEntry.DataTable.GetDataTable<DREntityGroup>();
+                foreach (DREntityGroup _group in _groups)
+                {
+                    GameEntry.Entity.AddEntityGroup(_group.GroupName, _group.InstanceAutoReleaseInterval, _group.InstanceCapacity, _group.InstanceExpireTime, _group.InstancePriority);
+                }
+
+                Log.Info("Init Entity Group settings complete.");
+            }
+
+            void SetSoundComponent()
+            {
+                IDataTable<DRSoundGroup> _groups = GameEntry.DataTable.GetDataTable<DRSoundGroup>();
+                foreach (DRSoundGroup _group in _groups)
+                {
+                    GameEntry.Sound.AddSoundGroup(_group.GroupName, _group.AvoidBeingReplacedBySamePriority, _group.Mute, _group.Volume, _group.SoundAgentCount);
+                    GameEntry.Sound.Mute(_group.GroupName, GameEntry.Setting.GetBool(Utility.Text.Format(Constant.Setting.Sound_Group_Muted, _group.GroupName), false));
+                    GameEntry.Sound.SetVolume(_group.GroupName, GameEntry.Setting.GetFloat(Utility.Text.Format(Constant.Setting.Sound_Group_Volume, _group.GroupName), 1));
+                }
+
+                Log.Info("Init Sound Group settings complete.");
             }
         }
 

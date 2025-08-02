@@ -89,15 +89,15 @@ namespace GameApp.DataTable
 
         public static TDataRow GetDataRow<TDataRow>(this DataTableComponent dataTableComponent, int dataRowId) where TDataRow : DataRowBase
         {
-            IDataTable<TDataRow> dtAsset = GameEntry.DataTable.GetDataTable<TDataRow>();
-            TDataRow drDataRow = dtAsset.GetDataRow(dataRowId);
-            if (drDataRow == null)
+            IDataTable<TDataRow> dataTable = GameEntry.DataTable.GetDataTable<TDataRow>();
+            TDataRow dataRow = dataTable?.GetDataRow(dataRowId);
+            if (dataRow == null)
             {
                 Log.Warning("Can not load {0} '{1}' from data table.", typeof(TDataRow), dataRowId.ToString());
                 return null;
             }
 
-            return drDataRow;
+            return dataRow;
         }
 
         public static Color32 ParseColor32(string value)

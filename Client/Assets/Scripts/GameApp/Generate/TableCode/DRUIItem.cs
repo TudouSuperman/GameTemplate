@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2025-08-01 19:57:13.896
+// 生成时间：2025-08-02 18:54:38.033
 //------------------------------------------------------------
 
 using System;
@@ -55,9 +55,9 @@ namespace GameApp.DataTable
         }
 
         /// <summary>
-        /// 获取物品组名称。
+        /// 获取物品组编号。
         /// </summary>
-        public string ItemGroupName
+        public int ItemGroupId
         {
             get;
             private set;
@@ -77,7 +77,7 @@ namespace GameApp.DataTable
             index++;
             AssetName = columnStrings[index++];
             AssetId = int.Parse(columnStrings[index++]);
-            ItemGroupName = columnStrings[index++];
+            ItemGroupId = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -92,7 +92,7 @@ namespace GameApp.DataTable
                     m_Id = binaryReader.Read7BitEncodedInt32();
                     AssetName = binaryReader.ReadString();
                     AssetId = binaryReader.Read7BitEncodedInt32();
-                    ItemGroupName = binaryReader.ReadString();
+                    ItemGroupId = binaryReader.Read7BitEncodedInt32();
                 }
             }
 
