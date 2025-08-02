@@ -1,10 +1,10 @@
 ﻿// 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2025-08-02 19:21:27.372
+// 生成时间：2025-08-02 19:21:27.893
 //------------------------------------------------------------
 
 namespace GameApp.Hot
 {
-    public enum EUIFormID : int
+    public enum EUIGroupID : int
     {
         /// <summary>
         /// 无
@@ -12,23 +12,23 @@ namespace GameApp.Hot
         None = 0,
 
         /// <summary>
-        /// 主菜单界面
+        /// 默认组（最底层）
         /// </summary>
-        MainMenuForm = 1,
+        Default = 1,
 
         /// <summary>
-        /// 多语言界面
+        /// 弹出组
         /// </summary>
-        LanguageForm = 2,
+        Pop = 2,
 
         /// <summary>
-        /// 设置界面
+        /// 新手引导组
         /// </summary>
-        SettingForm = 3,
+        Guide = 3,
 
         /// <summary>
-        /// 对话框界面
+        /// 消息通知组
         /// </summary>
-        DialogForm = 4,
+        Message = 4,
     }
 }

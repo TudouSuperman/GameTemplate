@@ -1,10 +1,10 @@
 ﻿// 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2025-08-02 19:21:25.791
+// 生成时间：2025-08-02 19:21:24.750
 //------------------------------------------------------------
 
 namespace GameApp.Hot
 {
-    public enum ESceneID : int
+    public enum EEntityGroupID : int
     {
         /// <summary>
         /// 无
@@ -12,13 +12,8 @@ namespace GameApp.Hot
         None = 0,
 
         /// <summary>
-        /// 启动场景
+        /// 玩家组（宿主）
         /// </summary>
-        Launcher = 1,
-
-        /// <summary>
-        /// 游戏场景
-        /// </summary>
-        GameScene = 2,
+        Host = 1,
     }
 }
