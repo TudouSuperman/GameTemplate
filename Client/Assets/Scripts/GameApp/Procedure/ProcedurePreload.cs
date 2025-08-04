@@ -138,7 +138,7 @@ namespace GameApp.Procedure
         {
             string configAssetName = AssetPathUtility.GetConfigAsset(configName, false);
             m_LoadedFlag.Add(configAssetName, false);
-            GameEntry.Config.ReadData(configAssetName, this);
+            GameEntry.Config.ReadData(configAssetName, Constant.AssetPriority.Config_Asset, this);
         }
 
         private void LoaTableData(string dataTableName)
