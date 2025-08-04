@@ -125,8 +125,7 @@ namespace GameApp.DataTable.Editor
             AssetDatabase.Refresh();
         }
 
-        private static void GenerateDataTableExtensionArray(
-            IDictionary<string, DataTableProcessor.DataProcessor> dataProcessors)
+        private static void GenerateDataTableExtensionArray(IDictionary<string, DataTableProcessor.DataProcessor> dataProcessors)
         {
             var sb = new StringBuilder();
             AddNameSpaces(sb);
@@ -173,8 +172,7 @@ namespace GameApp.DataTable.Editor
             GenerateCodeFile("DataTableExtension.Array", sb.ToString());
         }
 
-        private static void GenerateDataTableExtensionList(
-            IDictionary<string, DataTableProcessor.DataProcessor> dataProcessors)
+        private static void GenerateDataTableExtensionList(IDictionary<string, DataTableProcessor.DataProcessor> dataProcessors)
         {
             var sb = new StringBuilder();
             AddNameSpaces(sb);
@@ -220,8 +218,7 @@ namespace GameApp.DataTable.Editor
             GenerateCodeFile("DataTableExtension.List", sb.ToString());
         }
 
-        private static void GenerateBinaryReaderExtensionList(
-            IDictionary<string, DataTableProcessor.DataProcessor> dataProcessors)
+        private static void GenerateBinaryReaderExtensionList(IDictionary<string, DataTableProcessor.DataProcessor> dataProcessors)
         {
             var sb = new StringBuilder();
             AddNameSpaces(sb);
@@ -266,8 +263,7 @@ namespace GameApp.DataTable.Editor
             GenerateCodeFile("BinaryReaderExtension.List", sb.ToString());
         }
 
-        private static void GenerateBinaryReaderExtensionArray(
-            IDictionary<string, DataTableProcessor.DataProcessor> dataProcessors)
+        private static void GenerateBinaryReaderExtensionArray(IDictionary<string, DataTableProcessor.DataProcessor> dataProcessors)
         {
             var sb = new StringBuilder();
             AddNameSpaces(sb);
