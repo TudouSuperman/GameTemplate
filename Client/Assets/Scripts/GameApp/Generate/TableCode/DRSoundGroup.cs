@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2025-08-04 17:54:35.621
+// 生成时间：2025-08-04 18:01:15.120
 //------------------------------------------------------------
 
 using System;
@@ -19,7 +19,7 @@ using UnityGameFramework.Runtime;
 namespace GameApp.DataTable
 {
     /// <summary>
-    /// 物品组配置表。
+    /// 声音组配置表。
     /// </summary>
     public sealed class DRSoundGroup : DataRowBase
     {

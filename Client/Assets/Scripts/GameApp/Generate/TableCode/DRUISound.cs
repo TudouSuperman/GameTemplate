@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2025-08-04 17:54:36.672
+// 生成时间：2025-08-04 18:01:16.175
 //------------------------------------------------------------
 
 using System;
@@ -19,14 +19,14 @@ using UnityGameFramework.Runtime;
 namespace GameApp.DataTable
 {
     /// <summary>
-    /// 界面声音配置表。
+    /// 界面音效配置表。
     /// </summary>
     public sealed class DRUISound : DataRowBase
     {
         private Int32 m_Id = 0;
 
         /// <summary>
-        /// 获取声音编号。
+        /// 获取界面音效编号。
         /// </summary>
         public override Int32 Id
         {
