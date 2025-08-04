@@ -9,11 +9,6 @@ namespace UnityGameFramework.Extension
     {
         private readonly StringBuilder m_StringBuilder = new StringBuilder();
 
-        public void Clear()
-        {
-            m_StringBuilder.Clear();
-        }
-
         public void Append(string value)
         {
             m_StringBuilder.Append(value);
@@ -69,16 +64,20 @@ namespace UnityGameFramework.Extension
             return m_StringBuilder.ToString();
         }
 
+        public static UGFStringBuilder Create()
+        {
+            return ReferencePool.Acquire<UGFStringBuilder>();
+        }
+
         public void Dispose()
         {
             Clear();
             ReferencePool.Release(this);
         }
 
-        public static UGFStringBuilder Create()
+        public void Clear()
         {
-            UGFStringBuilder stringBuilder = ReferencePool.Acquire<UGFStringBuilder>();
-            return stringBuilder;
+            m_StringBuilder.Clear();
         }
     }
 }
