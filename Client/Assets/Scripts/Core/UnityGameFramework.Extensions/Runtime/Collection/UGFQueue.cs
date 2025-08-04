@@ -1,14 +1,14 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using GameFramework;
 
 namespace UnityGameFramework.Extension
 {
-    public sealed class UGFDictionary<K, V> : Dictionary<K, V>, IDisposable, IReference
+    public sealed class UGFQueue<T> : Queue<T>, IDisposable, IReference
     {
-        public static UGFDictionary<K, V> Create()
+        public static UGFQueue<T> Create()
         {
-            return ReferencePool.Acquire<UGFDictionary<K, V>>();
+            return ReferencePool.Acquire<UGFQueue<T>>();
         }
 
         public void Dispose()

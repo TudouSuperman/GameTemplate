@@ -14,6 +14,7 @@ namespace UnityGameFramework.Extension
         public void Dispose()
         {
             this.Clear();
+            this.TrimExcess();
             ReferencePool.Release(this);
         }
     }
