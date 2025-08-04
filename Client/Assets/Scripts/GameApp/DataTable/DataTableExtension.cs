@@ -89,7 +89,7 @@ namespace GameApp.DataTable
 
         public static TDataRow GetDataRow<TDataRow>(this DataTableComponent dataTableComponent, int dataRowId) where TDataRow : DataRowBase
         {
-            IDataTable<TDataRow> dataTable = GameEntry.DataTable.GetDataTable<TDataRow>();
+            IDataTable<TDataRow> dataTable = dataTableComponent.GetDataTable<TDataRow>();
             TDataRow dataRow = dataTable?.GetDataRow(dataRowId);
             if (dataRow == null)
             {

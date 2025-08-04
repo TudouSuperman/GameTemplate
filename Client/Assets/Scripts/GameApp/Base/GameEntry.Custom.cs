@@ -14,12 +14,6 @@ namespace GameApp
             private set;
         }
         
-        public static ItemComponent Item
-        {
-            get;
-            private set;
-        }
-        
         public static CameraComponent Camera
         {
             get;
@@ -89,7 +83,6 @@ namespace GameApp
         private static void InitCustomComponents()
         {
             BuiltinData = UnityGameFramework.Runtime.GameEntry.GetComponent<BuiltinDataComponent>();
-            Item = UnityGameFramework.Runtime.GameEntry.GetComponent<ItemComponent>();
             Camera = UnityGameFramework.Runtime.GameEntry.GetComponent<CameraComponent>();
             Platform = UnityGameFramework.Runtime.GameEntry.GetComponent<PlatformComponent>();
             Screen = UnityGameFramework.Runtime.GameEntry.GetComponent<ScreenComponent>();

@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2025-08-02 18:54:34.928
+// 生成时间：2025-08-04 17:54:34.565
 //------------------------------------------------------------
 
 using System;
@@ -55,9 +55,18 @@ namespace GameApp.DataTable
         }
 
         /// <summary>
+        /// 获取声音组名称。
+        /// </summary>
+        public string GroupName
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// 获取声音组编号。
         /// </summary>
-        public int SoundGroupId
+        public int GroupId
         {
             get;
             private set;
@@ -77,7 +86,8 @@ namespace GameApp.DataTable
             index++;
             AssetName = columnStrings[index++];
             AssetId = int.Parse(columnStrings[index++]);
-            SoundGroupId = int.Parse(columnStrings[index++]);
+            GroupName = columnStrings[index++];
+            GroupId = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -92,7 +102,8 @@ namespace GameApp.DataTable
                     m_Id = binaryReader.Read7BitEncodedInt32();
                     AssetName = binaryReader.ReadString();
                     AssetId = binaryReader.Read7BitEncodedInt32();
-                    SoundGroupId = binaryReader.Read7BitEncodedInt32();
+                    GroupName = binaryReader.ReadString();
+                    GroupId = binaryReader.Read7BitEncodedInt32();
                 }
             }
 

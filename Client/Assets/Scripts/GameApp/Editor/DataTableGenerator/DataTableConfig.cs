@@ -10,6 +10,7 @@ namespace GameApp.DataTable.Editor
     /// <summary>
     /// 数据表编辑器配置相关数据
     /// </summary>
+    [CreateAssetMenu(fileName = "DataTableConfig", menuName = "GameApp/DataTableConfig")]
     public sealed class DataTableConfig : ScriptableObject
     {
         /// <summary>

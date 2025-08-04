@@ -12,14 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79973fe77d5f15a4e8b6a6b61eaa9781, type: 3}
   m_Name: DataTableConfig
   m_EditorClassIdentifier: 
-  DataTableFolderPath: Assets/Res/Generate/TableData/NoHot
-  HotDataTableFolderPath: Assets/Res/Generate/TableData/Hot
-  ExcelsFolder: D:/GameTemplate/Client/Assets/../../ClientExcel/NoHot
-  HotExcelsFolder: D:/GameTemplate/Client/Assets/../../ClientExcel/Hot
+  DataTableFolderPath: Assets/Res/Generate/TableData/Game
+  HotDataTableFolderPath: Assets/Res/Generate/TableData/GameHot
+  ExcelsFolder: D:/GameTemplate/Client/Assets/../../ClientExcel/Game
+  HotExcelsFolder: D:/GameTemplate/Client/Assets/../../ClientExcel/GameHot
   CSharpCodePath: Assets/Scripts/GameApp/Generate/TableCode
   HotCSharpCodePath: Assets/Scripts/GameApp/HotUpdate/Code/Runtime/Generate/TableCode
   CSharpCodeTemplateFileName: Assets/Res/Editor/Config/DataTableCodeTemplate.txt
+  EnumCodeTemplateFileName: Assets/Res/Editor/Config/EnumCodeTemplate.txt
+  HotEnumCodePath: Assets/Scripts/GameApp/HotUpdate/Code/Runtime/Generate/TableEnum
   NameSpace: GameApp.DataTable
+  ExtensionDirectoryPath: Assets/Scripts/GameApp/DataTable
   NameRow: 1
   TypeRow: 2
   CommentRow: 3

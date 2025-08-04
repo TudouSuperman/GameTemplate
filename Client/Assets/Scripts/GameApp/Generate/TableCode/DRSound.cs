@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2025-08-02 18:54:35.959
+// 生成时间：2025-08-04 17:54:35.268
 //------------------------------------------------------------
 
 using System;
@@ -49,6 +49,24 @@ namespace GameApp.DataTable
         /// 获取资源编号。
         /// </summary>
         public int AssetId
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取声音组名称。
+        /// </summary>
+        public string GroupName
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取声音组编号。
+        /// </summary>
+        public int GroupId
         {
             get;
             private set;
@@ -99,15 +117,6 @@ namespace GameApp.DataTable
             private set;
         }
 
-        /// <summary>
-        /// 获取声音组编号。
-        /// </summary>
-        public int SoundGroupId
-        {
-            get;
-            private set;
-        }
-
         public override bool ParseDataRow(string dataRowString, object userData)
         {
             string[] columnStrings = dataRowString.Split(GameApp.DataTable.DataTableExtension.DataSplitSeparators);
@@ -122,12 +131,13 @@ namespace GameApp.DataTable
             index++;
             AssetName = columnStrings[index++];
             AssetId = int.Parse(columnStrings[index++]);
+            GroupName = columnStrings[index++];
+            GroupId = int.Parse(columnStrings[index++]);
             Priority = int.Parse(columnStrings[index++]);
             Loop = bool.Parse(columnStrings[index++]);
             Volume = float.Parse(columnStrings[index++]);
             SpatialBlend = float.Parse(columnStrings[index++]);
             MaxDistance = float.Parse(columnStrings[index++]);
-            SoundGroupId = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -142,12 +152,13 @@ namespace GameApp.DataTable
                     m_Id = binaryReader.Read7BitEncodedInt32();
                     AssetName = binaryReader.ReadString();
                     AssetId = binaryReader.Read7BitEncodedInt32();
+                    GroupName = binaryReader.ReadString();
+                    GroupId = binaryReader.Read7BitEncodedInt32();
                     Priority = binaryReader.Read7BitEncodedInt32();
                     Loop = binaryReader.ReadBoolean();
                     Volume = binaryReader.ReadSingle();
                     SpatialBlend = binaryReader.ReadSingle();
                     MaxDistance = binaryReader.ReadSingle();
-                    SoundGroupId = binaryReader.Read7BitEncodedInt32();
                 }
             }
 

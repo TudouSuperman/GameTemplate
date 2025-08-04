@@ -1,10 +1,10 @@
 ﻿// 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2025-08-04 17:41:07.883
+// 生成时间：2025-08-04 17:41:08.662
 //------------------------------------------------------------
 
 namespace GameApp.Hot
 {
-    public enum ESoundGroupID : int
+    public enum EUIFormGroupID : int
     {
         /// <summary>
         /// 无
@@ -12,18 +12,23 @@ namespace GameApp.Hot
         None = 0,
 
         /// <summary>
-        /// 背景音乐组
+        /// 默认组（最底层）
         /// </summary>
-        Music = 1,
+        Default = 1,
 
         /// <summary>
-        /// 声音组
+        /// 弹出组
         /// </summary>
-        Sound = 2,
+        Pop = 2,
 
         /// <summary>
-        /// 界面音效组
+        /// 新手引导组
         /// </summary>
-        UISound = 3,
+        Guide = 3,
+
+        /// <summary>
+        /// 消息通知组
+        /// </summary>
+        Message = 4,
     }
 }

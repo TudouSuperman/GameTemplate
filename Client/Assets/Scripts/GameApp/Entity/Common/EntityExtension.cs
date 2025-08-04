@@ -62,13 +62,7 @@ namespace GameApp.Entity
                 return;
             }
 
-            DREntityGroup drEntityGroup = GameEntry.DataTable.GetDataRow<DREntityGroup>(drEntity.EntityGroupId);
-            if (drEntityGroup == null)
-            {
-                return;
-            }
-
-            entityComponent.ShowEntity(data.Id, logicType, drAsset.AssetPath, drEntityGroup.GroupName, Constant.AssetPriority.Entity_Asset, data);
+            entityComponent.ShowEntity(data.Id, logicType, drAsset.AssetPath, drEntity.GroupName, Constant.AssetPriority.Entity_Asset, data);
         }
 
         public static int GenerateSerialId(this EntityComponent entityComponent)

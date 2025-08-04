@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2025-08-04 17:54:36.672
+// 生成时间：2025-08-04 17:54:36.329
 //------------------------------------------------------------
 
 using System;
@@ -19,14 +19,14 @@ using UnityGameFramework.Runtime;
 namespace GameApp.DataTable
 {
     /// <summary>
-    /// 界面声音配置表。
+    /// 界面组配置表。
     /// </summary>
-    public sealed class DRUISound : DataRowBase
+    public sealed class DRUIFormGroup : DataRowBase
     {
         private Int32 m_Id = 0;
 
         /// <summary>
-        /// 获取声音编号。
+        /// 获取组编号。
         /// </summary>
         public override Int32 Id
         {
@@ -37,25 +37,7 @@ namespace GameApp.DataTable
         }
 
         /// <summary>
-        /// 获取资源名称。
-        /// </summary>
-        public string AssetName
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取资源编号。
-        /// </summary>
-        public int AssetId
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取声音组名称。
+        /// 获取组名称。
         /// </summary>
         public string GroupName
         {
@@ -64,27 +46,9 @@ namespace GameApp.DataTable
         }
 
         /// <summary>
-        /// 获取声音组编号。
+        /// 获取深度。
         /// </summary>
-        public int GroupId
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取优先级（默认0，128最高，-128最低）。
-        /// </summary>
-        public int Priority
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取音量（0~1）。
-        /// </summary>
-        public float Volume
+        public int GroupDepth
         {
             get;
             private set;
@@ -102,12 +66,8 @@ namespace GameApp.DataTable
             index++;
             m_Id = int.Parse(columnStrings[index++]);
             index++;
-            AssetName = columnStrings[index++];
-            AssetId = int.Parse(columnStrings[index++]);
             GroupName = columnStrings[index++];
-            GroupId = int.Parse(columnStrings[index++]);
-            Priority = int.Parse(columnStrings[index++]);
-            Volume = float.Parse(columnStrings[index++]);
+            GroupDepth = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -120,12 +80,8 @@ namespace GameApp.DataTable
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
-                    AssetName = binaryReader.ReadString();
-                    AssetId = binaryReader.Read7BitEncodedInt32();
                     GroupName = binaryReader.ReadString();
-                    GroupId = binaryReader.Read7BitEncodedInt32();
-                    Priority = binaryReader.Read7BitEncodedInt32();
-                    Volume = binaryReader.ReadSingle();
+                    GroupDepth = binaryReader.Read7BitEncodedInt32();
                 }
             }
 

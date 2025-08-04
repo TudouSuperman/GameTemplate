@@ -20,18 +20,12 @@ namespace GameApp.UI
                 return false;
             }
 
-            DRUIGroup drUIGroup = GameEntry.DataTable.GetDataRow<DRUIGroup>(drUIForm.UIGroupId);
-            if (drUIGroup == null)
-            {
-                return false;
-            }
-
-            if (string.IsNullOrEmpty(drUIGroup.GroupName))
+            if (string.IsNullOrEmpty(drUIForm.GroupName))
             {
                 return uiComponent.HasUIForm(drAsset.AssetPath);
             }
 
-            IUIGroup uiGroup = uiComponent.GetUIGroup(drUIGroup.GroupName);
+            IUIGroup uiGroup = uiComponent.GetUIGroup(drUIForm.GroupName);
             if (uiGroup == null)
             {
                 return false;
@@ -54,14 +48,8 @@ namespace GameApp.UI
                 return null;
             }
 
-            DRUIGroup drUIGroup = GameEntry.DataTable.GetDataRow<DRUIGroup>(drUIForm.UIGroupId);
-            if (drUIGroup == null)
-            {
-                return null;
-            }
-
             UIForm uiForm = null;
-            if (string.IsNullOrEmpty(drUIGroup.GroupName))
+            if (string.IsNullOrEmpty(drUIForm.GroupName))
             {
                 uiForm = uiComponent.GetUIForm(drAsset.AssetPath);
                 if (uiForm == null)
@@ -72,7 +60,7 @@ namespace GameApp.UI
                 return (UGuiFormLogic)uiForm.Logic;
             }
 
-            IUIGroup uiGroup = uiComponent.GetUIGroup(drUIGroup.GroupName);
+            IUIGroup uiGroup = uiComponent.GetUIGroup(drUIForm.GroupName);
             if (uiGroup == null)
             {
                 return null;
@@ -101,12 +89,6 @@ namespace GameApp.UI
                 return null;
             }
 
-            DRUIGroup drUIGroup = GameEntry.DataTable.GetDataRow<DRUIGroup>(drUIForm.UIGroupId);
-            if (drUIGroup == null)
-            {
-                return null;
-            }
-
             string assetName = drAsset.AssetPath;
             if (!drUIForm.AllowMultiInstance)
             {
@@ -121,7 +103,7 @@ namespace GameApp.UI
                 }
             }
 
-            return uiComponent.OpenUIForm(assetName, drUIGroup.GroupName, Constant.AssetPriority.UIForm_Asset, drUIForm.PauseCoveredUIForm, userData);
+            return uiComponent.OpenUIForm(assetName, drUIForm.GroupName, Constant.AssetPriority.UIForm_Asset, drUIForm.PauseCoveredUIForm, userData);
         }
     }
 }

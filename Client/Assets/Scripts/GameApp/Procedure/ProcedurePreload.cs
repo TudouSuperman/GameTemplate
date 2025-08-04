@@ -10,14 +10,12 @@ namespace GameApp.Procedure
 {
     public class ProcedurePreload : ProcedureBase
     {
-        public static readonly string[] DataTableNames = new string[]
+        private static readonly string[] DataTableNames = new string[]
         {
             "Asset",
-            "UIGroup",
-            "UIItemGroup",
+            "UIFormGroup",
             "EntityGroup",
             "SoundGroup",
-            "UIItem",
             "UIForm",
             "Entity",
             "UISound",
@@ -83,30 +81,18 @@ namespace GameApp.Procedure
         private void SetComponents()
         {
             SetUIComponent();
-            SetItemComponent();
             SetEntityComponent();
             SetSoundComponent();
 
             void SetUIComponent()
             {
-                IDataTable<DRUIGroup> _groups = GameEntry.DataTable.GetDataTable<DRUIGroup>();
-                foreach (DRUIGroup _group in _groups)
+                IDataTable<DRUIFormGroup> _groups = GameEntry.DataTable.GetDataTable<DRUIFormGroup>();
+                foreach (DRUIFormGroup _group in _groups)
                 {
                     GameEntry.UI.AddUIGroup(_group.GroupName, _group.GroupDepth);
                 }
 
                 Log.Info("Init UI Group settings complete.");
-            }
-
-            void SetItemComponent()
-            {
-                IDataTable<DRUIItemGroup> _groups = GameEntry.DataTable.GetDataTable<DRUIItemGroup>();
-                foreach (DRUIItemGroup _group in _groups)
-                {
-                    GameEntry.Item.AddItemGroup(_group.GroupName, _group.InstanceAutoReleaseInterval, _group.InstanceCapacity, _group.InstanceExpireTime, _group.InstancePriority);
-                }
-
-                Log.Info("Init Item Group settings complete.");
             }
 
             void SetEntityComponent()
