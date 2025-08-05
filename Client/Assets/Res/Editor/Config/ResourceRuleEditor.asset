@@ -35,11 +35,11 @@ MonoBehaviour:
     filterType: 1
     searchPatterns: '*.*'
   - valid: 1
-    name: UI.UIItem
+    name: UI.UICell
     variant: 
     fileSystem: 
     groups: 
-    assetsDirectoryPath: Assets/Res/Artwork/UI/UIItem
+    assetsDirectoryPath: Assets/Res/Artwork/UI/UICell
     loadType: 0
     packed: 0
     filterType: 1
@@ -169,13 +169,23 @@ MonoBehaviour:
     variant: 
     fileSystem: 
     groups: 
-    assetsDirectoryPath: Assets/Res/Generate/Game/TableData
+    assetsDirectoryPath: Assets/Res/Generate/TableData/Game
     loadType: 0
     packed: 0
     filterType: 0
     searchPatterns: '*.*'
   - valid: 1
-    name: GameHot.Code
+    name: Localization
+    variant: 
+    fileSystem: 
+    groups: 
+    assetsDirectoryPath: Assets/Res/Generate/TableData/Localization
+    loadType: 0
+    packed: 0
+    filterType: 0
+    searchPatterns: '*.*'
+  - valid: 1
+    name: GameCode.Hot
     variant: 
     fileSystem: 
     groups: 
@@ -189,17 +199,7 @@ MonoBehaviour:
     variant: 
     fileSystem: 
     groups: 
-    assetsDirectoryPath: Assets/Res/Generate/GameHot/TableData
-    loadType: 0
-    packed: 0
-    filterType: 0
-    searchPatterns: '*.*'
-  - valid: 1
-    name: Localization.Hot
-    variant: 
-    fileSystem: 
-    groups: 
-    assetsDirectoryPath: Assets/Res/Generate/GameHot/Localization
+    assetsDirectoryPath: Assets/Res/Generate/TableData/GameHot
     loadType: 0
     packed: 0
     filterType: 0

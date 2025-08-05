@@ -11,12 +11,12 @@ namespace GameApp
 
         public static string GetTableDataAsset(string assetName, bool fromBytes = true)
         {
-            return Utility.Text.Format("Assets/Res/Generate/Game/TableData/{0}.{1}", assetName, fromBytes ? "bytes" : "txt");
+            return Utility.Text.Format("Assets/Res/Generate/TableData/Game/{0}.{1}", assetName, fromBytes ? "bytes" : "txt");
         }
 
         public static string GetHotDictionaryAsset(string assetName, bool fromBytes = true)
         {
-            return Utility.Text.Format("Assets/Res/Generate/GameHot/Localization/{0}.{1}", assetName, fromBytes ? "bytes" : "xml");
+            return Utility.Text.Format("Assets/Res/Generate/TableData/Localization/{0}.{1}", assetName, fromBytes ? "bytes" : "xml");
         }
 
         public static string GetHotGameAsset(string assetName)

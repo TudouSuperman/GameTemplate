@@ -4,8 +4,8 @@
     <Resources>
       <Resource Name="Config" LoadType="0" Packed="False" />
       <Resource Name="Font" LoadType="0" Packed="False" />
-      <Resource Name="GameHot.Code" LoadType="0" Packed="False" />
-      <Resource Name="Localization.Hot" LoadType="0" Packed="False" />
+      <Resource Name="GameCode.Hot" LoadType="0" Packed="False" />
+      <Resource Name="Localization" LoadType="0" Packed="False" />
       <Resource Name="Res/Artwork/Entity/HostEntity" LoadType="0" Packed="False" />
       <Resource Name="Res/Artwork/UI/UIForm/DialogForm" LoadType="0" Packed="False" />
       <Resource Name="Res/Artwork/UI/UIForm/LanguageForm" LoadType="0" Packed="False" />
@@ -18,27 +18,30 @@
     </Resources>
     <Assets>
       <Asset Guid="0856145530843244c80c5e6c1b443d5e" ResourceName="Res/Artwork/Entity/HostEntity" />
-      <Asset Guid="17b5b7a61f608db40a6fc9673693699d" ResourceName="TableData" />
+      <Asset Guid="1a3660575c09a41449675c2a43891e2f" ResourceName="Localization" />
       <Asset Guid="26c1e11af78dbcc448a8d4c632ce3e5a" ResourceName="Res/Artwork/UI/UIForm/DialogForm" />
-      <Asset Guid="368113b9275b4d341902ec9015c86903" ResourceName="GameHot.Code" />
-      <Asset Guid="4366a5ef7581e1a4687e7789509e0065" ResourceName="TableData" />
+      <Asset Guid="28640f7d640c1d646bcc6eecec3a663e" ResourceName="TableData" />
+      <Asset Guid="368113b9275b4d341902ec9015c86903" ResourceName="GameCode.Hot" />
+      <Asset Guid="3a51675aec2bcea4291315be717b6bbf" ResourceName="TableData" />
       <Asset Guid="44c8db52241385c45bbb14a1718f17bf" ResourceName="Config" />
+      <Asset Guid="4a6f7184a8bea204a847bb72d2fb831a" ResourceName="TableData" />
       <Asset Guid="4a753a4923a65ff4d8bb7a86c0f9395a" ResourceName="Res/Artwork/UI/UIPrefab/Common/BlackMask" />
-      <Asset Guid="4c44a8f8525a4bc41aa18d8385e06c8c" ResourceName="GameHot.Code" />
+      <Asset Guid="4c44a8f8525a4bc41aa18d8385e06c8c" ResourceName="GameCode.Hot" />
+      <Asset Guid="53601c960718b3e41a5a4514a34854cd" ResourceName="TableData.Hot" />
+      <Asset Guid="6747c232ff547264daeff54a310eab55" ResourceName="TableData" />
+      <Asset Guid="7b583b6ec54a05940bc8aab4fa0e5ec4" ResourceName="TableData" />
+      <Asset Guid="82f0a79195d0873428a9b4f45fd4561e" ResourceName="TableData" />
       <Asset Guid="85468b8dca0efde478df080090a240d9" ResourceName="Font" />
       <Asset Guid="87626bccb5c94024fa79b1069e4bfabb" ResourceName="Res/Artwork/UI/UIForm/MainMenuForm" />
+      <Asset Guid="9cb05ee4fd727624b9bf4895d3791a93" ResourceName="TableData" />
       <Asset Guid="a32828399c006014e84dd1cd86cc8135" ResourceName="Font" />
-      <Asset Guid="a9cd51c6ea8d39a4490ebcf3ba118b35" ResourceName="TableData" />
-      <Asset Guid="b3ee8d4ed977d3d418ff9357f4d90ca8" ResourceName="TableData" />
-      <Asset Guid="b64ef1fe32fa21d46a2103764a15baed" ResourceName="TableData" />
-      <Asset Guid="b706e644bcd255740b9c44d509fafdc4" ResourceName="TableData" />
-      <Asset Guid="d2011533218a68b42b117f0c041604c4" ResourceName="Localization.Hot" />
+      <Asset Guid="b5c36d42f794d364696f5e2404c9b226" ResourceName="TableData" />
+      <Asset Guid="b8046a6a92158fa4797e1f6de254942c" ResourceName="Localization" />
       <Asset Guid="ddf5f3ac9afdf3f43a1db133714ec7c3" ResourceName="Res/Scene/GameScene" />
-      <Asset Guid="dff598a90c710a24683413c5d9e4b7c8" ResourceName="GameHot.Code" />
+      <Asset Guid="dff598a90c710a24683413c5d9e4b7c8" ResourceName="GameCode.Hot" />
       <Asset Guid="e2e750f2dbbdb00418151338c1bdd618" ResourceName="Res/Artwork/UI/UIForm/LanguageForm" />
-      <Asset Guid="e50c89860046dba42ab6523bc7c0ea55" ResourceName="Localization.Hot" />
-      <Asset Guid="ec982508cad495b44a3934154b0998e3" ResourceName="TableData.Hot" />
-      <Asset Guid="f6619efab548683439e7c44be74ac779" ResourceName="TableData" />
+      <Asset Guid="e95fb050ab922fc4f9712e629e3673b2" ResourceName="TableData" />
+      <Asset Guid="f0c8a5afd6ce0c94dad07d61e6314b95" ResourceName="TableData" />
       <Asset Guid="fe9ca325b9a010042af82392390471b0" ResourceName="Res/Artwork/UI/UIForm/SettingForm" />
     </Assets>
   </ResourceCollection>

@@ -17,7 +17,7 @@ namespace GameApp.DataTable.Editor
         {
             try
             {
-                GenerateLocalizationFiles($"{DataTableConfig.GetDataTableConfig().HotExcelsFolder}/$Localization.xlsx", "Assets/Res/Generate/GameHot/Localization");
+                GenerateLocalizationFiles($"{DataTableConfig.GetDataTableConfig().HotExcelsFolder}/$Localization.xlsx", "Assets/Res/Generate/TableData/Localization");
             }
             catch (Exception e)
             {
