@@ -20,7 +20,7 @@ MonoBehaviour:
       m_ForceUpdateGame: 0
       m_LatestGameVersion: 0_5
       m_InternalGameVersion: 0
-      m_ServerPath: 192.168.1.18:80
+      m_ServerPath: http://192.168.1.18:80
       m_ResourceVersion: 0_5_0
       m_Platform: 0
       m_VersionListLength: 0
@@ -33,7 +33,7 @@ MonoBehaviour:
       m_ForceUpdateGame: 0
       m_LatestGameVersion: 0_5
       m_InternalGameVersion: 0
-      m_ServerPath: 192.168.1.18:80
+      m_ServerPath: http://192.168.1.18:80
       m_ResourceVersion: 0_5_0
       m_Platform: 0
       m_VersionListLength: 0
