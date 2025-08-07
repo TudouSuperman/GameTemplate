@@ -19,7 +19,8 @@ MonoBehaviour:
   CSharpCodePath: Assets/Scripts/GameApp/Generate/TableCode
   HotCSharpCodePath: Assets/Scripts/GameApp/HotUpdate/Code/Runtime/Generate/TableCode
   CSharpCodeTemplateFileName: Assets/Res/Editor/Config/DataTableCodeTemplate.txt
-  EnumCodeTemplateFileName: Assets/Res/Editor/Config/EnumCodeTemplate.txt
+  CSharpEnumCodeTemplateFileName: Assets/Res/Editor/Config/DataTableEnumCodeTemplate.txt
+  CSharpConstCodeTemplateFileName: Assets/Res/Editor/Config/DataTableConstCodeTemplate.txt
   HotEnumCodePath: Assets/Scripts/GameApp/HotUpdate/Code/Runtime/Generate/TableEnum
   NameSpace: GameApp.DataTable
   ExtensionDirectoryPath: Assets/Scripts/GameApp/DataTable

@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using OfficeOpenXml;
 using System.Collections.Generic;
 using System.IO;
@@ -17,7 +18,8 @@ namespace GameApp.DataTable.Editor
         {
             try
             {
-                GenerateLocalizationFiles($"{DataTableConfig.GetDataTableConfig().HotExcelsFolder}/$Localization.xlsx", "Assets/Res/Generate/TableData/Localization");
+                GenerateLocalizationFiles($"{DataTableConfig.GetDataTableConfig().HotExcelsFolder}/$Localization.xlsx",
+                    "Assets/Res/Generate/TableData/Localization");
             }
             catch (Exception e)
             {
@@ -28,47 +30,37 @@ namespace GameApp.DataTable.Editor
 
         private static void GenerateLocalizationFiles(string inputPath, string outputPath)
         {
-            // 确保输出目录存在
             Directory.CreateDirectory(outputPath);
-            // 加载 Excel 文件
             FileInfo excelFile = new FileInfo(inputPath);
+            List<Tuple<string, string>> keyRemarks = new List<Tuple<string, string>>(); // 存储Key和策划备注
+
             using (ExcelPackage package = new ExcelPackage(excelFile))
             {
-                // 获取第一个工作表
                 ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
-                // 动态获取语言列表（从第2行获取列头）
                 List<LanguageColumn> languages = new List<LanguageColumn>();
-                int col = 3; // 从第3列开始（C列）
-                // 遍历所有语言列（直到遇到空列头）
+                int col = 3;
+
                 while (col <= worksheet.Dimension.End.Column)
                 {
                     string langName = worksheet.Cells[2, col].Text.Trim();
                     if (string.IsNullOrEmpty(langName)) break;
-                    languages.Add(new LanguageColumn
-                    {
-                        Name = langName,
-                        ColumnIndex = col
-                    });
+                    languages.Add(new LanguageColumn { Name = langName, ColumnIndex = col });
                     col++;
                 }
 
-                // 为每种语言创建字典
-                Dictionary<string, Dictionary<string, string>> langDicts = new Dictionary<string, Dictionary<string, string>>();
-                foreach (var lang in languages)
-                {
-                    langDicts[lang.Name] = new Dictionary<string, string>();
-                }
+                Dictionary<string, Dictionary<string, string>> langDicts = languages
+                    .ToDictionary(lang => lang.Name, lang => new Dictionary<string, string>());
 
-                // 从第5行开始读取有效数据（跳过标题行）
                 int row = 5;
                 while (row <= worksheet.Dimension.End.Row && !string.IsNullOrEmpty(worksheet.Cells[row, 1].Text))
                 {
                     string key = worksheet.Cells[row, 1].Text.Trim();
-                    // 为每种语言添加条目
+                    string remark = worksheet.Cells[row, 2].Text.Trim(); // 获取策划备注
+                    keyRemarks.Add(Tuple.Create(key, remark)); // 存储Key和备注
+
                     foreach (var lang in languages)
                     {
                         string text = worksheet.Cells[row, lang.ColumnIndex].Text.Trim();
-                        // 即使为空也添加（如Dialog.Other）
                         if (!langDicts[lang.Name].ContainsKey(key))
                         {
                             langDicts[lang.Name].Add(key, text);
@@ -78,13 +70,20 @@ namespace GameApp.DataTable.Editor
                     row++;
                 }
 
-                // 为每种语言生成XML文件
                 foreach (var lang in languages)
                 {
-                    string fileName = $"{lang.Name}.xml".Replace(" ", "_"); // 替换空格
+                    string fileName = $"{lang.Name}.xml".Replace(" ", "_");
                     GenerateXmlFile(lang.Name, langDicts[lang.Name], Path.Combine(outputPath, fileName));
                     Debug.Log(Utility.Text.Format("Parse data table '{0}' success.", Path.Combine(outputPath, fileName)));
                 }
+
+                // 生成语言Key常量类
+                GenerateLanguageKeyConstants(
+                    keyRemarks,
+                    "Assets/Scripts/GameApp/HotUpdate/Code/Runtime/Generate/TableConst", // 输出路径
+                    "LocalizationKey", // 类名
+                    "GameApp.Hot" // 命名空间
+                );
             }
 
             AssetDatabase.Refresh();
@@ -92,27 +91,65 @@ namespace GameApp.DataTable.Editor
 
         private static void GenerateXmlFile(string languageName, Dictionary<string, string> dict, string filePath)
         {
-            // 创建XML文档结构
             XDocument xmlDoc = new XDocument(
                 new XDeclaration("1.0", "utf-8", null),
                 new XElement("Dictionaries",
                     new XElement("Dictionary",
                         new XAttribute("Language", languageName),
-                        // 为每个键值对创建String元素
-                        dict.Select(kv =>
-                            new XElement("String",
-                                new XAttribute("Key", kv.Key),
-                                new XAttribute("Value", kv.Value)
-                            )
-                        )
+                        dict.Select(kv => new XElement("String",
+                            new XAttribute("Key", kv.Key),
+                            new XAttribute("Value", kv.Value)
+                        ))
                     )
                 )
             );
-            // 保存文件（使用UTF-8编码）
-            using (var writer = new System.IO.StreamWriter(filePath, false, System.Text.Encoding.UTF8))
+
+            using (var writer = new StreamWriter(filePath, false, System.Text.Encoding.UTF8))
             {
                 xmlDoc.Save(writer);
             }
+        }
+
+        private static void GenerateLanguageKeyConstants(
+            List<Tuple<string, string>> keyRemarks,
+            string outputPath,
+            string className,
+            string nameSpace)
+        {
+            StringBuilder sb = new StringBuilder();
+            string filePath = Path.Combine(outputPath, $"{className}.cs");
+
+            // 文件头部
+            sb.AppendLine("// 此文件由工具自动生成，请勿直接修改。");
+            sb.AppendLine($"// 生成时间：{DateTime.Now:yyyy-MM-dd HH:mm:ss}");
+            sb.AppendLine("//------------------------------------------------------------\n");
+            sb.AppendLine($"namespace {nameSpace}");
+            sb.AppendLine("{");
+            sb.AppendLine("    public static partial class HotConstant");
+            sb.AppendLine("    {");
+            sb.AppendLine($"        public static class {className}");
+            sb.AppendLine("        {");
+
+            // 添加所有Key常量
+            for (int i = 0; i < keyRemarks.Count; i++)
+            {
+                var (key, remark) = keyRemarks[i];
+                string constantName = key.Replace('.', '_'); // 将点替换为下划线
+
+                sb.AppendLine("            /// <summary>");
+                sb.AppendLine($"            /// {remark}"); // 策划备注
+                sb.AppendLine("            /// </summary>");
+                sb.AppendLine($"            public const string {constantName} = \"{key}\";");
+
+                if (i < keyRemarks.Count - 1) sb.AppendLine();
+            }
+
+            sb.AppendLine("        }");
+            sb.AppendLine("    }");
+            sb.AppendLine("}");
+
+            File.WriteAllText(filePath, sb.ToString(), Encoding.UTF8);
+            Debug.Log(Utility.Text.Format("Generate language keys constants '{0}' success.", filePath));
         }
 
         private class LanguageColumn

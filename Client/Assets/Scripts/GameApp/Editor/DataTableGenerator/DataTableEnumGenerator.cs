@@ -72,7 +72,7 @@ namespace GameApp.DataTable.Editor
 
         public static void GenerateEnumFile(DataTableProcessor dataTableProcessor, string dataTableName)
         {
-            dataTableProcessor.SetCodeTemplate(DataTableConfig.GetDataTableConfig().EnumCodeTemplateFileName, Encoding.UTF8);
+            dataTableProcessor.SetCodeTemplate(DataTableConfig.GetDataTableConfig().CSharpEnumCodeTemplateFileName, Encoding.UTF8);
             dataTableProcessor.SetCodeGenerator(DataTableCodeGenerator);
 
             string csharpCodeFileName = Utility.Path.GetRegularPath(Path.Combine(DataTableConfig.GetDataTableConfig().HotEnumCodePath, $"E{dataTableName}ID.cs"));

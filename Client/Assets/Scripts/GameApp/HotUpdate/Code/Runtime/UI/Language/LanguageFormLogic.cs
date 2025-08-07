@@ -20,8 +20,8 @@ namespace GameApp.Hot.UI
                 GameEntry.UI.OpenUIForm((int)EUIFormID.DialogForm, new DialogParams
                 {
                     Mode = EDialogMode.TwoButtonMode,
-                    Title = GameEntry.Localization.GetString(HotConstant.LanguageKey.Language_AskQuitGame_Title),
-                    Message = GameEntry.Localization.GetString(HotConstant.LanguageKey.Language_AskQuitGame_Message),
+                    Title = GameEntry.Localization.GetString(HotConstant.LocalizationKey.Language_AskQuitGame_Title),
+                    Message = GameEntry.Localization.GetString(HotConstant.LocalizationKey.Language_AskQuitGame_Message),
                     OnClickConfirm = (data) =>
                     {
                         if (m_SelectedLanguage == GameEntry.Localization.Language)

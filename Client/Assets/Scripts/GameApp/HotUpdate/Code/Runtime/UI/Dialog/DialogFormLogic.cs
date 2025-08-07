@@ -62,9 +62,9 @@ namespace GameApp.Hot.UI
 
             _view.RefreshTitleText(m_DialogParams.Title);
             _view.RefreshMessageText(m_DialogParams.Message);
-            _view.RefreshConfirmText(string.IsNullOrEmpty(m_DialogParams.ConfirmText) ? GameEntry.Localization.GetString(HotConstant.LanguageKey.Dialog_Confirm) : m_DialogParams.ConfirmText);
-            _view.RefreshCancelText(string.IsNullOrEmpty(m_DialogParams.CancelText) ? GameEntry.Localization.GetString(HotConstant.LanguageKey.Dialog_Cancel) : m_DialogParams.CancelText);
-            _view.RefreshOtherText(string.IsNullOrEmpty(m_DialogParams.OtherText) ? GameEntry.Localization.GetString(HotConstant.LanguageKey.Dialog_Other) : m_DialogParams.OtherText);
+            _view.RefreshConfirmText(string.IsNullOrEmpty(m_DialogParams.ConfirmText) ? GameEntry.Localization.GetString(HotConstant.LocalizationKey.Dialog_Confirm) : m_DialogParams.ConfirmText);
+            _view.RefreshCancelText(string.IsNullOrEmpty(m_DialogParams.CancelText) ? GameEntry.Localization.GetString(HotConstant.LocalizationKey.Dialog_Cancel) : m_DialogParams.CancelText);
+            _view.RefreshOtherText(string.IsNullOrEmpty(m_DialogParams.OtherText) ? GameEntry.Localization.GetString(HotConstant.LocalizationKey.Dialog_Other) : m_DialogParams.OtherText);
             RefreshPauseGame(m_DialogParams.PauseGameFlag);
         }
 
