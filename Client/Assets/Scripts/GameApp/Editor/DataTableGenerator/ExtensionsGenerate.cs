@@ -7,7 +7,7 @@ using GameFramework;
 using OfficeOpenXml;
 using UnityEditor;
 
-namespace GameApp.DataTable.Editor
+namespace GameApp.Editor
 {
     public static class ExtensionsGenerate
     {

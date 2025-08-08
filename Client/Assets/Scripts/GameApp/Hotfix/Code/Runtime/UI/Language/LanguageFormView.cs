@@ -1,8 +1,7 @@
 ﻿using GameFramework;
 using CodeBind;
-using GameApp.UI;
 
-namespace GameApp.Hotfix.UI
+namespace GameApp.Hotfix
 {
     [MonoCodeBind('-')]
     public sealed partial class LanguageFormView : UGuiFormView

@@ -1,7 +1,5 @@
 using UnityEngine;
 using UnityGameFramework.Runtime;
-using GameApp.Hotfix.Procedure;
-using GameApp.Hotfix.Model;
 
 namespace GameApp.Hotfix
 {

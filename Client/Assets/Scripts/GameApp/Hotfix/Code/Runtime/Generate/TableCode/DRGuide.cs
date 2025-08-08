@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2025-08-08 18:16:37.060
+// 生成时间：2025-08-08 19:07:08.678
 //------------------------------------------------------------
 
 using System;
@@ -16,7 +16,7 @@ using UnityEngine;
 using GameFramework;
 using UnityGameFramework.Runtime;
 
-namespace GameApp.Hotfix.DataTable
+namespace GameApp.Hotfix
 {
     /// <summary>
     /// 新手引导配置表。
@@ -47,10 +47,10 @@ namespace GameApp.Hotfix.DataTable
 
         public override bool ParseDataRow(string dataRowString, object userData)
         {
-            string[] columnStrings = dataRowString.Split(GameApp.DataTable.DataTableExtension.DataSplitSeparators);
+            string[] columnStrings = dataRowString.Split(GameApp.DataTableExtension.DataSplitSeparators);
             for (int i = 0; i < columnStrings.Length; i++)
             {
-                columnStrings[i] = columnStrings[i].Trim(GameApp.DataTable.DataTableExtension.DataTrimSeparators);
+                columnStrings[i] = columnStrings[i].Trim(GameApp.DataTableExtension.DataTrimSeparators);
             }
 
             int index = 0;

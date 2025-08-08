@@ -4,7 +4,7 @@ using UnityEngine.Sprites;
 using GameFramework;
 using UnityGameFramework.Runtime;
 
-namespace GameApp.Hotfix.UI.Extension
+namespace GameApp.Hotfix
 {
     public sealed class ImageMirror : Image
     {

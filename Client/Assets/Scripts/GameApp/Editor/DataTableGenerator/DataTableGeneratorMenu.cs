@@ -11,7 +11,7 @@ using OfficeOpenXml;
 using UnityEditor;
 using UnityEngine;
 
-namespace GameApp.DataTable.Editor
+namespace GameApp.Editor
 {
     public sealed class DataTableGeneratorMenu
     {
@@ -86,7 +86,7 @@ namespace GameApp.DataTable.Editor
                             }
 
                             DataTableGenerator.GenerateDataFile(dataTableProcessor, sheet.Name, DataTableConfig.GetDataTableConfig().HotfixDataTableFolderPath);
-                            DataTableGenerator.GenerateCodeFile(dataTableProcessor, sheet.Name, DataTableConfig.GetDataTableConfig().HotfixCSharpCodePath);
+                            DataTableGenerator.GenerateHotfixCodeFile(dataTableProcessor, sheet.Name, DataTableConfig.GetDataTableConfig().HotfixCSharpCodePath);
                         }
                     }
                 }

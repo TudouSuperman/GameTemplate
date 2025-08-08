@@ -6,7 +6,7 @@ using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedure
 using UnityGameFramework.Runtime;
 using UnityGameFramework.Extension;
 
-namespace GameApp.Procedure
+namespace GameApp
 {
     public sealed class ProcedureCheckVersion : ProcedureBase
     {

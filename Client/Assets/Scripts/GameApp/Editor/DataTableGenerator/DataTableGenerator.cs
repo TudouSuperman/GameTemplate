@@ -13,7 +13,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-namespace GameApp.DataTable.Editor
+namespace GameApp.Editor
 {
     public sealed class DataTableGenerator
     {
@@ -90,6 +90,33 @@ namespace GameApp.DataTable.Editor
             codeContent.Replace("__DATA_TABLE_PROPERTY_ARRAY__", GenerateDataTablePropertyArray(dataTableProcessor));
         }
 
+        public static void GenerateHotfixCodeFile(DataTableProcessor dataTableProcessor, string dataTableName, string folderPath)
+        {
+            // 确保输出目录存在
+            Directory.CreateDirectory(folderPath);
+            dataTableProcessor.SetCodeTemplate(DataTableConfig.GetDataTableConfig().CSharpCodeTemplateFileName, Encoding.UTF8);
+            dataTableProcessor.SetCodeGenerator(DataTableHotfixCodeGenerator);
+            string csharpCodeFileName = Utility.Path.GetRegularPath(Path.Combine(folderPath, "DR" + dataTableName + ".cs"));
+            if (!dataTableProcessor.GenerateCodeFile(csharpCodeFileName, Encoding.UTF8, dataTableName) && File.Exists(csharpCodeFileName))
+            {
+                File.Delete(csharpCodeFileName);
+            }
+        }
+
+        private static void DataTableHotfixCodeGenerator(DataTableProcessor dataTableProcessor, StringBuilder codeContent, object userData)
+        {
+            string dataTableName = (string)userData;
+
+            codeContent.Replace("__DATA_TABLE_CREATE_TIME__", DateTime.UtcNow.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss.fff"));
+            codeContent.Replace("__DATA_TABLE_NAME_SPACE__", DataTableConfig.GetDataTableConfig().HotfixNameSpace);
+            codeContent.Replace("__DATA_TABLE_CLASS_NAME__", "DR" + dataTableName);
+            codeContent.Replace("__DATA_TABLE_COMMENT__", dataTableProcessor.GetValue(0, 1) + "。");
+            codeContent.Replace("__DATA_TABLE_ID_COMMENT__", "获取" + dataTableProcessor.GetComment(dataTableProcessor.IdColumn) + "。");
+            codeContent.Replace("__DATA_TABLE_PROPERTIES__", GenerateDataTableProperties(dataTableProcessor));
+            codeContent.Replace("__DATA_TABLE_PARSER__", GenerateDataTableParser(dataTableProcessor));
+            codeContent.Replace("__DATA_TABLE_PROPERTY_ARRAY__", GenerateDataTablePropertyArray(dataTableProcessor));
+        }
+
         private static string GenerateDataTableProperties(DataTableProcessor dataTableProcessor)
         {
             StringBuilder stringBuilder = new StringBuilder();
@@ -137,10 +164,10 @@ namespace GameApp.DataTable.Editor
             stringBuilder
                 .AppendLine("        public override bool ParseDataRow(string dataRowString, object userData)")
                 .AppendLine("        {")
-                .AppendLine("            string[] columnStrings = dataRowString.Split(GameApp.DataTable.DataTableExtension.DataSplitSeparators);")
+                .AppendLine("            string[] columnStrings = dataRowString.Split(GameApp.DataTableExtension.DataSplitSeparators);")
                 .AppendLine("            for (int i = 0; i < columnStrings.Length; i++)")
                 .AppendLine("            {")
-                .AppendLine("                columnStrings[i] = columnStrings[i].Trim(GameApp.DataTable.DataTableExtension.DataTrimSeparators);")
+                .AppendLine("                columnStrings[i] = columnStrings[i].Trim(GameApp.DataTableExtension.DataTrimSeparators);")
                 .AppendLine("            }")
                 .AppendLine()
                 .AppendLine("            int index = 0;");

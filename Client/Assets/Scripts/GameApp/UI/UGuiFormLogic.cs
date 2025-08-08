@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using UnityGameFramework.Runtime;
 using TMPro;
 
-namespace GameApp.UI
+namespace GameApp
 {
     public abstract class UGuiFormLogic : UIFormLogic
     {

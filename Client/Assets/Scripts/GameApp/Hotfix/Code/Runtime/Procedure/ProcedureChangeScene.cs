@@ -1,10 +1,10 @@
 ﻿using GameFramework.DataTable;
 using GameFramework.Event;
-using HotfixProcedureOwner = GameFramework.Fsm.IFsm<GameApp.Hotfix.Procedure.HotfixProcedureComponent>;
+using HotfixProcedureOwner = GameFramework.Fsm.IFsm<GameApp.Hotfix.HotfixProcedureComponent>;
 using UnityGameFramework.Runtime;
-using GameApp.DataTable;
+using GameApp;
 
-namespace GameApp.Hotfix.Procedure
+namespace GameApp.Hotfix
 {
     public sealed class ProcedureChangeScene : ProcedureBase
     {

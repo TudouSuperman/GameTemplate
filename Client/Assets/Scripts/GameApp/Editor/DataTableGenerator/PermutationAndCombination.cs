@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace GameApp.DataTable.Editor
+namespace GameApp.Editor
 {
     public static class PermutationAndCombination<T>
     {

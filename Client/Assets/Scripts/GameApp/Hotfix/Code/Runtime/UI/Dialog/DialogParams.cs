@@ -1,6 +1,6 @@
 ﻿using GameFramework;
 
-namespace GameApp.Hotfix.UI
+namespace GameApp.Hotfix
 {
     /// <summary>
     /// 对话框显示数据。

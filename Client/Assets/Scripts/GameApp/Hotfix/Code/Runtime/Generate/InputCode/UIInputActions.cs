@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-namespace GameApp.Hotfix.Input
+namespace GameApp.Hotfix
 {
     public partial class @UIInputActions: IInputActionCollection2, IDisposable
     {

@@ -1,8 +1,7 @@
 ﻿using System;
 using UnityGameFramework.Runtime;
-using GameApp.DataTable;
 
-namespace GameApp.GFEntity
+namespace GameApp
 {
     public static partial class EntityExtension
     {

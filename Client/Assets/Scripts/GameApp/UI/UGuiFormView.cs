@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace GameApp.UI
+namespace GameApp
 {
     public abstract class UGuiFormView : MonoBehaviour
     {

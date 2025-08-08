@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using GameFramework;
 
-namespace GameApp.DataTable.Editor
+namespace GameApp.Editor
 {
     /// <summary>
     /// 数据表编辑器配置相关数据
@@ -215,8 +215,8 @@ namespace GameApp.DataTable.Editor
             codeGeneratorSettingConfig.CSharpEnumCodeTemplateFileName = "Assets/Res/Editor/Config/DataTableEnumCodeTemplate.txt";
             codeGeneratorSettingConfig.CSharpConstCodeTemplateFileName = "Assets/Res/Editor/Config/DataTableConstCodeTemplate.txt";
             codeGeneratorSettingConfig.HotfixEnumCodePath = "Assets/Scripts/GameApp/Hotfix/Code/Runtime/Generate/TableEnum";
-            codeGeneratorSettingConfig.NameSpace = "GameApp.DataTable";
-            codeGeneratorSettingConfig.HotfixNameSpace = "GameApp.Hotfix.DataTable";
+            codeGeneratorSettingConfig.NameSpace = "GameApp";
+            codeGeneratorSettingConfig.HotfixNameSpace = "GameApp.Hotfix";
             codeGeneratorSettingConfig.ExtensionDirectoryPath = "Assets/Scripts/GameApp/DataTable";
 
             codeGeneratorSettingConfig.NameRow = 1;
@@ -256,7 +256,7 @@ namespace GameApp.DataTable.Editor
             s_DataTableConfig.CSharpEnumCodeTemplateFileName = "Assets/Res/Editor/Config/DataTableEnumCodeTemplate.txt";
             s_DataTableConfig.CSharpConstCodeTemplateFileName = "Assets/Res/Editor/Config/DataTableConstCodeTemplate.txt";
             s_DataTableConfig.HotfixEnumCodePath = "Assets/Scripts/GameApp/Hotfix/Code/Runtime/Generate/TableEnum";
-            s_DataTableConfig.NameSpace = "GameApp.DataTable";
+            s_DataTableConfig.NameSpace = "GameApp";
             s_DataTableConfig.HotfixNameSpace = "GameApp.Hotfix.DataTable";
             s_DataTableConfig.ExtensionDirectoryPath = "Assets/Scripts/GameApp/DataTable";
 

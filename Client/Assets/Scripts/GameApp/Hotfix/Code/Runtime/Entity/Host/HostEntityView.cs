@@ -1,8 +1,7 @@
 ﻿using UnityEngine.InputSystem;
 using CodeBind;
-using GameApp.GFEntity;
 
-namespace GameApp.Hotfix.GFEntity
+namespace GameApp.Hotfix
 {
     [MonoCodeBind('-')]
     public sealed partial class HostEntityView : BaseEntityView

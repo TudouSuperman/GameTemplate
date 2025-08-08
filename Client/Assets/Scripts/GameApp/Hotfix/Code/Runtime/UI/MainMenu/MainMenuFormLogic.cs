@@ -1,11 +1,10 @@
 using UnityGameFramework.Runtime;
-using GameApp.UI;
 
-namespace GameApp.Hotfix.UI
+namespace GameApp.Hotfix
 {
     public sealed class MainMenuFormLogic : UGuiFormLogic
     {
-        private Procedure.ProcedureGame m_ProcedureGame;
+        private ProcedureGame m_ProcedureGame;
 
         protected override void OnInit(object userData)
         {
@@ -22,7 +21,7 @@ namespace GameApp.Hotfix.UI
         {
             base.OnOpen(userData);
 
-            m_ProcedureGame = (Procedure.ProcedureGame)userData;
+            m_ProcedureGame = (ProcedureGame)userData;
             if (m_ProcedureGame == null)
             {
                 Log.Warning("ProcedureMenu is invalid when open MenuForm.");

@@ -1,6 +1,6 @@
 using UnityEditor;
 
-namespace GameApp.UI.Editor
+namespace GameApp.Editor
 {
     public static class UGuiFormCreateTool
     {

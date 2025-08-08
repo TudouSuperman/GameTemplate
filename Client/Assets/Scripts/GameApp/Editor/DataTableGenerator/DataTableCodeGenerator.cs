@@ -7,7 +7,7 @@
 
 using System.Text;
 
-namespace GameApp.DataTable.Editor
+namespace GameApp.Editor
 {
     public delegate void DataTableCodeGenerator(DataTableProcessor dataTableProcessor, StringBuilder codeContent, object userData);
 }

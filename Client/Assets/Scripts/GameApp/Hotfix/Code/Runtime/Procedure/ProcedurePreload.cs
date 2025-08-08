@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using GameFramework;
 using GameFramework.Resource;
 using GameFramework.Event;
+using HotfixProcedureOwner = GameFramework.Fsm.IFsm<GameApp.Hotfix.HotfixProcedureComponent>;
 using UnityGameFramework.Runtime;
-using HotfixProcedureOwner = GameFramework.Fsm.IFsm<GameApp.Hotfix.Procedure.HotfixProcedureComponent>;
 using TMPro;
-using GameApp.DataTable;
-using GameApp.Hotfix.DataTable;
-using GameApp.UI;
 
-namespace GameApp.Hotfix.Procedure
+namespace GameApp.Hotfix
 {
     public sealed class ProcedurePreload : ProcedureBase
     {

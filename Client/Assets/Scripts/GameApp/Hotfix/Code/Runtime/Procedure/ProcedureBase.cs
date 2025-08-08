@@ -1,7 +1,7 @@
 using GameFramework.Fsm;
-using HotfixProcedureOwner = GameFramework.Fsm.IFsm<GameApp.Hotfix.Procedure.HotfixProcedureComponent>;
+using HotfixProcedureOwner = GameFramework.Fsm.IFsm<GameApp.Hotfix.HotfixProcedureComponent>;
 
-namespace GameApp.Hotfix.Procedure
+namespace GameApp.Hotfix
 {
     /// <summary>
     /// 流程基类。

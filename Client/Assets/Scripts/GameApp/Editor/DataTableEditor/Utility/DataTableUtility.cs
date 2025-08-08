@@ -5,7 +5,7 @@ using UnityEngine;
 using System.IO;
 using System.Text;
 
-namespace GameApp.DataTable.Editor
+namespace GameApp.Editor
 {
     public partial class DataTableEditorUtility
     {

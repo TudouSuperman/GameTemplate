@@ -2,7 +2,7 @@
 using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
-namespace GameApp.DataTable
+namespace GameApp
 {
 	public static partial class DataTableExtension
 	{

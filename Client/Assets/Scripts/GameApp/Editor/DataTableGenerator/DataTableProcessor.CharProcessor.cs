@@ -7,7 +7,7 @@
 
 using System.IO;
 
-namespace GameApp.DataTable.Editor
+namespace GameApp.Editor
 {
     public sealed partial class DataTableProcessor
     {

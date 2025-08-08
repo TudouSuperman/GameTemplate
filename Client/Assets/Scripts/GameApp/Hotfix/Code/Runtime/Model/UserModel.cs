@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GameApp.Hotfix.Model
+namespace GameApp.Hotfix
 {
     public sealed class UserModel : IModel
     {

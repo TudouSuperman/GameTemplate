@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using UnityGameFramework.Runtime;
 
-namespace GameApp.UI
+namespace GameApp
 {
     /// <summary>
     /// UGUI 界面组辅助器。

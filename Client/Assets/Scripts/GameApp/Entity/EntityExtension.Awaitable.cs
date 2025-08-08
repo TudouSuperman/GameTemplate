@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Threading;
-using Cysharp.Threading.Tasks;
-using GameApp.DataTable;
 using UnityGameFramework.Runtime;
 using UnityGameFramework.Extension;
+using Cysharp.Threading.Tasks;
 
-namespace GameApp.GFEntity
+namespace GameApp
 {
     public static partial class EntityExtension
     {

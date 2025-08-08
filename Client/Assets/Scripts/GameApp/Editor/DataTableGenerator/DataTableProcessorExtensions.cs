@@ -4,7 +4,7 @@ using System.Linq;
 using GameFramework;
 using JetBrains.Annotations;
 
-namespace GameApp.DataTable.Editor
+namespace GameApp.Editor
 {
     public static class DataTableProcessorExtensions
     {

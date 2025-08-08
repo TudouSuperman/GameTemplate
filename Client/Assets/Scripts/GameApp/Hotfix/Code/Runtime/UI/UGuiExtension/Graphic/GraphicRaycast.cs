@@ -1,7 +1,7 @@
 ﻿using UnityEngine.UI;
 using CodeBind;
 
-namespace GameApp.Hotfix.UI.Extension
+namespace GameApp.Hotfix
 {
     /// <summary>
     /// 用来只想响应点击等操作事件而不绘制的组件（替换透明图片降低DC）

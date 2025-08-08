@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using GameFramework;
 
-namespace GameApp.Hotfix.UI.Extension
+namespace GameApp.Hotfix
 {
     public sealed class ProgressBarCom : MonoBehaviour
     {

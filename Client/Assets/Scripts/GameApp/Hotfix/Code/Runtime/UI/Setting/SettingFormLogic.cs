@@ -1,6 +1,4 @@
-﻿using GameApp.UI;
-
-namespace GameApp.Hotfix.UI
+﻿namespace GameApp.Hotfix
 {
     public sealed class SettingFormLogic : UGuiFormLogic
     {

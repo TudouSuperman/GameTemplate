@@ -1,7 +1,7 @@
 ﻿using UnityGameFramework.Runtime;
-using GameApp.UI;
 
-namespace GameApp.Hotfix.UI
+
+namespace GameApp.Hotfix
 {
     public sealed class DialogFormLogic : UGuiFormLogic
     {

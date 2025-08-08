@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace GameApp.Hotfix.UI.Extension
+namespace GameApp.Hotfix
 {
     public sealed class ImageShape : Image
     {

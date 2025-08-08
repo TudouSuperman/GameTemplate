@@ -4,9 +4,8 @@ using GameFramework.Event;
 using GameFramework.DataTable;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 using UnityGameFramework.Runtime;
-using GameApp.DataTable;
 
-namespace GameApp.Procedure
+namespace GameApp
 {
     public class ProcedurePreload : ProcedureBase
     {

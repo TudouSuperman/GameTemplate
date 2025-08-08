@@ -1,7 +1,6 @@
 ﻿using UnityGameFramework.Runtime;
-using GameApp.GFEntity;
 
-namespace GameApp.Hotfix.GFEntity
+namespace GameApp.Hotfix
 {
     public static class EntityExtension
     {

@@ -1,10 +1,8 @@
 ﻿using GameFramework.Event;
-using HotfixProcedureOwner = GameFramework.Fsm.IFsm<GameApp.Hotfix.Procedure.HotfixProcedureComponent>;
+using HotfixProcedureOwner = GameFramework.Fsm.IFsm<GameApp.Hotfix.HotfixProcedureComponent>;
 using UnityGameFramework.Runtime;
-using GameApp.UI;
-using GameApp.Hotfix.UI;
 
-namespace GameApp.Hotfix.Procedure
+namespace GameApp.Hotfix
 {
     public sealed class ProcedureGame : ProcedureBase
     {

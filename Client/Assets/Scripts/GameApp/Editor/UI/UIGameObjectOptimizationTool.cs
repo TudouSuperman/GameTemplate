@@ -2,9 +2,9 @@ using System.Text;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
-using GameApp.Hotfix.UI.Extension;
+using GameApp.Hotfix;
 
-namespace GameApp.UI.Editor
+namespace GameApp.Editor
 {
     public static class UIGameObjectOptimizationTool
     {

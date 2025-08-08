@@ -11,4 +11,4 @@ ScriptedImporter:
   generateWrapperCode: 1
   wrapperCodePath: Assets/Scripts/GameApp/Hotfix/Code/Runtime/Generate/InputCode/UIInputActions
   wrapperClassName: 
-  wrapperCodeNamespace: GameApp.Hotfix.Input
+  wrapperCodeNamespace: GameApp.Hotfix

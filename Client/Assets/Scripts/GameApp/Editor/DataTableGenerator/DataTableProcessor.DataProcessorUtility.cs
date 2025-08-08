@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace GameApp.DataTable.Editor
+namespace GameApp.Editor
 {
     public sealed partial class DataTableProcessor
     {

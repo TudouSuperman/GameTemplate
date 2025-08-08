@@ -1,4 +1,4 @@
-﻿namespace GameApp.Hotfix.Model
+﻿namespace GameApp.Hotfix
 {
     public interface IModel
     {

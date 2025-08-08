@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace GameApp.DataTable.Editor
+namespace GameApp.Editor
 {
 
     [Serializable]

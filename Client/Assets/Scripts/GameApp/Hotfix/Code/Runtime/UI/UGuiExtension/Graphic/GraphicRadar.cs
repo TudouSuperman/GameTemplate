@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace GameApp.Hotfix.UI.Extension
+namespace GameApp.Hotfix
 {
     /// <summary>
     /// 在 UGUI 中绘制雷达图组件。

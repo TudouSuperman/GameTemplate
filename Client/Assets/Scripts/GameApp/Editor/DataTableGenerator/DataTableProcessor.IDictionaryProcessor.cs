@@ -1,6 +1,6 @@
 using System;
 
-namespace GameApp.DataTable.Editor
+namespace GameApp.Editor
 {
     public sealed partial class DataTableProcessor
     {

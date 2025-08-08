@@ -1,4 +1,4 @@
-namespace GameApp.DataTable.Editor
+namespace GameApp.Editor
 {
     public enum EDataTableMenuPriority : short
     {

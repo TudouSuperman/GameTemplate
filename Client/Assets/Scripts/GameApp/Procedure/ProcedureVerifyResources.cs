@@ -2,7 +2,7 @@
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 using UnityGameFramework.Runtime;
 
-namespace GameApp.Procedure
+namespace GameApp
 {
     public sealed class ProcedureVerifyResources : ProcedureBase
     {

@@ -2,7 +2,7 @@
 using GameFramework;
 using UnityGameFramework.Runtime;
 
-namespace GameApp.Hotfix.UI.Extension
+namespace GameApp.Hotfix
 {
     /// <summary>
     /// 控制浮动窗口的位置行为，使其跟随鼠标或指定位置，

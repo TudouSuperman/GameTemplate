@@ -6,7 +6,7 @@ using UnityEngine;
 using GameFramework;
 using OfficeOpenXml;
 
-namespace GameApp.DataTable.Editor
+namespace GameApp.Editor
 {
     public static class DataTableEnumGenerator
     {

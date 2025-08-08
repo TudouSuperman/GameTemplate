@@ -22,8 +22,8 @@ MonoBehaviour:
   CSharpEnumCodeTemplateFileName: Assets/Res/Editor/Config/DataTableEnumCodeTemplate.txt
   CSharpConstCodeTemplateFileName: Assets/Res/Editor/Config/DataTableConstCodeTemplate.txt
   HotfixEnumCodePath: Assets/Scripts/GameApp/Hotfix/Code/Runtime/Generate/TableEnum
-  NameSpace: GameApp.DataTable
-  HotfixNameSpace: GameApp.Hotfix.DataTable
+  NameSpace: GameApp
+  HotfixNameSpace: GameApp.Hotfix
   ExtensionDirectoryPath: Assets/Scripts/GameApp/DataTable
   NameRow: 1
   TypeRow: 2

@@ -9,7 +9,7 @@ using GameFramework;
 using UnityEditor;
 using UnityEngine;
 
-namespace GameApp.DataTable.Editor
+namespace GameApp.Editor
 {
     public static class DataTableLocalizationGenerator
     {

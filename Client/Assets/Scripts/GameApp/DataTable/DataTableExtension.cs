@@ -10,11 +10,11 @@ using System;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
-namespace GameApp.DataTable
+namespace GameApp
 {
     public static partial class DataTableExtension
     {
-        private const string DataRowClassPrefixName = "GameApp.DataTable.DR";
+        private const string DataRowClassPrefixName = "GameApp.DR";
         public static readonly char[] DataSplitSeparators = new char[] { '\t' };
         public static readonly char[] DataTrimSeparators = new char[] { '\"' };
 

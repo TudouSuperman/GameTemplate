@@ -13,7 +13,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace GameApp.DataTable.Editor
+namespace GameApp.Editor
 {
     public sealed partial class DataTableProcessor
     {
@@ -442,12 +442,6 @@ namespace GameApp.DataTable.Editor
                 if (m_CodeGenerator != null)
                 {
                     m_CodeGenerator(this, stringBuilder, userData);
-                }
-
-                // TODO 作者，处理热更目录命名空间。
-                if (outputFileName.Contains("Hotfix"))
-                {
-                    stringBuilder.Replace($"namespace {DataTableConfig.GetDataTableConfig().NameSpace}", $"namespace {DataTableConfig.GetDataTableConfig().HotfixNameSpace}");
                 }
 
                 using (FileStream fileStream = new FileStream(outputFileName, FileMode.Create, FileAccess.Write))

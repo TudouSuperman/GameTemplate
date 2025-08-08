@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using OfficeOpenXml;
 using UnityEngine;
 
-namespace GameApp.DataTable.Editor
+namespace GameApp.Editor
 {
     public static class ExcelExtension
     {

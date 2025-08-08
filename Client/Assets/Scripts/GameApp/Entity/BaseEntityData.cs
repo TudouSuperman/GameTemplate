@@ -2,7 +2,7 @@
 using UnityEngine;
 using GameFramework;
 
-namespace GameApp.GFEntity
+namespace GameApp
 {
     [Serializable]
     public abstract class BaseEntityData : IReference

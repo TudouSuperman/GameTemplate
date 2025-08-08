@@ -9,7 +9,7 @@ using System;
 using System.IO;
 using UnityEngine;
 
-namespace GameApp.DataTable
+namespace GameApp
 {
     public static partial class BinaryReaderExtension
     {

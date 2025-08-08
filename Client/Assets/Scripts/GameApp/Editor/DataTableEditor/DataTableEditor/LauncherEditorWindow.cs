@@ -5,7 +5,7 @@ using RoboRyanTron.SearchableEnum;
 using UnityEditor;
 using UnityEngine;
 
-namespace GameApp.DataTable.Editor
+namespace GameApp.Editor
 {
     public class LauncherEditorWindow : EditorWindow
     {

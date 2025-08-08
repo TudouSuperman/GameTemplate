@@ -1,9 +1,9 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using UnityEditor.UI;
-using GameApp.Hotfix.UI.Extension;
+using GameApp.Hotfix;
 
-namespace GameApp.UI.Extension.Editor
+namespace GameApp.Editor
 {
     [CustomEditor(typeof(ImageShape))]
     public sealed class ImageShapeEditor : ImageEditor

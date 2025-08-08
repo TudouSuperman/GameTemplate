@@ -1,8 +1,7 @@
-﻿using GameApp.GFEntity;
-using UnityEngine;
+﻿using UnityEngine;
 using GameFramework;
 
-namespace GameApp.Hotfix.GFEntity
+namespace GameApp.Hotfix
 {
     public sealed class HostEntityData : BaseEntityData
     {

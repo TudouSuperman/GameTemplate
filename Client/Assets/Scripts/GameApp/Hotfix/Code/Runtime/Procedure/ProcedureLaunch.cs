@@ -1,6 +1,6 @@
-using HotfixProcedureOwner = GameFramework.Fsm.IFsm<GameApp.Hotfix.Procedure.HotfixProcedureComponent>;
+using HotfixProcedureOwner = GameFramework.Fsm.IFsm<GameApp.Hotfix.HotfixProcedureComponent>;
 
-namespace GameApp.Hotfix.Procedure
+namespace GameApp.Hotfix
 {
     public sealed class ProcedureLaunch : ProcedureBase
     {

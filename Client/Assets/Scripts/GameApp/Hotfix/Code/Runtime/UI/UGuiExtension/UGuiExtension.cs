@@ -6,7 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using GameFramework;
 
-namespace GameApp.Hotfix.UI.Extension
+namespace GameApp.Hotfix
 {
     public static partial class UGuiExtension
     {

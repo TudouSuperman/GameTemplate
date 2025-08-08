@@ -1,7 +1,7 @@
 using UnityEditor;
-using GameApp.Hotfix.UI.Extension;
+using GameApp.Hotfix;
 
-namespace GameApp.UI.Extension.Editor
+namespace GameApp.Editor
 {
     [CustomEditor(typeof(GraphicRaycast))]
     public sealed class GraphicRaycastInspector : UnityEditor.Editor

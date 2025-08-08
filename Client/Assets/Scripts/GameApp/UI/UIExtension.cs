@@ -1,10 +1,9 @@
 ﻿using GameFramework.UI;
 using UnityGameFramework.Runtime;
-using GameApp.DataTable;
 
-namespace GameApp.UI
+namespace GameApp
 {
-    public static class UIExtension
+    public static partial class UIExtension
     {
         public static bool HasUIForm(this UIComponent uiComponent, int uiFormId)
         {

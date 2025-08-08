@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace GameApp.GFEntity
+namespace GameApp
 {
     public abstract class BaseEntityView : MonoBehaviour
     {

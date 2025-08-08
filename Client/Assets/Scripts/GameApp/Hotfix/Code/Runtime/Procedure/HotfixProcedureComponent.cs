@@ -4,7 +4,7 @@ using GameFramework;
 using GameFramework.Fsm;
 using UnityGameFramework.Extension;
 
-namespace GameApp.Hotfix.Procedure
+namespace GameApp.Hotfix
 {
     public sealed class HotfixProcedureComponent : HotfixComponent
     {

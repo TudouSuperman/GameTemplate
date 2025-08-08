@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using GameFramework;
 
-namespace GameApp.Hotfix.UI.Extension
+namespace GameApp.Hotfix
 {
     [RequireComponent(typeof(RectTransform))]
     public sealed class RectProgressBarCom : MonoBehaviour

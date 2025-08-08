@@ -1,8 +1,6 @@
 ﻿using GameFramework;
 using GameFramework.Sound;
 using UnityGameFramework.Runtime;
-using GameApp.DataTable;
-using GameApp.GFEntity;
 
 namespace GameApp
 {
