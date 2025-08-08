@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 3733417208152250871}
   - component: {fileID: 5382415277874150808}
   m_Layer: 0
-  m_Name: HotEntry
+  m_Name: HotfixEntry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
