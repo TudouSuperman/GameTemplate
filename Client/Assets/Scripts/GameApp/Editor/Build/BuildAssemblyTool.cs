@@ -6,18 +6,18 @@ using UnityEditor.Build.Player;
 using UnityEngine;
 using UnityGameFramework.Extension.Editor;
 
-namespace GameApp.Hot.Editor
+namespace GameApp.Hotfix.Editor
 {
     public static class BuildAssemblyTool
     {
-        public static readonly string CodeDir = "Assets/Res/HotUpdate/Code";
+        public static readonly string CodeDir = "Assets/Res/Hotfix/Code";
         public static readonly string[] ExtraScriptingDefines = new[] { "UNITY_COMPILE", "UNITY_GAMEHOT" };
-        public static readonly string[] DllNames = new[] { "GameApp.Hot.Runtime" };
+        public static readonly string[] DllNames = new[] { "GameApp.Hotfix.Runtime" };
 
         public static void Build(BuildTarget target, ScriptCompilationOptions options)
         {
             // BuildAssemblyHelper.CompileDlls(target, ExtraScriptingDefines, options);
-            BuildAssemblyHelper.CopyHotUpdateDlls(target, CodeDir, DllNames);
+            BuildAssemblyHelper.CopyHotfixDlls(target, CodeDir, DllNames);
             AssetDatabase.Refresh();
         }
         

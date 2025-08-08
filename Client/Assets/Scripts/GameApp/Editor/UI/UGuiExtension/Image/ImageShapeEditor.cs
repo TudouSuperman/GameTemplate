@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using UnityEditor.UI;
-using GameApp.Hot.UI.Extension;
+using GameApp.Hotfix.UI.Extension;
 
 namespace GameApp.UI.Extension.Editor
 {

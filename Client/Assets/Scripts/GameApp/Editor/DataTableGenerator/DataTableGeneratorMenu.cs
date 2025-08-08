@@ -63,7 +63,7 @@ namespace GameApp.DataTable.Editor
         }
 
 
-        [MenuItem("GameApp/DataTable/Generate/Hot Excel To Bin", priority = (short)EDataTableMenuPriority.HotExcelToBin)]
+        [MenuItem("GameApp/DataTable/Generate/Hotfix Excel To Bin", priority = (short)EDataTableMenuPriority.HotExcelToBin)]
         public static void HotGenerateDataTablesFormExcelNotFileSystem()
         {
             DataTableConfig.GetDataTableConfig().RefreshHotDataTables();
@@ -85,8 +85,8 @@ namespace GameApp.DataTable.Editor
                                 break;
                             }
 
-                            DataTableGenerator.GenerateDataFile(dataTableProcessor, sheet.Name, DataTableConfig.GetDataTableConfig().HotDataTableFolderPath);
-                            DataTableGenerator.GenerateCodeFile(dataTableProcessor, sheet.Name, DataTableConfig.GetDataTableConfig().HotCSharpCodePath);
+                            DataTableGenerator.GenerateDataFile(dataTableProcessor, sheet.Name, DataTableConfig.GetDataTableConfig().HotfixDataTableFolderPath);
+                            DataTableGenerator.GenerateCodeFile(dataTableProcessor, sheet.Name, DataTableConfig.GetDataTableConfig().HotfixCSharpCodePath);
                         }
                     }
                 }
@@ -95,18 +95,18 @@ namespace GameApp.DataTable.Editor
             AssetDatabase.Refresh();
         }
 
-        [MenuItem("GameApp/DataTable/Generate/Hot Excel To Txt", priority = (short)EDataTableMenuPriority.HotExcelToTxt)]
+        [MenuItem("GameApp/DataTable/Generate/Hotfix Excel To Txt", priority = (short)EDataTableMenuPriority.HotExcelToTxt)]
         public static void HotExcelToTxt()
         {
             DataTableConfig.GetDataTableConfig().RefreshHotDataTables();
             ExtensionsGenerate.GenerateExtensionByAnalysis(ExtensionsGenerate.DataTableType.Txt, DataTableConfig.GetDataTableConfig().TxtFilePaths, 2);
-            if (!Directory.Exists(DataTableConfig.GetDataTableConfig().HotExcelsFolder))
+            if (!Directory.Exists(DataTableConfig.GetDataTableConfig().HotfixExcelsFolder))
             {
-                Debug.LogError($"{DataTableConfig.GetDataTableConfig().HotExcelsFolder} is not exist!");
+                Debug.LogError($"{DataTableConfig.GetDataTableConfig().HotfixExcelsFolder} is not exist!");
                 return;
             }
 
-            ExcelExtension.ExcelToTxt(DataTableConfig.GetDataTableConfig().HotExcelsFolder, DataTableConfig.GetDataTableConfig().HotDataTableFolderPath);
+            ExcelExtension.ExcelToTxt(DataTableConfig.GetDataTableConfig().HotfixExcelsFolder, DataTableConfig.GetDataTableConfig().HotfixDataTableFolderPath);
             AssetDatabase.Refresh();
         }
 

@@ -1,0 +1,33 @@
+{
+    "name": "GameApp.Hotfix.Runtime",
+    "rootNamespace": "GameApp.Hotfix",
+    "references": [
+        "UnityEngine.UI",
+        "Unity.Mathematics",
+        "Unity.TextMeshPro",
+        "Unity.InputSystem",
+        "GameFramework",
+        "UnityGameFramework.Runtime",
+        "UnityGameFramework.Extension.Runtime",
+        "UnityWebSocket.Runtime",
+        "UniTask",
+        "CodeBind",
+        "protobuf-net",
+        "ZString",
+        "Coffee.UIEffect",
+        "Coffee.UIParticle",
+        "Coffee.SoftMaskForUGUI",
+        "Coffee.UnmaskForUGUI",
+        "GameApp.Runtime",
+        "GameApp.Hotfix.Loader.Runtime"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

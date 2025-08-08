@@ -13,16 +13,17 @@ MonoBehaviour:
   m_Name: DataTableConfig
   m_EditorClassIdentifier: 
   DataTableFolderPath: Assets/Res/Generate/TableData/Game
-  HotDataTableFolderPath: Assets/Res/Generate/TableData/GameHot
+  HotfixDataTableFolderPath: Assets/Res/Generate/TableData/GameHotfix
   ExcelsFolder: D:/GameTemplate/Client/Assets/../../ClientExcel/Game
-  HotExcelsFolder: D:/GameTemplate/Client/Assets/../../ClientExcel/GameHot
+  HotfixExcelsFolder: D:/GameTemplate/Client/Assets/../../ClientExcel/GameHotfix
   CSharpCodePath: Assets/Scripts/GameApp/Generate/TableCode
-  HotCSharpCodePath: Assets/Scripts/GameApp/HotUpdate/Code/Runtime/Generate/TableCode
+  HotfixCSharpCodePath: Assets/Scripts/GameApp/Hotfix/Code/Runtime/Generate/TableCode
   CSharpCodeTemplateFileName: Assets/Res/Editor/Config/DataTableCodeTemplate.txt
   CSharpEnumCodeTemplateFileName: Assets/Res/Editor/Config/DataTableEnumCodeTemplate.txt
   CSharpConstCodeTemplateFileName: Assets/Res/Editor/Config/DataTableConstCodeTemplate.txt
-  HotEnumCodePath: Assets/Scripts/GameApp/HotUpdate/Code/Runtime/Generate/TableEnum
+  HotfixEnumCodePath: Assets/Scripts/GameApp/Hotfix/Code/Runtime/Generate/TableEnum
   NameSpace: GameApp.DataTable
+  HotfixNameSpace: GameApp.Hotfix.DataTable
   ExtensionDirectoryPath: Assets/Scripts/GameApp/DataTable
   NameRow: 1
   TypeRow: 2

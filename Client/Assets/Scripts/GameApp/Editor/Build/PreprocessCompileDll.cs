@@ -3,7 +3,7 @@ using GameApp.Editor;
 using UnityGameFramework.Editor.ResourceTools;
 using UnityGameFramework.Extension.Editor;
 
-namespace GameApp.Hot.Editor
+namespace GameApp.Hotfix.Editor
 {
     public static class PreprocessCompileDll
     {

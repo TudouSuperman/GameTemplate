@@ -2,11 +2,11 @@
 using ToolbarExtension;
 using UnityEngine;
 
-namespace GameApp.Hot.Editor
+namespace GameApp.Hotfix.Editor
 {
     internal sealed class CompileDllToolBar_UGFHotfix
     {
-        private static readonly GUIContent s_ButtonGUIContent = new GUIContent("CopyHotDll", "Copy Compile GameHot Dll.");
+        private static readonly GUIContent s_ButtonGUIContent = new GUIContent("CopyHotDll", "Copy Compile GameHotfix Dll.");
 
         [Toolbar(OnGUISide.Left, 50)]
         static void OnToolbarGUI()

@@ -40,7 +40,7 @@ namespace GameApp.DataTable.Editor
             AssetDatabase.Refresh();
         }
 
-        [MenuItem("GameApp/DataTable/Generate/Hot Excel To Enum", false, (short)EDataTableMenuPriority.HotExcelToEnum)]
+        [MenuItem("GameApp/DataTable/Generate/Hotfix Excel To Enum", false, (short)EDataTableMenuPriority.HotExcelToEnum)]
         private static void GenerateHotDataTableEnum()
         {
             DataTableConfig.GetDataTableConfig().RefreshHotDataTables();
@@ -75,7 +75,7 @@ namespace GameApp.DataTable.Editor
             dataTableProcessor.SetCodeTemplate(DataTableConfig.GetDataTableConfig().CSharpEnumCodeTemplateFileName, Encoding.UTF8);
             dataTableProcessor.SetCodeGenerator(DataTableCodeGenerator);
 
-            string csharpCodeFileName = Utility.Path.GetRegularPath(Path.Combine(DataTableConfig.GetDataTableConfig().HotEnumCodePath, $"E{dataTableName}ID.cs"));
+            string csharpCodeFileName = Utility.Path.GetRegularPath(Path.Combine(DataTableConfig.GetDataTableConfig().HotfixEnumCodePath, $"E{dataTableName}ID.cs"));
             if (!dataTableProcessor.GenerateCodeFile(csharpCodeFileName, Encoding.UTF8, dataTableName) && File.Exists(csharpCodeFileName))
             {
                 File.Delete(csharpCodeFileName);
@@ -87,7 +87,7 @@ namespace GameApp.DataTable.Editor
             string dataTableName = (string)userData;
 
             codeContent.Replace("__DATA_TABLE_CREATE_TIME__", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"));
-            codeContent.Replace("__DATA_TABLE_NAME_SPACE__", "GameApp.Hot");
+            codeContent.Replace("__DATA_TABLE_NAME_SPACE__", "GameApp.Hotfix");
             codeContent.Replace("__DATA_TABLE_ENUM_NAME__", $"E{dataTableName}ID");
             //codeContent.Replace("__DATA_TABLE_COMMENT__", dataTableProcessor.GetValue(0, 1) + "。");
             codeContent.Replace("__DATA_TABLE_ENUM_ITEM__", GenerateEnumItems(dataTableProcessor));

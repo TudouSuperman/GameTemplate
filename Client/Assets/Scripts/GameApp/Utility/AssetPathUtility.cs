@@ -14,14 +14,14 @@ namespace GameApp
             return Utility.Text.Format("Assets/Res/Generate/TableData/Game/{0}.{1}", assetName, fromBytes ? "bytes" : "txt");
         }
 
-        public static string GetHotDictionaryAsset(string assetName, bool fromBytes = true)
+        public static string GetDictionaryAsset(string assetName, bool fromBytes = true)
         {
             return Utility.Text.Format("Assets/Res/Generate/TableData/Localization/{0}.{1}", assetName, fromBytes ? "bytes" : "xml");
         }
 
-        public static string GetHotGameAsset(string assetName)
+        public static string GetHotfixGameAsset(string assetName)
         {
-            return Utility.Text.Format("Assets/Res/HotUpdate/{0}", assetName);
+            return Utility.Text.Format("Assets/Res/Hotfix/{0}", assetName);
         }
     }
 }

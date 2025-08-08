@@ -15,7 +15,7 @@
         "GameApp.Runtime",
         "HybridCLR.Runtime",
         "HybridCLR.Editor",
-        "GameApp.Hot.Runtime"
+        "GameApp.Hotfix.Runtime"
     ],
     "includePlatforms": [
         "Editor"

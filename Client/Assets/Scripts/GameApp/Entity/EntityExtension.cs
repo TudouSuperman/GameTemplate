@@ -1,9 +1,8 @@
 ﻿using System;
-using GameFramework.DataTable;
 using UnityGameFramework.Runtime;
 using GameApp.DataTable;
 
-namespace GameApp.Entity
+namespace GameApp.GFEntity
 {
     public static partial class EntityExtension
     {
@@ -13,44 +12,20 @@ namespace GameApp.Entity
         // 负值用于本地生成的临时实体（如特效、FakeObject等）
         private static int s_SerialId = 0;
 
-        public static BaseEntityLogic GetGameEntity(this EntityComponent entityComponent, int entityId)
+        public static void ShowEntity<T>(this EntityComponent entityComponent, BaseEntityData entityData) where T : EntityLogic
         {
-            UnityGameFramework.Runtime.Entity entity = entityComponent.GetEntity(entityId);
-            if (entity == null)
-            {
-                return null;
-            }
-
-            return (BaseEntityLogic)entity.Logic;
+            entityComponent.ShowEntity(typeof(T), entityData);
         }
 
-        public static void HideEntity(this EntityComponent entityComponent, BaseEntityLogic entity)
+        public static void ShowEntity(this EntityComponent entityComponent, Type logicType, BaseEntityData entityData)
         {
-            entityComponent.HideEntity(entity.Entity);
-        }
-
-        public static void TryHideEntity(this EntityComponent entityComponent, int serialId)
-        {
-            if (entityComponent.IsLoadingEntity(serialId) || entityComponent.HasEntity(serialId))
-            {
-                entityComponent.HideEntity(serialId);
-            }
-        }
-
-        public static void AttachEntity(this EntityComponent entityComponent, BaseEntityLogic entity, int ownerId, string parentTransformPath = null, object userData = null)
-        {
-            entityComponent.AttachEntity(entity.Entity, ownerId, parentTransformPath, userData);
-        }
-
-        public static void ShowEntity(this EntityComponent entityComponent, Type logicType, BaseEntityData data)
-        {
-            if (data == null)
+            if (entityData == null)
             {
                 Log.Warning("Data is invalid.");
                 return;
             }
 
-            DREntity drEntity = GameEntry.DataTable.GetDataRow<DREntity>(data.TypeId);
+            DREntity drEntity = GameEntry.DataTable.GetDataRow<DREntity>(entityData.TypeId);
             if (drEntity == null)
             {
                 return;
@@ -62,7 +37,31 @@ namespace GameApp.Entity
                 return;
             }
 
-            entityComponent.ShowEntity(data.Id, logicType, drAsset.AssetPath, drEntity.GroupName, Constant.AssetPriority.Entity_Asset, data);
+            entityComponent.ShowEntity(entityData.Id, logicType, drAsset.AssetPath, drEntity.GroupName, Constant.AssetPriority.Entity_Asset, entityData);
+        }
+
+        public static int? ShowEntity<T>(this EntityComponent entityComponent, int entityTypeId, object userData = null) where T : EntityLogic
+        {
+            return entityComponent.ShowEntity(entityTypeId, typeof(T), userData);
+        }
+
+        public static int? ShowEntity(this EntityComponent entityComponent, int entityTypeId, Type logicType, object userData = null)
+        {
+            DREntity drEntity = GameEntry.DataTable.GetDataRow<DREntity>(entityTypeId);
+            if (drEntity == null)
+            {
+                return null;
+            }
+
+            DRAsset drAsset = GameEntry.DataTable.GetDataRow<DRAsset>(drEntity.AssetId);
+            if (drAsset == null)
+            {
+                return null;
+            }
+
+            int entityId = entityComponent.GenerateSerialId();
+            entityComponent.ShowEntity(entityId, logicType, drAsset.AssetPath, drEntity.GroupName, Constant.AssetPriority.Entity_Asset, userData);
+            return entityId;
         }
 
         public static int GenerateSerialId(this EntityComponent entityComponent)

@@ -20,7 +20,7 @@ MonoBehaviour:
   - {fileID: 5897886265953266890, guid: 9a1f4fd1771f679498c41fc6b336b57c, type: 3}
   hotUpdateAssemblies: []
   preserveHotUpdateAssemblies: []
-  hotUpdateDllCompileOutputRootDir: HybridCLRData/HotUpdateDlls
+  hotUpdateDllCompileOutputRootDir: HybridCLRData/HotfixDlls
   externalHotUpdateAssembliyDirs:
   - ./Temp/HybridCLRBin
   strippedAOTDllOutputRootDir: HybridCLRData/AssembliesPostIl2CppStrip
@@ -57,7 +57,7 @@ MonoBehaviour:
   - Coffee.UnmaskForUGUI
   - ICSharpCode.SharpZipLib
   - GameApp.Runtime
-  - GameApp.Hot.Loader
+  - GameApp.Hotfix.Loader
   outputLinkFile: Res/Editor/HybridCLR/Generate/link.xml
   outputAOTGenericReferenceFile: Res/Editor/HybridCLR/Generate/AOTGenericReferences.cs
   maxGenericReferenceIteration: 10

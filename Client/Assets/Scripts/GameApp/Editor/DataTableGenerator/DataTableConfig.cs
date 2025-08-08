@@ -19,9 +19,9 @@ namespace GameApp.DataTable.Editor
         public string DataTableFolderPath;
 
         /// <summary>
-        /// Hot 数据表存放文件夹路径
+        /// Hotfix 数据表存放文件夹路径
         /// </summary>
-        public string HotDataTableFolderPath;
+        public string HotfixDataTableFolderPath;
 
         /// <summary>
         /// Excel 存放的文件夹路径
@@ -29,9 +29,9 @@ namespace GameApp.DataTable.Editor
         public string ExcelsFolder;
 
         /// <summary>
-        /// Hot Excel 存放的文件夹路径
+        /// Hotfix Excel 存放的文件夹路径
         /// </summary>
-        public string HotExcelsFolder;
+        public string HotfixExcelsFolder;
 
         /// <summary>
         /// 数据表 C# 实体类生成文件夹路径
@@ -39,9 +39,9 @@ namespace GameApp.DataTable.Editor
         public string CSharpCodePath;
 
         /// <summary>
-        /// Hot 数据表 C# 实体类生成文件夹路径
+        /// Hotfix 数据表 C# 实体类生成文件夹路径
         /// </summary>
-        public string HotCSharpCodePath;
+        public string HotfixCSharpCodePath;
 
         /// <summary>
         /// 数据表 C# 实体类模板存放路径
@@ -59,14 +59,19 @@ namespace GameApp.DataTable.Editor
         public string CSharpConstCodeTemplateFileName;
 
         /// <summary>
-        /// Hot 数据表 枚举 实体类生成文件夹路径
+        /// Hotfix 数据表 枚举 实体类生成文件夹路径
         /// </summary>
-        public string HotEnumCodePath;
+        public string HotfixEnumCodePath;
 
         /// <summary>
         /// 数据表命名空间
         /// </summary>
         public string NameSpace;
+
+        /// <summary>
+        /// Hotfix 数据表命名空间
+        /// </summary>
+        public string HotfixNameSpace;
 
         /// <summary>
         /// 数据表扩展类文件夹路径
@@ -141,9 +146,9 @@ namespace GameApp.DataTable.Editor
 
         public void RefreshHotDataTables()
         {
-            if (Directory.Exists(HotDataTableFolderPath))
+            if (Directory.Exists(HotfixDataTableFolderPath))
             {
-                var txtFolder = new DirectoryInfo(HotDataTableFolderPath);
+                var txtFolder = new DirectoryInfo(HotfixDataTableFolderPath);
                 TxtFilePaths = txtFolder.GetFiles("*.txt", SearchOption.TopDirectoryOnly)
                     .Select(_ => Utility.Path.GetRegularPath(_.FullName))
                     .ToArray();
@@ -152,9 +157,9 @@ namespace GameApp.DataTable.Editor
                     .ToArray();
             }
 
-            if (Directory.Exists(HotExcelsFolder))
+            if (Directory.Exists(HotfixExcelsFolder))
             {
-                var excelFolder = new DirectoryInfo(HotExcelsFolder);
+                var excelFolder = new DirectoryInfo(HotfixExcelsFolder);
                 ExcelFilePaths = excelFolder.GetFiles("*.xlsx", SearchOption.AllDirectories)
                     .Where(_ => !_.Name.StartsWith("~$") && !_.Name.StartsWith("$")).Select(_ => Utility.Path.GetRegularPath(_.FullName))
                     .ToArray();
@@ -201,16 +206,17 @@ namespace GameApp.DataTable.Editor
 
             DataTableConfig codeGeneratorSettingConfig = CreateInstance<DataTableConfig>();
             codeGeneratorSettingConfig.DataTableFolderPath = "Assets/Res/Generate/TableData/Game";
-            codeGeneratorSettingConfig.HotDataTableFolderPath = "Assets/Res/Generate/TableData/GameHot";
+            codeGeneratorSettingConfig.HotfixDataTableFolderPath = "Assets/Res/Generate/TableData/GameHotfix";
             codeGeneratorSettingConfig.ExcelsFolder = $"{Application.dataPath}/../../ClientExcel/Game";
-            codeGeneratorSettingConfig.HotExcelsFolder = $"{Application.dataPath}/../../ClientExcel/GameHot";
+            codeGeneratorSettingConfig.HotfixExcelsFolder = $"{Application.dataPath}/../../ClientExcel/GameHotfix";
             codeGeneratorSettingConfig.CSharpCodePath = "Assets/Scripts/GameApp/Generate/TableCode";
-            codeGeneratorSettingConfig.HotCSharpCodePath = "Assets/Scripts/GameApp/HotUpdate/Code/Runtime/Generate/TableCode";
+            codeGeneratorSettingConfig.HotfixCSharpCodePath = "Assets/Scripts/GameApp/Hotfix/Code/Runtime/Generate/TableCode";
             codeGeneratorSettingConfig.CSharpCodeTemplateFileName = "Assets/Res/Editor/Config/DataTableCodeTemplate.txt";
             codeGeneratorSettingConfig.CSharpEnumCodeTemplateFileName = "Assets/Res/Editor/Config/DataTableEnumCodeTemplate.txt";
             codeGeneratorSettingConfig.CSharpConstCodeTemplateFileName = "Assets/Res/Editor/Config/DataTableConstCodeTemplate.txt";
-            codeGeneratorSettingConfig.HotEnumCodePath = "Assets/Scripts/GameApp/HotUpdate/Code/Runtime/Generate/TableEnum";
+            codeGeneratorSettingConfig.HotfixEnumCodePath = "Assets/Scripts/GameApp/Hotfix/Code/Runtime/Generate/TableEnum";
             codeGeneratorSettingConfig.NameSpace = "GameApp.DataTable";
+            codeGeneratorSettingConfig.HotfixNameSpace = "GameApp.Hotfix.DataTable";
             codeGeneratorSettingConfig.ExtensionDirectoryPath = "Assets/Scripts/GameApp/DataTable";
 
             codeGeneratorSettingConfig.NameRow = 1;
@@ -241,16 +247,17 @@ namespace GameApp.DataTable.Editor
             }
 
             s_DataTableConfig.DataTableFolderPath = "Assets/Res/Generate/Game/TableData";
-            s_DataTableConfig.HotDataTableFolderPath = "Assets/Res/Generate/GameHot/TableData";
+            s_DataTableConfig.HotfixDataTableFolderPath = "Assets/Res/Generate/GameHotfix/TableData";
             s_DataTableConfig.ExcelsFolder = $"{Application.dataPath}/../../ClientExcel/Game";
-            s_DataTableConfig.HotExcelsFolder = $"{Application.dataPath}/../../ClientExcel/GameHot";
+            s_DataTableConfig.HotfixExcelsFolder = $"{Application.dataPath}/../../ClientExcel/GameHotfix";
             s_DataTableConfig.CSharpCodePath = "Assets/Scripts/GameApp/Generate/TableCode";
-            s_DataTableConfig.HotCSharpCodePath = "Assets/Scripts/GameApp/HotUpdate/Code/Runtime/Generate/TableCode";
+            s_DataTableConfig.HotfixCSharpCodePath = "Assets/Scripts/GameApp/Hotfix/Code/Runtime/Generate/TableCode";
             s_DataTableConfig.CSharpCodeTemplateFileName = "Assets/Res/Editor/Config/DataTableCodeTemplate.txt";
             s_DataTableConfig.CSharpEnumCodeTemplateFileName = "Assets/Res/Editor/Config/DataTableEnumCodeTemplate.txt";
             s_DataTableConfig.CSharpConstCodeTemplateFileName = "Assets/Res/Editor/Config/DataTableConstCodeTemplate.txt";
-            s_DataTableConfig.HotEnumCodePath = "Assets/Scripts/GameApp/HotUpdate/Code/Runtime/Generate/TableEnum";
+            s_DataTableConfig.HotfixEnumCodePath = "Assets/Scripts/GameApp/Hotfix/Code/Runtime/Generate/TableEnum";
             s_DataTableConfig.NameSpace = "GameApp.DataTable";
+            s_DataTableConfig.HotfixNameSpace = "GameApp.Hotfix.DataTable";
             s_DataTableConfig.ExtensionDirectoryPath = "Assets/Scripts/GameApp/DataTable";
 
             s_DataTableConfig.NameRow = 1;

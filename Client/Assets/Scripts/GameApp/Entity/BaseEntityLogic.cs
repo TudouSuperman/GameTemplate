@@ -2,7 +2,7 @@
 using GameFramework;
 using UnityGameFramework.Runtime;
 
-namespace GameApp.Entity
+namespace GameApp.GFEntity
 {
     public abstract class BaseEntityLogic : EntityLogic
     {

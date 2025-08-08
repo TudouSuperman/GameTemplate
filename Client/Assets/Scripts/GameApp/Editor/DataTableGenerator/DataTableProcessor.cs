@@ -444,6 +444,12 @@ namespace GameApp.DataTable.Editor
                     m_CodeGenerator(this, stringBuilder, userData);
                 }
 
+                // TODO 作者，处理热更目录命名空间。
+                if (outputFileName.Contains("Hotfix"))
+                {
+                    stringBuilder.Replace($"namespace {DataTableConfig.GetDataTableConfig().NameSpace}", $"namespace {DataTableConfig.GetDataTableConfig().HotfixNameSpace}");
+                }
+
                 using (FileStream fileStream = new FileStream(outputFileName, FileMode.Create, FileAccess.Write))
                 {
                     using (StreamWriter stream = new StreamWriter(fileStream, encoding))

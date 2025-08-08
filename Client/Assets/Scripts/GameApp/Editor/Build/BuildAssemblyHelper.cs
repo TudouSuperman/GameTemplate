@@ -12,8 +12,8 @@ namespace GameApp.Editor
 {
     public static class BuildAssemblyHelper
     {
-        public static string ExternalHotUpdateAssemblyDir => "./Temp/HybridCLRBin";
-        public static string BuildOutputDir => "./HybridCLRData/HotUpdateDlls";
+        public static string ExternalHotfixAssemblyDir => "./Temp/HybridCLRBin";
+        public static string BuildOutputDir => "./HybridCLRData/HotfixDlls";
         private static SynchronizationContext s_UnitySynchronizationContext;
 
         [InitializeOnLoadMethod]
@@ -66,12 +66,12 @@ namespace GameApp.Editor
             }
         }
 
-        public static void CopyHotUpdateDlls(BuildTarget target, string desDir, string[] dllNames)
+        public static void CopyHotfixDlls(BuildTarget target, string desDir, string[] dllNames)
         {
             Directory.CreateDirectory(desDir);
-            Directory.CreateDirectory(ExternalHotUpdateAssemblyDir);
+            Directory.CreateDirectory(ExternalHotfixAssemblyDir);
             FileTool.CleanDirectory(desDir);
-            FileTool.CleanDirectory(ExternalHotUpdateAssemblyDir);
+            FileTool.CleanDirectory(ExternalHotfixAssemblyDir);
             string buildDir = GetBuildTargetDir(target);
             foreach (var dllName in dllNames)
             {
@@ -80,9 +80,9 @@ namespace GameApp.Editor
                 File.Copy(sourceDll, $"{desDir}/{dllName}.dll.bytes", true);
                 File.Copy(sourcePdb, $"{desDir}/{dllName}.pdb.bytes", true);
                 //更新HybridCLR热更dlls
-                File.Copy(sourceDll, $"{ExternalHotUpdateAssemblyDir}/{dllName}.dll", true);
-                File.Copy(sourcePdb, $"{ExternalHotUpdateAssemblyDir}/{dllName}.pdb", true);
-                Debug.Log($"copy:{buildDir}/{dllName} => {desDir}/{dllName} , {ExternalHotUpdateAssemblyDir}/{dllName}");
+                File.Copy(sourceDll, $"{ExternalHotfixAssemblyDir}/{dllName}.dll", true);
+                File.Copy(sourcePdb, $"{ExternalHotfixAssemblyDir}/{dllName}.pdb", true);
+                Debug.Log($"copy:{buildDir}/{dllName} => {desDir}/{dllName} , {ExternalHotfixAssemblyDir}/{dllName}");
             }
             Debug.Log("copy finish!!!");
         }

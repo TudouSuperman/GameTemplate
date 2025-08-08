@@ -13,12 +13,12 @@ namespace GameApp.DataTable.Editor
 {
     public static class DataTableLocalizationGenerator
     {
-        [MenuItem("GameApp/DataTable/Generate/Hot Excel To Language XML", priority = (short)EDataTableMenuPriority.HotExcelToLanguageXML)]
+        [MenuItem("GameApp/DataTable/Generate/Hotfix Excel To Language XML", priority = (short)EDataTableMenuPriority.HotExcelToLanguageXML)]
         public static void GenerateLocalizationFiles()
         {
             try
             {
-                GenerateLocalizationFiles($"{DataTableConfig.GetDataTableConfig().HotExcelsFolder}/$Localization.xlsx",
+                GenerateLocalizationFiles($"{DataTableConfig.GetDataTableConfig().HotfixExcelsFolder}/$Localization.xlsx",
                     "Assets/Res/Generate/TableData/Localization");
             }
             catch (Exception e)
@@ -80,9 +80,9 @@ namespace GameApp.DataTable.Editor
                 // 生成语言Key常量类
                 GenerateLanguageKeyConstants(
                     keyRemarks,
-                    "Assets/Scripts/GameApp/HotUpdate/Code/Runtime/Generate/TableConst", // 输出路径
+                    "Assets/Scripts/GameApp/Hotfix/Code/Runtime/Generate/TableConst", // 输出路径
                     "LocalizationKey", // 类名
-                    "GameApp.Hot" // 命名空间
+                    "GameApp.Hotfix" // 命名空间
                 );
             }
 
