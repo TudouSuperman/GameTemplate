@@ -53,7 +53,7 @@ namespace GameApp.Hotfix
                 Assembly.Load(_dllBytes, _pdbBytes);
             }
 
-            m_HotEntryAsset = await GameEntry.Resource.LoadAssetAsync<GameObject>(AssetPathUtility.GetHotfixGameAsset("HotEntry.prefab"));
+            m_HotEntryAsset = await GameEntry.Resource.LoadAssetAsync<GameObject>(AssetPathUtility.GetHotfixGameAsset("HotfixEntry.prefab"));
             m_HotEntryGameObject = Instantiate(m_HotEntryAsset, GameEntry.CodeRunner.transform);
         }
 
