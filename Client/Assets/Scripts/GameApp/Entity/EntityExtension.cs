@@ -57,7 +57,7 @@ namespace GameApp
                 return;
             }
 
-            entityComponent.ShowEntity(entityData.Id, logicType, drAsset.AssetPath, drEntity.GroupName, Constant.AssetPriority.Entity_Asset, entityData);
+            entityComponent.ShowEntity(entityData.SerialId, logicType, drAsset.AssetPath, drEntity.GroupName, Constant.AssetPriority.Entity_Asset, entityData);
         }
 
         public static int? ShowEntity<T>(this EntityComponent entityComponent, int entityTypeId, object userData = null) where T : UGFEntityLogic

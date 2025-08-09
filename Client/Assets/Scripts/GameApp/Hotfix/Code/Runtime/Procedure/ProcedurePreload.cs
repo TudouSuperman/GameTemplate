@@ -14,6 +14,8 @@ namespace GameApp.Hotfix
         public static readonly Dictionary<string, Type> DataTableNames = new Dictionary<string, Type>()
         {
             ["Guide"] = typeof(DRGuide),
+            ["Hero"] = typeof(DRHero),
+            ["HeroBaseData"] = typeof(DRHeroBaseData),
         };
 
         private readonly Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();

@@ -8,7 +8,7 @@ namespace GameApp
     public abstract class UGFEntityData : IReference
     {
         [SerializeField]
-        protected int m_Id = 0;
+        protected int m_SerialId = 0;
 
         [SerializeField]
         protected int m_TypeId = 0;
@@ -22,7 +22,7 @@ namespace GameApp
         /// <summary>
         /// 实体编号。
         /// </summary>
-        public int Id => m_Id;
+        public int SerialId => m_SerialId;
 
         /// <summary>
         /// 实体类型编号。
@@ -49,7 +49,7 @@ namespace GameApp
 
         public virtual void Clear()
         {
-            m_Id = 0;
+            m_SerialId = 0;
             m_TypeId = 0;
             m_Position = Vector3.zero;
             Rotation = Quaternion.identity;

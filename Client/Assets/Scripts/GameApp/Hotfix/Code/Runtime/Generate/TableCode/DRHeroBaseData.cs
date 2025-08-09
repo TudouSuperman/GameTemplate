@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2025-08-09 18:06:41.179
+// 生成时间：2025-08-09 18:06:42.253
 //------------------------------------------------------------
 
 using System;
@@ -19,14 +19,14 @@ using UnityGameFramework.Runtime;
 namespace GameApp.Hotfix
 {
     /// <summary>
-    /// 新手引导配置表。
+    /// 角色基础数据表。
     /// </summary>
-    public sealed class DRGuide : DataRowBase
+    public sealed class DRHeroBaseData : DataRowBase
     {
         private Int32 m_Id = 0;
 
         /// <summary>
-        /// 获取步骤编号。
+        /// 获取数据编号。
         /// </summary>
         public override Int32 Id
         {
@@ -37,7 +37,7 @@ namespace GameApp.Hotfix
         }
 
         /// <summary>
-        /// 获取步骤名称。
+        /// 获取数据名称。
         /// </summary>
         public string Name
         {
@@ -46,9 +46,18 @@ namespace GameApp.Hotfix
         }
 
         /// <summary>
-        /// 获取下一步的编号。
+        /// 获取基础攻击力。
         /// </summary>
-        public int NextId
+        public int BaseDamage
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取基础移动速度。
+        /// </summary>
+        public float BaseMoveSpeed
         {
             get;
             private set;
@@ -67,7 +76,9 @@ namespace GameApp.Hotfix
             m_Id = int.Parse(columnStrings[index++]);
             index++;
             Name = columnStrings[index++];
-            NextId = int.Parse(columnStrings[index++]);
+            BaseDamage = int.Parse(columnStrings[index++]);
+            BaseMoveSpeed = float.Parse(columnStrings[index++]);
+            index++;
             index++;
             index++;
             index++;
@@ -85,7 +96,8 @@ namespace GameApp.Hotfix
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
                     Name = binaryReader.ReadString();
-                    NextId = binaryReader.Read7BitEncodedInt32();
+                    BaseDamage = binaryReader.Read7BitEncodedInt32();
+                    BaseMoveSpeed = binaryReader.ReadSingle();
                 }
             }
 

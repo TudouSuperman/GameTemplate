@@ -22,6 +22,8 @@ namespace GameApp.Hotfix
 
             m_StartGame = false;
             GameEntry.UI.OpenUIForm((int)EUIFormID.MainMenuForm, this);
+
+            GameEntry.Entity.ShowHostEntity(HostEntityData.Create(GameEntry.Entity.GenerateSerialId(), (int)EEntityID.HostEntity));
         }
 
         protected override void OnLeave(HotfixProcedureOwner procedureOwner, bool isShutdown)

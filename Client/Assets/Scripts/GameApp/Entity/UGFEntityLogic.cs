@@ -28,6 +28,9 @@ namespace GameApp
 #endif
         {
             base.OnRecycle();
+            
+            ReferencePool.Release(m_EntityData);
+            m_EntityData = null;
         }
 
 #if UNITY_2017_3_OR_NEWER
