@@ -2,7 +2,7 @@ using UnityGameFramework.Runtime;
 
 namespace GameApp.Hotfix
 {
-    public sealed class MainMenuFormLogic : UGuiFormLogic
+    public sealed class MainMenuFormLogic : UGuiFormLogicEx
     {
         private ProcedureGame m_ProcedureGame;
 

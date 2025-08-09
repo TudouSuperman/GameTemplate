@@ -8,12 +8,15 @@ namespace GameApp
 {
     public static partial class EntityExtension
     {
-        public static UniTask<Entity> ShowEntityAsync<T>(this EntityComponent entityComponent,
+        public static UniTask<Entity> ShowEntityAsync<T>
+        (
+            this EntityComponent entityComponent,
             int entityTypeId,
             object userData = null,
             CancellationToken cancellationToken = default,
             Action<float> updateEvent = null,
-            Action<string> dependencyAssetEvent = null) where T : EntityLogic
+            Action<string> dependencyAssetEvent = null
+        ) where T : EntityLogic
         {
             return entityComponent.ShowEntityAsync
             (
@@ -26,13 +29,16 @@ namespace GameApp
             );
         }
 
-        public static UniTask<Entity> ShowEntityAsync(this EntityComponent entityComponent,
+        public static UniTask<Entity> ShowEntityAsync
+        (
+            this EntityComponent entityComponent,
             int entityTypeId,
             Type logicType,
             object userData = null,
             CancellationToken cancellationToken = default,
             Action<float> updateEvent = null,
-            Action<string> dependencyAssetEvent = null)
+            Action<string> dependencyAssetEvent = null
+        )
         {
             DREntity drEntity = GameEntry.DataTable.GetDataRow<DREntity>(entityTypeId);
             if (drEntity == null)

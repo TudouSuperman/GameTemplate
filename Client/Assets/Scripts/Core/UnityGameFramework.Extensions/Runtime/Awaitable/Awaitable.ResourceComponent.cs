@@ -12,12 +12,15 @@ namespace UnityGameFramework.Extension
         /// <summary>
         /// 加载资源（可等待）
         /// </summary>
-        public static UniTask<T> LoadAssetAsync<T>(this ResourceComponent resourceComponent,
+        public static UniTask<T> LoadAssetAsync<T>
+        (
+            this ResourceComponent resourceComponent,
             string assetName,
             int priority = 0,
             CancellationToken cancellationToken = default,
             Action<float> updateEvent = null,
-            Action<string> dependencyAssetEvent = null) where T : UnityEngine.Object
+            Action<string> dependencyAssetEvent = null
+        ) where T : UnityEngine.Object
         {
 #if UNITY_EDITOR
             TipsSubscribeEvent();

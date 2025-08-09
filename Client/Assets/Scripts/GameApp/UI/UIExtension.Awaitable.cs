@@ -8,12 +8,15 @@ namespace GameApp
 {
     public static partial class UIExtension
     {
-        public static async UniTask<UIForm> OpenUIFormAsync(this UIComponent uiComponent,
+        public static async UniTask<UIForm> OpenUIFormAsync
+        (
+            this UIComponent uiComponent,
             int uiFormId,
             object userData = null,
             CancellationToken cancellationToken = default,
             Action<float> updateEvent = null,
-            Action<string> dependencyAssetEvent = null)
+            Action<string> dependencyAssetEvent = null
+        )
         {
             DRUIForm drUIForm = GameEntry.DataTable.GetDataRow<DRUIForm>(uiFormId);
             if (drUIForm == null)
@@ -40,7 +43,7 @@ namespace GameApp
                     return null;
                 }
             }
-            
+
             return await uiComponent.OpenUIFormAsync(
                 assetName,
                 drUIForm.GroupName,

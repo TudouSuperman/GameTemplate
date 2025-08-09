@@ -13,13 +13,16 @@ namespace UnityGameFramework.Extension
         /// <summary>
         /// 增加Web请求任务（可等待）
         /// </summary>
-        public static UniTask<WebRequestResult> WebRequestAsync(this WebRequestComponent webRequestComponent,
+        public static UniTask<WebRequestResult> WebRequestAsync
+        (
+            this WebRequestComponent webRequestComponent,
             string webRequestUri,
             WWWForm wwwForm = null,
             string tag = null,
             int priority = 0,
             CancellationToken cancellationToken = default,
-            Action startEvent = null)
+            Action startEvent = null
+        )
         {
 #if UNITY_EDITOR
             TipsSubscribeEvent();
@@ -81,13 +84,16 @@ namespace UnityGameFramework.Extension
         /// <summary>
         /// 增加Web请求任务（可等待）
         /// </summary>
-        public static UniTask<WebRequestResult> WebRequestAsync(this WebRequestComponent webRequestComponent,
+        public static UniTask<WebRequestResult> WebRequestAsync
+        (
+            this WebRequestComponent webRequestComponent,
             string webRequestUri,
             byte[] postData,
             string tag = null,
             int priority = 0,
             CancellationToken cancellationToken = default,
-            Action startEvent = null)
+            Action startEvent = null
+        )
         {
 #if UNITY_EDITOR
             TipsSubscribeEvent();

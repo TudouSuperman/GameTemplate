@@ -11,11 +11,14 @@ namespace UnityGameFramework.Extension
         /// <summary>
         /// 加载场景（可等待）
         /// </summary>
-        public static UniTask LoadSceneAsync(this SceneComponent sceneComponent,
+        public static UniTask LoadSceneAsync
+        (
+            this SceneComponent sceneComponent,
             string sceneAssetName,
             int priority = 0,
             Action<float> updateEvent = null,
-            Action<string> dependencyAsset = null)
+            Action<string> dependencyAsset = null
+        )
         {
 #if UNITY_EDITOR
             TipsSubscribeEvent();

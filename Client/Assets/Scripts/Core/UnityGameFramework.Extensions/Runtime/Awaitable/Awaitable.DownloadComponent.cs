@@ -12,14 +12,17 @@ namespace UnityGameFramework.Extension
         /// <summary>
         /// 增加下载任务（可等待)
         /// </summary>
-        public static UniTask<DownloadResult> DownloadAsync(this DownloadComponent downloadComponent,
+        public static UniTask<DownloadResult> DownloadAsync
+        (
+            this DownloadComponent downloadComponent,
             string downloadPath,
             string downloadUri,
             string tag = null,
             int priority = 0,
             CancellationToken cancellationToken = default,
             Action<long> startAction = null,
-            Action<long> updateAction = null)
+            Action<long> updateAction = null
+        )
         {
 #if UNITY_EDITOR
             TipsSubscribeEvent();

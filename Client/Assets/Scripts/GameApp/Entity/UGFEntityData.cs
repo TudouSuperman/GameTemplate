@@ -5,7 +5,7 @@ using GameFramework;
 namespace GameApp
 {
     [Serializable]
-    public abstract class BaseEntityData : IReference
+    public abstract class UGFEntityData : IReference
     {
         [SerializeField]
         protected int m_Id = 0;

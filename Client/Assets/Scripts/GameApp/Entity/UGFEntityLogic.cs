@@ -1,13 +1,13 @@
-﻿using UnityEngine;
-using GameFramework;
+﻿using GameFramework;
 using UnityGameFramework.Runtime;
+using UnityEngine;
 
 namespace GameApp
 {
-    public abstract class BaseEntityLogic : EntityLogic
+    public abstract class UGFEntityLogic : EntityLogic
     {
-        protected BaseEntityData m_EntityData = null;
-        protected BaseEntityView m_EntityView = null;
+        private UGFEntityView m_EntityView;
+        private UGFEntityData m_EntityData;
 
 #if UNITY_2017_3_OR_NEWER
         protected override void OnInit(object userData)
@@ -17,7 +17,7 @@ namespace GameApp
         {
             base.OnInit(userData);
 
-            m_EntityView = GetComponent<BaseEntityView>();
+            m_EntityView = GetComponent<UGFEntityView>();
             m_EntityView.OnInit();
         }
 
@@ -38,7 +38,7 @@ namespace GameApp
         {
             base.OnShow(userData);
 
-            m_EntityData = userData as BaseEntityData;
+            m_EntityData = userData as UGFEntityData;
             if (m_EntityData == null)
             {
                 Log.Error("Entity data is invalid.");
@@ -104,5 +104,8 @@ namespace GameApp
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
         }
+
+        public T GetView<T>() where T : UGFEntityView => (T)m_EntityView;
+        public T GetData<T>() where T : UGFEntityData => (T)m_EntityData;
     }
 }

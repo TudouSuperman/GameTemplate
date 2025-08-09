@@ -15,7 +15,9 @@ namespace UnityGameFramework.Extension
         /// <summary>
         /// 打开界面（可等待）
         /// </summary>
-        public static UniTask<UIForm> OpenUIFormAsync(this UIComponent uiComponent,
+        public static UniTask<UIForm> OpenUIFormAsync
+        (
+            this UIComponent uiComponent,
             string uiFormAssetName,
             string uiGroupName,
             int priority,
@@ -23,7 +25,8 @@ namespace UnityGameFramework.Extension
             object userData = null,
             CancellationToken cancellationToken = default,
             Action<float> updateEvent = null,
-            Action<string> dependencyAssetEvent = null)
+            Action<string> dependencyAssetEvent = null
+        )
         {
 #if UNITY_EDITOR
             TipsSubscribeEvent();

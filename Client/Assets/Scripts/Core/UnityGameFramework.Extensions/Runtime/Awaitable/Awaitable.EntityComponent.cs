@@ -15,7 +15,9 @@ namespace UnityGameFramework.Extension
         /// <summary>
         /// 显示实体（可等待）
         /// </summary>
-        public static UniTask<Entity> ShowEntityAsync(this EntityComponent entityComponent,
+        public static UniTask<Entity> ShowEntityAsync
+        (
+            this EntityComponent entityComponent,
             int entityId,
             Type entityLogicType,
             string entityAssetName,
@@ -24,7 +26,8 @@ namespace UnityGameFramework.Extension
             object userData = null,
             CancellationToken cancellationToken = default,
             Action<float> updateEvent = null,
-            Action<string> dependencyAssetEvent = null)
+            Action<string> dependencyAssetEvent = null
+        )
         {
 #if UNITY_EDITOR
             TipsSubscribeEvent();

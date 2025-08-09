@@ -3,7 +3,7 @@
 
 namespace GameApp.Hotfix
 {
-    public sealed class DialogFormLogic : UGuiFormLogic
+    public sealed class DialogFormLogic : UGuiFormLogicEx
     {
         private DialogParams m_DialogParams;
 

@@ -11,12 +11,33 @@ namespace GameApp
         // 负值用于本地生成的临时实体（如特效、FakeObject等）
         private static int s_SerialId = 0;
 
-        public static void ShowEntity<T>(this EntityComponent entityComponent, BaseEntityData entityData) where T : EntityLogic
+        public static void TryHideEntity(this EntityComponent entityComponent, int serialId)
+        {
+            if (entityComponent.IsLoadingEntity(serialId) || entityComponent.HasEntity(serialId))
+            {
+                entityComponent.HideEntity(serialId);
+            }
+        }
+
+        public static bool TryGetEntity(this EntityComponent entityComponent, int serialId, out UGFEntityLogic entityLogic)
+        {
+            entityLogic = null;
+            Entity entity = entityComponent.GetEntity(serialId);
+            if (entity == null)
+            {
+                return false;
+            }
+
+            entityLogic = (UGFEntityLogic)entity.Logic;
+            return true;
+        }
+
+        public static void ShowEntity<T>(this EntityComponent entityComponent, UGFEntityData entityData) where T : EntityLogic
         {
             entityComponent.ShowEntity(typeof(T), entityData);
         }
 
-        public static void ShowEntity(this EntityComponent entityComponent, Type logicType, BaseEntityData entityData)
+        public static void ShowEntity(this EntityComponent entityComponent, Type logicType, UGFEntityData entityData)
         {
             if (entityData == null)
             {
@@ -39,7 +60,7 @@ namespace GameApp
             entityComponent.ShowEntity(entityData.Id, logicType, drAsset.AssetPath, drEntity.GroupName, Constant.AssetPriority.Entity_Asset, entityData);
         }
 
-        public static int? ShowEntity<T>(this EntityComponent entityComponent, int entityTypeId, object userData = null) where T : EntityLogic
+        public static int? ShowEntity<T>(this EntityComponent entityComponent, int entityTypeId, object userData = null) where T : UGFEntityLogic
         {
             return entityComponent.ShowEntity(entityTypeId, typeof(T), userData);
         }

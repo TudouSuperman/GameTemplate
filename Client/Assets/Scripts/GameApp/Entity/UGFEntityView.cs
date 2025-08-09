@@ -2,7 +2,7 @@
 
 namespace GameApp
 {
-    public abstract class BaseEntityView : MonoBehaviour
+    public abstract class UGFEntityView : MonoBehaviour
     {
         public abstract void OnInit();
     }

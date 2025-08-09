@@ -3,7 +3,7 @@ using GameFramework;
 
 namespace GameApp.Hotfix
 {
-    public sealed class HostEntityData : BaseEntityData
+    public sealed class HostEntityData : UGFEntityData
     {
         [SerializeField]
         private float m_MoveSpeed = 0;

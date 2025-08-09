@@ -82,11 +82,13 @@ namespace GameApp
                 dependencyAssetEvent.Invoke(dependencyAssetName);
             }
 
-            LoadAssetCallbacks loadAssetCallbacks = new LoadAssetCallbacks(
+            LoadAssetCallbacks loadAssetCallbacks = new LoadAssetCallbacks
+            (
                 LoadAssetSuccessCallback,
                 onLoadFailure == null ? null : LoadAssetFailureCallback,
                 updateEvent == null ? null : LoadAssetUpdateCallback,
-                dependencyAssetEvent == null ? null : LoadAssetDependencyAssetCallback);
+                dependencyAssetEvent == null ? null : LoadAssetDependencyAssetCallback
+            );
             GameEntry.Resource.LoadAsset(assetName, priority, loadAssetCallbacks);
         }
 

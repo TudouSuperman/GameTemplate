@@ -15,6 +15,7 @@ namespace GameApp
         private static TMP_FontAsset s_MainFont = null;
         private Canvas m_CachedCanvas = null;
         private readonly List<Canvas> m_CachedCanvasContainer = new List<Canvas>();
+        private readonly List<ParticleSystemRenderer> m_CachedParticleSystemRenderersContainer = new List<ParticleSystemRenderer>();
 
         protected UGuiFormView m_UGuiFormView;
 
@@ -29,6 +30,16 @@ namespace GameApp
             s_MainFont = mainFont;
         }
 
+        public virtual void CloseSelf()
+        {
+            GameEntry.UI.CloseUIForm(this.UIForm);
+        }
+
+        public virtual void PlayUISound(int uiSoundId)
+        {
+            GameEntry.Sound.PlayUISound(uiSoundId);
+        }
+
 #if UNITY_2017_3_OR_NEWER
         protected override void OnInit(object userData)
 #else
@@ -40,17 +51,19 @@ namespace GameApp
             m_CachedCanvas = gameObject.GetOrAddComponent<Canvas>();
             m_CachedCanvas.overrideSorting = true;
             OriginalDepth = m_CachedCanvas.sortingOrder;
-            gameObject.GetOrAddComponent<GraphicRaycaster>();
 
-            RectTransform _transform = GetComponent<RectTransform>();
-            _transform.anchorMin = Vector2.zero;
-            _transform.anchorMax = Vector2.one;
-            _transform.anchoredPosition = Vector2.zero;
-            _transform.sizeDelta = Vector2.zero;
+            RectTransform transform = GetComponent<RectTransform>();
+            transform.anchorMin = Vector2.zero;
+            transform.anchorMax = Vector2.one;
+            transform.anchoredPosition = Vector2.zero;
+            transform.sizeDelta = Vector2.zero;
 
             m_UGuiFormView = GetComponent<UGuiFormView>();
             m_UGuiFormView.OnInit();
 
+            gameObject.GetOrAddComponent<GraphicRaycaster>();
+
+            // TODO 作者：按需使用
             foreach (TextMeshProUGUI _tmp in GetComponentsInChildren<TextMeshProUGUI>(true))
             {
                 _tmp.font = s_MainFont;
@@ -148,16 +161,23 @@ namespace GameApp
         protected internal override void OnDepthChanged(int uiGroupDepth, int depthInUIGroup)
 #endif
         {
+            int oldDepth = Depth;
             base.OnDepthChanged(uiGroupDepth, depthInUIGroup);
-
-            int _oldDepth = Depth;
-            int _deltaDepth = UGuiGroupHelper.DepthFactor * uiGroupDepth + DepthFactor * depthInUIGroup - _oldDepth + OriginalDepth;
+            int deltaDepth = UGuiGroupHelper.DepthFactor * uiGroupDepth + DepthFactor * depthInUIGroup - oldDepth + OriginalDepth;
             GetComponentsInChildren(true, m_CachedCanvasContainer);
-            foreach (Canvas _canvas in m_CachedCanvasContainer)
+            for (int i = 0; i < m_CachedCanvasContainer.Count; i++)
             {
-                _canvas.sortingOrder += _deltaDepth;
+                m_CachedCanvasContainer[i].sortingOrder += deltaDepth;
             }
+
             m_CachedCanvasContainer.Clear();
+            GetComponentsInChildren(true, m_CachedParticleSystemRenderersContainer);
+            foreach (var t in m_CachedParticleSystemRenderersContainer)
+            {
+                t.sortingOrder += deltaDepth;
+            }
+
+            m_CachedParticleSystemRenderersContainer.Clear();
         }
     }
 }

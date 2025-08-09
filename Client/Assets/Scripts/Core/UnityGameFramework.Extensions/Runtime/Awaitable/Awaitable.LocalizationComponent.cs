@@ -8,11 +8,14 @@ namespace UnityGameFramework.Extension
 {
     public static partial class Awaitable
     {
-        public static UniTask ReadDataAsync(this LocalizationComponent localizationComponent,
+        public static UniTask ReadDataAsync
+        (
+            this LocalizationComponent localizationComponent,
             string dictionaryAssetName,
             int priority = 0,
             Action<float> updateEvent = null,
-            Action<string> dependencyAsset = null)
+            Action<string> dependencyAsset = null
+        )
         {
 #if UNITY_EDITOR
             TipsSubscribeEvent();

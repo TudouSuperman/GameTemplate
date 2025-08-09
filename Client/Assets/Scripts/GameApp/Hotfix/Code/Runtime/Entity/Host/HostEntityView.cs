@@ -4,7 +4,7 @@ using CodeBind;
 namespace GameApp.Hotfix
 {
     [MonoCodeBind('-')]
-    public sealed partial class HostEntityView : BaseEntityView
+    public sealed partial class HostEntityView : UGFEntityView
     {
         public override void OnInit()
         {

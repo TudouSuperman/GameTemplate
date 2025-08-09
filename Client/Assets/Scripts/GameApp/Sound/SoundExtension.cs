@@ -46,7 +46,7 @@ namespace GameApp
             s_MusicSerialId = null;
         }
 
-        public static int? PlaySound(this SoundComponent soundComponent, int soundId, BaseEntityLogic bindingEntity = null, object userData = null)
+        public static int? PlaySound(this SoundComponent soundComponent, int soundId, UGFEntityLogic bindingEntity = null, object userData = null)
         {
             DRSound drSound = GameEntry.DataTable.GetDataRow<DRSound>(soundId);
             if (drSound == null)
