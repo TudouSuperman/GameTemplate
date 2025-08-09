@@ -3,7 +3,7 @@ using UnityGameFramework.Runtime;
 
 namespace GameApp.Hotfix
 {
-    public sealed class LanguageFormLogic : UGuiFormLogicEx
+    public sealed class LanguageFormLogic : UGuiFormLogic
     {
         private Language m_SelectedLanguage = Language.Unspecified;
 

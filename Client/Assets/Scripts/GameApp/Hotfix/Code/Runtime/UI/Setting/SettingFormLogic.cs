@@ -1,6 +1,6 @@
 ﻿namespace GameApp.Hotfix
 {
-    public sealed class SettingFormLogic : UGuiFormLogicEx
+    public sealed class SettingFormLogic : UGuiFormLogic
     {
         protected override void OnInit(object userData)
         {
