@@ -1,5 +1,5 @@
 ﻿// 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2025-08-08 19:06:57
+// 生成时间：2025-08-11 14:33:55
 //------------------------------------------------------------
 
 namespace GameApp.Hotfix
@@ -107,6 +107,11 @@ namespace GameApp.Hotfix
             /// 设置
             /// </summary>
             public const string Setting_OK = "Setting.OK";
+
+            /// <summary>
+            /// 宿主角色名称
+            /// </summary>
+            public const string Hero_Host_Name = "Hero.Host.Name";
         }
     }
 }

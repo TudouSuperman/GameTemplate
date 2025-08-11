@@ -21,5 +21,6 @@
     <String Key="Setting.Sound" Value="SOUND FX" />
     <String Key="Setting.UISound" Value="UI SOUND FX" />
     <String Key="Setting.OK" Value="OK" />
+    <String Key="Hero.Host.Name" Value="Host" />
   </Dictionary>
 </Dictionaries>

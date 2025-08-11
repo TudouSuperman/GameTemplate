@@ -19,7 +19,7 @@ namespace GameApp.Editor
         public static void GenerateDataTablesFormExcelNotFileSystem()
         {
             DataTableConfig.GetDataTableConfig().RefreshDataTables();
-            ExtensionsGenerate.GenerateExtensionByAnalysis(ExtensionsGenerate.DataTableType.Excel, DataTableConfig.GetDataTableConfig().ExcelFilePaths, 2);
+            ExtensionsGenerate.GenerateExtensionByAnalysis(ExtensionsGenerate.DataTableType.Excel, DataTableConfig.GetDataTableConfig().ExcelFilePaths, 2, false);
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             foreach (var excelFile in DataTableConfig.GetDataTableConfig().ExcelFilePaths)
             {
@@ -51,7 +51,7 @@ namespace GameApp.Editor
         public static void ExcelToTxt()
         {
             DataTableConfig.GetDataTableConfig().RefreshDataTables();
-            ExtensionsGenerate.GenerateExtensionByAnalysis(ExtensionsGenerate.DataTableType.Txt, DataTableConfig.GetDataTableConfig().TxtFilePaths, 2);
+            ExtensionsGenerate.GenerateExtensionByAnalysis(ExtensionsGenerate.DataTableType.Txt, DataTableConfig.GetDataTableConfig().TxtFilePaths, 2, false);
             if (!Directory.Exists(DataTableConfig.GetDataTableConfig().ExcelsFolder))
             {
                 Debug.LogError($"{DataTableConfig.GetDataTableConfig().ExcelsFolder} is not exist!");
@@ -67,7 +67,7 @@ namespace GameApp.Editor
         public static void HotGenerateDataTablesFormExcelNotFileSystem()
         {
             DataTableConfig.GetDataTableConfig().RefreshHotDataTables();
-            ExtensionsGenerate.GenerateExtensionByAnalysis(ExtensionsGenerate.DataTableType.Excel, DataTableConfig.GetDataTableConfig().ExcelFilePaths, 2);
+            ExtensionsGenerate.GenerateExtensionByAnalysis(ExtensionsGenerate.DataTableType.Excel, DataTableConfig.GetDataTableConfig().ExcelFilePaths, 2, true);
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             foreach (var excelFile in DataTableConfig.GetDataTableConfig().ExcelFilePaths)
             {
@@ -99,7 +99,7 @@ namespace GameApp.Editor
         public static void HotExcelToTxt()
         {
             DataTableConfig.GetDataTableConfig().RefreshHotDataTables();
-            ExtensionsGenerate.GenerateExtensionByAnalysis(ExtensionsGenerate.DataTableType.Txt, DataTableConfig.GetDataTableConfig().TxtFilePaths, 2);
+            ExtensionsGenerate.GenerateExtensionByAnalysis(ExtensionsGenerate.DataTableType.Txt, DataTableConfig.GetDataTableConfig().TxtFilePaths, 2, true);
             if (!Directory.Exists(DataTableConfig.GetDataTableConfig().HotfixExcelsFolder))
             {
                 Debug.LogError($"{DataTableConfig.GetDataTableConfig().HotfixExcelsFolder} is not exist!");

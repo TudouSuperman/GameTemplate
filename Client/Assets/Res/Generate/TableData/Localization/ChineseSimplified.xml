@@ -21,5 +21,6 @@
     <String Key="Setting.Sound" Value="音效" />
     <String Key="Setting.UISound" Value="界面音效" />
     <String Key="Setting.OK" Value="保存" />
+    <String Key="Hero.Host.Name" Value="宿主" />
   </Dictionary>
 </Dictionaries>

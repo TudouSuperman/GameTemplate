@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2025-08-08 19:06:44.056
+// 生成时间：2025-08-11 14:33:48.343
 //------------------------------------------------------------
 
 using System;
@@ -109,7 +109,6 @@ namespace GameApp
             Priority = int.Parse(columnStrings[index++]);
             Volume = float.Parse(columnStrings[index++]);
 
-            GeneratePropertyArray();
             return true;
         }
 
@@ -129,13 +128,7 @@ namespace GameApp
                 }
             }
 
-            GeneratePropertyArray();
             return true;
-        }
-
-        private void GeneratePropertyArray()
-        {
-
         }
     }
 }

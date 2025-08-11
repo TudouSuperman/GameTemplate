@@ -17,7 +17,7 @@ namespace GameApp.Editor
             Excel
         }
 
-        public static void GenerateExtensionByAnalysis(DataTableType dataTableType, string[] filePath, int typeLine)
+        public static void GenerateExtensionByAnalysis(DataTableType dataTableType, string[] filePath, int typeLine, bool isHotfix)
         {
             List<string> types = new List<string>(32);
             if (dataTableType == DataTableType.Txt)
@@ -104,32 +104,57 @@ namespace GameApp.Editor
                         };
                     }
                 ).ToList();
+
             if (dataProcessorsArray.Count > 0)
             {
-                GenerateDataTableExtensionArray(dataProcessorsArray);
-                GenerateBinaryReaderExtensionArray(dataProcessorsArray);
+                if (isHotfix)
+                {
+                    GenerateDataTableExtensionArray(dataProcessorsArray, DataTableConfig.GetDataTableConfig().HotfixNameSpace);
+                    GenerateBinaryReaderExtensionArray(dataProcessorsArray, DataTableConfig.GetDataTableConfig().HotfixNameSpace);
+                }
+                else
+                {
+                    GenerateDataTableExtensionArray(dataProcessorsArray, DataTableConfig.GetDataTableConfig().NameSpace);
+                    GenerateBinaryReaderExtensionArray(dataProcessorsArray, DataTableConfig.GetDataTableConfig().NameSpace);
+                }
             }
 
             if (dataProcessorsList.Count > 0)
             {
-                GenerateDataTableExtensionList(dataProcessorsList);
-                GenerateBinaryReaderExtensionList(dataProcessorsList);
+                if (isHotfix)
+                {
+                    GenerateDataTableExtensionList(dataProcessorsList, DataTableConfig.GetDataTableConfig().HotfixNameSpace);
+                    GenerateBinaryReaderExtensionList(dataProcessorsList, DataTableConfig.GetDataTableConfig().HotfixNameSpace);
+                }
+                else
+                {
+                    GenerateDataTableExtensionList(dataProcessorsList, DataTableConfig.GetDataTableConfig().NameSpace);
+                    GenerateBinaryReaderExtensionList(dataProcessorsList, DataTableConfig.GetDataTableConfig().NameSpace);
+                }
             }
 
             if (dataProcessorsDictionary.Count > 0)
             {
-                GenerateDataTableExtensionDictionary(dataProcessorsDictionary);
-                GenerateBinaryReaderExtensionDictionary(dataProcessorsDictionary);
+                if (isHotfix)
+                {
+                    GenerateDataTableExtensionDictionary(dataProcessorsDictionary, DataTableConfig.GetDataTableConfig().HotfixNameSpace);
+                    GenerateBinaryReaderExtensionDictionary(dataProcessorsDictionary, DataTableConfig.GetDataTableConfig().HotfixNameSpace);
+                }
+                else
+                {
+                    GenerateDataTableExtensionList(dataProcessorsList, DataTableConfig.GetDataTableConfig().NameSpace);
+                    GenerateBinaryReaderExtensionList(dataProcessorsList, DataTableConfig.GetDataTableConfig().NameSpace);
+                }
             }
 
             AssetDatabase.Refresh();
         }
 
-        private static void GenerateDataTableExtensionArray(IDictionary<string, DataTableProcessor.DataProcessor> dataProcessors)
+        private static void GenerateDataTableExtensionArray(IDictionary<string, DataTableProcessor.DataProcessor> dataProcessors, string useNamespace)
         {
             var sb = new StringBuilder();
             AddNameSpaces(sb);
-            sb.AppendLine($"namespace {DataTableConfig.GetDataTableConfig().NameSpace}");
+            sb.AppendLine($"namespace {useNamespace}");
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static partial class DataTableExtension");
             sb.AppendLine("\t{");
@@ -158,7 +183,7 @@ namespace GameApp.Editor
                 }
                 else
                 {
-                    sb.AppendLine($"\t\t\t\tarray[i] = Parse{item.Value.Type.Name}(splitValue[i]);");
+                    sb.AppendLine($"\t\t\t\tarray[i] = GameApp.DataTableExtension.Parse{item.Value.Type.Name}(splitValue[i]);");
                 }
 
                 sb.AppendLine("\t\t\t}");
@@ -172,11 +197,11 @@ namespace GameApp.Editor
             GenerateCodeFile("DataTableExtension.Array", sb.ToString());
         }
 
-        private static void GenerateDataTableExtensionList(IDictionary<string, DataTableProcessor.DataProcessor> dataProcessors)
+        private static void GenerateDataTableExtensionList(IDictionary<string, DataTableProcessor.DataProcessor> dataProcessors, string useNamespace)
         {
             var sb = new StringBuilder();
             AddNameSpaces(sb);
-            sb.AppendLine($"namespace {DataTableConfig.GetDataTableConfig().NameSpace}");
+            sb.AppendLine($"namespace {useNamespace}");
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static partial class DataTableExtension");
             sb.AppendLine("\t{");
@@ -205,7 +230,7 @@ namespace GameApp.Editor
                 }
                 else
                 {
-                    sb.AppendLine($"\t\t\t\tlist.Add(Parse{item.Value.Type.Name}(splitValue[i]));");
+                    sb.AppendLine($"\t\t\t\tlist.Add(GameApp.DataTableExtension.Parse{item.Value.Type.Name}(splitValue[i]));");
                 }
 
                 sb.AppendLine("\t\t\t}");
@@ -218,12 +243,12 @@ namespace GameApp.Editor
             GenerateCodeFile("DataTableExtension.List", sb.ToString());
         }
 
-        private static void GenerateBinaryReaderExtensionList(IDictionary<string, DataTableProcessor.DataProcessor> dataProcessors)
+        private static void GenerateBinaryReaderExtensionList(IDictionary<string, DataTableProcessor.DataProcessor> dataProcessors, string useNamespace)
         {
             var sb = new StringBuilder();
             AddNameSpaces(sb);
 
-            sb.AppendLine($"namespace {DataTableConfig.GetDataTableConfig().NameSpace}");
+            sb.AppendLine($"namespace {useNamespace}");
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static partial class BinaryReaderExtension");
             sb.AppendLine("\t{");
@@ -241,7 +266,7 @@ namespace GameApp.Editor
                 sb.AppendLine("\t\t\t{");
                 if (IsCustomType(item.Value.Type) || item.Value.Type == typeof(DateTime))
                 {
-                    sb.AppendLine($"\t\t\t\tlist.Add(Read{item.Key}(binaryReader));");
+                    sb.AppendLine($"\t\t\t\tlist.Add(GameApp.BinaryReaderExtension.Read{item.Key}(binaryReader));");
                 }
                 else
                 {
@@ -263,12 +288,12 @@ namespace GameApp.Editor
             GenerateCodeFile("BinaryReaderExtension.List", sb.ToString());
         }
 
-        private static void GenerateBinaryReaderExtensionArray(IDictionary<string, DataTableProcessor.DataProcessor> dataProcessors)
+        private static void GenerateBinaryReaderExtensionArray(IDictionary<string, DataTableProcessor.DataProcessor> dataProcessors, string useNamespace)
         {
             var sb = new StringBuilder();
             AddNameSpaces(sb);
 
-            sb.AppendLine($"namespace {DataTableConfig.GetDataTableConfig().NameSpace}");
+            sb.AppendLine($"namespace {useNamespace}");
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static partial class BinaryReaderExtension");
             sb.AppendLine("\t{");
@@ -286,7 +311,7 @@ namespace GameApp.Editor
                 sb.AppendLine("\t\t\t{");
                 if (IsCustomType(item.Value.Type) || item.Value.Type == typeof(DateTime))
                 {
-                    sb.AppendLine($"\t\t\t\tarray[i] = Read{item.Key}(binaryReader);");
+                    sb.AppendLine($"\t\t\t\tarray[i] = GameApp.BinaryReaderExtension.Read{item.Key}(binaryReader);");
                 }
                 else
                 {
@@ -310,8 +335,7 @@ namespace GameApp.Editor
 
         private static void GenerateCodeFile(string fileName, string value)
         {
-            var filePath =
-                Utility.Path.GetRegularPath(Path.Combine(DataTableConfig.GetDataTableConfig().ExtensionDirectoryPath, fileName + ".cs"));
+            var filePath = Utility.Path.GetRegularPath(Path.Combine(DataTableConfig.GetDataTableConfig().ExtensionDirectoryPath, fileName + ".cs"));
             if (File.Exists(filePath)) File.Delete(filePath);
 
             using (var fileStream = new FileStream(filePath, FileMode.Create))
@@ -323,12 +347,12 @@ namespace GameApp.Editor
             }
         }
 
-        private static void GenerateDataTableExtensionDictionary(List<DataTableProcessor.DataProcessor[]> keyValueList)
+        private static void GenerateDataTableExtensionDictionary(List<DataTableProcessor.DataProcessor[]> keyValueList, string useNamespace)
         {
             var sb = new StringBuilder();
             AddNameSpaces(sb);
 
-            sb.AppendLine($"namespace {DataTableConfig.GetDataTableConfig().NameSpace}");
+            sb.AppendLine($"namespace {useNamespace}");
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static partial class DataTableExtension");
             sb.AppendLine("\t{");
@@ -370,10 +394,10 @@ namespace GameApp.Editor
                     {
                         if (dataProcessorT1.LanguageKeyword == "string")
                             sb.AppendLine(
-                                $"\t\t\t\tdictionary.Add(keyValue[0].Substring(1),Parse{dataProcessorT2.Type.Name}(keyValue[1].Substring(0, keyValue[1].Length - 1)));");
+                                $"\t\t\t\tdictionary.Add(keyValue[0].Substring(1),GameApp.DataTableExtension.Parse{dataProcessorT2.Type.Name}(keyValue[1].Substring(0, keyValue[1].Length - 1)));");
                         else
                             sb.AppendLine(
-                                $"\t\t\t\tdictionary.Add({dataProcessorT1.Type.Name}.Parse(keyValue[0].Substring(1)),Parse{dataProcessorT2.Type.Name}(keyValue[1].Substring(0, keyValue[1].Length - 1)));");
+                                $"\t\t\t\tdictionary.Add({dataProcessorT1.Type.Name}.Parse(keyValue[0].Substring(1)),GameApp.DataTableExtension.Parse{dataProcessorT2.Type.Name}(keyValue[1].Substring(0, keyValue[1].Length - 1)));");
                     }
                 }
                 else
@@ -392,7 +416,7 @@ namespace GameApp.Editor
                     else
                     {
                         sb.AppendLine(
-                            $"\t\t\t\tdictionary.Add(Parse{dataProcessorT1.Type.Name}(keyValue[0].Substring(1)),Parse{dataProcessorT2.Type.Name}(keyValue[1].Substring(0, keyValue[1].Length - 1)));");
+                            $"\t\t\t\tdictionary.Add(Parse{dataProcessorT1.Type.Name}(keyValue[0].Substring(1)),GameApp.DataTableExtension.Parse{dataProcessorT2.Type.Name}(keyValue[1].Substring(0, keyValue[1].Length - 1)));");
                     }
                 }
 
@@ -413,13 +437,12 @@ namespace GameApp.Editor
             return (t1Name, t2Name);
         }
 
-        private static void GenerateBinaryReaderExtensionDictionary(
-            List<DataTableProcessor.DataProcessor[]> keyValueList)
+        private static void GenerateBinaryReaderExtensionDictionary(List<DataTableProcessor.DataProcessor[]> keyValueList, string useNamespace)
         {
             var sb = new StringBuilder();
             AddNameSpaces(sb);
 
-            sb.AppendLine($"namespace {DataTableConfig.GetDataTableConfig().NameSpace}");
+            sb.AppendLine($"namespace {useNamespace}");
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static partial class BinaryReaderExtension");
             sb.AppendLine("\t{");
@@ -470,7 +493,7 @@ namespace GameApp.Editor
                                 $"\t\t\t\tdictionary.Add(binaryReader.Read7BitEncoded{dataProcessorT1.Type.Name}(), Read{dataProcessorT2.LanguageKeyword}(binaryReader));");
                         else
                             sb.AppendLine(
-                                $"\t\t\t\tdictionary.Add(binaryReader.Read{dataProcessorT1.Type.Name}(),Read{dataProcessorT2.LanguageKeyword}(binaryReader));");
+                                $"\t\t\t\tdictionary.Add(binaryReader.Read{dataProcessorT1.Type.Name}(),GameApp.BinaryReaderExtension.Read{dataProcessorT2.LanguageKeyword}(binaryReader));");
                     }
                 }
                 else
@@ -489,7 +512,7 @@ namespace GameApp.Editor
                     else
                     {
                         sb.AppendLine(
-                            $"\t\t\t\tdictionary.Add(Read{dataProcessorT1.LanguageKeyword}(binaryReader),Read{dataProcessorT2.LanguageKeyword}(binaryReader));");
+                            $"\t\t\t\tdictionary.Add(Read{dataProcessorT1.LanguageKeyword}(binaryReader),GameApp.BinaryReaderExtension.Read{dataProcessorT2.LanguageKeyword}(binaryReader));");
                     }
                 }
 

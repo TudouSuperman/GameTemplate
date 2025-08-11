@@ -24,7 +24,7 @@ MonoBehaviour:
   HotfixEnumCodePath: Assets/Scripts/GameApp/Hotfix/Code/Runtime/Generate/TableEnum
   NameSpace: GameApp
   HotfixNameSpace: GameApp.Hotfix
-  ExtensionDirectoryPath: Assets/Scripts/GameApp/DataTable
+  ExtensionDirectoryPath: Assets/Scripts/GameApp/Hotfix/Code/Runtime/Generate/TableCode
   NameRow: 1
   TypeRow: 2
   CommentRow: 3

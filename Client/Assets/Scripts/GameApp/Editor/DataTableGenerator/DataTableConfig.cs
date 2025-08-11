@@ -217,7 +217,7 @@ namespace GameApp.Editor
             codeGeneratorSettingConfig.HotfixEnumCodePath = "Assets/Scripts/GameApp/Hotfix/Code/Runtime/Generate/TableEnum";
             codeGeneratorSettingConfig.NameSpace = "GameApp";
             codeGeneratorSettingConfig.HotfixNameSpace = "GameApp.Hotfix";
-            codeGeneratorSettingConfig.ExtensionDirectoryPath = "Assets/Scripts/GameApp/DataTable";
+            codeGeneratorSettingConfig.ExtensionDirectoryPath = "Assets/Scripts/GameApp/Hotfix/Code/Runtime/Generate/TableCode";
 
             codeGeneratorSettingConfig.NameRow = 1;
             codeGeneratorSettingConfig.TypeRow = 2;
@@ -257,8 +257,8 @@ namespace GameApp.Editor
             s_DataTableConfig.CSharpConstCodeTemplateFileName = "Assets/Res/Editor/Config/DataTableConstCodeTemplate.txt";
             s_DataTableConfig.HotfixEnumCodePath = "Assets/Scripts/GameApp/Hotfix/Code/Runtime/Generate/TableEnum";
             s_DataTableConfig.NameSpace = "GameApp";
-            s_DataTableConfig.HotfixNameSpace = "GameApp.Hotfix.DataTable";
-            s_DataTableConfig.ExtensionDirectoryPath = "Assets/Scripts/GameApp/DataTable";
+            s_DataTableConfig.HotfixNameSpace = "GameApp.Hotfix";
+            s_DataTableConfig.ExtensionDirectoryPath = "Assets/Scripts/GameApp/Hotfix/Code/Runtime/Generate/TableCode";
 
             s_DataTableConfig.NameRow = 1;
             s_DataTableConfig.TypeRow = 2;

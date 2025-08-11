@@ -11,5 +11,8 @@ namespace GameApp.Editor
         HotExcelToEnum,
 
         HotExcelToLanguageXML = 60,
+
+        GenAllByBin = short.MaxValue - 1,
+        GenAllByTxt = short.MaxValue,
     }
 }

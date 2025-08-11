@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2025-08-09 18:06:42.253
+// 生成时间：2025-08-11 14:33:50.648
 //------------------------------------------------------------
 
 using System;
@@ -84,7 +84,6 @@ namespace GameApp.Hotfix
             index++;
             index++;
 
-            GeneratePropertyArray();
             return true;
         }
 
@@ -101,13 +100,7 @@ namespace GameApp.Hotfix
                 }
             }
 
-            GeneratePropertyArray();
             return true;
-        }
-
-        private void GeneratePropertyArray()
-        {
-
         }
     }
 }

@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2025-08-09 18:06:41.719
+// 生成时间：2025-08-11 14:33:50.316
 //------------------------------------------------------------
 
 using System;
@@ -106,12 +106,11 @@ namespace GameApp.Hotfix
             EntityId = int.Parse(columnStrings[index++]);
             BaseDataId = int.Parse(columnStrings[index++]);
             HeroName = columnStrings[index++];
-			Position = DataTableExtension.ParseVector3(columnStrings[index++]);
-			Rotation = DataTableExtension.ParseQuaternion(columnStrings[index++]);
+			Position = GameApp.DataTableExtension.ParseVector3(columnStrings[index++]);
+			Rotation = GameApp.DataTableExtension.ParseQuaternion(columnStrings[index++]);
             index++;
             index++;
 
-            GeneratePropertyArray();
             return true;
         }
 
@@ -131,13 +130,7 @@ namespace GameApp.Hotfix
                 }
             }
 
-            GeneratePropertyArray();
             return true;
-        }
-
-        private void GeneratePropertyArray()
-        {
-
         }
     }
 }
