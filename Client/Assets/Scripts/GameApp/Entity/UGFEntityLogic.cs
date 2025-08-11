@@ -9,6 +9,10 @@ namespace GameApp
         private UGFEntityView m_EntityView;
         private UGFEntityData m_EntityData;
 
+#if UNITY_EDITOR
+        private string m_GameObjectName;
+#endif
+
 #if UNITY_2017_3_OR_NEWER
         protected override void OnInit(object userData)
 #else
@@ -16,7 +20,9 @@ namespace GameApp
 #endif
         {
             base.OnInit(userData);
-
+#if UNITY_EDITOR
+            m_GameObjectName = CachedTransform.name;
+#endif
             m_EntityView = GetComponent<UGFEntityView>();
             m_EntityView.OnInit();
         }
@@ -28,7 +34,7 @@ namespace GameApp
 #endif
         {
             base.OnRecycle();
-            
+
             ReferencePool.Release(m_EntityData);
             m_EntityData = null;
         }
@@ -47,8 +53,9 @@ namespace GameApp
                 Log.Error("Entity data is invalid.");
                 return;
             }
-
-            Name = Utility.Text.Format("[Entity {0}]", Entity.Id);
+#if UNITY_EDITOR
+            Name = Utility.Text.Format("[Entity {0} {1}]", m_EntityData.SerialId, m_GameObjectName);
+#endif
             CachedTransform.localPosition = m_EntityData.Position;
             CachedTransform.localRotation = m_EntityData.Rotation;
             CachedTransform.localScale = Vector3.one;
@@ -60,6 +67,9 @@ namespace GameApp
         protected internal override void OnHide(bool isShutdown, object userData)
 #endif
         {
+#if UNITY_EDITOR
+            Name = m_GameObjectName;
+#endif
             base.OnHide(isShutdown, userData);
         }
 

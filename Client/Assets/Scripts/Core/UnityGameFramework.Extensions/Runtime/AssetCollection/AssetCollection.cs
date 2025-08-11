@@ -12,7 +12,7 @@ using UnityEditor;
 namespace UnityGameFramework.Extension
 {
     [CreateAssetMenu(fileName = "AssetCollection", menuName = "UGF/AssetCollection")]
-    public class AssetCollection : SerializedScriptableObject
+    public sealed class AssetCollection : SerializedScriptableObject
     {
 #if UNITY_EDITOR
         [SerializeField]

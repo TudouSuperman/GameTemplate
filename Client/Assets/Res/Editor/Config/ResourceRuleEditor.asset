@@ -165,16 +165,6 @@ MonoBehaviour:
     filterType: 0
     searchPatterns: '*.*'
   - valid: 1
-    name: TableData
-    variant: 
-    fileSystem: 
-    groups: 
-    assetsDirectoryPath: Assets/Res/Generate/TableData/Game
-    loadType: 0
-    packed: 0
-    filterType: 0
-    searchPatterns: '*.*'
-  - valid: 1
     name: Localization
     variant: 
     fileSystem: 
@@ -185,21 +175,31 @@ MonoBehaviour:
     filterType: 0
     searchPatterns: '*.*'
   - valid: 1
-    name: GameCode.Hot
+    name: TableData
     variant: 
     fileSystem: 
     groups: 
-    assetsDirectoryPath: Assets/Res/HotUpdate
+    assetsDirectoryPath: Assets/Res/Generate/TableData/Game
     loadType: 0
     packed: 0
     filterType: 0
     searchPatterns: '*.*'
   - valid: 1
-    name: TableData.Hot
+    name: TableData.Hotfix
     variant: 
     fileSystem: 
     groups: 
-    assetsDirectoryPath: Assets/Res/Generate/TableData/GameHot
+    assetsDirectoryPath: Assets/Res/Generate/TableData/GameHotfix
+    loadType: 0
+    packed: 0
+    filterType: 0
+    searchPatterns: '*.*'
+  - valid: 1
+    name: Code.Hotfix
+    variant: 
+    fileSystem: 
+    groups: 
+    assetsDirectoryPath: Assets/Res/Hotfix
     loadType: 0
     packed: 0
     filterType: 0

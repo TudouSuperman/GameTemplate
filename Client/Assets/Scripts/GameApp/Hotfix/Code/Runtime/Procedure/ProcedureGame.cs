@@ -1,7 +1,6 @@
 ﻿using GameFramework.Event;
 using HotfixProcedureOwner = GameFramework.Fsm.IFsm<GameApp.Hotfix.HotfixProcedureComponent>;
 using UnityGameFramework.Runtime;
-using Cysharp.Threading.Tasks;
 
 namespace GameApp.Hotfix
 {
