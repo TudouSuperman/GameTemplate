@@ -11,6 +11,27 @@ namespace GameApp
         public static UniTask<Entity> ShowEntityAsync<T>
         (
             this EntityComponent entityComponent,
+            UGFEntityData userData,
+            CancellationToken cancellationToken = default,
+            Action<float> updateEvent = null,
+            Action<string> dependencyAssetEvent = null
+        ) where T : UGFEntityLogic
+        {
+            return entityComponent.ShowEntityAsync
+            (
+                userData.SerialId,
+                userData.TypeId,
+                typeof(T),
+                userData,
+                cancellationToken,
+                updateEvent,
+                dependencyAssetEvent
+            );
+        }
+
+        public static UniTask<Entity> ShowEntityAsync<T>
+        (
+            this EntityComponent entityComponent,
             int entityTypeId,
             object userData = null,
             CancellationToken cancellationToken = default,
@@ -20,6 +41,30 @@ namespace GameApp
         {
             return entityComponent.ShowEntityAsync
             (
+                entityComponent.GenerateSerialId(),
+                entityTypeId,
+                typeof(T),
+                userData,
+                cancellationToken,
+                updateEvent,
+                dependencyAssetEvent
+            );
+        }
+
+        public static UniTask<Entity> ShowEntityAsync<T>
+        (
+            this EntityComponent entityComponent,
+            int serialId,
+            int entityTypeId,
+            object userData = null,
+            CancellationToken cancellationToken = default,
+            Action<float> updateEvent = null,
+            Action<string> dependencyAssetEvent = null
+        ) where T : EntityLogic
+        {
+            return entityComponent.ShowEntityAsync
+            (
+                serialId,
                 entityTypeId,
                 typeof(T),
                 userData,
@@ -32,6 +77,30 @@ namespace GameApp
         public static UniTask<Entity> ShowEntityAsync
         (
             this EntityComponent entityComponent,
+            int entityTypeId,
+            Type logicType,
+            object userData = null,
+            CancellationToken cancellationToken = default,
+            Action<float> updateEvent = null,
+            Action<string> dependencyAssetEvent = null
+        )
+        {
+            return entityComponent.ShowEntityAsync
+            (
+                entityComponent.GenerateSerialId(),
+                entityTypeId,
+                logicType,
+                userData,
+                cancellationToken,
+                updateEvent,
+                dependencyAssetEvent
+            );
+        }
+
+        public static UniTask<Entity> ShowEntityAsync
+        (
+            this EntityComponent entityComponent,
+            int serialId,
             int entityTypeId,
             Type logicType,
             object userData = null,
@@ -54,7 +123,7 @@ namespace GameApp
 
             return entityComponent.ShowEntityAsync
             (
-                entityComponent.GenerateSerialId(),
+                serialId,
                 logicType,
                 drAsset.AssetPath,
                 drEntity.GroupName,
