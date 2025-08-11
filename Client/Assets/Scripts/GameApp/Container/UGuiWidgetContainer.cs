@@ -5,8 +5,8 @@ namespace GameApp
 {
     public sealed class UGuiWidgetContainer : IReference
     {
-        private readonly List<UGuiWidget> m_UGuiWidgets = new List<UGuiWidget>();
-        public List<UGuiWidget> UGuiWidgets => m_UGuiWidgets;
+        private readonly List<UGuiWidgetLogic> m_UGuiWidgets = new List<UGuiWidgetLogic>();
+        public List<UGuiWidgetLogic> UGuiWidgets => m_UGuiWidgets;
 
         public UGuiFormLogic Owner
         {
@@ -27,32 +27,32 @@ namespace GameApp
             Owner = null;
         }
 
-        public void AddUGuiWidget(UGuiWidget uGuiWidget, object userData)
+        public void AddUGuiWidget(UGuiWidgetLogic uGuiWidgetLogic, object userData)
         {
-            if (uGuiWidget == null)
+            if (uGuiWidgetLogic == null)
             {
                 throw new GameFrameworkException("Can't add empty!");
             }
 
-            if (m_UGuiWidgets.Contains(uGuiWidget))
+            if (m_UGuiWidgets.Contains(uGuiWidgetLogic))
             {
-                throw new GameFrameworkException(Utility.Text.Format("Can't duplicate add UGuiWidget : '{0}'!", uGuiWidget.CachedTransform.name));
+                throw new GameFrameworkException(Utility.Text.Format("Can't duplicate add UGuiWidget : '{0}'!", uGuiWidgetLogic.CachedTransform.name));
             }
 
-            m_UGuiWidgets.Add(uGuiWidget);
-            uGuiWidget.OnInit(userData);
+            m_UGuiWidgets.Add(uGuiWidgetLogic);
+            uGuiWidgetLogic.OnInit(userData);
         }
 
-        public void RemoveUGuiWidget(UGuiWidget uGuiWidget)
+        public void RemoveUGuiWidget(UGuiWidgetLogic uGuiWidgetLogic)
         {
-            if (uGuiWidget == null)
+            if (uGuiWidgetLogic == null)
             {
                 throw new GameFrameworkException("Can't remove empty!");
             }
 
-            if (!m_UGuiWidgets.Remove(uGuiWidget))
+            if (!m_UGuiWidgets.Remove(uGuiWidgetLogic))
             {
-                throw new GameFrameworkException(Utility.Text.Format("UGuiWidget : '{0}' not in container.", uGuiWidget.CachedTransform.name));
+                throw new GameFrameworkException(Utility.Text.Format("UGuiWidget : '{0}' not in container.", uGuiWidgetLogic.CachedTransform.name));
             }
         }
 
@@ -67,58 +67,58 @@ namespace GameApp
         /// <summary>
         /// 打开 UGuiWidget，不刷新 Depth，一般在 UIForm 的 OnOpen 中调用。
         /// </summary>
-        /// <param name="uGuiWidget"></param>
+        /// <param name="uGuiWidgetLogic"></param>
         /// <param name="userData"></param>
         /// <exception cref="GameFrameworkException"></exception>
-        public void OpenUGuiWidget(UGuiWidget uGuiWidget, object userData)
+        public void OpenUGuiWidget(UGuiWidgetLogic uGuiWidgetLogic, object userData)
         {
-            if (uGuiWidget == null)
+            if (uGuiWidgetLogic == null)
             {
                 throw new GameFrameworkException("Can't open empty!");
             }
 
-            if (!m_UGuiWidgets.Contains(uGuiWidget))
+            if (!m_UGuiWidgets.Contains(uGuiWidgetLogic))
             {
-                throw new GameFrameworkException(Utility.Text.Format("Can't open UGuiWidget, UGuiWidget '{0}' not in the container '{1}'!", uGuiWidget.name, Owner.Name));
+                throw new GameFrameworkException(Utility.Text.Format("Can't open UGuiWidget, UGuiWidget '{0}' not in the container '{1}'!", uGuiWidgetLogic.name, Owner.Name));
             }
 
-            if (uGuiWidget.IsOpen)
+            if (uGuiWidgetLogic.IsOpen)
             {
-                throw new GameFrameworkException(Utility.Text.Format("Can't open UGuiWidget, UGuiWidget '{0}' is already opened!", uGuiWidget.name));
+                throw new GameFrameworkException(Utility.Text.Format("Can't open UGuiWidget, UGuiWidget '{0}' is already opened!", uGuiWidgetLogic.name));
             }
 
-            uGuiWidget.OnOpen(userData);
+            uGuiWidgetLogic.OnOpen(userData);
         }
 
         /// <summary>
         /// 动态打开 UGuiWidget，刷新 Depth。
         /// </summary>
-        /// <param name="uGuiWidget"></param>
+        /// <param name="uGuiWidgetLogic"></param>
         /// <param name="userData"></param>
-        public void DynamicOpenUGuiWidget(UGuiWidget uGuiWidget, object userData)
+        public void DynamicOpenUGuiWidget(UGuiWidgetLogic uGuiWidgetLogic, object userData)
         {
-            OpenUGuiWidget(uGuiWidget, userData);
-            uGuiWidget.OnDepthChanged(Owner.UIForm.UIGroup.Depth, Owner.UIForm.DepthInUIGroup);
+            OpenUGuiWidget(uGuiWidgetLogic, userData);
+            uGuiWidgetLogic.OnDepthChanged(Owner.UIForm.UIGroup.Depth, Owner.UIForm.DepthInUIGroup);
         }
 
-        public void CloseUGuiWidget(UGuiWidget uGuiWidget, object userData, bool isShutdown)
+        public void CloseUGuiWidget(UGuiWidgetLogic uGuiWidgetLogic, object userData, bool isShutdown)
         {
-            if (uGuiWidget == null)
+            if (uGuiWidgetLogic == null)
             {
                 throw new GameFrameworkException("Can't open empty!");
             }
 
-            if (!m_UGuiWidgets.Contains(uGuiWidget))
+            if (!m_UGuiWidgets.Contains(uGuiWidgetLogic))
             {
-                throw new GameFrameworkException(Utility.Text.Format("Can't open UGuiWidget, UGuiWidget '{0}' not in the container '{1}'!", uGuiWidget.name, Owner.Name));
+                throw new GameFrameworkException(Utility.Text.Format("Can't open UGuiWidget, UGuiWidget '{0}' not in the container '{1}'!", uGuiWidgetLogic.name, Owner.Name));
             }
 
-            if (!uGuiWidget.IsOpen)
+            if (!uGuiWidgetLogic.IsOpen)
             {
-                throw new GameFrameworkException(Utility.Text.Format("Can't close UGuiWidget, UGuiWidget '{0}' is not opened!", uGuiWidget.name));
+                throw new GameFrameworkException(Utility.Text.Format("Can't close UGuiWidget, UGuiWidget '{0}' is not opened!", uGuiWidgetLogic.name));
             }
 
-            uGuiWidget.OnClose(isShutdown, userData);
+            uGuiWidgetLogic.OnClose(isShutdown, userData);
         }
 
         public void CloseAllUGuiWidgets(object userData, bool isShutdown)

@@ -6,11 +6,12 @@ namespace GameApp
 {
     [CodeBind]
     [DisallowMultipleComponent]
-    public abstract class UGuiWidget : MonoBehaviour
+    public abstract class UGuiWidgetLogic : MonoBehaviour
     {
         private Transform m_CachedTransform = null;
         private bool m_Available = false;
         private bool m_Visible = false;
+        protected UGuiWidgetView m_UGuiWidgetView = null;
 
         public bool IsOpen
         {
@@ -33,7 +34,7 @@ namespace GameApp
             {
                 if (!m_Available)
                 {
-                    Log.Warning("UI widget '{0}' is not available.", this.gameObject.name);
+                    Log.Warning("UGuiWidget '{0}' is not available.", this.gameObject.name);
                     return;
                 }
                 if (m_Visible == value)
@@ -62,6 +63,9 @@ namespace GameApp
         /// <param name="userData">用户自定义数据。</param>
         protected internal virtual void OnInit(object userData)
         {
+            m_UGuiWidgetView = GetComponent<UGuiWidgetView>();
+            m_UGuiWidgetView.OnInit();
+
             if (m_CachedTransform == null)
             {
                 m_CachedTransform = transform;
@@ -158,7 +162,7 @@ namespace GameApp
         /// <param name="visible">界面的可见性。</param>
         protected internal virtual void InternalSetVisible(bool visible)
         {
-            gameObject.SetActive(visible);
+            gameObject.SelfSetActive(visible);
         }
     }
 }
