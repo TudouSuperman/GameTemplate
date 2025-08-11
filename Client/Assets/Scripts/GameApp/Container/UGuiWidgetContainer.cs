@@ -27,7 +27,7 @@ namespace GameApp
             Owner = null;
         }
 
-        public void AddUIWidget(UGuiWidget uGuiWidget, object userData)
+        public void AddUGuiWidget(UGuiWidget uGuiWidget, object userData)
         {
             if (uGuiWidget == null)
             {
@@ -43,7 +43,7 @@ namespace GameApp
             uGuiWidget.OnInit(userData);
         }
 
-        public void RemoveUIWidget(UGuiWidget uGuiWidget)
+        public void RemoveUGuiWidget(UGuiWidget uGuiWidget)
         {
             if (uGuiWidget == null)
             {
@@ -56,7 +56,7 @@ namespace GameApp
             }
         }
 
-        public void RemoveAllUIWidget()
+        public void RemoveAllUGuiWidget()
         {
             if (m_UGuiWidgets.Count > 0)
             {
@@ -70,7 +70,7 @@ namespace GameApp
         /// <param name="uGuiWidget"></param>
         /// <param name="userData"></param>
         /// <exception cref="GameFrameworkException"></exception>
-        public void OpenUIWidget(UGuiWidget uGuiWidget, object userData)
+        public void OpenUGuiWidget(UGuiWidget uGuiWidget, object userData)
         {
             if (uGuiWidget == null)
             {
@@ -95,13 +95,13 @@ namespace GameApp
         /// </summary>
         /// <param name="uGuiWidget"></param>
         /// <param name="userData"></param>
-        public void DynamicOpenUIWidget(UGuiWidget uGuiWidget, object userData)
+        public void DynamicOpenUGuiWidget(UGuiWidget uGuiWidget, object userData)
         {
-            OpenUIWidget(uGuiWidget, userData);
+            OpenUGuiWidget(uGuiWidget, userData);
             uGuiWidget.OnDepthChanged(Owner.UIForm.UIGroup.Depth, Owner.UIForm.DepthInUIGroup);
         }
 
-        public void CloseUIWidget(UGuiWidget uGuiWidget, object userData, bool isShutdown)
+        public void CloseUGuiWidget(UGuiWidget uGuiWidget, object userData, bool isShutdown)
         {
             if (uGuiWidget == null)
             {

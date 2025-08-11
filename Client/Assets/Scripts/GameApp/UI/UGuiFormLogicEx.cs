@@ -52,7 +52,7 @@ namespace GameApp
 
         private void OnDestroy()
         {
-            RemoveAllUIWidget();
+            RemoveAllUGuiWidget();
             ClearUIForm();
         }
 
@@ -65,7 +65,7 @@ namespace GameApp
             CloseAllUGuiWidgets(userData, isShutdown);
             if (isShutdown)
             {
-                RemoveAllUIWidget();
+                RemoveAllUGuiWidget();
                 ClearUIForm();
             }
 
@@ -114,31 +114,31 @@ namespace GameApp
             m_UGuiWidgetContainer?.OnDepthChanged(uiGroupDepth, depthInUIGroup);
         }
 
-        public void AddUIWidget(UGuiWidget uGuiWidget, object userData = null)
+        public void AddUGuiWidget(UGuiWidget uGuiWidget, object userData = null)
         {
             if (m_UGuiWidgetContainer == null)
             {
                 m_UGuiWidgetContainer = UGuiWidgetContainer.Create(this);
             }
 
-            m_UGuiWidgetContainer.AddUIWidget(uGuiWidget, userData);
+            m_UGuiWidgetContainer.AddUGuiWidget(uGuiWidget, userData);
         }
 
-        public void RemoveUIWidget(UGuiWidget uGuiWidget)
+        public void RemoveUGuiWidget(UGuiWidget uGuiWidget)
         {
             if (m_UGuiWidgetContainer == null)
             {
                 throw new GameFrameworkException("Container is empty!");
             }
 
-            m_UGuiWidgetContainer.RemoveUIWidget(uGuiWidget);
+            m_UGuiWidgetContainer.RemoveUGuiWidget(uGuiWidget);
         }
 
-        public void RemoveAllUIWidget()
+        public void RemoveAllUGuiWidget()
         {
             if (m_UGuiWidgetContainer == null)
                 return;
-            m_UGuiWidgetContainer.RemoveAllUIWidget();
+            m_UGuiWidgetContainer.RemoveAllUGuiWidget();
         }
 
         /// <summary>
@@ -147,14 +147,14 @@ namespace GameApp
         /// <param name="uGuiWidget"></param>
         /// <param name="userData"></param>
         /// <exception cref="GameFrameworkException"></exception>
-        public void OpenUIWidget(UGuiWidget uGuiWidget, object userData = null)
+        public void OpenUGuiWidget(UGuiWidget uGuiWidget, object userData = null)
         {
             if (m_UGuiWidgetContainer == null)
             {
                 throw new GameFrameworkException("Container is empty!");
             }
 
-            m_UGuiWidgetContainer.OpenUIWidget(uGuiWidget, userData);
+            m_UGuiWidgetContainer.OpenUGuiWidget(uGuiWidget, userData);
         }
 
         /// <summary>
@@ -163,24 +163,24 @@ namespace GameApp
         /// <param name="uGuiWidget"></param>
         /// <param name="userData"></param>
         /// <exception cref="GameFrameworkException"></exception>
-        public void DynamicOpenUIWidget(UGuiWidget uGuiWidget, object userData = null)
+        public void DynamicOpenUGuiWidget(UGuiWidget uGuiWidget, object userData = null)
         {
             if (m_UGuiWidgetContainer == null)
             {
                 throw new GameFrameworkException("Container is empty!");
             }
 
-            m_UGuiWidgetContainer.DynamicOpenUIWidget(uGuiWidget, userData);
+            m_UGuiWidgetContainer.DynamicOpenUGuiWidget(uGuiWidget, userData);
         }
 
-        public void CloseUIWidget(UGuiWidget uGuiWidget, object userData = null, bool isShutdown = false)
+        public void CloseUGuiWidget(UGuiWidget uGuiWidget, object userData = null, bool isShutdown = false)
         {
             if (m_UGuiWidgetContainer == null)
             {
                 throw new GameFrameworkException("Container is empty!");
             }
 
-            m_UGuiWidgetContainer.CloseUIWidget(uGuiWidget, userData, isShutdown);
+            m_UGuiWidgetContainer.CloseUGuiWidget(uGuiWidget, userData, isShutdown);
         }
 
         public void CloseAllUGuiWidgets(object userData = null, bool isShutdown = false)
