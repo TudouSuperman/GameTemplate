@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using GameFramework;
+using GameFramework.DataTable;
 using GameFramework.Resource;
 using GameFramework.Event;
 using HotfixProcedureOwner = GameFramework.Fsm.IFsm<GameApp.Hotfix.HotfixProcedureComponent>;
@@ -11,11 +11,11 @@ namespace GameApp.Hotfix
 {
     public sealed class ProcedurePreload : ProcedureBase
     {
-        public static readonly Dictionary<string, Type> DataTableNames = new Dictionary<string, Type>()
+        private static readonly string[] DataTableNames = new string[]
         {
-            ["Guide"] = typeof(DRGuide),
-            ["Hero"] = typeof(DRHero),
-            ["HeroBaseData"] = typeof(DRHeroBaseData),
+            "Guide",
+            "Hero",
+            "HeroBaseData",
         };
 
         private readonly Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();
@@ -55,16 +55,34 @@ namespace GameApp.Hotfix
                     return;
                 }
             }
+#if UNITY_EDITOR
+            IDataTable<DRGuide> _dtGuide = GameEntry.DataTable.GetDataTable<DRGuide>();
+            foreach (DRGuide _drGuide in _dtGuide)
+            {
+                Log.Debug("Guide Table Row : {0} {1} {2}", _drGuide.Id, _drGuide.Name);
+            }
 
+            IDataTable<DRHero> _dtHero = GameEntry.DataTable.GetDataTable<DRHero>();
+            foreach (DRHero _drHero in _dtHero)
+            {
+                Log.Debug("Hero Table Row : {0} {1}", _drHero.Id, _drHero.Name);
+            }
+
+            IDataTable<DRHeroBaseData> _dtHeroBaseData = GameEntry.DataTable.GetDataTable<DRHeroBaseData>();
+            foreach (DRHeroBaseData _drHeroBaseData in _dtHeroBaseData)
+            {
+                Log.Debug("HeroBaseData Table Row : {0} {1}", _drHeroBaseData.Id, _drHeroBaseData.Name);
+            }
+#endif
             ChangeState<ProcedureGame>(procedureOwner);
         }
 
         private void PreloadResources()
         {
             // Preload data tables
-            foreach (KeyValuePair<string, Type> _kv in DataTableNames)
+            foreach (string dataTableName in DataTableNames)
             {
-                LoaTableData(_kv.Key, _kv.Value);
+                LoadTableData(dataTableName);
             }
 
             // Preload dictionaries
@@ -84,7 +102,10 @@ namespace GameApp.Hotfix
         private void LoadFont(string fontName)
         {
             m_LoadedFlag.Add(Utility.Text.Format("Font.{0}", fontName), false);
-            GameEntry.Resource.LoadAsset(AssetHotfixPathUtility.GetFontAsset(fontName), Constant.AssetPriority.Font_Asset,
+            GameEntry.Resource.LoadAsset
+            (
+                AssetHotfixPathUtility.GetFontAsset(fontName),
+                Constant.AssetPriority.Font_Asset,
                 new LoadAssetCallbacks
                 (
                     (assetName, asset, duration, userData) =>
@@ -98,10 +119,10 @@ namespace GameApp.Hotfix
             );
         }
 
-        private void LoaTableData(string dataTableName, Type dataRowType)
+        private void LoadTableData(string dataTableName)
         {
             string dataTableAssetName = AssetHotfixPathUtility.GetHotfixTableDataAsset(dataTableName);
-            GameEntry.DataTable.LoadDataTable(dataTableName, dataTableAssetName, dataRowType, this);
+            GameEntry.DataTable.LoadDataTableHotfix(dataTableName, dataTableAssetName, this);
             m_LoadedFlag.Add(dataTableAssetName, false);
         }
 
