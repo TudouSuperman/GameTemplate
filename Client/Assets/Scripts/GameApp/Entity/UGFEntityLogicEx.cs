@@ -12,26 +12,7 @@ namespace GameApp
         private EntityContainer m_EntityContainer;
         private ResourceContainer m_ResourceContainer;
 
-        protected override void OnRecycle()
-        {
-            base.OnRecycle();
-
-            ClearEntity();
-        }
-
-        protected override void OnHide(bool isShutdown, object userData)
-        {
-            HideAllEntity(isShutdown);
-            UnsubscribeAll(isShutdown);
-            if (isShutdown)
-            {
-                ClearEntity();
-            }
-
-            base.OnHide(isShutdown, userData);
-        }
-
-        private void ClearEntity()
+        private void ClearContainer()
         {
             if (m_EventContainer != null)
             {
@@ -44,6 +25,32 @@ namespace GameApp
                 ReferencePool.Release(m_EntityContainer);
                 m_EntityContainer = null;
             }
+
+            if (m_ResourceContainer != null)
+            {
+                ReferencePool.Release(m_ResourceContainer);
+                m_ResourceContainer = null;
+            }
+        }
+
+        protected override void OnRecycle()
+        {
+            base.OnRecycle();
+
+            ClearContainer();
+        }
+
+        protected override void OnHide(bool isShutdown, object userData)
+        {
+            HideAllEntity(isShutdown);
+            UnsubscribeAll(isShutdown);
+            UnloadAllAssets(isShutdown);
+            if (isShutdown)
+            {
+                ClearContainer();
+            }
+
+            base.OnHide(isShutdown, userData);
         }
 
         public void Subscribe(int id, EventHandler<GameEventArgs> handler)
@@ -242,6 +249,13 @@ namespace GameApp
             if (m_ResourceContainer == null)
                 return;
             m_ResourceContainer.UnloadAllAssets();
+        }
+
+        public void UnloadAllAssets(bool isShutdown)
+        {
+            if (m_ResourceContainer == null)
+                return;
+            m_ResourceContainer.UnloadAllAssets(isShutdown);
         }
     }
 }

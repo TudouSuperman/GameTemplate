@@ -16,7 +16,7 @@ namespace GameApp
         private EntityContainer m_EntityContainer;
         private ResourceContainer m_ResourceContainer;
 
-        private void ClearUIForm()
+        private void ClearContainer()
         {
             if (m_EventContainer != null)
             {
@@ -46,27 +46,27 @@ namespace GameApp
         protected override void OnRecycle()
         {
             base.OnRecycle();
-            
+
             m_UGuiWidgetContainer?.OnRecycle();
         }
 
         private void OnDestroy()
         {
             RemoveAllUGuiWidget();
-            ClearUIForm();
+            ClearContainer();
         }
 
         protected override void OnClose(bool isShutdown, object userData)
         {
             m_UGuiWidgetContainer?.OnClose(isShutdown, userData);
-            HideAllEntity();
-            UnsubscribeAll();
-            UnloadAllAssets();
+            HideAllEntity(isShutdown);
+            UnsubscribeAll(isShutdown);
+            UnloadAllAssets(isShutdown);
             CloseAllUGuiWidgets(userData, isShutdown);
             if (isShutdown)
             {
                 RemoveAllUGuiWidget();
-                ClearUIForm();
+                ClearContainer();
             }
 
             base.OnClose(isShutdown, userData);
@@ -396,6 +396,13 @@ namespace GameApp
             if (m_ResourceContainer == null)
                 return;
             m_ResourceContainer.UnloadAllAssets();
+        }
+
+        public void UnloadAllAssets(bool isShutdown)
+        {
+            if (m_ResourceContainer == null)
+                return;
+            m_ResourceContainer.UnloadAllAssets(isShutdown);
         }
     }
 }
