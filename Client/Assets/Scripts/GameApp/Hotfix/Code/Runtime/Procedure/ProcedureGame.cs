@@ -28,15 +28,18 @@ namespace GameApp.Hotfix
 
         protected override void OnLeave(HotfixProcedureOwner procedureOwner, bool isShutdown)
         {
-            base.OnLeave(procedureOwner, isShutdown);
-
-            GameEntry.Event.Unsubscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUIFormSuccess);
-
-            if (m_MenuForm != null)
+            if (!isShutdown)
             {
-                GameEntry.UI.CloseUIForm(m_MenuForm.UIForm);
-                m_MenuForm = null;
+                GameEntry.Event.Unsubscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUIFormSuccess);
+
+                if (m_MenuForm != null)
+                {
+                    GameEntry.UI.CloseUIForm(m_MenuForm.UIForm);
+                    m_MenuForm = null;
+                }
             }
+
+            base.OnLeave(procedureOwner, isShutdown);
         }
 
         protected override void OnUpdate(HotfixProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
