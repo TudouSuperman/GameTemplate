@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -72,7 +73,7 @@ namespace GameApp.Editor
 
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
-
+            
             Debug.Log("Clear all particle system's invalid mesh is done!");
         }
 
@@ -114,6 +115,54 @@ namespace GameApp.Editor
             EditorUtility.ClearProgressBar();
 
             Debug.Log("Clear all material's properties is done!");
+        }
+
+        [MenuItem("GameApp/Asset Tool/清理 Behaviour is missing 中废弃属性")]
+        public static void KillSceneIdMap()
+        {
+            List<string> _missingScriptGameObjectName = new List<string>();
+            foreach (GameObject _gameObject in Resources.FindObjectsOfTypeAll<GameObject>())
+            {
+                if (PrefabUtility.IsPartOfPrefabInstance(_gameObject) && PrefabUtility.IsAnyPrefabInstanceRoot(_gameObject))
+                {
+                    continue; // 此处跳过了预制体实例，如果不想跳过自行注释。
+                }
+
+                Component[] _components = _gameObject.GetComponents<Component>();
+                foreach (Component _component in _components)
+                {
+                    if (_component == null)
+                    {
+                        Debug.Log("GameObject with missing script found: " + _gameObject.name, _gameObject);
+                        _missingScriptGameObjectName.Add(_gameObject.name);
+                        break;
+                    }
+                }
+            }
+
+            foreach (string _name in _missingScriptGameObjectName)
+            {
+                // 将找到的该物体名字传入即可删除。此处针对 HDRP 项目中，被隐藏掉的没用的物体 “SceneIDMap”
+                while (GameObject.Find(_name) != null)
+                {
+                    GameObject _tempGameObject = GameObject.Find(_name);
+                    if (_tempGameObject != null)
+                    {
+                        Object.DestroyImmediate(_tempGameObject);
+                        Debug.Log($"Cleared a {_name} instance");
+                    }
+                    else
+                    {
+                        Debug.Log("Clear Completed!");
+                        break;
+                    }
+                }
+            }
+            
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+            
+            Debug.Log("Clear all Behaviour is missing is done!");
         }
     }
 }
