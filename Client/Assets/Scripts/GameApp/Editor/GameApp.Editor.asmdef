@@ -8,13 +8,14 @@
         "UnityGameFramework.Extension.Runtime",
         "UnityGameFramework.Extension.Editor",
         "UniTask",
+        "Unity.InputSystem",
         "Unity.TextMeshPro",
-        "CodeBind",
         "Unity.InternalAPIEngineBridge.006",
+        "CodeBind",
         "ToolbarExtension.Editor",
-        "GameApp.Runtime",
         "HybridCLR.Runtime",
         "HybridCLR.Editor",
+        "GameApp.Runtime",
         "GameApp.Hotfix.Runtime"
     ],
     "includePlatforms": [

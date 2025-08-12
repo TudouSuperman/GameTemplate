@@ -14,6 +14,8 @@ namespace GameApp.Editor
             { "TMPInputField", typeof(TMPro.TMP_InputField) },
             { "TextMeshProUGUI", typeof(TMPro.TextMeshProUGUI) },
             { "TextMeshPro", typeof(TMPro.TextMeshPro) },
+            // New InputSystem
+            { "PlayerInput", typeof(UnityEngine.InputSystem.PlayerInput) },
         };
     }
 }
