@@ -10,7 +10,11 @@ namespace GameApp
 {
     public sealed class ResourceContainer : IReference
     {
-        public object Owner { get; private set; }
+        public object Owner
+        {
+            get; 
+            private set;
+        }
 
         private readonly List<UnityEngine.Object> m_Assets = new List<UnityEngine.Object>();
         private CancellationTokenSource m_CancellationTokenSource;
