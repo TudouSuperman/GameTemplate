@@ -246,8 +246,8 @@ namespace GameApp.Editor
                 return;
             }
 
-            s_DataTableConfig.DataTableFolderPath = "Assets/Res/Generate/Game/TableData";
-            s_DataTableConfig.HotfixDataTableFolderPath = "Assets/Res/Generate/GameHotfix/TableData";
+            s_DataTableConfig.DataTableFolderPath = "Assets/Res/Generate/TableData/Game";
+            s_DataTableConfig.HotfixDataTableFolderPath = "Assets/Res/Generate/TableData/GameHotfix";
             s_DataTableConfig.ExcelsFolder = $"{Application.dataPath}/../../ClientExcel/Game";
             s_DataTableConfig.HotfixExcelsFolder = $"{Application.dataPath}/../../ClientExcel/GameHotfix";
             s_DataTableConfig.CSharpCodePath = "Assets/Scripts/GameApp/Generate/TableCode";
