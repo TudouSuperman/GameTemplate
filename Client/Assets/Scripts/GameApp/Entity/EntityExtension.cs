@@ -51,13 +51,19 @@ namespace GameApp
                 return;
             }
 
+            DREntityGroup drEntityGroup = GameEntry.DataTable.GetDataRow<DREntityGroup>(drEntity.GroupId);
+            if (drEntityGroup == null)
+            {
+                return;
+            }
+
             DRAsset drAsset = GameEntry.DataTable.GetDataRow<DRAsset>(drEntity.AssetId);
             if (drAsset == null)
             {
                 return;
             }
 
-            entityComponent.ShowEntity(entityData.SerialId, logicType, drAsset.AssetPath, drEntity.GroupName, Constant.AssetPriority.Entity_Asset, entityData);
+            entityComponent.ShowEntity(entityData.SerialId, logicType, drAsset.AssetPath, drEntityGroup.GroupName, Constant.AssetPriority.Entity_Asset, entityData);
         }
 
         public static int? ShowEntity<T>(this EntityComponent entityComponent, int entityTypeId, object userData = null) where T : UGFEntityLogic
@@ -73,6 +79,12 @@ namespace GameApp
                 return null;
             }
 
+            DREntityGroup drEntityGroup = GameEntry.DataTable.GetDataRow<DREntityGroup>(drEntity.GroupId);
+            if (drEntityGroup == null)
+            {
+                return null;
+            }
+
             DRAsset drAsset = GameEntry.DataTable.GetDataRow<DRAsset>(drEntity.AssetId);
             if (drAsset == null)
             {
@@ -80,7 +92,7 @@ namespace GameApp
             }
 
             int entityId = entityComponent.GenerateSerialId();
-            entityComponent.ShowEntity(entityId, logicType, drAsset.AssetPath, drEntity.GroupName, Constant.AssetPriority.Entity_Asset, userData);
+            entityComponent.ShowEntity(entityId, logicType, drAsset.AssetPath, drEntityGroup.GroupName, Constant.AssetPriority.Entity_Asset, userData);
             return entityId;
         }
 

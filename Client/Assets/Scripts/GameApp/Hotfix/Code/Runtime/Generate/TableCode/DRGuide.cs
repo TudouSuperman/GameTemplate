@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2025-08-11 14:33:49.946
+// 生成时间：2025-08-12 16:33:52.793
 //------------------------------------------------------------
 
 using System;
@@ -39,7 +39,7 @@ namespace GameApp.Hotfix
         /// <summary>
         /// 获取步骤名称。
         /// </summary>
-        public string Name
+        public string StepName
         {
             get;
             private set;
@@ -48,7 +48,7 @@ namespace GameApp.Hotfix
         /// <summary>
         /// 获取下一步的编号。
         /// </summary>
-        public int NextId
+        public int NextStepId
         {
             get;
             private set;
@@ -66,12 +66,9 @@ namespace GameApp.Hotfix
             index++;
             m_Id = int.Parse(columnStrings[index++]);
             index++;
-            Name = columnStrings[index++];
-            NextId = int.Parse(columnStrings[index++]);
             index++;
-            index++;
-            index++;
-            index++;
+            StepName = columnStrings[index++];
+            NextStepId = int.Parse(columnStrings[index++]);
 
             return true;
         }
@@ -83,8 +80,8 @@ namespace GameApp.Hotfix
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
-                    Name = binaryReader.ReadString();
-                    NextId = binaryReader.Read7BitEncodedInt32();
+                    StepName = binaryReader.ReadString();
+                    NextStepId = binaryReader.Read7BitEncodedInt32();
                 }
             }
 

@@ -19,6 +19,12 @@ namespace GameApp
                 return null;
             }
 
+            DRSoundGroup drSoundGroup = GameEntry.DataTable.GetDataRow<DRSoundGroup>(drMusic.GroupId);
+            if (drSoundGroup == null)
+            {
+                return null;
+            }
+
             DRAsset drAsset = GameEntry.DataTable.GetDataRow<DRAsset>(drMusic.AssetId);
             if (drAsset == null)
             {
@@ -31,7 +37,7 @@ namespace GameApp
             playSoundParams.VolumeInSoundGroup = 1f;
             playSoundParams.FadeInSeconds = FadeVolumeDuration;
             playSoundParams.SpatialBlend = 0f;
-            s_MusicSerialId = soundComponent.PlaySound(drAsset.AssetPath, drMusic.GroupName, Constant.AssetPriority.Music_Asset, playSoundParams, null, userData);
+            s_MusicSerialId = soundComponent.PlaySound(drAsset.AssetPath, drSoundGroup.GroupName, Constant.AssetPriority.Music_Asset, playSoundParams, null, userData);
             return s_MusicSerialId;
         }
 
@@ -54,6 +60,12 @@ namespace GameApp
                 return null;
             }
 
+            DRSoundGroup drSoundGroup = GameEntry.DataTable.GetDataRow<DRSoundGroup>(drSound.GroupId);
+            if (drSoundGroup == null)
+            {
+                return null;
+            }
+
             DRAsset drAsset = GameEntry.DataTable.GetDataRow<DRAsset>(drSound.AssetId);
             if (drAsset == null)
             {
@@ -65,13 +77,19 @@ namespace GameApp
             playSoundParams.Loop = drSound.Loop;
             playSoundParams.VolumeInSoundGroup = drSound.Volume;
             playSoundParams.SpatialBlend = drSound.SpatialBlend;
-            return soundComponent.PlaySound(drAsset.AssetPath, drSound.GroupName, Constant.AssetPriority.Sound_Asset, playSoundParams, bindingEntity != null ? bindingEntity.Entity : null, userData);
+            return soundComponent.PlaySound(drAsset.AssetPath, drSoundGroup.GroupName, Constant.AssetPriority.Sound_Asset, playSoundParams, bindingEntity != null ? bindingEntity.Entity : null, userData);
         }
 
         public static int? PlayUISound(this SoundComponent soundComponent, int uiSoundId, object userData = null)
         {
             DRUISound drUISound = GameEntry.DataTable.GetDataRow<DRUISound>(uiSoundId);
             if (drUISound == null)
+            {
+                return null;
+            }
+
+            DRSoundGroup drSoundGroup = GameEntry.DataTable.GetDataRow<DRSoundGroup>(drUISound.GroupId);
+            if (drSoundGroup == null)
             {
                 return null;
             }
@@ -87,7 +105,7 @@ namespace GameApp
             playSoundParams.Loop = false;
             playSoundParams.VolumeInSoundGroup = drUISound.Volume;
             playSoundParams.SpatialBlend = 0f;
-            return soundComponent.PlaySound(drAsset.AssetPath, drUISound.GroupName, Constant.AssetPriority.UISound_Asset, playSoundParams, userData);
+            return soundComponent.PlaySound(drAsset.AssetPath, drSoundGroup.GroupName, Constant.AssetPriority.UISound_Asset, playSoundParams, userData);
         }
 
         public static bool IsMuted(this SoundComponent soundComponent, string soundGroupName)

@@ -1,8 +1,6 @@
-﻿using GameFramework.DataTable;
-using GameFramework.Event;
+﻿using GameFramework.Event;
 using HotfixProcedureOwner = GameFramework.Fsm.IFsm<GameApp.Hotfix.HotfixProcedureComponent>;
 using UnityGameFramework.Runtime;
-using GameApp;
 
 namespace GameApp.Hotfix
 {
@@ -45,15 +43,19 @@ namespace GameApp.Hotfix
 
             int sceneId = procedureOwner.GetData<VarInt32>("NextSceneId");
             m_ChangeToGame = sceneId == GameSceneId;
-            IDataTable<DRScene> dtScene = GameEntry.DataTable.GetDataTable<DRScene>();
-            DRScene drScene = dtScene.GetDataRow(sceneId);
+            DRScene drScene = GameEntry.DataTable.GetDataRow<DRScene>(sceneId);
             if (drScene == null)
             {
-                Log.Warning("Can not load scene '{0}' from data table.", sceneId.ToString());
                 return;
             }
 
-            GameEntry.Scene.LoadScene(AssetHotfixPathUtility.GetSceneAsset(drScene.AssetName), Constant.AssetPriority.Scene_Asset, this);
+            DRAsset drAsset = GameEntry.DataTable.GetDataRow<DRAsset>(drScene.AssetId);
+            if (drAsset == null)
+            {
+                return;
+            }
+
+            GameEntry.Scene.LoadScene(AssetHotfixPathUtility.GetSceneAsset(drAsset.AssetName), Constant.AssetPriority.Scene_Asset, this);
             m_BackgroundMusicId = drScene.BackgroundMusicId;
         }
 

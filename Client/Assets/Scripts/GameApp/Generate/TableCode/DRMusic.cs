@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2025-08-11 14:33:46.342
+// 生成时间：2025-08-12 16:33:50.346
 //------------------------------------------------------------
 
 using System;
@@ -37,27 +37,9 @@ namespace GameApp
         }
 
         /// <summary>
-        /// 获取资源名称。
-        /// </summary>
-        public string AssetName
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
         /// 获取资源编号。
         /// </summary>
         public int AssetId
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取声音组名称。
-        /// </summary>
-        public string GroupName
         {
             get;
             private set;
@@ -84,9 +66,8 @@ namespace GameApp
             index++;
             m_Id = int.Parse(columnStrings[index++]);
             index++;
-            AssetName = columnStrings[index++];
+            index++;
             AssetId = int.Parse(columnStrings[index++]);
-            GroupName = columnStrings[index++];
             GroupId = int.Parse(columnStrings[index++]);
 
             return true;
@@ -99,9 +80,7 @@ namespace GameApp
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
-                    AssetName = binaryReader.ReadString();
                     AssetId = binaryReader.Read7BitEncodedInt32();
-                    GroupName = binaryReader.ReadString();
                     GroupId = binaryReader.Read7BitEncodedInt32();
                 }
             }

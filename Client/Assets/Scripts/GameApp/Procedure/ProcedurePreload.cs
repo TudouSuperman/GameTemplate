@@ -64,61 +64,61 @@ namespace GameApp
             IDataTable<DRAsset> _dtAsset = GameEntry.DataTable.GetDataTable<DRAsset>();
             foreach (DRAsset _drAsset in _dtAsset)
             {
-                Log.Debug("Asset Table Row : {0} {1} {2}", _drAsset.Id, _drAsset.AssetName, _drAsset.AssetPath);
+                Log.Debug("<color=#00FF00>Asset Table Row : {0} {1} {2}</color>", _drAsset.Id, _drAsset.AssetName, _drAsset.AssetPath);
             }
 
             IDataTable<DRUIFormGroup> _dtUIFormGroup = GameEntry.DataTable.GetDataTable<DRUIFormGroup>();
             foreach (DRUIFormGroup _drUIFormGroup in _dtUIFormGroup)
             {
-                Log.Debug("UIFormGroup Table Row : {0} {1} {2}", _drUIFormGroup.Id, _drUIFormGroup.GroupName, _drUIFormGroup.GroupDepth);
+                Log.Debug("<color=#00FF00>UIFormGroup Table Row : {0} {1} {2}</color>", _drUIFormGroup.Id, _drUIFormGroup.GroupName, _drUIFormGroup.GroupDepth);
             }
 
             IDataTable<DREntityGroup> _dtEntityGroup = GameEntry.DataTable.GetDataTable<DREntityGroup>();
             foreach (DREntityGroup _drEntityGroup in _dtEntityGroup)
             {
-                Log.Debug("EntityGroup Table Row : {0} {1} {2} {3} {4} {5}", _drEntityGroup.Id, _drEntityGroup.GroupName, _drEntityGroup.InstanceAutoReleaseInterval, _drEntityGroup.InstanceCapacity, _drEntityGroup.InstanceExpireTime, _drEntityGroup.InstancePriority);
+                Log.Debug("<color=#00FF00>EntityGroup Table Row : {0} {1} {2} {3} {4} {5}</color>", _drEntityGroup.Id, _drEntityGroup.GroupName, _drEntityGroup.InstanceAutoReleaseInterval, _drEntityGroup.InstanceCapacity, _drEntityGroup.InstanceExpireTime, _drEntityGroup.InstancePriority);
             }
 
             IDataTable<DRSoundGroup> _dtSoundGroup = GameEntry.DataTable.GetDataTable<DRSoundGroup>();
             foreach (DRSoundGroup _drSoundGroup in _dtSoundGroup)
             {
-                Log.Debug("SoundGroup Table Row : {0} {1} {2} {3} {4} {5}", _drSoundGroup.Id, _drSoundGroup.GroupName, _drSoundGroup.SoundAgentCount, _drSoundGroup.AvoidBeingReplacedBySamePriority, _drSoundGroup.Mute, _drSoundGroup.Volume);
+                Log.Debug("<color=#00FF00>SoundGroup Table Row : {0} {1} {2} {3} {4} {5}</color>", _drSoundGroup.Id, _drSoundGroup.GroupName, _drSoundGroup.SoundAgentCount, _drSoundGroup.AvoidBeingReplacedBySamePriority, _drSoundGroup.Mute, _drSoundGroup.Volume);
             }
 
             IDataTable<DRUIForm> _dtUIForm = GameEntry.DataTable.GetDataTable<DRUIForm>();
             foreach (DRUIForm _drUIForm in _dtUIForm)
             {
-                Log.Debug("UIForm Table Row : {0} {1} {2} {3} {4} {5} {6}", _drUIForm.Id, _drUIForm.AssetName, _drUIForm.AssetId, _drUIForm.GroupName, _drUIForm.GroupId, _drUIForm.AllowMultiInstance, _drUIForm.PauseCoveredUIForm);
+                Log.Debug("<color=#00FF00>UIForm Table Row : {0} {1} {2} {3} {4}</color>", _drUIForm.Id, _drUIForm.AssetId, _drUIForm.GroupId, _drUIForm.AllowMultiInstance, _drUIForm.PauseCoveredUIForm);
             }
 
             IDataTable<DREntity> _dtEntity = GameEntry.DataTable.GetDataTable<DREntity>();
             foreach (DREntity _drEntity in _dtEntity)
             {
-                Log.Debug("Entity Table Row : {0} {1} {2} {3} {4}", _drEntity.Id, _drEntity.AssetName, _drEntity.AssetId, _drEntity.GroupName, _drEntity.GroupId);
+                Log.Debug("<color=#00FF00>Entity Table Row : {0} {1} {2}</color>", _drEntity.Id, _drEntity.AssetId, _drEntity.GroupId);
             }
 
             IDataTable<DRUISound> _dtUISound = GameEntry.DataTable.GetDataTable<DRUISound>();
             foreach (DRUISound _drUISound in _dtUISound)
             {
-                Log.Debug("UISound Table Row : {0} {1} {2} {3} {4} {5} {6}", _drUISound.Id, _drUISound.AssetName, _drUISound.AssetId, _drUISound.GroupName, _drUISound.GroupId, _drUISound.Priority, _drUISound.Volume);
+                Log.Debug("<color=#00FF00>UISound Table Row : {0} {1} {2} {3} {4}</color>", _drUISound.Id, _drUISound.AssetId, _drUISound.GroupId, _drUISound.Priority, _drUISound.Volume);
             }
 
             IDataTable<DRMusic> _dtMusic = GameEntry.DataTable.GetDataTable<DRMusic>();
             foreach (DRMusic _drMusic in _dtMusic)
             {
-                Log.Debug("Music Table Row : {0} {1} {2} {3} {4}", _drMusic.Id, _drMusic.AssetName, _drMusic.AssetId, _drMusic.GroupName, _drMusic.GroupId);
+                Log.Debug("<color=#00FF00>Music Table Row : {0} {1} {2}</color>", _drMusic.Id, _drMusic.AssetId, _drMusic.GroupId);
             }
 
             IDataTable<DRSound> _dtSound = GameEntry.DataTable.GetDataTable<DRSound>();
             foreach (DRSound _drSound in _dtSound)
             {
-                Log.Debug("UISound Table Row : {0} {1} {2} {3} {4} {5} {6} {7} {8} {9}", _drSound.Id, _drSound.AssetName, _drSound.AssetId, _drSound.GroupName, _drSound.GroupId, _drSound.Priority, _drSound.Loop, _drSound.Volume, _drSound.SpatialBlend, _drSound.MaxDistance);
+                Log.Debug("<color=#00FF00>UISound Table Row : {0} {1} {2} {3} {4} {5} {6} {7}</color>", _drSound.Id, _drSound.AssetId, _drSound.GroupId, _drSound.Priority, _drSound.Loop, _drSound.Volume, _drSound.SpatialBlend, _drSound.MaxDistance);
             }
 
             IDataTable<DRScene> _dtScene = GameEntry.DataTable.GetDataTable<DRScene>();
             foreach (DRScene _drScene in _dtScene)
             {
-                Log.Debug("Scene Table Row : {0} {1} {2} {3}", _drScene.Id, _drScene.AssetName, _drScene.AssetId, _drScene.BackgroundMusicId);
+                Log.Debug("<color=#00FF00>Scene Table Row : {0} {1} {2}</color>", _drScene.Id, _drScene.AssetId, _drScene.BackgroundMusicId);
             }
 #endif
             SetComponents();

@@ -13,18 +13,24 @@ namespace GameApp
                 return false;
             }
 
+            DRUIFormGroup drUIFormGroup = GameEntry.DataTable.GetDataRow<DRUIFormGroup>(drUIForm.GroupId);
+            if (drUIFormGroup == null)
+            {
+                return false;
+            }
+            
             DRAsset drAsset = GameEntry.DataTable.GetDataRow<DRAsset>(drUIForm.AssetId);
             if (drAsset == null)
             {
                 return false;
             }
 
-            if (string.IsNullOrEmpty(drUIForm.GroupName))
+            if (string.IsNullOrEmpty(drUIFormGroup.GroupName))
             {
                 return uiComponent.HasUIForm(drAsset.AssetPath);
             }
 
-            IUIGroup uiGroup = uiComponent.GetUIGroup(drUIForm.GroupName);
+            IUIGroup uiGroup = uiComponent.GetUIGroup(drUIFormGroup.GroupName);
             if (uiGroup == null)
             {
                 return false;
@@ -41,6 +47,12 @@ namespace GameApp
                 return null;
             }
 
+            DRUIFormGroup drUIFormGroup = GameEntry.DataTable.GetDataRow<DRUIFormGroup>(drUIForm.GroupId);
+            if (drUIFormGroup == null)
+            {
+                return null;
+            }
+
             DRAsset drAsset = GameEntry.DataTable.GetDataRow<DRAsset>(drUIForm.AssetId);
             if (drAsset == null)
             {
@@ -48,7 +60,7 @@ namespace GameApp
             }
 
             UIForm uiForm = null;
-            if (string.IsNullOrEmpty(drUIForm.GroupName))
+            if (string.IsNullOrEmpty(drUIFormGroup.GroupName))
             {
                 uiForm = uiComponent.GetUIForm(drAsset.AssetPath);
                 if (uiForm == null)
@@ -59,7 +71,7 @@ namespace GameApp
                 return (UGuiFormLogic)uiForm.Logic;
             }
 
-            IUIGroup uiGroup = uiComponent.GetUIGroup(drUIForm.GroupName);
+            IUIGroup uiGroup = uiComponent.GetUIGroup(drUIFormGroup.GroupName);
             if (uiGroup == null)
             {
                 return null;
@@ -82,6 +94,12 @@ namespace GameApp
                 return null;
             }
 
+            DRUIFormGroup drUIFormGroup = GameEntry.DataTable.GetDataRow<DRUIFormGroup>(drUIForm.GroupId);
+            if (drUIFormGroup == null)
+            {
+                return null;
+            }
+            
             DRAsset drAsset = GameEntry.DataTable.GetDataRow<DRAsset>(drUIForm.AssetId);
             if (drAsset == null)
             {
@@ -102,7 +120,7 @@ namespace GameApp
                 }
             }
 
-            return uiComponent.OpenUIForm(assetName, drUIForm.GroupName, Constant.AssetPriority.UIForm_Asset, drUIForm.PauseCoveredUIForm, userData);
+            return uiComponent.OpenUIForm(assetName, drUIFormGroup.GroupName, Constant.AssetPriority.UIForm_Asset, drUIForm.PauseCoveredUIForm, userData);
         }
     }
 }

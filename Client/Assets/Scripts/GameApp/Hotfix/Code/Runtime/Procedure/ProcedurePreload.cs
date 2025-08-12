@@ -14,8 +14,6 @@ namespace GameApp.Hotfix
         private static readonly string[] DataTableNames = new string[]
         {
             "Guide",
-            "Hero",
-            "HeroBaseData",
         };
 
         private readonly Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();
@@ -59,19 +57,7 @@ namespace GameApp.Hotfix
             IDataTable<DRGuide> _dtGuide = GameEntry.DataTable.GetDataTable<DRGuide>();
             foreach (DRGuide _drGuide in _dtGuide)
             {
-                Log.Debug("Guide Table Row : {0} {1} {2}", _drGuide.Id, _drGuide.Name);
-            }
-
-            IDataTable<DRHero> _dtHero = GameEntry.DataTable.GetDataTable<DRHero>();
-            foreach (DRHero _drHero in _dtHero)
-            {
-                Log.Debug("Hero Table Row : {0} {1}", _drHero.Id, _drHero.Name);
-            }
-
-            IDataTable<DRHeroBaseData> _dtHeroBaseData = GameEntry.DataTable.GetDataTable<DRHeroBaseData>();
-            foreach (DRHeroBaseData _drHeroBaseData in _dtHeroBaseData)
-            {
-                Log.Debug("HeroBaseData Table Row : {0} {1}", _drHeroBaseData.Id, _drHeroBaseData.Name);
+                Log.Debug("<color=#00FF00>Guide Table Row : {0} {1} {2}</color>", _drGuide.Id, _drGuide.StepName, _drGuide.NextStepId);
             }
 #endif
             ChangeState<ProcedureGame>(procedureOwner);

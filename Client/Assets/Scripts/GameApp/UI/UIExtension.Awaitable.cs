@@ -24,6 +24,12 @@ namespace GameApp
                 return null;
             }
 
+            DRUIFormGroup drUIFormGroup = GameEntry.DataTable.GetDataRow<DRUIFormGroup>(drUIForm.GroupId);
+            if (drUIFormGroup == null)
+            {
+                return null;
+            }
+
             DRAsset drAsset = GameEntry.DataTable.GetDataRow<DRAsset>(drUIForm.AssetId);
             if (drAsset == null)
             {
@@ -46,7 +52,7 @@ namespace GameApp
 
             return await uiComponent.OpenUIFormAsync(
                 assetName,
-                drUIForm.GroupName,
+                drUIFormGroup.GroupName,
                 Constant.AssetPriority.UIForm_Asset,
                 drUIForm.PauseCoveredUIForm,
                 userData,

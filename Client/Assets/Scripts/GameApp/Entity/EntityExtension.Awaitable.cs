@@ -115,6 +115,12 @@ namespace GameApp
                 return UniTask.FromResult<Entity>(null);
             }
 
+            DREntityGroup drEntityGroup = GameEntry.DataTable.GetDataRow<DREntityGroup>(drEntity.GroupId);
+            if (drEntityGroup == null)
+            {
+                return UniTask.FromResult<Entity>(null);
+            }
+
             DRAsset drAsset = GameEntry.DataTable.GetDataRow<DRAsset>(drEntity.AssetId);
             if (drAsset == null)
             {
@@ -126,7 +132,7 @@ namespace GameApp
                 serialId,
                 logicType,
                 drAsset.AssetPath,
-                drEntity.GroupName,
+                drEntityGroup.GroupName,
                 Constant.AssetPriority.Entity_Asset,
                 userData,
                 cancellationToken,

@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2025-08-11 14:33:47.333
+// 生成时间：2025-08-12 16:33:51.215
 //------------------------------------------------------------
 
 using System;
@@ -92,6 +92,7 @@ namespace GameApp
             int index = 0;
             index++;
             m_Id = int.Parse(columnStrings[index++]);
+            index++;
             index++;
             GroupName = columnStrings[index++];
             SoundAgentCount = int.Parse(columnStrings[index++]);
