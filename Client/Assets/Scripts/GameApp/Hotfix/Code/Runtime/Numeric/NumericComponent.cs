@@ -83,7 +83,7 @@ namespace GameApp.Hotfix
             int finalPct = final * 10 + 5;
 
             // 一个数值可能会多种情况影响，比如速度，加个 buff 可能增加速度绝对值 100，也有些 buff 增加 10% 速度，所以一个值可以由 5 个值进行控制其最终结果
-            // 最终值 = （（（基础值 + 添加值） * 百分百） + 最后的添加值） * 最后的百分比
+            // 最终值 = （（（基础值 + 加成值） * 百分百） + 最终加成值） * 最终百分比
             // final = (((base + add) * (100 + pct) / 100) + finalAdd) * (100 + finalPct) / 100;
             long result = (long)(((self.GetByKey(bas) + self.GetByKey(add)) * (100 + self.GetAsFloat(pct)) / 100f + self.GetByKey(finalAdd)) * (100 + self.GetAsFloat(finalPct)) / 100f);
             self.Insert(final, result, isPublicEvent);
