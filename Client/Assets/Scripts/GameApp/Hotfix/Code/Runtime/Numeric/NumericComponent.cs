@@ -97,6 +97,18 @@ namespace GameApp.Hotfix
         public long New;
     }
 
+    #region TODO 案例。
+
+    // NumericComponent _numeric = new NumericComponent();
+    // _numeric.Set(NumericType.SpeedBase, 100);
+    // _numeric.Set(NumericType.SpeedAdd, 100);
+    // _numeric.Set(NumericType.SpeedPct, 10f);
+    // _numeric.Set(NumericType.SpeedFinalAdd, 100);
+    // _numeric.Set(NumericType.SpeedFinalPct, 15f);
+    // UnityEngine.Debug.Log($"Speed after update: {_numeric.GetAsInt(NumericType.Speed)} 结果为 368");
+
+    #endregion
+
     public sealed class NumericComponent
     {
         public Dictionary<int, long> NumericDic = new Dictionary<int, long>();
