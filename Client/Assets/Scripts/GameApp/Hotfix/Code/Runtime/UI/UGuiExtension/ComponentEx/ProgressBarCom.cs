@@ -22,13 +22,13 @@ namespace GameApp.Hotfix
         public void RefreshView10(float currentValue, float totalValue)
         {
             m_ProgressBarView.fillAmount = Mathf.Clamp01(currentValue / totalValue);
-            m_ProgressTextView.text = Utility.Text.Format("{0}/{1}", MathUtility.Round(currentValue), MathUtility.Round(totalValue));
+            m_ProgressTextView.text = Utility.Text.Format("{0}/{1}", MathBasicUtility.Round(currentValue), MathBasicUtility.Round(totalValue));
         }
 
         public void RefreshView10Single(float currentValue, float totalValue)
         {
             m_ProgressBarView.fillAmount = Mathf.Clamp01(currentValue / totalValue);
-            m_ProgressTextView.text = Utility.Text.Format("{0}", MathUtility.Round(currentValue));
+            m_ProgressTextView.text = Utility.Text.Format("{0}", MathBasicUtility.Round(currentValue));
         }
 
         public void RefreshView01(int currentValue, int totalValue)
@@ -40,13 +40,13 @@ namespace GameApp.Hotfix
         public void RefreshView01(float currentValue, float totalValue)
         {
             m_ProgressBarView.fillAmount = 1f - Mathf.Clamp01(currentValue / totalValue);
-            m_ProgressTextView.text = Utility.Text.Format("{0}/{1}", MathUtility.Round(currentValue), MathUtility.Round(totalValue));
+            m_ProgressTextView.text = Utility.Text.Format("{0}/{1}", MathBasicUtility.Round(currentValue), MathBasicUtility.Round(totalValue));
         }
 
         public void RefreshView01Single(float currentValue, float totalValue)
         {
             m_ProgressBarView.fillAmount = 1f - Mathf.Clamp01(currentValue / totalValue);
-            m_ProgressTextView.text = Utility.Text.Format("{0}", MathUtility.Round(currentValue));
+            m_ProgressTextView.text = Utility.Text.Format("{0}", MathBasicUtility.Round(currentValue));
         }
     }
 }
