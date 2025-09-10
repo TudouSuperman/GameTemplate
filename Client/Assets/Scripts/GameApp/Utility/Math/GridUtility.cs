@@ -6,62 +6,76 @@ using UnityEngine;
 namespace GameApp
 {
     /// <summary>
-    /// 网格与坐标工具类
+    /// 提供网格坐标操作和空间关系计算功能
     /// </summary>
     public static class GridUtility
     {
         /// <summary>
         /// 获取左侧相邻网格坐标
         /// </summary>
-        public static Vector3Int Left(this Vector3Int vector3Int) => vector3Int + Vector3Int.left;
+        /// <param name="vector3Int">当前网格坐标</param>
+        /// <returns>左侧相邻坐标</returns>
+        public static Vector3Int Left(this Vector3Int vector3Int)
+        {
+            return vector3Int + Vector3Int.left;
+        }
 
         /// <summary>
         /// 获取右侧相邻网格坐标
         /// </summary>
-        public static Vector3Int Right(this Vector3Int vector3Int) => vector3Int + Vector3Int.right;
+        /// <param name="vector3Int">当前网格坐标</param>
+        /// <returns>右侧相邻坐标</returns>
+        public static Vector3Int Right(this Vector3Int vector3Int)
+        {
+            return vector3Int + Vector3Int.right;
+        }
 
         /// <summary>
         /// 获取上方相邻网格坐标
         /// </summary>
-        public static Vector3Int Up(this Vector3Int vector3Int) => vector3Int + Vector3Int.up;
+        /// <param name="vector3Int">当前网格坐标</param>
+        /// <returns>上方相邻坐标</returns>
+        public static Vector3Int Up(this Vector3Int vector3Int)
+        {
+            return vector3Int + Vector3Int.up;
+        }
 
         /// <summary>
         /// 获取下方相邻网格坐标
         /// </summary>
-        public static Vector3Int Down(this Vector3Int vector3Int) => vector3Int + Vector3Int.down;
+        /// <param name="vector3Int">当前网格坐标</param>
+        /// <returns>下方相邻坐标</returns>
+        public static Vector3Int Down(this Vector3Int vector3Int)
+        {
+            return vector3Int + Vector3Int.down;
+        }
 
         /// <summary>
-        /// 获取四方向相邻坐标（左、上、右、下）
+        /// 获取四方向相邻坐标（上、右、下、左）
         /// </summary>
-        public static Vector3Int[] GetAdjacent4(this Vector3Int vector3Int) => new Vector3Int[4]
+        /// <param name="vector3Int">当前网格坐标</param>
+        /// <returns>相邻坐标数组（顺序：左、上、右、下）</returns>
+        public static Vector3Int[] GetAdjacent4(this Vector3Int vector3Int)
         {
-            vector3Int.Left(),
-            vector3Int.Up(),
-            vector3Int.Right(),
-            vector3Int.Down()
-        };
-
-        /// <summary>
-        /// 获取八方向相邻坐标（包括对角线）
-        /// </summary>
-        public static Vector3Int[] GetAdjacent8(this Vector3Int vector3Int)
-        {
-            return new Vector3Int[8]
+            return new Vector3Int[4]
             {
-                vector3Int.Left(),
-                vector3Int.Left() + Vector3Int.up,
-                vector3Int.Up(),
-                vector3Int.Right() + Vector3Int.up,
-                vector3Int.Right(),
-                vector3Int.Right() + Vector3Int.down,
-                vector3Int.Down(),
-                vector3Int.Left() + Vector3Int.down
+                vector3Int.Left(), // 左侧
+                vector3Int.Up(), // 上方
+                vector3Int.Right(), // 右侧
+                vector3Int.Down() // 下方
             };
         }
 
         /// <summary>
         /// 获取螺旋扩展范围内的所有网格坐标
+        /// 示例（半径=1）:
+        ///     2 3 4
+        ///     1 0 5
+        ///     8 7 6
         /// </summary>
+        /// <param name="center">中心点坐标</param>
+        /// <param name="radius">扩展半径</param>
+        /// <returns>螺旋范围内的所有坐标列表</returns>
         public static List<Vector3Int> GetSpiralRange(this Vector3Int center, int radius)
         {
             if (radius <= 0)
@@ -111,7 +125,17 @@ namespace GameApp
 
         /// <summary>
         /// 获取矩形边界上的网格坐标
+        /// 示例（3x3）:
+        ///         3   4   5   6
+        ///         2   0   0   7
+        ///         1  (0)  0   8
+        ///         12 11  10   9
         /// </summary>
+        /// <param name="center">左下角起始点</param>
+        /// <param name="width">矩形宽度（格数）</param>
+        /// <param name="height">矩形高度（格数）</param>
+        /// <param name="border">边界厚度（默认为1）</param>
+        /// <returns>矩形边界上的坐标列表</returns>
         public static List<Vector3Int> GetRectBorder(this Vector3Int center, int width, int height, int border = 1)
         {
             if (border <= 0)
@@ -167,7 +191,21 @@ namespace GameApp
 
         /// <summary>
         /// 获取指定方向的射线坐标
+        /// 示例（方向1，长度3）:
+        ///          3
+        ///          2
+        ///          1
+        ///    3 2 1(0)1 2 3
+        ///          1
+        ///          2
+        ///          3
         /// </summary>
+        /// <param name="center">中心点坐标</param>
+        /// <param name="width">射线宽度（格数）</param>
+        /// <param name="height">射线高度（格数）</param>
+        /// <param name="direction">方向（1=左,2=上,3=右,4=下）</param>
+        /// <param name="length">射线长度</param>
+        /// <returns>射线上的坐标列表</returns>
         public static List<Vector3Int> GetDirectionRay(this Vector3Int center, int width, int height, int direction, int length)
         {
             var result = new List<Vector3Int>();
@@ -231,7 +269,16 @@ namespace GameApp
 
         /// <summary>
         /// 获取矩形外框坐标
+        /// 示例（3x2）:
+        ///  2 3
+        ///1     4
+        ///0     5
+        ///  7 6
         /// </summary>
+        /// <param name="center">中心点坐标</param>
+        /// <param name="width">矩形宽度</param>
+        /// <param name="height">矩形高度</param>
+        /// <returns>外框坐标数组</returns>
         public static Vector3Int[] GetRectOutline(this Vector3Int center, int width, int height)
         {
             if (width <= 0 || height <= 0)
@@ -271,6 +318,9 @@ namespace GameApp
         /// <summary>
         /// 获取圆形范围内的网格坐标
         /// </summary>
+        /// <param name="center">圆心坐标</param>
+        /// <param name="radius">圆半径</param>
+        /// <returns>圆形范围内的坐标列表</returns>
         public static List<Vector3Int> GetCircleRange(this Vector3Int center, float radius)
         {
             if (radius <= 0)
@@ -298,23 +348,42 @@ namespace GameApp
 
         /// <summary>
         /// 获取以左下角为基准的2x2区域坐标
+        /// 示例:
+        ///  3  2
+        ///  0  1
         /// </summary>
-        public static Vector3Int[] Get2x2Area(this Vector3Int bottomLeft) => new Vector3Int[4]
+        /// <param name="bottomLeft">左下角坐标</param>
+        /// <returns>2x2区域坐标数组</returns>
+        public static Vector3Int[] Get2x2Area(this Vector3Int bottomLeft)
         {
-            bottomLeft, // 左下 (0,0)
-            bottomLeft + Vector3Int.right, // 右下 (1,0)
-            bottomLeft + Vector3Int.up, // 左上 (0,1)
-            bottomLeft + Vector3Int.one // 右上 (1,1)
-        };
+            return new Vector3Int[4]
+            {
+                bottomLeft, // 左下 (0,0)
+                bottomLeft + Vector3Int.right, // 右下 (1,0)
+                bottomLeft + Vector3Int.up, // 左上 (0,1)
+                bottomLeft + Vector3Int.one // 右上 (1,1)
+            };
+        }
 
         /// <summary>
         /// 检查目标坐标是否与当前坐标相邻（四方向）
         /// </summary>
-        public static bool IsAdjacent(this Vector3Int self, Vector3Int other) => self.GetAdjacent4().Any(p => p == other);
+        /// <param name="self">当前坐标</param>
+        /// <param name="other">目标坐标</param>
+        /// <returns>如果是相邻坐标返回true，否则false</returns>
+        public static bool IsAdjacent(this Vector3Int self, Vector3Int other)
+        {
+            return self.GetAdjacent4().Any(p => p == other);
+        }
 
         /// <summary>
         /// 检查目标坐标是否在矩形范围内
         /// </summary>
+        /// <param name="self">范围中心</param>
+        /// <param name="target">目标坐标</param>
+        /// <param name="width">范围宽度</param>
+        /// <param name="height">范围高度</param>
+        /// <returns>如果在范围内返回true，否则false</returns>
         public static bool IsInRectangle(this Vector3Int self, Vector3Int target, int width, int height)
         {
             Vector3Int min = self - new Vector3Int(width / 2, height / 2, 0);
@@ -327,6 +396,10 @@ namespace GameApp
         /// <summary>
         /// 检查目标坐标是否在圆形范围内
         /// </summary>
+        /// <param name="self">圆心</param>
+        /// <param name="target">目标坐标</param>
+        /// <param name="radius">圆半径</param>
+        /// <returns>如果在范围内返回true，否则false</returns>
         public static bool IsInCircle(this Vector3Int self, Vector3Int target, float radius)
         {
             float distance = Vector3Int.Distance(self, target);
@@ -336,16 +409,20 @@ namespace GameApp
         /// <summary>
         /// 计算网格坐标的曼哈顿距离
         /// </summary>
-        public static int ManhattanDistance(this Vector3Int a, Vector3Int b) => Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y);
-
-        /// <summary>
-        /// 计算网格坐标的切比雪夫距离
-        /// </summary>
-        public static int ChebyshevDistance(this Vector3Int a, Vector3Int b) => Mathf.Max(Mathf.Abs(a.x - b.x), Mathf.Abs(a.y - b.y));
+        /// <param name="a">起点坐标</param>
+        /// <param name="b">终点坐标</param>
+        /// <returns>曼哈顿距离</returns>
+        public static int ManhattanDistance(this Vector3Int a, Vector3Int b)
+        {
+            return Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y);
+        }
 
         /// <summary>
         /// 获取两个坐标之间的直线路径
         /// </summary>
+        /// <param name="start">起点坐标</param>
+        /// <param name="end">终点坐标</param>
+        /// <returns>路径上的坐标列表</returns>
         public static List<Vector3Int> GetLinePath(this Vector3Int start, Vector3Int end)
         {
             var path = new List<Vector3Int>();
@@ -371,67 +448,37 @@ namespace GameApp
         }
 
         /// <summary>
-        /// 获取两个坐标之间的 Bresenham 直线路径
+        /// 屏幕坐标转 UI 坐标。
         /// </summary>
-        public static List<Vector3Int> GetBresenhamLine(this Vector3Int start, Vector3Int end)
-        {
-            var points = new List<Vector3Int>();
-            int x0 = start.x, y0 = start.y;
-            int x1 = end.x, y1 = end.y;
-
-            int dx = Mathf.Abs(x1 - x0);
-            int dy = Mathf.Abs(y1 - y0);
-            int sx = (x0 < x1) ? 1 : -1;
-            int sy = (y0 < y1) ? 1 : -1;
-            int err = dx - dy;
-
-            while (true)
-            {
-                points.Add(new Vector3Int(x0, y0, 0));
-
-                if (x0 == x1 && y0 == y1) break;
-
-                int e2 = 2 * err;
-                if (e2 > -dy)
-                {
-                    err -= dy;
-                    x0 += sx;
-                }
-
-                if (e2 < dx)
-                {
-                    err += dx;
-                    y0 += sy;
-                }
-            }
-
-            return points;
-        }
-
-        /// <summary>
-        /// 屏幕坐标转 UI 坐标
-        /// </summary>
+        /// <param name="screenPosition">屏幕坐标。</param>
+        /// <param name="canvas">画布。</param>
+        /// <returns>UI 坐标。</returns>
         public static Vector2 ScreenToUIPosition(Vector2 screenPosition, Canvas canvas)
         {
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 canvas.transform as RectTransform,
                 screenPosition,
-                canvas.worldCamera,
+                canvas.worldCamera, // 对于 Overlay 模式为 null。
                 out Vector2 localPos
             );
             return localPos;
         }
 
         /// <summary>
-        /// UI 坐标转屏幕坐标
+        /// UI 坐标转屏幕坐标。
         /// </summary>
+        /// <param name="uiPosition">UI坐标。</param>
+        /// <param name="canvas">画布。</param>
+        /// <returns>屏幕坐标。</returns>
         public static Vector2 UIToScreenPosition(Vector2 uiPosition, Canvas canvas)
         {
+            // 对于 Overlay 模式。
             if (canvas.renderMode == RenderMode.ScreenSpaceOverlay)
             {
                 Vector2 screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
                 return screenCenter + uiPosition;
             }
+            // 对于 Camera 模式。
             else
             {
                 return RectTransformUtility.WorldToScreenPoint(
@@ -439,49 +486,6 @@ namespace GameApp
                     canvas.transform.TransformPoint(uiPosition)
                 );
             }
-        }
-
-        /// <summary>
-        /// 世界坐标转画布坐标
-        /// </summary>
-        public static Vector2 WorldToCanvasPosition(Vector3 worldPosition, Camera worldCamera, Canvas canvas)
-        {
-            Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(worldCamera, worldPosition);
-            return ScreenToUIPosition(screenPoint, canvas);
-        }
-
-        /// <summary>
-        /// 画布坐标转世界坐标
-        /// </summary>
-        public static Vector3 CanvasToWorldPosition(Vector2 canvasPosition, Camera worldCamera, Canvas canvas)
-        {
-            Vector2 screenPoint = UIToScreenPosition(canvasPosition, canvas);
-            Ray ray = worldCamera.ScreenPointToRay(screenPoint);
-            Plane plane = new Plane(Vector3.forward, 0);
-            float distance;
-            plane.Raycast(ray, out distance);
-            return ray.GetPoint(distance);
-        }
-
-        /// <summary>
-        /// 检查点是否在屏幕范围内
-        /// </summary>
-        public static bool IsInScreenView(Vector3 worldPosition, Camera camera, float margin = 0.1f)
-        {
-            Vector3 viewportPoint = camera.WorldToViewportPoint(worldPosition);
-            return viewportPoint.x >= -margin && viewportPoint.x <= 1 + margin &&
-                   viewportPoint.y >= -margin && viewportPoint.y <= 1 + margin &&
-                   viewportPoint.z > 0;
-        }
-
-        /// <summary>
-        /// 获取屏幕边界的世界坐标
-        /// </summary>
-        public static Bounds GetScreenWorldBounds(Camera camera, float distance = 10f)
-        {
-            Vector3 bottomLeft = camera.ScreenToWorldPoint(new Vector3(0, 0, distance));
-            Vector3 topRight = camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, distance));
-            return new Bounds((bottomLeft + topRight) / 2f, topRight - bottomLeft);
         }
     }
 }

@@ -3,52 +3,120 @@
 namespace GameApp
 {
     /// <summary>
-    /// 几何数学工具类
+    /// 几何工具类
     /// </summary>
     public static class GeometryUtility
     {
-        /// <summary>
-        /// 二维向量点积
-        /// </summary>
-        public static float DotProduct(Vector2 a, Vector2 b) => a.x * b.x + a.y * b.y;
+        // ========== 距离和范围检测 ========== //
 
         /// <summary>
-        /// 三维向量叉积
+        /// 检查点是否在圆形/球形区域内（高效版，使用平方距离）
         /// </summary>
-        public static Vector3 CrossProduct(Vector3 a, Vector3 b) => Vector3.Cross(a, b);
-
-        /// <summary>
-        /// 计算两点间距离（忽略Y轴）
-        /// </summary>
-        public static float Distance2D(Vector3 a, Vector3 b)
+        /// <param name="point">要检查的点</param>
+        /// <param name="center">圆心/球心</param>
+        /// <param name="radius">半径</param>
+        /// <returns>是否在区域内</returns>
+        public static bool IsPointInCircle(Vector3 point, Vector3 center, float radius)
         {
-            a.y = b.y;
-            return Vector3.Distance(a, b);
+            float sqrDistance = (point - center).sqrMagnitude;
+            return sqrDistance <= radius * radius;
         }
 
         /// <summary>
-        /// 计算点到直线的距离
+        /// 检查点是否在轴对齐的矩形/立方体内 (AABB)
         /// </summary>
-        public static float DistanceToLine(Vector3 point, Vector3 lineStart, Vector3 lineEnd)
+        /// <param name="point">要检查的点</param>
+        /// <param name="center">中心点</param>
+        /// <param name="size">区域大小（x=宽，y=高，z=深）</param>
+        /// <returns>是否在区域内</returns>
+        public static bool IsPointInRectangle(Vector3 point, Vector3 center, Vector3 size)
         {
-            Vector3 lineVec = lineEnd - lineStart;
-            Vector3 pointVec = point - lineStart;
-            float lineLength = lineVec.magnitude;
-
-            if (lineLength < Mathf.Epsilon)
-                return Vector3.Distance(point, lineStart);
-
-            Vector3 normalizedLineVec = lineVec / lineLength;
-            float projection = Vector3.Dot(pointVec, normalizedLineVec);
-            projection = Mathf.Clamp(projection, 0, lineLength);
-
-            Vector3 closestPoint = lineStart + normalizedLineVec * projection;
-            return Vector3.Distance(point, closestPoint);
+            Vector3 halfSize = size * 0.5f;
+            return Mathf.Abs(point.x - center.x) <= halfSize.x &&
+                   Mathf.Abs(point.y - center.y) <= halfSize.y &&
+                   Mathf.Abs(point.z - center.z) <= halfSize.z;
         }
+
+        /// <summary>
+        /// 检查点是否在扇形区域内
+        /// </summary>
+        /// <param name="point">要检查的点</param>
+        /// <param name="sectorCenter">扇形中心</param>
+        /// <param name="sectorDirection">扇形方向</param>
+        /// <param name="sectorAngle">扇形角度（度）</param>
+        /// <param name="sectorRadius">扇形半径</param>
+        /// <returns>是否在扇形内</returns>
+        public static bool IsPointInSector(Vector3 point, Vector3 sectorCenter, Vector3 sectorDirection,
+            float sectorAngle, float sectorRadius)
+        {
+            // 检查距离
+            Vector3 toPoint = point - sectorCenter;
+            float sqrDistance = toPoint.sqrMagnitude;
+            if (sqrDistance > sectorRadius * sectorRadius)
+                return false;
+
+            // 检查角度
+            float angle = Vector3.Angle(sectorDirection, toPoint);
+            return angle <= sectorAngle * 0.5f;
+        }
+
+        // ========== 向量操作 ========== //
+
+        /// <summary>
+        /// 计算向量在另一个向量上的投影
+        /// </summary>
+        public static Vector3 ProjectVector(Vector3 vector, Vector3 onNormal)
+        {
+            return Vector3.Project(vector, onNormal);
+        }
+
+        /// <summary>
+        /// 计算向量在平面上的投影
+        /// </summary>
+        public static Vector3 ProjectOnPlane(Vector3 vector, Vector3 planeNormal)
+        {
+            return Vector3.ProjectOnPlane(vector, planeNormal);
+        }
+
+        /// <summary>
+        /// 绕轴旋转向量
+        /// </summary>
+        /// <param name="vector">要旋转的向量</param>
+        /// <param name="axis">旋转轴（单位向量）</param>
+        /// <param name="angle">旋转角度（度）</param>
+        /// <returns>旋转后的向量</returns>
+        public static Vector3 RotateVectorAroundAxis(Vector3 vector, Vector3 axis, float angle)
+        {
+            Quaternion rotation = Quaternion.AngleAxis(angle, axis);
+            return rotation * vector;
+        }
+
+        /// <summary>
+        /// 计算两个向量之间的夹角（0-180度）
+        /// </summary>
+        public static float AngleBetweenVectors(Vector3 from, Vector3 to)
+        {
+            return Vector3.Angle(from, to);
+        }
+
+        /// <summary>
+        /// 计算带符号的两个向量之间的夹角（-180到180度）
+        /// </summary>
+        public static float SignedAngleBetweenVectors(Vector3 from, Vector3 to, Vector3 axis)
+        {
+            return Vector3.SignedAngle(from, to, axis);
+        }
+
+        // ========== 几何计算 ========== //
 
         /// <summary>
         /// 计算点到线段的最近点和距离
         /// </summary>
+        /// <param name="point">点</param>
+        /// <param name="lineStart">线段起点</param>
+        /// <param name="lineEnd">线段终点</param>
+        /// <param name="closestPoint">输出最近点</param>
+        /// <returns>点到线段的距离</returns>
         public static float DistanceToLineSegment(Vector3 point, Vector3 lineStart, Vector3 lineEnd, out Vector3 closestPoint)
         {
             Vector3 lineDirection = lineEnd - lineStart;
@@ -126,111 +194,5 @@ namespace GameApp
             Vector3 ac = c - a;
             return Vector3.Cross(ab, ac).magnitude * 0.5f;
         }
-
-        /// <summary>
-        /// 计算圆上点
-        /// </summary>
-        public static Vector3 PointOnCircle(Vector3 center, float radius, float angleDegrees)
-        {
-            float rad = angleDegrees * Mathf.Deg2Rad;
-            return center + new Vector3(Mathf.Cos(rad), 0, Mathf.Sin(rad)) * radius;
-        }
-
-        /// <summary>
-        /// 检查点是否在圆形/球形区域内（高效版，使用平方距离）
-        /// </summary>
-        public static bool IsPointInCircle(Vector3 point, Vector3 center, float radius)
-        {
-            float sqrDistance = (point - center).sqrMagnitude;
-            return sqrDistance <= radius * radius;
-        }
-
-        /// <summary>
-        /// 检查点是否在轴对齐的矩形/立方体内 (AABB)
-        /// </summary>
-        public static bool IsPointInRectangle(Vector3 point, Vector3 center, Vector3 size)
-        {
-            Vector3 halfSize = size * 0.5f;
-            return Mathf.Abs(point.x - center.x) <= halfSize.x &&
-                   Mathf.Abs(point.y - center.y) <= halfSize.y &&
-                   Mathf.Abs(point.z - center.z) <= halfSize.z;
-        }
-
-        /// <summary>
-        /// 检查点是否在扇形区域内
-        /// </summary>
-        public static bool IsPointInSector(Vector3 point, Vector3 sectorCenter, Vector3 sectorDirection,
-            float sectorAngle, float sectorRadius)
-        {
-            // 检查距离
-            Vector3 toPoint = point - sectorCenter;
-            float sqrDistance = toPoint.sqrMagnitude;
-            if (sqrDistance > sectorRadius * sectorRadius)
-                return false;
-
-            // 检查角度
-            float angle = Vector3.Angle(sectorDirection, toPoint);
-            return angle <= sectorAngle * 0.5f;
-        }
-
-        /// <summary>
-        /// 判断点是否在多边形内（2D）
-        /// </summary>
-        public static bool IsPointInPolygon(Vector2 point, System.Collections.Generic.List<Vector2> polygon)
-        {
-            bool inside = false;
-            int count = polygon.Count;
-
-            for (int i = 0, j = count - 1; i < count; j = i++)
-            {
-                if (((polygon[i].y > point.y) != (polygon[j].y > point.y)) &&
-                    (point.x < (polygon[j].x - polygon[i].x) * (point.y - polygon[i].y) /
-                        (polygon[j].y - polygon[i].y) + polygon[i].x))
-                {
-                    inside = !inside;
-                }
-            }
-
-            return inside;
-        }
-
-        /// <summary>
-        /// 视野锥检测（点是否在视野范围内）
-        /// </summary>
-        public static bool IsInFieldOfView(Vector3 viewerPosition, Vector3 viewerDirection, Vector3 targetPosition, float fovAngle)
-        {
-            Vector3 toTarget = (targetPosition - viewerPosition).normalized;
-            float angle = Vector3.Angle(viewerDirection, toTarget);
-            return angle <= fovAngle / 2;
-        }
-
-        /// <summary>
-        /// 计算向量在另一个向量上的投影
-        /// </summary>
-        public static Vector3 ProjectVector(Vector3 vector, Vector3 onNormal) => Vector3.Project(vector, onNormal);
-
-        /// <summary>
-        /// 计算向量在平面上的投影
-        /// </summary>
-        public static Vector3 ProjectOnPlane(Vector3 vector, Vector3 planeNormal) => Vector3.ProjectOnPlane(vector, planeNormal);
-
-        /// <summary>
-        /// 绕轴旋转向量
-        /// </summary>
-        public static Vector3 RotateVectorAroundAxis(Vector3 vector, Vector3 axis, float angle)
-        {
-            Quaternion rotation = Quaternion.AngleAxis(angle, axis);
-            return rotation * vector;
-        }
-
-        /// <summary>
-        /// 计算两个向量之间的夹角（0-180度）
-        /// </summary>
-        public static float AngleBetweenVectors(Vector3 from, Vector3 to) => Vector3.Angle(from, to);
-
-        /// <summary>
-        /// 计算带符号的两个向量之间的夹角（-180到180度）
-        /// </summary>
-        public static float SignedAngleBetweenVectors(Vector3 from, Vector3 to, Vector3 axis) => Vector3.SignedAngle(from, to, axis);
     }
 }

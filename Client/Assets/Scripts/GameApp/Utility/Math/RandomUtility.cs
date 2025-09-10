@@ -1,46 +1,75 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityGameFramework.Runtime;
 
 namespace GameApp
 {
     /// <summary>
-    /// 随机数生成工具类
+    /// 随机数生成工具类，提供常用的随机数生成和随机选择功能。
     /// </summary>
     public static class RandomUtility
     {
         /// <summary>
-        /// 生成浮点数 0 - 1 随机数
+        /// 生成浮点数 0 - 1 随机数。
         /// </summary>
-        public static float Random01() => UnityEngine.Random.value;
+        public static float Random01()
+        {
+            return UnityEngine.Random.value;
+        }
 
         /// <summary>
-        /// 生成整数随机数（包含最小值，不包含最大值）
+        /// 生成整数随机数（包含最小值，不包含最大值）。
         /// </summary>
-        public static int Random(int min, int max) => UnityEngine.Random.Range(min, max);
+        /// <param name="min">最小值（包含）。</param>
+        /// <param name="max">最大值（不包含）。</param>
+        /// <returns>范围内的随机整数。</returns>
+        public static int Random(int min, int max)
+        {
+            return UnityEngine.Random.Range(min, max);
+        }
 
         /// <summary>
-        /// 生成浮点数随机数（包含最小值和最大值）
+        /// 生成浮点数随机数（包含最小值和最大值）。
         /// </summary>
-        public static float Random(float min, float max) => UnityEngine.Random.Range(min, max);
+        /// <param name="min">最小值（包含）。</param>
+        /// <param name="max">最大值（包含）。</param>
+        /// <returns>范围内的随机浮点数。</returns>
+        public static float Random(float min, float max)
+        {
+            return UnityEngine.Random.Range(min, max);
+        }
 
         /// <summary>
-        /// 百分比概率检测（整数版）
+        /// 百分比概率检测（整数版）。
         /// </summary>
-        public static bool Random100(int percent) => UnityEngine.Random.Range(0, 101) < percent;
+        /// <param name="percent">触发概率值（ 0 - 100 ）。</param>
+        /// <returns>若随机值小于概率值返回 true，否则 false。</returns>
+        public static bool Random100(int percent)
+        {
+            return UnityEngine.Random.Range(0, 101) < percent;
+        }
 
         /// <summary>
-        /// 百分比概率检测（浮点数版）
+        /// 百分比概率检测（浮点数版）。
         /// </summary>
-        public static bool Random100(float percent) => UnityEngine.Random.Range(0f, 100f) < percent;
+        /// <param name="percent">触发概率值（ 0.0 - 100.0 ）。</param>
+        /// <returns>若随机值小于概率值返回 true，否则 false。</returns>
+        public static bool Random100(float percent)
+        {
+            return UnityEngine.Random.Range(0f, 100f) < percent;
+        }
 
         /// <summary>
-        /// 从数组中随机选择一个元素
+        /// 从数组中随机选择一个元素。
         /// </summary>
+        /// <typeparam name="T">数组元素类型。</typeparam>
+        /// <param name="array">源数组。</param>
+        /// <returns>随机选择的数组元素。</returns>
         public static T RandomArray<T>(T[] array)
         {
             if (array == null || array.Length == 0)
             {
-                Debug.LogError("RandomArray: 数组为空或长度为零");
+                Log.Error("RandomArray: 数组为空或长度为零");
                 return default;
             }
 
@@ -48,13 +77,16 @@ namespace GameApp
         }
 
         /// <summary>
-        /// 从列表中随机选择一个元素
+        /// 从列表中随机选择一个元素。
         /// </summary>
+        /// <typeparam name="T">列表元素类型。</typeparam>
+        /// <param name="list">源列表。</param>
+        /// <returns>随机选择的列表元素。</returns>
         public static T RandomList<T>(List<T> list)
         {
             if (list == null || list.Count == 0)
             {
-                Debug.LogError("RandomList: 列表为空或长度为零");
+                Log.Error("RandomList: 列表为空或长度为零");
                 return default;
             }
 
@@ -62,13 +94,17 @@ namespace GameApp
         }
 
         /// <summary>
-        /// 从数组中随机选择指定数量的不重复元素
+        /// 从数组中随机选择指定数量的不重复元素。
         /// </summary>
+        /// <typeparam name="T">数组元素类型。</typeparam>
+        /// <param name="array">源数组。</param>
+        /// <param name="count">需要选择的数量。</param>
+        /// <returns>包含随机元素的数组。</returns>
         public static T[] RandomMultiple<T>(T[] array, int count)
         {
             if (array == null || array.Length == 0)
             {
-                Debug.LogError("RandomMultiple: 数组为空或长度为零");
+                Log.Error("RandomMultiple: 数组为空或长度为零");
                 return new T[0];
             }
 
@@ -77,7 +113,9 @@ namespace GameApp
             var indices = new List<int>();
 
             for (int i = 0; i < array.Length; i++)
+            {
                 indices.Add(i);
+            }
 
             for (int i = 0; i < count; i++)
             {
@@ -90,19 +128,23 @@ namespace GameApp
         }
 
         /// <summary>
-        /// 根据权重数组随机选择索引
+        /// 根据权重数组随机选择索引。
         /// </summary>
+        /// <param name="weights">权重数组。</param>
+        /// <returns>被选中的权重索引。</returns>
         public static int RandomByWeights(float[] weights)
         {
             if (weights == null || weights.Length == 0)
             {
-                Debug.LogError("RandomByWeights: 权重数组为空");
+                Log.Error("RandomByWeights: 权重数组为空");
                 return -1;
             }
 
             float total = 0f;
             foreach (float weight in weights)
+            {
                 total += weight;
+            }
 
             float random = Random(0f, total);
             float current = 0f;
@@ -111,15 +153,19 @@ namespace GameApp
             {
                 current += weights[i];
                 if (random < current)
+                {
                     return i;
+                }
             }
 
             return weights.Length - 1;
         }
 
         /// <summary>
-        /// 随机打乱数组元素顺序（Fisher-Yates洗牌算法）
+        /// 随机打乱数组元素顺序（Fisher-Yates洗牌算法）。
         /// </summary>
+        /// <typeparam name="T">数组元素类型。</typeparam>
+        /// <param name="array">要打乱顺序的数组。</param>
         public static void Shuffle<T>(T[] array)
         {
             for (int i = array.Length - 1; i > 0; i--)
@@ -130,8 +176,10 @@ namespace GameApp
         }
 
         /// <summary>
-        /// 随机打乱列表元素顺序（Fisher-Yates洗牌算法）
+        /// 随机打乱列表元素顺序（Fisher-Yates洗牌算法）。
         /// </summary>
+        /// <typeparam name="T">列表元素类型。</typeparam>
+        /// <param name="list">要打乱顺序的列表。</param>
         public static void Shuffle<T>(List<T> list)
         {
             for (int i = list.Count - 1; i > 0; i--)
@@ -142,46 +190,34 @@ namespace GameApp
         }
 
         /// <summary>
-        /// 生成随机三维方向（单位向量）
+        /// 生成随机三维方向（单位向量）。
         /// </summary>
-        public static Vector3 RandomDirection() => UnityEngine.Random.onUnitSphere;
-
-        /// <summary>
-        /// 生成随机颜色
-        /// </summary>
-        public static Color RandomColor(bool includeAlpha = false) => new Color(UnityEngine.Random.value, UnityEngine.Random.value, UnityEngine.Random.value, includeAlpha ? UnityEngine.Random.value : 1f);
-
-        /// <summary>
-        /// 生成指定范围内的随机二维向量
-        /// </summary>
-        public static Vector2 RandomVector2(float min, float max) => new Vector2(Random(min, max), Random(min, max));
-
-        /// <summary>
-        /// 生成指定范围内的随机三维向量
-        /// </summary>
-        public static Vector3 RandomVector3(float min, float max) => new Vector3(Random(min, max), Random(min, max), Random(min, max));
-
-        /// <summary>
-        /// 在球体内生成随机点
-        /// </summary>
-        public static Vector3 RandomPointInSphere(Vector3 center, float radius) => center + UnityEngine.Random.insideUnitSphere * radius;
-
-        /// <summary>
-        /// 在圆盘内生成随机点
-        /// </summary>
-        public static Vector3 RandomPointInCircle(Vector3 center, float radius)
+        /// <returns>随机单位方向向量。</returns>
+        public static Vector3 RandomDirection()
         {
-            Vector2 circlePoint = UnityEngine.Random.insideUnitCircle * radius;
-            return center + new Vector3(circlePoint.x, 0, circlePoint.y);
+            return UnityEngine.Random.onUnitSphere;
         }
 
         /// <summary>
-        /// 随机符号（返回-1或1）
+        /// 生成随机颜色。
         /// </summary>
-        public static int RandomSign() => UnityEngine.Random.value < 0.5f ? -1 : 1;
+        /// <param name="includeAlpha">是否包含随机透明度。</param>
+        /// <returns>随机颜色值。</returns>
+        public static Color RandomColor(bool includeAlpha = false)
+        {
+            return new Color(
+                UnityEngine.Random.value,
+                UnityEngine.Random.value,
+                UnityEngine.Random.value,
+                includeAlpha ? UnityEngine.Random.value : 1f
+            );
+        }
+
+        // ==================== 随机数生成 ==================== //
 
         /// <summary>
         /// 生成高斯分布随机数（均值为0，标准差为1）
+        /// 示例：GaussianRandom()
         /// </summary>
         public static float GaussianRandom()
         {
@@ -191,7 +227,28 @@ namespace GameApp
         }
 
         /// <summary>
+        /// 从列表中随机选择权重项
+        /// 示例：WeightedRandom(new float[]{0.2f, 0.3f, 0.5f}) → 按权重返回索引
+        /// </summary>
+        public static int WeightedRandom(float[] weights)
+        {
+            float total = 0;
+            foreach (float w in weights) total += w;
+
+            float randomPoint = UnityEngine.Random.value * total;
+
+            for (int i = 0; i < weights.Length; i++)
+            {
+                if (randomPoint < weights[i]) return i;
+                randomPoint -= weights[i];
+            }
+
+            return weights.Length - 1;
+        }
+
+        /// <summary>
         /// 生成泊松分布随机数
+        /// 示例：PoissonRandom(3.5f)
         /// </summary>
         public static int PoissonRandom(float lambda)
         {
