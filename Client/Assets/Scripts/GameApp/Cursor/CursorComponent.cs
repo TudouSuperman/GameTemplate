@@ -3,7 +3,7 @@ using UnityGameFramework.Runtime;
 
 namespace GameApp
 {
-    #region TODO 案例。
+    #region TODO 作者：使用案例。
 
     // // 过场动画：光标自动移动到关键位置
     // IEnumerator CutsceneAnimation()

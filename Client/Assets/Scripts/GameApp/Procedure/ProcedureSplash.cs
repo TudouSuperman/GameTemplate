@@ -10,7 +10,7 @@ namespace GameApp
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
 
-            // TODO: 这里可以播放一个 Splash 动画
+            // TODO 作者：这里可以播放一个 Splash 动画
             // ...
 
             if (GameEntry.Base.EditorResourceMode)
