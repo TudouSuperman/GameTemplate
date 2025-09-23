@@ -40,7 +40,7 @@ namespace GameApp
         /// <summary>
         /// 把 String 类型转换成 Byte。
         /// </summary>
-        public static Int16 ToByte(this String str)
+        public static Byte ToByte(this String str)
         {
             Byte.TryParse(str, out Byte temp);
             return temp;
