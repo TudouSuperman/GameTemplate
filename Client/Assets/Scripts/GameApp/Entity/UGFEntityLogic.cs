@@ -1,6 +1,6 @@
-﻿using GameFramework;
+﻿using UnityEngine;
+using GameFramework;
 using UnityGameFramework.Runtime;
-using UnityEngine;
 
 namespace GameApp
 {

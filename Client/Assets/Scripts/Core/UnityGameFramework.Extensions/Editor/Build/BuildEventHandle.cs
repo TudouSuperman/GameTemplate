@@ -27,6 +27,7 @@ namespace UnityGameFramework.Extension.Editor
                     methodInfos.RemoveAt(i);
                 }
             }
+
             methodInfos.Sort((a, b) => a.GetCustomAttribute<T>().CallbackOrder.CompareTo(b.GetCustomAttribute<T>().CallbackOrder));
             foreach (var methodInfo in methodInfos)
             {
@@ -51,11 +52,12 @@ namespace UnityGameFramework.Extension.Editor
                     File.Delete(fileName);
                 }
             }
+
             Utility.Path.RemoveEmptyDirectory(streamingAssetsPath);
             SpriteCollectionUtility.RefreshSpriteCollection();
             AssetCollectionUtility.RefreshAssetCollection();
-            ResourceRuleEditor.RefreshActivateResourceCollection();
-            
+            ResourceRuleEditorUtility.RefreshResourceCollection();
+
             CallBuildEvent<UGFBuildOnPreprocessAllPlatformsAttribute>(platforms);
         }
 
@@ -116,7 +118,7 @@ namespace UnityGameFramework.Extension.Editor
                     Debug.Log($"Generate version info : {filePath} .");
                 }
             }
-            
+
             CallBuildEvent<UGFBuildOnOutputUpdatableVersionListDataAttribute>(platform);
         }
 
@@ -139,6 +141,7 @@ namespace UnityGameFramework.Extension.Editor
                     {
                         destFileInfo.Directory.Create();
                     }
+
                     File.Copy(fileName, destFileName);
                 }
             }
@@ -151,7 +154,7 @@ namespace UnityGameFramework.Extension.Editor
             {
                 CopyResource(outputPackagePath);
             }
-            
+
             CallBuildEvent<UGFBuildOnPostprocessPlatformAttribute>(platform);
         }
 
