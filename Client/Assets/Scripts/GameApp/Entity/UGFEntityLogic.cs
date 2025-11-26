@@ -8,6 +8,7 @@ namespace GameApp
     {
         private UGFEntityView m_EntityView;
         private UGFEntityData m_EntityData;
+        private Transform m_CachedParentTransform;
 
 #if UNITY_EDITOR
         private string m_GameObjectName;
@@ -23,6 +24,7 @@ namespace GameApp
 #if UNITY_EDITOR
             m_GameObjectName = CachedTransform.name;
 #endif
+            m_CachedParentTransform = CachedTransform.parent;
             m_EntityView = GetComponent<UGFEntityView>();
             m_EntityView.OnInit();
         }
@@ -71,6 +73,11 @@ namespace GameApp
             Name = m_GameObjectName;
 #endif
             base.OnHide(isShutdown, userData);
+            
+            if (m_CachedParentTransform != CachedTransform.parent)
+            {
+                CachedTransform.SetParent(m_CachedParentTransform, true);
+            }
         }
 
 #if UNITY_2017_3_OR_NEWER

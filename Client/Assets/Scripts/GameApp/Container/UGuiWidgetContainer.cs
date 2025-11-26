@@ -27,7 +27,7 @@ namespace GameApp
             Owner = null;
         }
 
-        public void AddUGuiWidget(UGuiWidgetLogic uGuiWidgetLogic, object userData)
+        public void AddUGuiWidget(UGuiWidgetLogic uGuiWidgetLogic, object userData = null)
         {
             if (uGuiWidgetLogic == null)
             {
@@ -40,7 +40,13 @@ namespace GameApp
             }
 
             m_UGuiWidgets.Add(uGuiWidgetLogic);
+            uGuiWidgetLogic.SetUIFormOwner(Owner.UIForm);
             uGuiWidgetLogic.OnInit(userData);
+        }
+
+        public bool HasUGuiWidget(UGuiWidgetLogic uGuiWidgetLogic)
+        {
+            return m_UGuiWidgets.Contains(uGuiWidgetLogic);
         }
 
         public void RemoveUGuiWidget(UGuiWidgetLogic uGuiWidgetLogic)
@@ -52,7 +58,7 @@ namespace GameApp
 
             if (!m_UGuiWidgets.Remove(uGuiWidgetLogic))
             {
-                throw new GameFrameworkException(Utility.Text.Format("UGuiWidget : '{0}' not in container.", uGuiWidgetLogic.CachedTransform.name));
+                throw new GameFrameworkException(Utility.Text.Format("UIWidget : '{0}' not in container.", uGuiWidgetLogic.CachedTransform.name));
             }
         }
 
@@ -70,7 +76,7 @@ namespace GameApp
         /// <param name="uGuiWidgetLogic"></param>
         /// <param name="userData"></param>
         /// <exception cref="GameFrameworkException"></exception>
-        public void OpenUGuiWidget(UGuiWidgetLogic uGuiWidgetLogic, object userData)
+        public void OpenUGuiWidget(UGuiWidgetLogic uGuiWidgetLogic, object userData = null)
         {
             if (uGuiWidgetLogic == null)
             {
@@ -82,7 +88,7 @@ namespace GameApp
                 throw new GameFrameworkException(Utility.Text.Format("Can't open UGuiWidget, UGuiWidget '{0}' not in the container '{1}'!", uGuiWidgetLogic.name, Owner.Name));
             }
 
-            if (uGuiWidgetLogic.IsOpen)
+            if (uGuiWidgetLogic.Available)
             {
                 throw new GameFrameworkException(Utility.Text.Format("Can't open UGuiWidget, UGuiWidget '{0}' is already opened!", uGuiWidgetLogic.name));
             }
@@ -95,13 +101,13 @@ namespace GameApp
         /// </summary>
         /// <param name="uGuiWidgetLogic"></param>
         /// <param name="userData"></param>
-        public void DynamicOpenUGuiWidget(UGuiWidgetLogic uGuiWidgetLogic, object userData)
+        public void DynamicOpenUGuiWidget(UGuiWidgetLogic uGuiWidgetLogic, object userData = null)
         {
             OpenUGuiWidget(uGuiWidgetLogic, userData);
             uGuiWidgetLogic.OnDepthChanged(Owner.UIForm.UIGroup.Depth, Owner.UIForm.DepthInUIGroup);
         }
 
-        public void CloseUGuiWidget(UGuiWidgetLogic uGuiWidgetLogic, object userData, bool isShutdown)
+        public void CloseUGuiWidget(UGuiWidgetLogic uGuiWidgetLogic, bool isShutdown, object userData = null)
         {
             if (uGuiWidgetLogic == null)
             {
@@ -113,7 +119,7 @@ namespace GameApp
                 throw new GameFrameworkException(Utility.Text.Format("Can't open UGuiWidget, UGuiWidget '{0}' not in the container '{1}'!", uGuiWidgetLogic.name, Owner.Name));
             }
 
-            if (!uGuiWidgetLogic.IsOpen)
+            if (!uGuiWidgetLogic.Available)
             {
                 throw new GameFrameworkException(Utility.Text.Format("Can't close UGuiWidget, UGuiWidget '{0}' is not opened!", uGuiWidgetLogic.name));
             }
@@ -121,13 +127,13 @@ namespace GameApp
             uGuiWidgetLogic.OnClose(isShutdown, userData);
         }
 
-        public void CloseAllUGuiWidgets(object userData, bool isShutdown)
+        public void CloseAllUGuiWidgets(bool isShutdown, object userData = null)
         {
             if (m_UGuiWidgets.Count > 0)
             {
                 foreach (var uGuiWidget in m_UGuiWidgets)
                 {
-                    if (uGuiWidget.IsOpen)
+                    if (uGuiWidget.Available)
                     {
                         uGuiWidget.OnClose(isShutdown, userData);
                     }
@@ -155,7 +161,7 @@ namespace GameApp
         {
             foreach (var uGuiWidget in m_UGuiWidgets)
             {
-                if (uGuiWidget.IsOpen)
+                if (uGuiWidget.Available)
                 {
                     uGuiWidget.OnClose(isShutdown, userData);
                 }
@@ -169,7 +175,7 @@ namespace GameApp
         {
             foreach (var uGuiWidget in m_UGuiWidgets)
             {
-                if (uGuiWidget.IsOpen)
+                if (uGuiWidget.Available)
                 {
                     uGuiWidget.OnPause();
                 }
@@ -183,7 +189,7 @@ namespace GameApp
         {
             foreach (var uGuiWidget in m_UGuiWidgets)
             {
-                if (uGuiWidget.IsOpen)
+                if (uGuiWidget.Available)
                 {
                     uGuiWidget.OnResume();
                 }
@@ -197,7 +203,7 @@ namespace GameApp
         {
             foreach (var uGuiWidget in m_UGuiWidgets)
             {
-                if (uGuiWidget.IsOpen)
+                if (uGuiWidget.Available)
                 {
                     uGuiWidget.OnCover();
                 }
@@ -211,7 +217,7 @@ namespace GameApp
         {
             foreach (var uGuiWidget in m_UGuiWidgets)
             {
-                if (uGuiWidget.IsOpen)
+                if (uGuiWidget.Available)
                 {
                     uGuiWidget.OnReveal();
                 }
@@ -226,7 +232,7 @@ namespace GameApp
         {
             foreach (var uGuiWidget in m_UGuiWidgets)
             {
-                if (uGuiWidget.IsOpen)
+                if (uGuiWidget.Available)
                 {
                     uGuiWidget.OnRefocus(userData);
                 }
@@ -242,7 +248,7 @@ namespace GameApp
         {
             foreach (var uGuiWidget in m_UGuiWidgets)
             {
-                if (uGuiWidget.IsOpen)
+                if (uGuiWidget.Available)
                 {
                     uGuiWidget.OnUpdate(elapseSeconds, realElapseSeconds);
                 }
@@ -258,7 +264,7 @@ namespace GameApp
         {
             foreach (var uGuiWidget in m_UGuiWidgets)
             {
-                if (uGuiWidget.IsOpen)
+                if (uGuiWidget.Available)
                 {
                     uGuiWidget.OnDepthChanged(uiGroupDepth, depthInUIGroup);
                 }

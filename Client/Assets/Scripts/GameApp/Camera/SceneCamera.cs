@@ -11,16 +11,14 @@ namespace GameApp
         private void Awake()
         {
             m_SceneCamera = GetComponent<Camera>();
-            if (GameEntry.Event == null)
-                return;
+            if (GameEntry.Event == null) return;
             SceneCameraEnableEventArgs eventArgs = SceneCameraEnableEventArgs.Create(m_SceneCamera);
             GameEntry.Event.Fire(this, eventArgs);
         }
 
         private void OnDestroy()
         {
-            if (GameEntry.Event == null)
-                return;
+            if (GameEntry.Event == null) return;
             SceneCameraDisableEventArgs eventArgs = SceneCameraDisableEventArgs.Create(m_SceneCamera);
             GameEntry.Event.Fire(this, eventArgs);
         }

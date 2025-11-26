@@ -8,12 +8,38 @@ namespace GameApp
     [DisallowMultipleComponent]
     public abstract class UGuiWidgetLogic : MonoBehaviour
     {
+        private UIForm m_UIFormOwner = null;
+        private UGuiWidgetView m_UGuiWidgetView = null;
         private Transform m_CachedTransform = null;
         private bool m_Available = false;
         private bool m_Visible = false;
-        protected UGuiWidgetView m_UGuiWidgetView = null;
-
-        public bool IsOpen
+        
+        /// <summary>
+        /// 所属的界面。
+        /// </summary>
+        public UIForm UIFormOwner
+        {
+            get
+            {
+                return m_UIFormOwner;
+            }
+        }
+        
+        /// <summary>
+        /// 界面视图层。
+        /// </summary>
+        public UGuiWidgetView UGuiWidgetView
+        {
+            get
+            {
+                return m_UGuiWidgetView;
+            }
+        }
+        
+        /// <summary>
+        /// 获取界面是否可用。
+        /// </summary>
+        public bool Available
         {
             get
             {
@@ -57,6 +83,15 @@ namespace GameApp
             }
         }
 
+        /// <summary>
+        /// 设置界面持有者。
+        /// </summary>
+        /// <param name="uiForm">持有者。</param>
+        internal void SetUIFormOwner(UIForm uiForm)
+        {
+            m_UIFormOwner = uiForm;
+        }
+        
         /// <summary>
         /// 界面初始化。
         /// </summary>

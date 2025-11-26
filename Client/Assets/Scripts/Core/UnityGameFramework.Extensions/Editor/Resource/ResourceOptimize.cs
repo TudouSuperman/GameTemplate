@@ -25,18 +25,20 @@ namespace UnityGameFramework.Extension.Editor
         public static string GetNewCombineName(List<string> currentCombineBundle)
         {
             var newCombine = string.Join("@@", currentCombineBundle);
-            return $"Auto/Combine/{Utility.Verifier.GetCrc32(Encoding.UTF8.GetBytes(newCombine))}";
+            return Utility.Text.Format("Auto/Combine/{0:x8}", Utility.Verifier.GetCrc32(Encoding.UTF8.GetBytes(newCombine)));
         }
 
         private ResourceCollection m_ResourceCollection;
 
         private readonly Dictionary<string, DependencyData> m_DependencyDatas;
+        //key：冗余资源路径，value：引用该资源的主资源
         private readonly Dictionary<string, List<Asset>> m_ScatteredAssets;
         private readonly HashSet<Stamp> m_AnalyzedStamps;
         private readonly Dictionary<string, List<string>> m_CombineBundles;
         private readonly MethodInfo m_GetStorageMemorySizeLongMethod;
         private readonly object[] m_ParamCache;
         private readonly Dictionary<string, string[]> m_DependencyCachePool;
+        private readonly Dictionary<string, long> m_AssetSizeCache;
 
         [MenuItem("Game Framework/Resource Tools/Resource Optimize", false, 52)]
         static void StartOptimize()
@@ -56,6 +58,7 @@ namespace UnityGameFramework.Extension.Editor
             m_GetStorageMemorySizeLongMethod = typeof(EditorWindow).Assembly.GetType("UnityEditor.TextureUtil").GetMethod("GetStorageMemorySizeLong", BindingFlags.Static | BindingFlags.Public);
             m_ParamCache = new object[1];
             m_DependencyCachePool = new Dictionary<string, string[]>();
+            m_AssetSizeCache = new Dictionary<string, long>();
         }
 
         public void Optimize(ResourceCollection resourceCollection)
@@ -67,15 +70,20 @@ namespace UnityGameFramework.Extension.Editor
             m_ResourceCollection = resourceCollection;
             OptimizeLoadType();
             Analyze();
-            CalCombine();
+            CalculateCombine();
             Save();
         }
 
         private void OptimizeLoadType()
         {
 #if UNITY_WEBGL
-            foreach (var resource in m_ResourceCollection.GetResources())
+            var resources = m_ResourceCollection.GetResources();
+            int count = resources.Length;
+            for (int i = 0; i < count; i++)
             {
+                int cur = i + 1;
+                EditorUtility.DisplayProgressBar("OptimizeLoadType", Utility.Text.Format("{0}/{1} processing...", cur, count), (float)cur / count);
+                var resource = resources[i];
                 if(resource.LoadType != LoadType.LoadFromMemory &&
                    resource.LoadType != LoadType.LoadFromMemoryAndDecrypt &&
                    resource.LoadType != LoadType.LoadFromMemoryAndQuickDecrypt)
@@ -83,23 +91,27 @@ namespace UnityGameFramework.Extension.Editor
                     resource.LoadType = LoadType.LoadFromMemory;
                     Debug.Log($"UNITY_WEBGL下修改资源\"{resource.Name}\"的加载方式为LoadFromMemory");
                 }
-            }
-
-            if (!string.IsNullOrEmpty(resource.FileSystem))
-            {
-                resource.FileSystem = string.Empty;
-                Debug.Log($"UNITY_WEBGL下删除资源\"{resource.Name}\"的文件系统");
+                if (!string.IsNullOrEmpty(resource.FileSystem))
+                {
+                    resource.FileSystem = string.Empty;
+                    Debug.Log($"UNITY_WEBGL下删除资源\"{resource.Name}\"的文件系统");
+                }
             }
 #endif
+            EditorUtility.ClearProgressBar();
         }
 
         private void Save()
         {
+            int count = m_CombineBundles.Count;
+            int cur = 0;
             foreach (var kv in m_CombineBundles)
             {
-                //WebGL下不能使用LoadFromFile
+                cur++;
+                EditorUtility.DisplayProgressBar("Save", Utility.Text.Format("{0}/{1} processing...", cur, count), (float)cur / count);
 #if UNITY_WEBGL
-                m_ResourceCollection.AddResource(kv.Key, null, null, LoadType.LoadFromMemory, true);
+                //WebGL下不能使用LoadFromFile
+                m_ResourceCollection.AddResource(kv.Key, null, null, LoadType.LoadFromMemory, false);
 #else
                 m_ResourceCollection.AddResource(kv.Key, null, null, LoadType.LoadFromFile, true);
 #endif
@@ -109,9 +121,10 @@ namespace UnityGameFramework.Extension.Editor
                 }
             }
             m_ResourceCollection.Save();
+            EditorUtility.ClearProgressBar();
         }
 
-        private void CalCombine()
+        private void CalculateCombine()
         {
             m_CombineBundles.Clear();
             Dictionary<string, ABInfo> allCombines = new Dictionary<string, ABInfo>();
@@ -121,8 +134,12 @@ namespace UnityGameFramework.Extension.Editor
             int allShareRemoveByReferenceCountTooFew = 0; // 因为 ref count 太少 放弃合并
             int allFinalCombine = 0; // 最终合并的数量
 
+            int count = m_ScatteredAssets.Count;
+            int cur = 0;
             foreach (var kv in m_ScatteredAssets)
             {
+                cur++;
+                EditorUtility.DisplayProgressBar("CalculateCombine (1/3)", Utility.Text.Format("{0}/{1} processing...", cur, count), (float)cur / count);
                 var assetPath = kv.Key;
                 allShareCount++;
                 if (!File.Exists(assetPath))
@@ -133,56 +150,85 @@ namespace UnityGameFramework.Extension.Editor
                 long byteSize = GetAssetSize(assetPath);
                 if (byteSize < MAX_COMBINE_SHARE_AB_ITEM_SIZE)
                 {
-                    allCombines.Add(assetPath, new ABInfo()
-                    {
-                        name = assetPath,
-                        size = byteSize,
-                        referenceCount = kv.Value.Count
-                    });
+                    allCombines.Add(assetPath, new ABInfo(assetPath, byteSize, kv.Value.Count));
                     allShareCanCombine++;
                 }
-            }
-            
-            foreach (ABInfo abInfo in allCombines.Values.ToArray())
-            {
-                var bundleName = abInfo.name;
-                if (abInfo.size * abInfo.referenceCount < MIN_NO_NAME_COMBINE_SIZE)
+                else
                 {
-                    allShareRemoveByNoName++;
-                    allCombines.Remove(bundleName);
-                }
-                else 
-                {
-                    if (abInfo.referenceCount < MAX_COMBINE_SHARE_MIN_REFERENCE_COUNT)
+                    //太大的直接单个打包
+                    if(kv.Value.Count > 1)
                     {
-                        allShareRemoveByReferenceCountTooFew++;
-                        allCombines.Remove(bundleName);
+                        List<string> bundle = new List<string>()
+                        {
+                            assetPath
+                        };
+                        m_CombineBundles[GetNewCombineName(bundle)] = bundle;
                     }
                 }
             }
 
+            count = allCombines.Count;
+            cur = 0;
+            HashSet<string> removedKeys = new HashSet<string>();
+            foreach (ABInfo abInfo in allCombines.Values)
+            {
+                cur++;
+                EditorUtility.DisplayProgressBar("CalculateCombine (2/3)", Utility.Text.Format("{0}/{1} processing...", cur, count), (float)cur / count);
+                var bundleName = abInfo.Name;
+                if (abInfo.Size * abInfo.ReferenceCount < MIN_NO_NAME_COMBINE_SIZE)
+                {
+                    allShareRemoveByNoName++;
+                    removedKeys.Add(bundleName);
+                }
+                else
+                {
+                    if (abInfo.ReferenceCount < MAX_COMBINE_SHARE_MIN_REFERENCE_COUNT)
+                    {
+                        allShareRemoveByReferenceCountTooFew++;
+                        removedKeys.Add(bundleName);
+                    }
+                }
+            }
+            foreach (var key in removedKeys)
+            {
+                allCombines.Remove(key);
+            }
+
             List<ABInfo> left =  allCombines.Values.ToList();
-            left.Sort((a,b) => a.size.CompareTo(b.size));
+            //优先用名字排序，这样相同目录（往往是相同资源的依赖）的尽可能规划到一起
+            left.Sort((a,b) =>
+            {
+                int c1 = string.Compare(a.Name, b.Name, StringComparison.Ordinal);
+                if(c1 == 0)
+                {
+                    int c2 = a.ReferenceCount.CompareTo(b.ReferenceCount);
+                    if (c2 == 0)
+                    {
+                        return a.Size.CompareTo(b.Size);
+                    }
+                    return c2;
+                }
+                return c1;
+            });
             allFinalCombine = left.Count;
-            List<string> currentCombineBundle = null;
+            List<string> currentCombineBundle = new List<string>();
             long currentCombineBundleSize = 0;
+            count = left.Count;
+            cur = 0;
             foreach (ABInfo abInfo in left)
             {
-                if(currentCombineBundle == null)
-                {
-                    currentCombineBundle = new List<string>();
-                    currentCombineBundleSize = 0;
-                }
-                currentCombineBundle.Add(abInfo.name);
-                currentCombineBundleSize += abInfo.size;
+                cur++;
+                EditorUtility.DisplayProgressBar("CalculateCombine (3/3)", Utility.Text.Format("{0}/{1} processing...", cur, count), (float)cur / count);
+                currentCombineBundle.Add(abInfo.Name);
+                currentCombineBundleSize += abInfo.Size;
                 if (currentCombineBundleSize > MAX_COMBINE_SHARE_AB_SIZE)
                 {
                     m_CombineBundles[GetNewCombineName(currentCombineBundle)] = currentCombineBundle;
-                    currentCombineBundle = null;
+                    currentCombineBundle = new List<string>();
                     currentCombineBundleSize = 0;
                 }
             }
-            if (currentCombineBundle != null && currentCombineBundle.Count > 0)
+            if (currentCombineBundle.Count > 0)
             {
                 m_CombineBundles[GetNewCombineName(currentCombineBundle)] = currentCombineBundle;
             }
@@ -192,6 +238,7 @@ namespace UnityGameFramework.Extension.Editor
                       $"最终{allFinalCombine}个share ab，" +
                       $"合并成{m_CombineBundles.Count}个share_combine，" +
                       $"因为这次合并操作，总共减少了{(m_CombineBundles.Count > 0 ? allShareRemoveByNoName + allFinalCombine - m_CombineBundles.Count : 0)}个share bundle");
+            EditorUtility.ClearProgressBar();
         }
 
         private void Analyze()
@@ -201,11 +248,14 @@ namespace UnityGameFramework.Extension.Editor
             m_AnalyzedStamps.Clear();
             m_DependencyCachePool.Clear();
 
-            HashSet<string> excludeAssetNames = GetFilteredAssetNames("t:Script t:SubGraphAsset");
+            HashSet<string> excludeAssetNames = GetFilteredAssetNames("t:Script t:SubGraphAsset t:Preset");
             Asset[] assets = m_ResourceCollection.GetAssets();
             int count = assets.Length;
+            int cur = 0;
             for (int i = 0; i < count; i++)
             {
+                cur++;
+                EditorUtility.DisplayProgressBar("Analyze (1/2)", Utility.Text.Format("{0}/{1} processing...", cur, count), (float)cur / count);
                 string assetName = assets[i].Name;
                 if (string.IsNullOrEmpty(assetName))
                 {
@@ -219,10 +269,15 @@ namespace UnityGameFramework.Extension.Editor
                 m_DependencyDatas.Add(assetName, dependencyData);
             }
 
+            count = m_ScatteredAssets.Count;
+            cur = 0;
             foreach (List<Asset> scatteredAsset in m_ScatteredAssets.Values)
             {
+                cur++;
+                EditorUtility.DisplayProgressBar("Analyze (2/2)", Utility.Text.Format("{0}/{1} processing...", cur, count), (float)cur / count);
                 scatteredAsset.Sort((a, b) => String.Compare(a.Name, b.Name, StringComparison.Ordinal));
             }
+            EditorUtility.ClearProgressBar();
         }
 
         private void AnalyzeAsset(string assetName, Asset hostAsset, HashSet<string> excludeAssetNames, ref DependencyData dependencyData)
@@ -301,20 +356,27 @@ namespace UnityGameFramework.Extension.Editor
 
         private long GetAssetSize(string assetPath)
         {
+            if (m_AssetSizeCache.TryGetValue(assetPath, out long size))
+            {
+                return size;
+            }
             Type type = AssetDatabase.GetMainAssetTypeAtPath(assetPath);
             if (type == typeof(Texture2D))
             {
                 //记录精准的贴图大小
                 Texture2D texture2D = AssetDatabase.LoadAssetAtPath<Texture2D>(assetPath);
                 m_ParamCache[0] = texture2D;
-                long size = (long)m_GetStorageMemorySizeLongMethod.Invoke(null, m_ParamCache);
+                size = (long)m_GetStorageMemorySizeLongMethod.Invoke(null, m_ParamCache);
+                m_AssetSizeCache.Add(assetPath, size);
                 Resources.UnloadAsset(texture2D);
                 return size;
             }
             else
             {
                 //直接使用文件长度
-                return new FileInfo(assetPath).Length;
+                size = new FileInfo(assetPath).Length;
+                m_AssetSizeCache.Add(assetPath, size);
+                return size;
             }
         }
 

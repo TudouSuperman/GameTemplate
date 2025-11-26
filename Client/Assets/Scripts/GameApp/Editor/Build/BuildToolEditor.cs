@@ -50,7 +50,7 @@ namespace GameApp.Editor
                     }
                 }
 
-                if (GUILayout.Button("Build Resource"))
+                if (GUILayout.Button("Build Resource With Refresh Optimize Collection"))
                 {
                     if (SwitchActiveBuildTarget(m_Platform))
                     {
@@ -71,7 +71,7 @@ namespace GameApp.Editor
 
                 if (GUILayout.Button("Open Package Folder"))
                 {
-                    string folderPath = $"{BuildHelper.BuildPkgFolder}/{m_Platform}";
+                    string folderPath = Path.Combine(BuildHelper.BuildPkgFolder, m_Platform.ToString());
                     if (Directory.Exists(folderPath))
                     {
                         OpenFolder.Execute(folderPath);

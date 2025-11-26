@@ -1,5 +1,7 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
+using GameFramework;
 using GameFramework.Event;
 using UnityGameFramework.Runtime;
 using Sirenix.OdinInspector;
@@ -11,19 +13,29 @@ namespace GameApp
         [SerializeField]
         private Camera m_UICamera;
 
+        [SerializeField]
+        private Camera m_DefaultSceneCamera;
+
         [ShowInInspector]
         [ReadOnly]
-        private Camera m_SceneCamera;
+        private Camera m_CurrentSceneCamera;
 
         /// <summary>
-        /// UI相机
+        /// UI相机。
         /// </summary>
         public Camera UICamera => m_UICamera;
 
         /// <summary>
-        /// 场景相机
+        /// 当前场景相机。
         /// </summary>
-        public Camera SceneCamera => m_SceneCamera;
+        public Camera CurrentSceneCamera => m_CurrentSceneCamera;
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            SetCurrentSceneCamera(m_DefaultSceneCamera);
+        }
 
         private IEnumerator Start()
         {
@@ -40,7 +52,7 @@ namespace GameApp
                 return;
             }
 
-            m_SceneCamera = eventArgs.SceneCamera;
+            SetCurrentSceneCamera(eventArgs.SceneCamera);
         }
 
         private void OnSceneCameraDisable(object sender, GameEventArgs e)
@@ -51,9 +63,32 @@ namespace GameApp
                 return;
             }
 
-            if (m_SceneCamera == eventArgs.SceneCamera)
+            if (m_CurrentSceneCamera == eventArgs.SceneCamera)
             {
-                m_SceneCamera = null;
+                SetCurrentSceneCamera(eventArgs.SceneCamera);
+            }
+        }
+
+        private void SetCurrentSceneCamera(Camera sceneCamera)
+        {
+            m_CurrentSceneCamera = sceneCamera;
+            if (m_CurrentSceneCamera == m_DefaultSceneCamera)
+            {
+                m_DefaultSceneCamera.enabled = true;
+            }
+            else
+            {
+                m_DefaultSceneCamera.enabled = false;
+                UniversalAdditionalCameraData currentCameraData = m_CurrentSceneCamera.GetUniversalAdditionalCameraData();
+                if (currentCameraData.renderType != CameraRenderType.Base)
+                {
+                    throw new GameFrameworkException("Scene camera must be base camera.");
+                }
+
+                if (!currentCameraData.cameraStack.Contains(m_UICamera))
+                {
+                    currentCameraData.cameraStack.Add(m_UICamera);
+                }
             }
         }
 

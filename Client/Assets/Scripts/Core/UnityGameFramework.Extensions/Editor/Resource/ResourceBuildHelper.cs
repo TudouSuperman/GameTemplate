@@ -16,12 +16,6 @@ namespace UnityGameFramework.Extension.Editor
         private static ResourceBuilderController m_Controller = null;
         private static Platform m_OriginalPlatform;
         public const string OutputDirectory = "../ClientBuild/Build_AssetBundle";
-
-        [MenuItem("Game Framework/Resource Tools/Resource Start Build", false, 53)]
-        public static void StartBuild()
-        {
-            StartBuild(Platform.Undefined);
-        }
         
         /// <summary>
         /// build resource

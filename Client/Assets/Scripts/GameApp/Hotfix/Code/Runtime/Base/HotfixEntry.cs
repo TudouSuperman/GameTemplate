@@ -12,6 +12,9 @@ namespace GameApp.Hotfix
             InitComponents();
 
             HotfixComponentEntry.Initialize();
+            
+            // 开启流程（入口）
+            Procedure.StartProcedure<ProcedureLaunch>();
         }
 
         private void Update()

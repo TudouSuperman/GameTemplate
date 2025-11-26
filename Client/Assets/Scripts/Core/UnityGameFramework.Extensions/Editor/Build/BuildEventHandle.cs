@@ -13,7 +13,10 @@ namespace UnityGameFramework.Extension.Editor
     {
         public bool ContinueOnFailure
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
 
         private void CallBuildEvent<T>(Platform platform) where T : UGFBuildEventAttribute
@@ -56,7 +59,6 @@ namespace UnityGameFramework.Extension.Editor
             Utility.Path.RemoveEmptyDirectory(streamingAssetsPath);
             SpriteCollectionUtility.RefreshSpriteCollection();
             AssetCollectionUtility.RefreshAssetCollection();
-            ResourceRuleEditorUtility.RefreshResourceCollection();
 
             CallBuildEvent<UGFBuildOnPreprocessAllPlatformsAttribute>(platforms);
         }

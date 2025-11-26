@@ -5,6 +5,7 @@
         "Unity.InputSystem",
         "Unity.Mathematics",
         "Unity.TextMeshPro",
+        "Unity.RenderPipelines.Universal.Runtime",
         "GameFramework",
         "UnityGameFramework.Runtime",
         "UnityGameFramework.Extension.Runtime",

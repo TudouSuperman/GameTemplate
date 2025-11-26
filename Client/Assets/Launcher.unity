@@ -1202,6 +1202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UICamera: {fileID: 396865377}
+  m_DefaultSceneCamera: {fileID: 728938345}
 --- !u!1 &1166555974
 GameObject:
   m_ObjectHideFlags: 0

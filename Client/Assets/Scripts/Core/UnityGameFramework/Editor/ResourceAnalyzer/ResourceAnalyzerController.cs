@@ -94,7 +94,7 @@ namespace UnityGameFramework.Editor.ResourceTools
             m_CircularDependencyDatas.Clear();
             m_AnalyzedStamps.Clear();
 
-            HashSet<string> scriptAssetNames = GetFilteredAssetNames("t:Script");
+            HashSet<string> excludeAssetNames = GetFilteredAssetNames("t:Script t:SubGraphAsset t:Preset");
             Asset[] assets = m_ResourceCollection.GetAssets();
             int count = assets.Length;
             for (int i = 0; i < count; i++)
@@ -112,7 +112,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                 }
 
                 DependencyData dependencyData = new DependencyData();
-                AnalyzeAsset(assetName, assets[i], dependencyData, scriptAssetNames);
+                AnalyzeAsset(assetName, assets[i], dependencyData, excludeAssetNames);
                 dependencyData.RefreshData();
                 m_DependencyDatas.Add(assetName, dependencyData);
             }

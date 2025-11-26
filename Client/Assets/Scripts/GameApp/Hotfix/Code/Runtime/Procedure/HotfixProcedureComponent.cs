@@ -10,6 +10,37 @@ namespace GameApp.Hotfix
     {
         private IFsmManager m_FsmManager;
         private IFsm<HotfixProcedureComponent> m_ProcedureFsm;
+
+#if UNITY_EDITOR
+        [Sirenix.OdinInspector.ShowInInspector]
+        private string m_EditorCurrentProcedureName
+        {
+            get
+            {
+                if (m_ProcedureFsm != null && m_ProcedureFsm.CurrentState != null)
+                {
+                    return m_ProcedureFsm.CurrentState.GetType().FullName;
+                }
+
+                return string.Empty;
+            }
+        }
+
+        [Sirenix.OdinInspector.ShowInInspector]
+        private float m_EditorCurrentProcedureTime
+        {
+            get
+            {
+                if (m_ProcedureFsm != null)
+                {
+                    return m_ProcedureFsm.CurrentStateTime;
+                }
+
+                return 0f;
+            }
+        }
+#endif
+
         protected override int Priority => (int)EHotfixComponentPriority.HotfixProcedureComponent;
 
         public ProcedureBase CurrentProcedure
@@ -65,8 +96,6 @@ namespace GameApp.Hotfix
 
             m_FsmManager = fsmManager;
             m_ProcedureFsm = m_FsmManager.CreateFsm(this, procedures.ToArray());
-            // 开启流程（入口）
-            StartProcedure<ProcedureLaunch>();
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)

@@ -62,7 +62,7 @@ namespace GameApp
             HideAllEntity(isShutdown);
             UnsubscribeAll(isShutdown);
             UnloadAllAssets(isShutdown);
-            CloseAllUGuiWidgets(userData, isShutdown);
+            CloseAllUGuiWidgets(isShutdown, userData);
             if (isShutdown)
             {
                 RemoveAllUGuiWidget();
@@ -124,6 +124,16 @@ namespace GameApp
             m_UGuiWidgetContainer.AddUGuiWidget(uGuiWidgetLogic, userData);
         }
 
+        public bool HasUGuiWidget(UGuiWidgetLogic uGuiWidgetLogic)
+        {
+            if (m_UGuiWidgetContainer == null)
+            {
+                return false;
+            }
+
+            return m_UGuiWidgetContainer.HasUGuiWidget(uGuiWidgetLogic);
+        }
+
         public void RemoveUGuiWidget(UGuiWidgetLogic uGuiWidgetLogic)
         {
             if (m_UGuiWidgetContainer == null)
@@ -173,21 +183,20 @@ namespace GameApp
             m_UGuiWidgetContainer.DynamicOpenUGuiWidget(uGuiWidgetLogic, userData);
         }
 
-        public void CloseUGuiWidget(UGuiWidgetLogic uGuiWidgetLogic, object userData = null, bool isShutdown = false)
+        public void CloseUGuiWidget(UGuiWidgetLogic uGuiWidgetLogic, bool isShutdown = false, object userData = null)
         {
             if (m_UGuiWidgetContainer == null)
             {
                 throw new GameFrameworkException("Container is empty!");
             }
 
-            m_UGuiWidgetContainer.CloseUGuiWidget(uGuiWidgetLogic, userData, isShutdown);
+            m_UGuiWidgetContainer.CloseUGuiWidget(uGuiWidgetLogic, isShutdown, userData);
         }
 
-        public void CloseAllUGuiWidgets(object userData = null, bool isShutdown = false)
+        public void CloseAllUGuiWidgets(bool isShutdown = false, object userData = null)
         {
-            if (m_UGuiWidgetContainer == null)
-                return;
-            m_UGuiWidgetContainer.CloseAllUGuiWidgets(userData, isShutdown);
+            if (m_UGuiWidgetContainer == null) return;
+            m_UGuiWidgetContainer.CloseAllUGuiWidgets(isShutdown, userData);
         }
 
         public void Subscribe(int id, EventHandler<GameEventArgs> handler)
@@ -202,15 +211,13 @@ namespace GameApp
 
         public void Unsubscribe(int id, EventHandler<GameEventArgs> handler)
         {
-            if (m_EventContainer == null)
-                return;
+            if (m_EventContainer == null) return;
             m_EventContainer.Unsubscribe(id, handler);
         }
 
         public void TryUnsubscribe(int id, EventHandler<GameEventArgs> handler)
         {
-            if (m_EventContainer == null)
-                return;
+            if (m_EventContainer == null) return;
             m_EventContainer.TryUnsubscribe(id, handler);
         }
 
@@ -221,8 +228,7 @@ namespace GameApp
 
         public void UnsubscribeAll(bool isShutdown)
         {
-            if (m_EventContainer == null)
-                return;
+            if (m_EventContainer == null) return;
             m_EventContainer.UnsubscribeAll(isShutdown);
         }
 
@@ -233,8 +239,7 @@ namespace GameApp
 
         public void TryUnsubscribeAll(bool isShutdown)
         {
-            if (m_EventContainer == null)
-                return;
+            if (m_EventContainer == null) return;
             m_EventContainer.TryUnsubscribeAll(isShutdown);
         }
 
@@ -305,8 +310,7 @@ namespace GameApp
 
         public void HideAllEntity(bool isShutdown)
         {
-            if (m_EntityContainer == null)
-                return;
+            if (m_EntityContainer == null) return;
             m_EntityContainer.HideAllEntity(isShutdown);
         }
 
@@ -317,36 +321,31 @@ namespace GameApp
 
         public void TryHideAllEntity(bool isShutdown)
         {
-            if (m_EntityContainer == null)
-                return;
+            if (m_EntityContainer == null) return;
             m_EntityContainer.TryHideAllEntity(isShutdown);
         }
 
         public void HideEntity(int serialId)
         {
-            if (m_EntityContainer == null)
-                return;
+            if (m_EntityContainer == null) return;
             m_EntityContainer.HideEntity(serialId);
         }
 
         public void HideEntity(Entity entity)
         {
-            if (m_EntityContainer == null)
-                return;
+            if (m_EntityContainer == null) return;
             m_EntityContainer.HideEntity(entity);
         }
 
         public void TryHideEntity(int serialId)
         {
-            if (m_EntityContainer == null)
-                return;
+            if (m_EntityContainer == null) return;
             m_EntityContainer.TryHideEntity(serialId);
         }
 
         public void TryHideEntity(Entity entity)
         {
-            if (m_EntityContainer == null)
-                return;
+            if (m_EntityContainer == null) return;
             m_EntityContainer.TryHideEntity(entity);
         }
 
@@ -386,22 +385,19 @@ namespace GameApp
 
         public void UnloadAsset(UnityEngine.Object asset)
         {
-            if (m_ResourceContainer == null)
-                return;
+            if (m_ResourceContainer == null) return;
             m_ResourceContainer.UnloadAsset(asset);
         }
 
         public void UnloadAllAssets()
         {
-            if (m_ResourceContainer == null)
-                return;
+            if (m_ResourceContainer == null) return;
             m_ResourceContainer.UnloadAllAssets();
         }
 
         public void UnloadAllAssets(bool isShutdown)
         {
-            if (m_ResourceContainer == null)
-                return;
+            if (m_ResourceContainer == null) return;
             m_ResourceContainer.UnloadAllAssets(isShutdown);
         }
     }
