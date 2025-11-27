@@ -45,20 +45,7 @@ namespace GameApp
                 return;
             }
 
-            DREntity drEntity = GameEntry.DataTable.GetDataRow<DREntity>(entityData.TypeId);
-            if (drEntity == null)
-            {
-                return;
-            }
-
-            DREntityGroup drEntityGroup = GameEntry.DataTable.GetDataRow<DREntityGroup>(drEntity.GroupId);
-            if (drEntityGroup == null)
-            {
-                return;
-            }
-
-            DRAsset drAsset = GameEntry.DataTable.GetDataRow<DRAsset>(drEntity.AssetId);
-            if (drAsset == null)
+            if (!TryGetTableData(entityData.TypeId, out DREntity drEntity, out DREntityGroup drEntityGroup, out DRAsset drAsset))
             {
                 return;
             }
@@ -73,20 +60,7 @@ namespace GameApp
 
         public static int? ShowEntity(this EntityComponent entityComponent, int entityTypeId, Type logicType, object userData = null)
         {
-            DREntity drEntity = GameEntry.DataTable.GetDataRow<DREntity>(entityTypeId);
-            if (drEntity == null)
-            {
-                return null;
-            }
-
-            DREntityGroup drEntityGroup = GameEntry.DataTable.GetDataRow<DREntityGroup>(drEntity.GroupId);
-            if (drEntityGroup == null)
-            {
-                return null;
-            }
-
-            DRAsset drAsset = GameEntry.DataTable.GetDataRow<DRAsset>(drEntity.AssetId);
-            if (drAsset == null)
+            if (!TryGetTableData(entityTypeId, out DREntity drEntity, out DREntityGroup drEntityGroup, out DRAsset drAsset))
             {
                 return null;
             }
@@ -99,6 +73,33 @@ namespace GameApp
         public static int GenerateSerialId(this EntityComponent entityComponent)
         {
             return --s_SerialId;
+        }
+
+        private static bool TryGetTableData(int entityTypeId, out DREntity drEntity, out DREntityGroup drEntityGroup, out DRAsset drAsset)
+        {
+            drEntity = null;
+            drEntityGroup = null;
+            drAsset = null;
+
+            drEntity = GameEntry.DataTable.GetDataRow<DREntity>(entityTypeId);
+            if (drEntity == null)
+            {
+                return false;
+            }
+
+            drEntityGroup = GameEntry.DataTable.GetDataRow<DREntityGroup>(drEntity.GroupId);
+            if (drEntityGroup == null)
+            {
+                return false;
+            }
+
+            drAsset = GameEntry.DataTable.GetDataRow<DRAsset>(drEntity.AssetId);
+            if (drAsset == null)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

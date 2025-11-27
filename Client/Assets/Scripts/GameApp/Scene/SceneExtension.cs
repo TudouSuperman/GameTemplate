@@ -1,4 +1,3 @@
-using GameFramework;
 using UnityGameFramework.Runtime;
 
 namespace GameApp
@@ -7,14 +6,7 @@ namespace GameApp
     {
         public static bool SceneIsLoading(this SceneComponent sceneComponent, int sceneId)
         {
-            DRScene drScene = GameEntry.DataTable.GetDataRow<DRScene>(sceneId);
-            if (drScene == null)
-            {
-                return false;
-            }
-
-            DRAsset drAsset = GameEntry.DataTable.GetDataRow<DRAsset>(drScene.AssetId);
-            if (drAsset == null)
+            if (!TryGetTableData(sceneId, out DRScene drScene, out DRAsset drAsset))
             {
                 return false;
             }
@@ -24,14 +16,7 @@ namespace GameApp
 
         public static bool SceneIsLoaded(this SceneComponent sceneComponent, int sceneId)
         {
-            DRScene drScene = GameEntry.DataTable.GetDataRow<DRScene>(sceneId);
-            if (drScene == null)
-            {
-                return false;
-            }
-
-            DRAsset drAsset = GameEntry.DataTable.GetDataRow<DRAsset>(drScene.AssetId);
-            if (drAsset == null)
+            if (!TryGetTableData(sceneId, out DRScene drScene, out DRAsset drAsset))
             {
                 return false;
             }
@@ -41,14 +26,7 @@ namespace GameApp
 
         public static bool CanLoadScene(this SceneComponent sceneComponent, int sceneId)
         {
-            DRScene drScene = GameEntry.DataTable.GetDataRow<DRScene>(sceneId);
-            if (drScene == null)
-            {
-                return false;
-            }
-
-            DRAsset drAsset = GameEntry.DataTable.GetDataRow<DRAsset>(drScene.AssetId);
-            if (drAsset == null)
+            if (!TryGetTableData(sceneId, out DRScene drScene, out DRAsset drAsset))
             {
                 return false;
             }
@@ -58,14 +36,7 @@ namespace GameApp
 
         public static void LoadScene(this SceneComponent sceneComponent, int sceneId, object userData = null)
         {
-            DRScene drScene = GameEntry.DataTable.GetDataRow<DRScene>(sceneId);
-            if (drScene == null)
-            {
-                return;
-            }
-
-            DRAsset drAsset = GameEntry.DataTable.GetDataRow<DRAsset>(drScene.AssetId);
-            if (drAsset == null)
+            if (!TryGetTableData(sceneId, out DRScene drScene, out DRAsset drAsset))
             {
                 return;
             }
@@ -75,19 +46,32 @@ namespace GameApp
 
         public static void UnloadScene(this SceneComponent sceneComponent, int sceneId, object userData = null)
         {
-            DRScene drScene = GameEntry.DataTable.GetDataRow<DRScene>(sceneId);
-            if (drScene == null)
-            {
-                return;
-            }
-
-            DRAsset drAsset = GameEntry.DataTable.GetDataRow<DRAsset>(drScene.AssetId);
-            if (drAsset == null)
+            if (!TryGetTableData(sceneId, out DRScene drScene, out DRAsset drAsset))
             {
                 return;
             }
 
             sceneComponent.UnloadScene(drAsset.AssetPath, userData);
+        }
+
+        private static bool TryGetTableData(int sceneId, out DRScene drScene, out DRAsset drAsset)
+        {
+            drScene = null;
+            drAsset = null;
+
+            drScene = GameEntry.DataTable.GetDataRow<DRScene>(sceneId);
+            if (drScene == null)
+            {
+                return false;
+            }
+
+            drAsset = GameEntry.DataTable.GetDataRow<DRAsset>(drScene.AssetId);
+            if (drAsset == null)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
