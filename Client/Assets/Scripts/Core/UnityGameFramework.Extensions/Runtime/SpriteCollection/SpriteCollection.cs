@@ -28,13 +28,18 @@ namespace UnityGameFramework.Extension
             return sprite;
         }
 #if UNITY_EDITOR
+        private void Awake()
+        {
+            Pack();
+        }
+
         [InfoBox("Can drag to 'Objects'")]
         [OdinSerialize]
         [OnValueChanged("OnListChange", includeChildren: true)]
         [ListDrawerSettings(DraggableItems = false, IsReadOnly = false, HideAddButton = true)]
         [AssetsOnly]
         private List<Object> m_Objects = new List<Object>();
-        
+
         [NonSerialized]
         private readonly Dictionary<string, Sprite> m_SpritesTemp = new Dictionary<string, Sprite>();
 
@@ -67,6 +72,7 @@ namespace UnityGameFramework.Extension
                     m_Objects.RemoveAt(i);
                 }
             }
+
             m_Objects = m_Objects.Distinct().ToList();
             isDirty |= m_Objects.Count != count;
             m_SpritesTemp.Clear();
@@ -107,7 +113,7 @@ namespace UnityGameFramework.Extension
         [FoldoutGroup("Create Atlas", true)]
         [PropertyOrder(1)]
         [OnValueChanged("AtlasFolderChanged")]
-        private string m_AtlasFolder = "Assets/Res/Atlas";
+        private string m_AtlasFolder = "Assets/Res/UI/UIAtlas";
 
         void AtlasFolderChanged()
         {
@@ -116,8 +122,8 @@ namespace UnityGameFramework.Extension
                 int index = m_AtlasFolder.IndexOf("Assets/", StringComparison.Ordinal);
                 if (index == -1)
                 {
-                    m_AtlasFolder = "Assets/Res/Atlas";
-                    EditorUtility.DisplayDialog("提示", $"图集生成文件夹必须在Assets目录下", "确定");
+                    m_AtlasFolder = "Assets/Res/UI/UIAtlas";
+                    EditorUtility.DisplayDialog("提示", "图集生成文件夹必须在Assets目录下", "确定");
                     return;
                 }
 
@@ -132,13 +138,13 @@ namespace UnityGameFramework.Extension
         {
             if (string.IsNullOrEmpty(m_AtlasFolder))
             {
-                EditorUtility.DisplayDialog("提示", $"请先选择图集生成文件夹！", "确定");
+                EditorUtility.DisplayDialog("提示", "请先选择图集生成文件夹！", "确定");
                 return;
             }
 
             if (m_Objects.Find(_ => _ is SpriteAtlas) != null)
             {
-                EditorUtility.DisplayDialog("提示", $"SpriteCollection 中存在Atlas 请检查!", "确定");
+                EditorUtility.DisplayDialog("提示", "SpriteCollection 中存在Atlas 请检查!", "确定");
                 return;
             }
 
@@ -147,7 +153,7 @@ namespace UnityGameFramework.Extension
 
             if (File.Exists(atlas))
             {
-                bool result = EditorUtility.DisplayDialog("提示", $"存在同名图集,是否覆盖？", "确定", "取消");
+                bool result = EditorUtility.DisplayDialog("提示", "存在同名图集,是否覆盖？", "确定", "取消");
                 if (!result)
                 {
                     return;
@@ -266,6 +272,52 @@ namespace UnityGameFramework.Extension
         private Sprite[] GetSprites(Object[] objects)
         {
             return objects.OfType<Sprite>().ToArray();
+        }
+
+        [MenuItem("Assets/Create/UGF/SpriteCollection By Selection #%F11")]
+        static void CreateSpriteCollection()
+        {
+            Object[] targets = Selection.objects;
+            if (targets == null)
+            {
+                Debug.LogWarning("SpriteCollection 必须选中 Sprite，Texture2D，Folder 或 SpriteAtlas 来创建");
+                return;
+            }
+
+            for (int i = 0; i < targets.Length; i++)
+            {
+                Object target = targets[i];
+                if (target == null || !(target is Sprite ||
+                                        target is Texture2D ||
+                                        target is DefaultAsset && ProjectWindowUtil.IsFolder(target.GetInstanceID()) ||
+                                        target is SpriteAtlas))
+                {
+                    Debug.LogWarning($"选中的 [{AssetDatabase.GetAssetPath(target)}] 不是 Sprite，Texture2D，Folder 或 SpriteAtlas", target);
+                    continue;
+                }
+
+                string assetPath = $"{Utility.Path.GetRegularPath(Path.GetDirectoryName(AssetDatabase.GetAssetPath(target)))}/{target.name}.asset";
+                SpriteCollection spriteCollection = AssetDatabase.LoadAssetAtPath<SpriteCollection>(assetPath);
+                if (spriteCollection != null)
+                {
+                    if (!spriteCollection.m_Objects.Contains(target))
+                    {
+                        spriteCollection.m_Objects.Add(target);
+                        spriteCollection.Pack();
+                        EditorUtility.SetDirty(spriteCollection);
+                        AssetDatabase.SaveAssetIfDirty(spriteCollection);
+                        Debug.Log($"更新 SpriteCollection:{assetPath}", spriteCollection);
+                    }
+                }
+                else
+                {
+                    spriteCollection = CreateInstance<SpriteCollection>();
+                    spriteCollection.m_Objects.Add(target);
+                    spriteCollection.Pack();
+                    AssetDatabase.CreateAsset(spriteCollection, assetPath);
+                    Debug.Log($"创建 SpriteCollection:{assetPath}", spriteCollection);
+                }
+            }
         }
 #endif
     }
