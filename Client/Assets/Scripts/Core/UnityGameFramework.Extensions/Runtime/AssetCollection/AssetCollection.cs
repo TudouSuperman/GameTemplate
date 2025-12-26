@@ -20,11 +20,12 @@ namespace UnityGameFramework.Extension
 #if UNITY_EDITOR
         [SerializeField]
         private string m_CollectionPatterns;
+
         [SerializeField]
-        [OnValueChanged("OnPathChange", IncludeChildren = true)]
+        [OnValueChanged(nameof(OnPathChange), IncludeChildren = true)]
         [AssetsOnly]
         private List<DefaultAsset> m_CollectionPaths = new List<DefaultAsset>();
-        
+
         [NonSerialized]
         private readonly Dictionary<string, Object> m_AssetDictTemp = new Dictionary<string, Object>();
 
@@ -41,12 +42,12 @@ namespace UnityGameFramework.Extension
             string[] searchPatterns = (string.IsNullOrEmpty(m_CollectionPatterns) ? "*.*" : m_CollectionPatterns).Split(';', ',', '|');
             foreach (DefaultAsset pathAsset in m_CollectionPaths)
             {
-                if(pathAsset == null || !ProjectWindowUtil.IsFolder(pathAsset.GetInstanceID()))
+                if (pathAsset == null || !ProjectWindowUtil.IsFolder(pathAsset.GetInstanceID()))
                     continue;
                 string path = AssetDatabase.GetAssetPath(pathAsset);
                 foreach (var pattern in searchPatterns)
                 {
-                    if(string.IsNullOrEmpty(pattern))
+                    if (string.IsNullOrEmpty(pattern))
                         continue;
                     string[] files = Directory.GetFiles(path, pattern, SearchOption.AllDirectories)
                         .Where(filePath => !filePath.EndsWith(".meta")).Select(Utility.Path.GetRegularPath).ToArray();
@@ -65,7 +66,8 @@ namespace UnityGameFramework.Extension
                     }
                 }
             }
-            if(m_AssetDictTemp.Count != m_AssetDict.Count)
+
+            if (m_AssetDictTemp.Count != m_AssetDict.Count)
             {
                 isDirty = true;
             }
@@ -73,13 +75,14 @@ namespace UnityGameFramework.Extension
             {
                 foreach (KeyValuePair<string, Object> item in m_AssetDict)
                 {
-                    if(!m_AssetDictTemp.TryGetValue(item.Key, out Object v) || v != item.Value)
+                    if (!m_AssetDictTemp.TryGetValue(item.Key, out Object v) || v != item.Value)
                     {
                         isDirty = true;
                         break;
                     }
                 }
             }
+
             if (isDirty)
             {
                 m_AssetDict.Clear();
@@ -87,6 +90,7 @@ namespace UnityGameFramework.Extension
                 {
                     m_AssetDict.Add(item.Key, item.Value);
                 }
+
                 m_AssetDictTemp.Clear();
                 EditorUtility.SetDirty(this);
                 AssetDatabase.SaveAssets();

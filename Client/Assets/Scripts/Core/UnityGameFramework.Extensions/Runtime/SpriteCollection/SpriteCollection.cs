@@ -27,23 +27,17 @@ namespace UnityGameFramework.Extension
             m_Sprites.TryGetValue(path, out Sprite sprite);
             return sprite;
         }
-        
+
         public Dictionary<string, Sprite>.KeyCollection Names
         {
-            get
-            {
-                return m_Sprites.Keys;
-            }
+            get { return m_Sprites.Keys; }
         }
 
         public Dictionary<string, Sprite>.ValueCollection Sprites
         {
-            get
-            {
-                return m_Sprites.Values;
-            }
+            get { return m_Sprites.Values; }
         }
-        
+
 #if UNITY_EDITOR
         private void Awake()
         {
@@ -52,13 +46,19 @@ namespace UnityGameFramework.Extension
 
         [InfoBox("Can drag to 'Objects'")]
         [OdinSerialize]
-        [OnValueChanged("OnListChange", includeChildren: true)]
+        [OnValueChanged(nameof(OnListChange), includeChildren: true)]
         [ListDrawerSettings(DraggableItems = false, IsReadOnly = false, HideAddButton = true)]
         [AssetsOnly]
+        [Tooltip("收集Sprite的对象列表（Sprite，Folder，SpriteAtlas）")]
         private List<Object> m_Objects = new List<Object>();
 
         [NonSerialized]
         private readonly Dictionary<string, Sprite> m_SpritesTemp = new Dictionary<string, Sprite>();
+
+        /// <summary>
+        /// 收集Sprite的对象列表（Sprite，Folder，SpriteAtlas）
+        /// </summary>
+        public List<Object> Objects => m_Objects;
 
         private void OnListChange()
         {
@@ -129,7 +129,7 @@ namespace UnityGameFramework.Extension
         [FolderPath]
         [FoldoutGroup("Create Atlas", true)]
         [PropertyOrder(1)]
-        [OnValueChanged("AtlasFolderChanged")]
+        [OnValueChanged(nameof(AtlasFolderChanged))]
         private string m_AtlasFolder = "Assets/Res/UI/UIAtlas";
 
         void AtlasFolderChanged()
@@ -297,7 +297,7 @@ namespace UnityGameFramework.Extension
             Object[] targets = Selection.objects;
             if (targets == null)
             {
-                Debug.LogWarning("SpriteCollection 必须选中 Sprite，Texture2D，Folder 或 SpriteAtlas 来创建");
+                Debug.LogWarning("SpriteCollection必须选中Sprite，Texture2D，Folder或SpriteAtlas来创建");
                 return;
             }
 
@@ -309,7 +309,7 @@ namespace UnityGameFramework.Extension
                                         target is DefaultAsset && ProjectWindowUtil.IsFolder(target.GetInstanceID()) ||
                                         target is SpriteAtlas))
                 {
-                    Debug.LogWarning($"选中的 [{AssetDatabase.GetAssetPath(target)}] 不是 Sprite，Texture2D，Folder 或 SpriteAtlas", target);
+                    Debug.LogWarning($"选中的[{AssetDatabase.GetAssetPath(target)}]不是Sprite，Texture2D，Folder或SpriteAtlas", target);
                     continue;
                 }
 
@@ -323,7 +323,7 @@ namespace UnityGameFramework.Extension
                         spriteCollection.Pack();
                         EditorUtility.SetDirty(spriteCollection);
                         AssetDatabase.SaveAssetIfDirty(spriteCollection);
-                        Debug.Log($"更新 SpriteCollection:{assetPath}", spriteCollection);
+                        Debug.Log($"更新SpriteCollection:{assetPath}", spriteCollection);
                     }
                 }
                 else
@@ -332,7 +332,7 @@ namespace UnityGameFramework.Extension
                     spriteCollection.m_Objects.Add(target);
                     spriteCollection.Pack();
                     AssetDatabase.CreateAsset(spriteCollection, assetPath);
-                    Debug.Log($"创建 SpriteCollection:{assetPath}", spriteCollection);
+                    Debug.Log($"创建SpriteCollection:{assetPath}", spriteCollection);
                 }
             }
         }

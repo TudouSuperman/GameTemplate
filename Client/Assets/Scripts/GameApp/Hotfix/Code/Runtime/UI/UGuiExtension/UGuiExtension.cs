@@ -1,15 +1,20 @@
 using System;
 using System.Collections;
 using Cysharp.Threading.Tasks;
+using GameFramework;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using GameFramework;
 
-namespace GameApp.Hotfix
+namespace GameApp
 {
     public static partial class UGuiExtension
     {
+        /// <summary>
+        /// 缓存 WaitForEndOfFrame 对象，避免每帧分配。
+        /// </summary>
+        private static readonly WaitForEndOfFrame s_WaitForEndOfFrame = new WaitForEndOfFrame();
+
         public static IEnumerator FadeToAlpha(this CanvasGroup canvasGroup, float alpha, float duration)
         {
             float time = 0f;
@@ -18,7 +23,7 @@ namespace GameApp.Hotfix
             {
                 time += Time.deltaTime;
                 canvasGroup.alpha = Mathf.Lerp(originalAlpha, alpha, time / duration);
-                yield return new WaitForEndOfFrame();
+                yield return s_WaitForEndOfFrame;
             }
 
             canvasGroup.alpha = alpha;
@@ -32,7 +37,7 @@ namespace GameApp.Hotfix
             {
                 time += Time.deltaTime;
                 slider.value = Mathf.Lerp(originalValue, value, time / duration);
-                yield return new WaitForEndOfFrame();
+                yield return s_WaitForEndOfFrame;
             }
 
             slider.value = value;
