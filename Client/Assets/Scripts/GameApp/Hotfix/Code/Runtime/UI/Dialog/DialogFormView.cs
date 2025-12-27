@@ -1,7 +1,6 @@
 ﻿using GameFramework;
 using CodeBind;
 
-
 namespace GameApp.Hotfix
 {
     [MonoCodeBind('-')]

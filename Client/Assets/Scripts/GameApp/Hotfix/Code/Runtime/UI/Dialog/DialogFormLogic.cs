@@ -1,6 +1,5 @@
 ﻿using UnityGameFramework.Runtime;
 
-
 namespace GameApp.Hotfix
 {
     public sealed class DialogFormLogic : UGuiFormLogic
