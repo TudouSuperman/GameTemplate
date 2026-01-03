@@ -322,7 +322,7 @@ namespace GameApp.Editor
                         .SetInt("DataTableEditor_" + Application.productName + "_LightMode",
                             LightMode);
 
-                    // UnityGameFramework.Runtime.Log.Debug(Utility.Text.Format("滑动条 x:{0} rect: {1}  比例 {2}", m_scrollViewPos.x, rect, m_scrollViewPos.x / rect.width));
+                    // UnityGameFramework.Runtime.Log.Debug("滑动条 x:{0} rect: {1}  比例 {2}", m_scrollViewPos.x, rect, m_scrollViewPos.x / rect.width);
                 };
             }
 

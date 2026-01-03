@@ -18,7 +18,7 @@ namespace GameApp.Editor
 
             string fullPath = GetGameObjectPath(Selection.activeGameObject);
             EditorGUIUtility.systemCopyBuffer = fullPath;
-            Log.Debug(Utility.Text.Format("Copied path: {0}", fullPath));
+            Debug.Log(Utility.Text.Format("Copied path: {0}", fullPath));
 
             string GetGameObjectPath(GameObject obj)
             {

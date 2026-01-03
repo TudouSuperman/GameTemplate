@@ -125,7 +125,7 @@ namespace GameApp.Hotfix
         private void RefreshSizeCacheEditor()
         {
             RefreshSizeCache();
-            Log.Debug(Utility.Text.Format("尺寸缓存已刷新 | Canvas: {0} | Window: {1}", m_UICanvasSizeCache, m_SelfWindowSizeCache));
+            Debug.Log(Utility.Text.Format("尺寸缓存已刷新 | Canvas: {0} | Window: {1}", m_UICanvasSizeCache, m_SelfWindowSizeCache));
         }
 #endif
     }
