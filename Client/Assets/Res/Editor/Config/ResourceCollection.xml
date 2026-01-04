@@ -5,6 +5,7 @@
       <Resource Name="Code.Hotfix" LoadType="0" Packed="False" />
       <Resource Name="Config" LoadType="0" Packed="False" />
       <Resource Name="Font" LoadType="0" Packed="False" />
+      <Resource Name="HybridCLR" LoadType="0" Packed="False" />
       <Resource Name="Localization" LoadType="0" Packed="False" />
       <Resource Name="Res/Artwork/Entity/HostEntity" LoadType="0" Packed="False" />
       <Resource Name="Res/Artwork/UI/UIForm/DialogForm" LoadType="0" Packed="False" />
@@ -19,30 +20,61 @@
     <Assets>
       <Asset Guid="0856145530843244c80c5e6c1b443d5e" ResourceName="Res/Artwork/Entity/HostEntity" />
       <Asset Guid="17a505a3033fafd4f8cd93fc735d554f" ResourceName="Code.Hotfix" />
+      <Asset Guid="19cd53a6a1417f44abd6af7ace2d077f" ResourceName="HybridCLR" />
       <Asset Guid="1a3660575c09a41449675c2a43891e2f" ResourceName="Localization" />
+      <Asset Guid="1a913d770742f4444b0d3ee80620a6d1" ResourceName="HybridCLR" />
+      <Asset Guid="1d33bf1832e48bd4688e30f12dea50d8" ResourceName="HybridCLR" />
+      <Asset Guid="1edc1cb48936b6a4ab3e1da603a7ad88" ResourceName="HybridCLR" />
+      <Asset Guid="217d1fcadf2f37549b3ffbe3ef05eb58" ResourceName="HybridCLR" />
+      <Asset Guid="2472b4f4363bfad4284b1673199cab69" ResourceName="HybridCLR" />
       <Asset Guid="26c1e11af78dbcc448a8d4c632ce3e5a" ResourceName="Res/Artwork/UI/UIForm/DialogForm" />
       <Asset Guid="28640f7d640c1d646bcc6eecec3a663e" ResourceName="TableData" />
+      <Asset Guid="3011b82782a743d48a7cbb92e5cf17ee" ResourceName="HybridCLR" />
+      <Asset Guid="30689c2f196cf9042ad25952fcb8e8a2" ResourceName="HybridCLR" />
+      <Asset Guid="3409f32e5ef5dc04696d5a0745ea41d1" ResourceName="HybridCLR" />
       <Asset Guid="3a51675aec2bcea4291315be717b6bbf" ResourceName="TableData" />
+      <Asset Guid="3dbe2c3e9695f8c45ba81f79d7001e23" ResourceName="HybridCLR" />
+      <Asset Guid="44ba0f14b9f75184a918eb3dbc59c858" ResourceName="HybridCLR" />
       <Asset Guid="44c8db52241385c45bbb14a1718f17bf" ResourceName="Config" />
       <Asset Guid="4a6f7184a8bea204a847bb72d2fb831a" ResourceName="TableData" />
       <Asset Guid="4a753a4923a65ff4d8bb7a86c0f9395a" ResourceName="Res/Artwork/UI/UIPrefab/Common/BlackMask" />
+      <Asset Guid="4b7d81cd1df521e4597817f4632c8125" ResourceName="HybridCLR" />
+      <Asset Guid="4cc2c01711baab44ea2e20633862f6ab" ResourceName="HybridCLR" />
+      <Asset Guid="533c1960339fdeb45ac9d674b4e79f2f" ResourceName="HybridCLR" />
       <Asset Guid="53601c960718b3e41a5a4514a34854cd" ResourceName="TableData.Hotfix" />
+      <Asset Guid="5f0aedf854077b54a8b09d0c40f83f76" ResourceName="HybridCLR" />
       <Asset Guid="6747c232ff547264daeff54a310eab55" ResourceName="TableData" />
+      <Asset Guid="6c9b59b4ddcf7f4478d740fb78e7f539" ResourceName="HybridCLR" />
+      <Asset Guid="71122eaf458240042af802caac98a3a3" ResourceName="HybridCLR" />
+      <Asset Guid="777d5bf507dd94846a9964587f3185e2" ResourceName="HybridCLR" />
+      <Asset Guid="798b3ee87464e6b48954be6fb96c506c" ResourceName="HybridCLR" />
       <Asset Guid="7b583b6ec54a05940bc8aab4fa0e5ec4" ResourceName="TableData" />
       <Asset Guid="82f0a79195d0873428a9b4f45fd4561e" ResourceName="TableData" />
       <Asset Guid="85468b8dca0efde478df080090a240d9" ResourceName="Font" />
       <Asset Guid="87626bccb5c94024fa79b1069e4bfabb" ResourceName="Res/Artwork/UI/UIForm/MainMenuForm" />
+      <Asset Guid="8f6f4c2d22f486f4793c44f4695de6b0" ResourceName="HybridCLR" />
+      <Asset Guid="9ba4c43cf98034b4ead1d99d50e72070" ResourceName="HybridCLR" />
       <Asset Guid="9cb05ee4fd727624b9bf4895d3791a93" ResourceName="TableData" />
+      <Asset Guid="9f8566167f7154a46a2782d003d37059" ResourceName="HybridCLR" />
       <Asset Guid="a07e1a2d596c6da488515d82c94493b3" ResourceName="Code.Hotfix" />
       <Asset Guid="a32828399c006014e84dd1cd86cc8135" ResourceName="Font" />
       <Asset Guid="b5c36d42f794d364696f5e2404c9b226" ResourceName="TableData" />
       <Asset Guid="b8046a6a92158fa4797e1f6de254942c" ResourceName="Localization" />
+      <Asset Guid="c34f6662c5099ed48af4cc6565b94f7d" ResourceName="HybridCLR" />
+      <Asset Guid="cfd41e913fb1b1d4d9f1163c25797490" ResourceName="HybridCLR" />
+      <Asset Guid="d6a5bcb4d382e1a48b39974e28c44ad8" ResourceName="HybridCLR" />
+      <Asset Guid="dbf603086975dca47ab5cd28ba99e971" ResourceName="HybridCLR" />
       <Asset Guid="ddf5f3ac9afdf3f43a1db133714ec7c3" ResourceName="Res/Scene/GameScene" />
+      <Asset Guid="df728b7835e979e4facd075a62d7f23a" ResourceName="HybridCLR" />
       <Asset Guid="dff598a90c710a24683413c5d9e4b7c8" ResourceName="Code.Hotfix" />
       <Asset Guid="e2e750f2dbbdb00418151338c1bdd618" ResourceName="Res/Artwork/UI/UIForm/LanguageForm" />
+      <Asset Guid="e3c2bf42a44f7e44aa9191084c97331c" ResourceName="HybridCLR" />
+      <Asset Guid="e827b108ec633d8459e13e70eadd093b" ResourceName="HybridCLR" />
       <Asset Guid="e95fb050ab922fc4f9712e629e3673b2" ResourceName="TableData" />
       <Asset Guid="f0c8a5afd6ce0c94dad07d61e6314b95" ResourceName="TableData" />
+      <Asset Guid="f86f7b89f7645f94fa90aafa8f2f69c7" ResourceName="HybridCLR" />
       <Asset Guid="fe9ca325b9a010042af82392390471b0" ResourceName="Res/Artwork/UI/UIForm/SettingForm" />
+      <Asset Guid="ffeb6c8782b00c54bbb76ee69b42d7a7" ResourceName="HybridCLR" />
     </Assets>
   </ResourceCollection>
 </UnityGameFramework>

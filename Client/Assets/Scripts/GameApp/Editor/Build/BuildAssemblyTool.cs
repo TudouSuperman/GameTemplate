@@ -6,7 +6,7 @@ using UnityEditor.Build.Player;
 using UnityEngine;
 using UnityGameFramework.Extension.Editor;
 
-namespace GameApp.Hotfix.Editor
+namespace GameApp.Editor
 {
     public static class BuildAssemblyTool
     {

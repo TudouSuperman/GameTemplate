@@ -54,11 +54,7 @@ namespace GameApp.Hotfix
                 }
             }
 #if UNITY_EDITOR
-            IDataTable<DRGuide> _dtGuide = GameEntry.DataTable.GetDataTable<DRGuide>();
-            foreach (DRGuide _drGuide in _dtGuide)
-            {
-                Log.Debug("<color=#00FF00>Guide Table Row : {0} {1} {2}</color>", _drGuide.Id, _drGuide.StepName, _drGuide.NextStepId);
-            }
+            Check();
 #endif
             ChangeState<ProcedureGame>(procedureOwner);
         }
@@ -157,5 +153,16 @@ namespace GameApp.Hotfix
 
             Log.Error("Can not load dictionary '{0}' from '{1}' with error message '{2}'.", ne.DictionaryAssetName, ne.DictionaryAssetName, ne.ErrorMessage);
         }
+
+#if UNITY_EDITOR
+        private void Check()
+        {
+            IDataTable<DRGuide> _dtGuide = GameEntry.DataTable.GetDataTable<DRGuide>();
+            foreach (DRGuide _drGuide in _dtGuide)
+            {
+                Log.Debug("<color=#00FF00>Guide Table Row : {0} {1} {2}</color>", _drGuide.Id, _drGuide.StepName, _drGuide.NextStepId);
+            }
+        }
+#endif
     }
 }

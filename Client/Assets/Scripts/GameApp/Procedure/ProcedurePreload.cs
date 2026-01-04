@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using GameFramework;
 using GameFramework.Event;
 using GameFramework.DataTable;
@@ -37,6 +38,7 @@ namespace GameApp
             m_LoadedFlag.Clear();
 
             PreloadResources();
+            PreloadResourcesAsync().Forget();
         }
 
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
@@ -61,65 +63,7 @@ namespace GameApp
                 }
             }
 #if UNITY_EDITOR
-            IDataTable<DRAsset> _dtAsset = GameEntry.DataTable.GetDataTable<DRAsset>();
-            foreach (DRAsset _drAsset in _dtAsset)
-            {
-                Log.Debug("<color=#00FF00>Asset Table Row : {0} {1} {2}</color>", _drAsset.Id, _drAsset.AssetName, _drAsset.AssetPath);
-            }
-
-            IDataTable<DRUIFormGroup> _dtUIFormGroup = GameEntry.DataTable.GetDataTable<DRUIFormGroup>();
-            foreach (DRUIFormGroup _drUIFormGroup in _dtUIFormGroup)
-            {
-                Log.Debug("<color=#00FF00>UIFormGroup Table Row : {0} {1} {2}</color>", _drUIFormGroup.Id, _drUIFormGroup.GroupName, _drUIFormGroup.GroupDepth);
-            }
-
-            IDataTable<DREntityGroup> _dtEntityGroup = GameEntry.DataTable.GetDataTable<DREntityGroup>();
-            foreach (DREntityGroup _drEntityGroup in _dtEntityGroup)
-            {
-                Log.Debug("<color=#00FF00>EntityGroup Table Row : {0} {1} {2} {3} {4} {5}</color>", _drEntityGroup.Id, _drEntityGroup.GroupName, _drEntityGroup.InstanceAutoReleaseInterval, _drEntityGroup.InstanceCapacity, _drEntityGroup.InstanceExpireTime, _drEntityGroup.InstancePriority);
-            }
-
-            IDataTable<DRSoundGroup> _dtSoundGroup = GameEntry.DataTable.GetDataTable<DRSoundGroup>();
-            foreach (DRSoundGroup _drSoundGroup in _dtSoundGroup)
-            {
-                Log.Debug("<color=#00FF00>SoundGroup Table Row : {0} {1} {2} {3} {4} {5}</color>", _drSoundGroup.Id, _drSoundGroup.GroupName, _drSoundGroup.SoundAgentCount, _drSoundGroup.AvoidBeingReplacedBySamePriority, _drSoundGroup.Mute, _drSoundGroup.Volume);
-            }
-
-            IDataTable<DRUIForm> _dtUIForm = GameEntry.DataTable.GetDataTable<DRUIForm>();
-            foreach (DRUIForm _drUIForm in _dtUIForm)
-            {
-                Log.Debug("<color=#00FF00>UIForm Table Row : {0} {1} {2} {3} {4}</color>", _drUIForm.Id, _drUIForm.AssetId, _drUIForm.GroupId, _drUIForm.AllowMultiInstance, _drUIForm.PauseCoveredUIForm);
-            }
-
-            IDataTable<DREntity> _dtEntity = GameEntry.DataTable.GetDataTable<DREntity>();
-            foreach (DREntity _drEntity in _dtEntity)
-            {
-                Log.Debug("<color=#00FF00>Entity Table Row : {0} {1} {2}</color>", _drEntity.Id, _drEntity.AssetId, _drEntity.GroupId);
-            }
-
-            IDataTable<DRUISound> _dtUISound = GameEntry.DataTable.GetDataTable<DRUISound>();
-            foreach (DRUISound _drUISound in _dtUISound)
-            {
-                Log.Debug("<color=#00FF00>UISound Table Row : {0} {1} {2} {3} {4}</color>", _drUISound.Id, _drUISound.AssetId, _drUISound.GroupId, _drUISound.Priority, _drUISound.Volume);
-            }
-
-            IDataTable<DRMusic> _dtMusic = GameEntry.DataTable.GetDataTable<DRMusic>();
-            foreach (DRMusic _drMusic in _dtMusic)
-            {
-                Log.Debug("<color=#00FF00>Music Table Row : {0} {1} {2}</color>", _drMusic.Id, _drMusic.AssetId, _drMusic.GroupId);
-            }
-
-            IDataTable<DRSound> _dtSound = GameEntry.DataTable.GetDataTable<DRSound>();
-            foreach (DRSound _drSound in _dtSound)
-            {
-                Log.Debug("<color=#00FF00>UISound Table Row : {0} {1} {2} {3} {4} {5} {6} {7}</color>", _drSound.Id, _drSound.AssetId, _drSound.GroupId, _drSound.Priority, _drSound.Loop, _drSound.Volume, _drSound.SpatialBlend, _drSound.MaxDistance);
-            }
-
-            IDataTable<DRScene> _dtScene = GameEntry.DataTable.GetDataTable<DRScene>();
-            foreach (DRScene _drScene in _dtScene)
-            {
-                Log.Debug("<color=#00FF00>Scene Table Row : {0} {1} {2}</color>", _drScene.Id, _drScene.AssetId, _drScene.BackgroundMusicId);
-            }
+            Check();
 #endif
             SetComponents();
             ChangeState<ProcedureGameHotfix>(procedureOwner);
@@ -135,6 +79,15 @@ namespace GameApp
             {
                 LoadTableData(dataTableName);
             }
+        }
+
+        private async UniTaskVoid PreloadResourcesAsync()
+        {
+#if UNITY_HOTFIX && ENABLE_IL2CPP
+            m_LoadedFlag.Add(HybridCLRHelper.ConfigAsset, false);
+            await HybridCLRHelper.LoadAsync();
+            m_LoadedFlag[HybridCLRHelper.ConfigAsset] = true;
+#endif
         }
 
         private void SetComponents()
@@ -238,5 +191,70 @@ namespace GameApp
 
             Log.Error("Can not load data table '{0}' from '{1}' with error message '{2}'.", ne.DataTableAssetName, ne.DataTableAssetName, ne.ErrorMessage);
         }
+
+#if UNITY_EDITOR
+        private void Check()
+        {
+            IDataTable<DRAsset> _dtAsset = GameEntry.DataTable.GetDataTable<DRAsset>();
+            foreach (DRAsset _drAsset in _dtAsset)
+            {
+                Log.Debug("<color=#00FF00>Asset Table Row : {0} {1} {2}</color>", _drAsset.Id, _drAsset.AssetName, _drAsset.AssetPath);
+            }
+
+            IDataTable<DRUIFormGroup> _dtUIFormGroup = GameEntry.DataTable.GetDataTable<DRUIFormGroup>();
+            foreach (DRUIFormGroup _drUIFormGroup in _dtUIFormGroup)
+            {
+                Log.Debug("<color=#00FF00>UIFormGroup Table Row : {0} {1} {2}</color>", _drUIFormGroup.Id, _drUIFormGroup.GroupName, _drUIFormGroup.GroupDepth);
+            }
+
+            IDataTable<DREntityGroup> _dtEntityGroup = GameEntry.DataTable.GetDataTable<DREntityGroup>();
+            foreach (DREntityGroup _drEntityGroup in _dtEntityGroup)
+            {
+                Log.Debug("<color=#00FF00>EntityGroup Table Row : {0} {1} {2} {3} {4} {5}</color>", _drEntityGroup.Id, _drEntityGroup.GroupName, _drEntityGroup.InstanceAutoReleaseInterval, _drEntityGroup.InstanceCapacity, _drEntityGroup.InstanceExpireTime, _drEntityGroup.InstancePriority);
+            }
+
+            IDataTable<DRSoundGroup> _dtSoundGroup = GameEntry.DataTable.GetDataTable<DRSoundGroup>();
+            foreach (DRSoundGroup _drSoundGroup in _dtSoundGroup)
+            {
+                Log.Debug("<color=#00FF00>SoundGroup Table Row : {0} {1} {2} {3} {4} {5}</color>", _drSoundGroup.Id, _drSoundGroup.GroupName, _drSoundGroup.SoundAgentCount, _drSoundGroup.AvoidBeingReplacedBySamePriority, _drSoundGroup.Mute, _drSoundGroup.Volume);
+            }
+
+            IDataTable<DRUIForm> _dtUIForm = GameEntry.DataTable.GetDataTable<DRUIForm>();
+            foreach (DRUIForm _drUIForm in _dtUIForm)
+            {
+                Log.Debug("<color=#00FF00>UIForm Table Row : {0} {1} {2} {3} {4}</color>", _drUIForm.Id, _drUIForm.AssetId, _drUIForm.GroupId, _drUIForm.AllowMultiInstance, _drUIForm.PauseCoveredUIForm);
+            }
+
+            IDataTable<DREntity> _dtEntity = GameEntry.DataTable.GetDataTable<DREntity>();
+            foreach (DREntity _drEntity in _dtEntity)
+            {
+                Log.Debug("<color=#00FF00>Entity Table Row : {0} {1} {2}</color>", _drEntity.Id, _drEntity.AssetId, _drEntity.GroupId);
+            }
+
+            IDataTable<DRUISound> _dtUISound = GameEntry.DataTable.GetDataTable<DRUISound>();
+            foreach (DRUISound _drUISound in _dtUISound)
+            {
+                Log.Debug("<color=#00FF00>UISound Table Row : {0} {1} {2} {3} {4}</color>", _drUISound.Id, _drUISound.AssetId, _drUISound.GroupId, _drUISound.Priority, _drUISound.Volume);
+            }
+
+            IDataTable<DRMusic> _dtMusic = GameEntry.DataTable.GetDataTable<DRMusic>();
+            foreach (DRMusic _drMusic in _dtMusic)
+            {
+                Log.Debug("<color=#00FF00>Music Table Row : {0} {1} {2}</color>", _drMusic.Id, _drMusic.AssetId, _drMusic.GroupId);
+            }
+
+            IDataTable<DRSound> _dtSound = GameEntry.DataTable.GetDataTable<DRSound>();
+            foreach (DRSound _drSound in _dtSound)
+            {
+                Log.Debug("<color=#00FF00>UISound Table Row : {0} {1} {2} {3} {4} {5} {6} {7}</color>", _drSound.Id, _drSound.AssetId, _drSound.GroupId, _drSound.Priority, _drSound.Loop, _drSound.Volume, _drSound.SpatialBlend, _drSound.MaxDistance);
+            }
+
+            IDataTable<DRScene> _dtScene = GameEntry.DataTable.GetDataTable<DRScene>();
+            foreach (DRScene _drScene in _dtScene)
+            {
+                Log.Debug("<color=#00FF00>Scene Table Row : {0} {1} {2}</color>", _drScene.Id, _drScene.AssetId, _drScene.BackgroundMusicId);
+            }
+        }
+#endif
     }
 }
