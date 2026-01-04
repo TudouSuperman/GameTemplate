@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.IO;
-using HybridCLR.Editor.Settings;
 using UnityEditor;
 using UnityEngine;
+using HybridCLR.Editor.Settings;
 
 namespace GameApp.Editor
 {
@@ -17,6 +17,11 @@ namespace GameApp.Editor
             string fromDir = Path.Combine(HybridCLRSettings.Instance.strippedAOTDllOutputRootDir, target.ToString());
             FileTool.CleanDirectoryFiles(s_ResDir, "*.dll.bytes");
             FileTool.CleanDirectoryFiles(s_ResDir, "*.dll.bytes.meta");
+            if (!Directory.Exists(s_ResDir))
+            {
+                Directory.CreateDirectory(s_ResDir);
+            }
+
             foreach (string aotDll in HybridCLRSettings.Instance.patchAOTAssemblies)
             {
                 string file = Path.Combine(fromDir, $"{aotDll}.dll");
@@ -28,7 +33,7 @@ namespace GameApp.Editor
             AssetDatabase.ImportAsset(s_ResDir, ImportAssetOptions.ForceUpdate);
             AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
 
-            // 设置aot dlls
+            // 设置 aot dlls
             List<TextAsset> aotAssemblyList = new List<TextAsset>();
             for (int i = 0; i < HybridCLRSettings.Instance.patchAOTAssemblies.Length; i++)
             {
