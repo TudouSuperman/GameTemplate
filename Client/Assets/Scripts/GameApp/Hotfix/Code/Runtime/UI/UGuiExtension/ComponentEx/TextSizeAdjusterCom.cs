@@ -4,7 +4,7 @@ using TMPro;
 
 namespace GameApp.Hotfix
 {
-    public sealed class TextSizeAdjuster : MonoBehaviour
+    public sealed class TextSizeAdjusterCom : MonoBehaviour
     {
         [Header("尺寸配置")]
         [SerializeField, Tooltip("行数到高度的映射配置")]
@@ -71,9 +71,9 @@ namespace GameApp.Hotfix
                 return;
             }
 
-            // 设置文本
+            // 设置文本。
             m_TextComponent.text = text;
-            // 计算并应用尺寸
+            // 计算并应用尺寸。
             CalculateAndApplySize();
         }
 
