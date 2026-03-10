@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using GameFramework;
 using GameFramework.ObjectPool;
 using Sirenix.OdinInspector;
@@ -13,7 +14,7 @@ namespace UnityGameFramework.Extension
         /// 散图集合对象池
         /// </summary>
         private IObjectPool<SpriteCollectionItemObject> m_SpriteCollectionPool;
-        
+
         /// <summary>
         /// 检查是否可以释放间隔
         /// </summary>
@@ -50,6 +51,7 @@ namespace UnityGameFramework.Extension
 
         private HashSet<string> m_SpriteCollectionBeingLoaded;
         private Dictionary<string, HashSet<ISetSpriteObject>> m_WaitSetObjects;
+        private Dictionary<string, AutoResetUniTaskCompletionSource<bool>> m_SpriteCollectionLoadingTcs;
 
         /// <summary>
         /// 对象池容量
@@ -88,10 +90,11 @@ namespace UnityGameFramework.Extension
             m_LoadedSpriteObjectsLinkedList = new LinkedList<LoadSpriteObject>();
             m_SpriteCollectionBeingLoaded = new HashSet<string>();
             m_WaitSetObjects = new Dictionary<string, HashSet<ISetSpriteObject>>();
+            m_SpriteCollectionLoadingTcs = new Dictionary<string, AutoResetUniTaskCompletionSource<bool>>();
 
             InitializedResources();
         }
-        
+
         private void Update()
         {
             m_CheckCanReleaseTime += Time.unscaledDeltaTime;
@@ -99,6 +102,7 @@ namespace UnityGameFramework.Extension
                 return;
             ReleaseUnused();
         }
+
         /// <summary>
         /// 回收无引用的 Image 对应图集。
         /// </summary>
@@ -118,9 +122,35 @@ namespace UnityGameFramework.Extension
                     m_LoadedSpriteObjectsLinkedList.Remove(current);
                     ReferencePool.Release(current.Value);
                 }
+
                 current = next;
             }
+
             m_CheckCanReleaseTime = 0;
+        }
+
+        public void RemoveLoadingSetSprite(ISetSpriteObject setSpriteObject)
+        {
+            if (m_WaitSetObjects.TryGetValue(setSpriteObject.CollectionPath, out HashSet<ISetSpriteObject> awaitSets))
+            {
+                if (awaitSets.Remove(setSpriteObject))
+                {
+                    ReferencePool.Release(setSpriteObject);
+                }
+            }
+        }
+
+        public void RemoveAllLoadingSetSprite()
+        {
+            foreach (var awaitSets in m_WaitSetObjects.Values)
+            {
+                foreach (var awaitSet in awaitSets)
+                {
+                    ReferencePool.Release(awaitSet);
+                }
+
+                awaitSets.Clear();
+            }
         }
     }
 }

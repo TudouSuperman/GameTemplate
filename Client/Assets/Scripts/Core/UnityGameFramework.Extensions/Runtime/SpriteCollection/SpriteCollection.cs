@@ -7,6 +7,7 @@ using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
 using UnityEngine.U2D;
+using UnityGameFramework.Runtime;
 using Object = UnityEngine.Object;
 
 #if UNITY_EDITOR
@@ -24,53 +25,179 @@ namespace UnityGameFramework.Extension
 
         public Sprite GetSprite(string path)
         {
-            m_Sprites.TryGetValue(path, out Sprite sprite);
+            if (!m_Sprites.TryGetValue(path, out Sprite sprite))
+            {
+                Log.Error("SpriteCollection GetSprite can not find sprite at path '{0}'", path);
+                return null;
+            }
+
             return sprite;
         }
 
         public Dictionary<string, Sprite>.KeyCollection Names
         {
-            get { return m_Sprites.Keys; }
+            get
+            {
+                return m_Sprites.Keys;
+            }
         }
 
         public Dictionary<string, Sprite>.ValueCollection Sprites
         {
-            get { return m_Sprites.Values; }
+            get
+            {
+                return m_Sprites.Values;
+            }
         }
 
 #if UNITY_EDITOR
         private void Awake()
         {
+            if (EditorApplication.isCompiling)
+                return;
+            if (!EditorApplication.isPlaying)
+                return;
+            if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(this)))
+                return;
             Pack();
         }
 
         [InfoBox("Can drag to 'Objects'")]
-        [OdinSerialize]
+        [ShowInInspector, AssetsOnly, NonSerialized]
         [OnValueChanged(nameof(OnListChange), includeChildren: true)]
         [ListDrawerSettings(DraggableItems = false, IsReadOnly = false, HideAddButton = true)]
-        [AssetsOnly]
         [Tooltip("收集Sprite的对象列表（Sprite，Folder，SpriteAtlas）")]
-        private List<Object> m_Objects = new List<Object>();
+        private List<Object> m_CollectionObjects = new List<Object>();
+
+        [HideInInspector, SerializeField]
+        private List<string> m_CollectionGUIDs = new List<string>();
 
         [NonSerialized]
-        private readonly Dictionary<string, Sprite> m_SpritesTemp = new Dictionary<string, Sprite>();
+        private readonly Dictionary<string, Sprite> m_SpriteDictTemp = new Dictionary<string, Sprite>();
 
         /// <summary>
         /// 收集Sprite的对象列表（Sprite，Folder，SpriteAtlas）
         /// </summary>
-        public List<Object> Objects => m_Objects;
+        public List<Object> Objects => m_CollectionObjects;
+
+        private void OnValidate()
+        {
+            bool isDirty = RefreshCollectionObjects();
+            if (isDirty)
+            {
+                EditorUtility.SetDirty(this);
+                AssetDatabase.SaveAssets();
+            }
+        }
+
+        private bool RefreshCollectionObjects()
+        {
+            bool isDirty = false;
+            m_CollectionObjects.Clear();
+            for (int i = m_CollectionGUIDs.Count - 1; i >= 0; i--)
+            {
+                string guid = m_CollectionGUIDs[i];
+                if (string.IsNullOrEmpty(guid))
+                {
+                    isDirty = true;
+                    m_CollectionGUIDs.RemoveAt(i);
+                    continue;
+                }
+
+                string assetPath = AssetDatabase.GUIDToAssetPath(guid);
+                if (string.IsNullOrEmpty(assetPath))
+                {
+                    isDirty = true;
+                    m_CollectionGUIDs.RemoveAt(i);
+                    continue;
+                }
+
+                Object collectionObject = AssetDatabase.LoadAssetAtPath<Object>(assetPath);
+                if (collectionObject == null)
+                {
+                    isDirty = true;
+                    m_CollectionGUIDs.RemoveAt(i);
+                    continue;
+                }
+
+                bool found = false;
+                for (int j = i + 1; j < m_CollectionGUIDs.Count; j++)
+                {
+                    if (guid == m_CollectionGUIDs[j])
+                    {
+                        found = true;
+                        isDirty = true;
+                        m_CollectionGUIDs.RemoveAt(i);
+                        break;
+                    }
+                }
+
+                if (found)
+                {
+                    continue;
+                }
+
+                m_CollectionObjects.Add(collectionObject);
+            }
+
+            return isDirty;
+        }
 
         private void OnListChange()
         {
-            for (int i = m_Objects.Count - 1; i >= 0; i--)
+            bool isDirty = false;
+            m_CollectionGUIDs.Clear();
+            for (int i = m_CollectionObjects.Count - 1; i >= 0; i--)
             {
-                if (!ObjectFilter(m_Objects[i]))
+                Object collectionObject = m_CollectionObjects[i];
+                if (!ObjectFilter(collectionObject))
                 {
-                    m_Objects.RemoveAt(i);
+                    isDirty = true;
+                    m_CollectionObjects.RemoveAt(i);
+                    continue;
                 }
+
+                string assetPath = AssetDatabase.GetAssetPath(collectionObject);
+                if (string.IsNullOrEmpty(assetPath))
+                {
+                    isDirty = true;
+                    m_CollectionObjects.RemoveAt(i);
+                    continue;
+                }
+
+                string guid = AssetDatabase.AssetPathToGUID(assetPath);
+                if (string.IsNullOrEmpty(guid))
+                {
+                    isDirty = true;
+                    m_CollectionObjects.RemoveAt(i);
+                    continue;
+                }
+
+                bool found = false;
+                for (int j = i + 1; j < m_CollectionObjects.Count; j++)
+                {
+                    if (collectionObject == m_CollectionObjects[j])
+                    {
+                        found = true;
+                        isDirty = true;
+                        m_CollectionObjects.RemoveAt(i);
+                    }
+                }
+
+                if (found)
+                {
+                    continue;
+                }
+
+                m_CollectionGUIDs.Add(guid);
             }
 
-            m_Objects = m_Objects.Distinct().ToList();
+            if (isDirty)
+            {
+                EditorUtility.SetDirty(this);
+                AssetDatabase.SaveAssets();
+            }
+
             Pack();
         }
 
@@ -79,45 +206,33 @@ namespace UnityGameFramework.Extension
         [PropertySpace(16, 16)]
         public void Pack()
         {
-            bool isDirty = false;
+            bool isDirty = RefreshCollectionObjects();
 
-            int count = m_Objects.Count;
-            for (int i = m_Objects.Count - 1; i >= 0; i--)
+            m_SpriteDictTemp.Clear();
+            foreach (Object collectionObject in m_CollectionObjects)
             {
-                if (!ObjectFilter(m_Objects[i]))
-                {
-                    m_Objects.RemoveAt(i);
-                }
+                HandlePackable(collectionObject, m_SpriteDictTemp);
             }
 
-            m_Objects = m_Objects.Distinct().ToList();
-            isDirty |= m_Objects.Count != count;
-            m_SpritesTemp.Clear();
-            for (int i = 0; i < m_Objects.Count; i++)
+            if (m_Sprites.Count != m_SpriteDictTemp.Count)
             {
-                Object obj = m_Objects[i];
-                HandlePackable(obj, m_SpritesTemp);
-            }
-
-            if (m_Sprites.Count != m_SpritesTemp.Count)
-            {
-                SetSprites(m_SpritesTemp);
                 isDirty = true;
+                SetSprites(m_SpriteDictTemp);
             }
             else
             {
                 foreach (KeyValuePair<string, Sprite> item in m_Sprites)
                 {
-                    if (!m_SpritesTemp.TryGetValue(item.Key, out Sprite sprite) || sprite != item.Value)
+                    if (!m_SpriteDictTemp.TryGetValue(item.Key, out Sprite sprite) || sprite != item.Value)
                     {
-                        SetSprites(m_SpritesTemp);
                         isDirty = true;
+                        SetSprites(m_SpriteDictTemp);
                         break;
                     }
                 }
             }
 
-            m_SpritesTemp.Clear();
+            m_SpriteDictTemp.Clear();
             if (isDirty)
             {
                 EditorUtility.SetDirty(this);
@@ -159,7 +274,7 @@ namespace UnityGameFramework.Extension
                 return;
             }
 
-            if (m_Objects.Find(_ => _ is SpriteAtlas) != null)
+            if (m_CollectionGUIDs.Find(guid => AssetDatabase.LoadAssetAtPath<Object>(AssetDatabase.GUIDToAssetPath(guid)) is SpriteAtlas) != null)
             {
                 EditorUtility.DisplayDialog("提示", "SpriteCollection 中存在Atlas 请检查!", "确定");
                 return;
@@ -198,7 +313,13 @@ namespace UnityGameFramework.Extension
             sa.SetTextureSettings(textureSet);
             AssetDatabase.CreateAsset(sa, atlas);
 
-            sa.Add(m_Objects.ToArray());
+            List<Object> collectionObjects = new List<Object>();
+            foreach (var guid in m_CollectionGUIDs)
+            {
+                collectionObjects.Add(AssetDatabase.LoadAssetAtPath<Object>(AssetDatabase.GUIDToAssetPath(guid)));
+            }
+
+            sa.Add(collectionObjects.ToArray());
 
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
@@ -249,13 +370,17 @@ namespace UnityGameFramework.Extension
             else if (obj is DefaultAsset && ProjectWindowUtil.IsFolder(obj.GetInstanceID()))
             {
                 string[] files = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories)
-                    .Where(_ => !_.EndsWith(".meta")).Select(Utility.Path.GetRegularPath).ToArray();
+                    .Where(fileName => !fileName.EndsWith(".meta")).Select(Utility.Path.GetRegularPath).ToArray();
                 foreach (string file in files)
                 {
                     Object[] objects = AssetDatabase.LoadAllAssetsAtPath(file);
                     if (objects.Length == 2)
                     {
-                        result[file] = GetSprites(objects)[0];
+                        Sprite[] sprites = GetSprites(objects);
+                        if (sprites.Length > 0)
+                        {
+                            result[file] = sprites[0];
+                        }
                     }
                     else
                     {
@@ -315,11 +440,12 @@ namespace UnityGameFramework.Extension
 
                 string assetPath = $"{Utility.Path.GetRegularPath(Path.GetDirectoryName(AssetDatabase.GetAssetPath(target)))}/{target.name}.asset";
                 SpriteCollection spriteCollection = AssetDatabase.LoadAssetAtPath<SpriteCollection>(assetPath);
+                string guid = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(target));
                 if (spriteCollection != null)
                 {
-                    if (!spriteCollection.m_Objects.Contains(target))
+                    if (!spriteCollection.m_CollectionGUIDs.Contains(guid))
                     {
-                        spriteCollection.m_Objects.Add(target);
+                        spriteCollection.m_CollectionGUIDs.Add(guid);
                         spriteCollection.Pack();
                         EditorUtility.SetDirty(spriteCollection);
                         AssetDatabase.SaveAssetIfDirty(spriteCollection);
@@ -329,7 +455,7 @@ namespace UnityGameFramework.Extension
                 else
                 {
                     spriteCollection = CreateInstance<SpriteCollection>();
-                    spriteCollection.m_Objects.Add(target);
+                    spriteCollection.m_CollectionGUIDs.Add(guid);
                     spriteCollection.Pack();
                     AssetDatabase.CreateAsset(spriteCollection, assetPath);
                     Debug.Log($"创建SpriteCollection:{assetPath}", spriteCollection);

@@ -14,7 +14,7 @@ namespace UnityGameFramework.Extension
         /// 文件系统组件
         /// </summary>
         private FileSystemComponent m_FileSystemComponent;
-      
+
         /// <summary>
         /// 图片文件系统
         /// </summary>
@@ -29,7 +29,7 @@ namespace UnityGameFramework.Extension
         /// 图片加载缓存
         /// </summary>
         private byte[] m_Buffer;
-        
+
         /// <summary>
         /// 文件系统最大文件数量
         /// </summary>
@@ -84,24 +84,42 @@ namespace UnityGameFramework.Extension
         /// <param name="setTexture2dObject">需要设置图片的对象</param>
         public void SetTextureByFileSystem(ISetTexture2dObject setTexture2dObject)
         {
+            SetTextureByFileSystem(setTexture2dObject, setTexture2dObject.Texture2dFilePath);
+        }
+
+        /// <summary>
+        /// 通过文件系统设置图片
+        /// </summary>
+        /// <param name="setTexture2dObject">需要设置图片的对象</param>
+        /// <param name="filePath">文件系统中的路径</param>
+        public void SetTextureByFileSystem(ISetTexture2dObject setTexture2dObject, string filePath)
+        {
+            string texturePath = setTexture2dObject.Texture2dFilePath;
             Texture2D texture;
-            if (m_TexturePool.CanSpawn(setTexture2dObject.Texture2dFilePath))
+            if (m_TexturePool.CanSpawn(texturePath))
             {
-                texture = (Texture2D)m_TexturePool.Spawn(setTexture2dObject.Texture2dFilePath).Target;
+                texture = (Texture2D)m_TexturePool.Spawn(texturePath).Target;
             }
             else
             {
-                texture = GetTextureFromFileSystem(setTexture2dObject.Texture2dFilePath);
-                m_TexturePool.Register(TextureItemObject.Create(setTexture2dObject.Texture2dFilePath, texture, TextureLoad.FromFileSystem), true);
+                texture = GetTextureFromFileSystem(filePath);
+                if (texture != null)
+                {
+                    m_TexturePool.Register(TextureItemObject.Create(texturePath, texture, TextureLoad.FromFileSystem), true);
+                }
             }
 
             if (texture != null)
             {
                 SetTexture(setTexture2dObject, texture);
             }
+            else
+            {
+                Log.Error("Can not load texture '{0}' from file system : '{1}'.", texturePath, filePath);
+            }
         }
-        
-         /// <summary>
+
+        /// <summary>
         /// 检查加载图片缓存大小(不足自动扩容为原来的2倍)
         /// </summary>
         /// <param name="file">当前读取的文件</param>

@@ -36,17 +36,31 @@ namespace GameApp
 
             if (m_UGuiWidgets.Contains(uGuiWidgetLogic))
             {
-                throw new GameFrameworkException(Utility.Text.Format("Can't duplicate add UGuiWidget : '{0}'!", uGuiWidgetLogic.CachedTransform.name));
+                throw new GameFrameworkException(Utility.Text.Format("Can't duplicate add UGuiWidget : '{0}'!", uGuiWidgetLogic.CachedRectTransform.name));
             }
 
             m_UGuiWidgets.Add(uGuiWidgetLogic);
-            uGuiWidgetLogic.SetUIFormOwner(Owner.UIForm);
+            uGuiWidgetLogic.SetOwner(Owner);
             uGuiWidgetLogic.OnInit(userData);
         }
 
         public bool HasUGuiWidget(UGuiWidgetLogic uGuiWidgetLogic)
         {
             return m_UGuiWidgets.Contains(uGuiWidgetLogic);
+        }
+
+        public void GetAllUGuiWidgets(List<UGuiWidgetLogic> results)
+        {
+            if (results == null)
+            {
+                throw new GameFrameworkException("Results is invalid.");
+            }
+
+            results.Clear();
+            foreach (UGuiWidgetLogic uiWidget in m_UGuiWidgets)
+            {
+                results.Add(uiWidget);
+            }
         }
 
         public void RemoveUGuiWidget(UGuiWidgetLogic uGuiWidgetLogic)
@@ -56,9 +70,18 @@ namespace GameApp
                 throw new GameFrameworkException("Can't remove empty!");
             }
 
-            if (!m_UGuiWidgets.Remove(uGuiWidgetLogic))
+            if (uGuiWidgetLogic.Available)
             {
-                throw new GameFrameworkException(Utility.Text.Format("UIWidget : '{0}' not in container.", uGuiWidgetLogic.CachedTransform.name));
+                throw new GameFrameworkException(Utility.Text.Format("Can't remove available UGuiWidget : '{0}'.", uGuiWidgetLogic.CachedRectTransform.name));
+            }
+
+            if (m_UGuiWidgets.Remove(uGuiWidgetLogic))
+            {
+                uGuiWidgetLogic.SetOwner(null);
+            }
+            else
+            {
+                throw new GameFrameworkException(Utility.Text.Format("UGuiWidget : '{0}' not in container.", uGuiWidgetLogic.CachedRectTransform.name));
             }
         }
 
@@ -66,6 +89,11 @@ namespace GameApp
         {
             if (m_UGuiWidgets.Count > 0)
             {
+                foreach (UGuiWidgetLogic _uGuiWidgetLogic in m_UGuiWidgets)
+                {
+                    _uGuiWidgetLogic.SetOwner(null);
+                }
+
                 m_UGuiWidgets.Clear();
             }
         }

@@ -11,15 +11,20 @@ namespace UnityGameFramework.Extension
     {
         [ShowInInspector]
         private RawImage m_RawImage;
-        [ShowInInspector] 
+
+        [ShowInInspector]
         private Texture2D Texture2D { get; set; }
+
         [ShowInInspector]
         public string Texture2dFilePath { get; private set; }
 
         public void SetTexture(Texture2D texture)
         {
-            m_RawImage.texture = texture;
-            Texture2D = texture;
+            if (m_RawImage != null)
+            {
+                m_RawImage.texture = texture;
+                Texture2D = texture;
+            }
         }
 
         public bool IsCanRelease()

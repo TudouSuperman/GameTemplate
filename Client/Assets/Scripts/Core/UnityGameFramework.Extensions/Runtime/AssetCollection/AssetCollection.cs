@@ -3,6 +3,7 @@ using System.Linq;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
+using UnityGameFramework.Runtime;
 using Object = UnityEngine.Object;
 
 #if UNITY_EDITOR
@@ -17,34 +18,202 @@ namespace UnityGameFramework.Extension
     [CreateAssetMenu(fileName = "AssetCollection", menuName = "UGF/AssetCollection")]
     public sealed class AssetCollection : SerializedScriptableObject
     {
+        [OdinSerialize, Searchable]
+        [DictionaryDrawerSettings(KeyLabel = "Path", ValueLabel = "Object", IsReadOnly = true)]
+        private Dictionary<string, Object> m_AssetDict = new Dictionary<string, Object>();
+
+        public T GetAsset<T>(string path) where T : Object
+        {
+            if (!m_AssetDict.TryGetValue(path, out Object obj))
+            {
+                Log.Error("AssetCollection GetAsset can not find asset at path '{0}'.", path);
+                return null;
+            }
+
+            T result = obj as T;
+            if (result == null)
+            {
+                Log.Error("AssetCollection GetAsset at path '{0}' is not of type {1}.", path, typeof(T).FullName);
+            }
+
+            return result;
+        }
+
+        public Dictionary<string, Object>.KeyCollection Names
+        {
+            get
+            {
+                return m_AssetDict.Keys;
+            }
+        }
+
+        public Dictionary<string, Object>.ValueCollection Assets
+        {
+            get
+            {
+                return m_AssetDict.Values;
+            }
+        }
+
 #if UNITY_EDITOR
+        private void Awake()
+        {
+            if (EditorApplication.isCompiling)
+                return;
+            if (!EditorApplication.isPlaying)
+                return;
+            if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(this)))
+                return;
+            Pack();
+        }
+
         [SerializeField]
         private string m_CollectionPatterns;
 
-        [SerializeField]
+        [ShowInInspector, AssetsOnly, NonSerialized]
         [OnValueChanged(nameof(OnPathChange), IncludeChildren = true)]
-        [AssetsOnly]
+        [ListDrawerSettings(DraggableItems = false, IsReadOnly = false, HideAddButton = true)]
+        [Tooltip("收集资源的目录列表")]
         private List<DefaultAsset> m_CollectionPaths = new List<DefaultAsset>();
+
+        [HideInInspector, SerializeField]
+        private List<string> m_CollectionPathGUIDs = new List<string>();
 
         [NonSerialized]
         private readonly Dictionary<string, Object> m_AssetDictTemp = new Dictionary<string, Object>();
 
+        private void OnValidate()
+        {
+            bool isDirty = RefreshCollectionPaths();
+            if (isDirty)
+            {
+                EditorUtility.SetDirty(this);
+                AssetDatabase.SaveAssets();
+            }
+        }
+
+        private bool RefreshCollectionPaths()
+        {
+            bool isDirty = false;
+            m_CollectionPaths.Clear();
+            for (int i = m_CollectionPathGUIDs.Count - 1; i >= 0; i--)
+            {
+                string guid = m_CollectionPathGUIDs[i];
+                if (string.IsNullOrEmpty(guid))
+                {
+                    isDirty = true;
+                    m_CollectionPathGUIDs.RemoveAt(i);
+                    continue;
+                }
+
+                string assetPath = AssetDatabase.GUIDToAssetPath(guid);
+                if (string.IsNullOrEmpty(assetPath))
+                {
+                    isDirty = true;
+                    m_CollectionPathGUIDs.RemoveAt(i);
+                    continue;
+                }
+
+                DefaultAsset defaultAsset = AssetDatabase.LoadAssetAtPath<DefaultAsset>(assetPath);
+                if (defaultAsset == null || !ProjectWindowUtil.IsFolder(defaultAsset.GetInstanceID()))
+                {
+                    isDirty = true;
+                    m_CollectionPathGUIDs.RemoveAt(i);
+                    continue;
+                }
+
+                bool found = false;
+                for (int j = i + 1; j < m_CollectionPathGUIDs.Count; j++)
+                {
+                    if (guid == m_CollectionPathGUIDs[j])
+                    {
+                        found = true;
+                        isDirty = true;
+                        m_CollectionPathGUIDs.RemoveAt(i);
+                        break;
+                    }
+                }
+
+                if (found)
+                {
+                    continue;
+                }
+
+                m_CollectionPaths.Add(defaultAsset);
+            }
+
+            return isDirty;
+        }
+
         private void OnPathChange()
         {
-            m_CollectionPaths = m_CollectionPaths.Distinct().ToList();
+            bool isDirty = false;
+            m_CollectionPathGUIDs.Clear();
+            for (int i = m_CollectionPaths.Count - 1; i >= 0; i--)
+            {
+                DefaultAsset defaultAsset = m_CollectionPaths[i];
+                if (defaultAsset == null || !ProjectWindowUtil.IsFolder(defaultAsset.GetInstanceID()))
+                {
+                    isDirty = true;
+                    m_CollectionPaths.RemoveAt(i);
+                    continue;
+                }
+
+                string assetPath = AssetDatabase.GetAssetPath(defaultAsset);
+                if (string.IsNullOrEmpty(assetPath))
+                {
+                    isDirty = true;
+                    m_CollectionPaths.RemoveAt(i);
+                    continue;
+                }
+
+                string guid = AssetDatabase.AssetPathToGUID(assetPath);
+                if (string.IsNullOrEmpty(guid))
+                {
+                    isDirty = true;
+                    m_CollectionPaths.RemoveAt(i);
+                    continue;
+                }
+
+                bool found = false;
+                for (int j = i + 1; j < m_CollectionPaths.Count; j++)
+                {
+                    if (defaultAsset == m_CollectionPaths[j])
+                    {
+                        found = true;
+                        isDirty = true;
+                        m_CollectionPaths.RemoveAt(i);
+                    }
+                }
+
+                if (found)
+                {
+                    continue;
+                }
+
+                m_CollectionPathGUIDs.Add(guid);
+            }
+
+            if (isDirty)
+            {
+                EditorUtility.SetDirty(this);
+                AssetDatabase.SaveAssets();
+            }
+
+            Pack();
         }
 
         [Button("RefreshCollection")]
         public void Pack()
         {
-            bool isDirty = false;
+            bool isDirty = RefreshCollectionPaths();
             m_AssetDictTemp.Clear();
             string[] searchPatterns = (string.IsNullOrEmpty(m_CollectionPatterns) ? "*.*" : m_CollectionPatterns).Split(';', ',', '|');
-            foreach (DefaultAsset pathAsset in m_CollectionPaths)
+            foreach (DefaultAsset defaultAsset in m_CollectionPaths)
             {
-                if (pathAsset == null || !ProjectWindowUtil.IsFolder(pathAsset.GetInstanceID()))
+                if (defaultAsset == null || !ProjectWindowUtil.IsFolder(defaultAsset.GetInstanceID()))
                     continue;
-                string path = AssetDatabase.GetAssetPath(pathAsset);
+                string path = AssetDatabase.GetAssetPath(defaultAsset);
                 foreach (var pattern in searchPatterns)
                 {
                     if (string.IsNullOrEmpty(pattern))
@@ -53,6 +222,8 @@ namespace UnityGameFramework.Extension
                         .Where(filePath => !filePath.EndsWith(".meta")).Select(Utility.Path.GetRegularPath).ToArray();
                     foreach (string file in files)
                     {
+                        if (m_AssetDictTemp.ContainsKey(file))
+                            continue;
                         Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>(file);
                         if (sprite != null)
                         {
@@ -97,14 +268,5 @@ namespace UnityGameFramework.Extension
             }
         }
 #endif
-        [OdinSerialize, Searchable]
-        [DictionaryDrawerSettings(KeyLabel = "Path", ValueLabel = "Object", IsReadOnly = true)]
-        private Dictionary<string, Object> m_AssetDict = new Dictionary<string, Object>();
-
-        public T GetAsset<T>(string path) where T : Object
-        {
-            m_AssetDict.TryGetValue(path, out Object obj);
-            return (T)obj;
-        }
     }
 }

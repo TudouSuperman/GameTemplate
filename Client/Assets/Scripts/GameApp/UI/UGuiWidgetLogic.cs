@@ -1,6 +1,6 @@
-﻿using CodeBind;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityGameFramework.Runtime;
+using CodeBind;
 
 namespace GameApp
 {
@@ -8,34 +8,34 @@ namespace GameApp
     [DisallowMultipleComponent]
     public abstract class UGuiWidgetLogic : MonoBehaviour
     {
-        private UIForm m_UIFormOwner = null;
-        private UGuiWidgetView m_UGuiWidgetView = null;
-        private Transform m_CachedTransform = null;
+        private UGuiFormLogic m_Owner;
+        private RectTransform m_CachedRectTransform = null;
+        private bool m_Initialized = false;
         private bool m_Available = false;
         private bool m_Visible = false;
-        
+
         /// <summary>
         /// 所属的界面。
         /// </summary>
-        public UIForm UIFormOwner
+        public UGuiFormLogic Owner
         {
             get
             {
-                return m_UIFormOwner;
+                return m_Owner;
             }
         }
-        
+
         /// <summary>
-        /// 界面视图层。
+        /// 获取界面是否初始化完成。
         /// </summary>
-        public UGuiWidgetView UGuiWidgetView
+        public bool Initialized
         {
             get
             {
-                return m_UGuiWidgetView;
+                return m_Initialized;
             }
         }
-        
+
         /// <summary>
         /// 获取界面是否可用。
         /// </summary>
@@ -54,57 +54,55 @@ namespace GameApp
         {
             get
             {
-                return m_Available && m_Visible;
+                return m_Initialized && m_Visible;
             }
             set
             {
-                if (!m_Available)
+                if (!m_Initialized)
                 {
-                    Log.Warning("UGuiWidget '{0}' is not available.", this.gameObject.name);
+                    Log.Warning("UI widget '{0}' is not initialized.", this.gameObject.name);
                     return;
                 }
+
                 if (m_Visible == value)
                 {
                     return;
                 }
+
                 m_Visible = value;
                 InternalSetVisible(value);
             }
         }
 
         /// <summary>
-        /// 获取已缓存的 Transform。
+        /// 获取已缓存的 RectTransform。
         /// </summary>
-        public Transform CachedTransform
+        public RectTransform CachedRectTransform
         {
             get
             {
-                return m_CachedTransform;
+                return m_CachedRectTransform;
             }
         }
 
-        /// <summary>
-        /// 设置界面持有者。
-        /// </summary>
-        /// <param name="uiForm">持有者。</param>
-        internal void SetUIFormOwner(UIForm uiForm)
+        public virtual void SetOwner(UGuiFormLogic uGuiFormLogic)
         {
-            m_UIFormOwner = uiForm;
+            m_Owner = uGuiFormLogic;
         }
-        
+
         /// <summary>
         /// 界面初始化。
         /// </summary>
         /// <param name="userData">用户自定义数据。</param>
         protected internal virtual void OnInit(object userData)
         {
-            m_UGuiWidgetView = GetComponent<UGuiWidgetView>();
-            m_UGuiWidgetView.OnInit();
-
-            if (m_CachedTransform == null)
+            if (m_CachedRectTransform == null)
             {
-                m_CachedTransform = transform;
+                m_CachedRectTransform = GetComponent<RectTransform>();
             }
+
+            m_Initialized = true;
+            m_Visible = gameObject.activeInHierarchy;
         }
 
         /// <summary>
@@ -195,9 +193,9 @@ namespace GameApp
         /// 设置界面的可见性。
         /// </summary>
         /// <param name="visible">界面的可见性。</param>
-        protected internal virtual void InternalSetVisible(bool visible)
+        protected virtual void InternalSetVisible(bool visible)
         {
-            gameObject.SelfSetActive(visible);
+            gameObject.SetActive(visible);
         }
     }
 }

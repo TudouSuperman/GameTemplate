@@ -1,4 +1,5 @@
-﻿using GameFramework;
+﻿using UnityEngine;
+using GameFramework;
 using GameFramework.Sound;
 using UnityGameFramework.Runtime;
 
@@ -78,6 +79,34 @@ namespace GameApp
             playSoundParams.VolumeInSoundGroup = drSound.Volume;
             playSoundParams.SpatialBlend = drSound.SpatialBlend;
             return soundComponent.PlaySound(drAsset.AssetPath, drSoundGroup.GroupName, Constant.AssetPriority.Sound_Asset, playSoundParams, bindingEntity != null ? bindingEntity.Entity : null, userData);
+        }
+
+        public static int? PlaySound(this SoundComponent soundComponent, int soundId, Vector3 worldPosition, object userData = null)
+        {
+            DRSound drSound = GameEntry.DataTable.GetDataRow<DRSound>(soundId);
+            if (drSound == null)
+            {
+                return null;
+            }
+
+            DRSoundGroup drSoundGroup = GameEntry.DataTable.GetDataRow<DRSoundGroup>(drSound.GroupId);
+            if (drSoundGroup == null)
+            {
+                return null;
+            }
+
+            DRAsset drAsset = GameEntry.DataTable.GetDataRow<DRAsset>(drSound.AssetId);
+            if (drAsset == null)
+            {
+                return null;
+            }
+
+            PlaySoundParams playSoundParams = PlaySoundParams.Create();
+            playSoundParams.Priority = drSound.Priority;
+            playSoundParams.Loop = drSound.Loop;
+            playSoundParams.VolumeInSoundGroup = drSound.Volume;
+            playSoundParams.SpatialBlend = drSound.SpatialBlend;
+            return soundComponent.PlaySound(drAsset.AssetPath, drSoundGroup.GroupName, Constant.AssetPriority.Sound_Asset, playSoundParams, worldPosition, userData);
         }
 
         public static int? PlayUISound(this SoundComponent soundComponent, int uiSoundId, object userData = null)

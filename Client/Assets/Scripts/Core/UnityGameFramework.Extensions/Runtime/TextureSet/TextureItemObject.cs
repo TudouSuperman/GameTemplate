@@ -9,7 +9,8 @@ namespace UnityGameFramework.Extension
     {
         private TextureLoad m_TextureLoad;
         private ResourceComponent m_ResourceComponent;
-        public static TextureItemObject Create(string collectionPath, Texture target,TextureLoad textureLoad,ResourceComponent resourceComponent = null)
+
+        public static TextureItemObject Create(string collectionPath, Texture target, TextureLoad textureLoad, ResourceComponent resourceComponent = null)
         {
             TextureItemObject item = ReferencePool.Acquire<TextureItemObject>();
             item.Initialize(collectionPath, target);
@@ -39,18 +40,20 @@ namespace UnityGameFramework.Extension
             }
         }
     }
-    
-           
+
+
     public enum TextureLoad
     {
         /// <summary>
         /// 从文件系统
         /// </summary>
         FromFileSystem,
+
         /// <summary>
         /// 从网络
         /// </summary>
         FromNet,
+
         /// <summary>
         /// 从资源包
         /// </summary>
