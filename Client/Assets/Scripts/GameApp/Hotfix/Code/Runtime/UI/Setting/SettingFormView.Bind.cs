@@ -66,5 +66,46 @@ namespace GameApp.Hotfix
         private UnityEngine.RectTransform m_ViewNodeRectTransform;
 
 
+#if UNITY_EDITOR
+        [Sirenix.OdinInspector.HideLabel, Sirenix.OdinInspector.ReadOnly, Sirenix.OdinInspector.ShowInInspector]
+        [Sirenix.OdinInspector.GUIColor(1f, 0.8f, 0f), Sirenix.OdinInspector.PropertyOrder(-99999)]
+        [Sirenix.OdinInspector.ShowIf(nameof(CheckBindDataExitEmpty))]
+        private string BindDataExitEmptyWarning => "BindData contains empty reference, please check.";
+
+        private bool CheckBindDataExitEmpty()
+        {
+            if (this.m_BackgroundImage == null) return true;
+            if (this.m_MusicToggle == null) return true;
+            if (this.m_MusicBackgroundImage == null) return true;
+            if (this.m_MusicCheckmarkImage == null) return true;
+            if (this.m_MusicDescribeTextMeshProUGUI == null) return true;
+            if (this.m_MusicVolumeSlider == null) return true;
+            if (this.m_MusicVolumeBackgroundImage == null) return true;
+            if (this.m_MusicVolumeFilImage == null) return true;
+            if (this.m_MusicVolumeNodeRectTransform == null) return true;
+            if (this.m_OKButton == null) return true;
+            if (this.m_OKDescribeTextMeshProUGUI == null) return true;
+            if (this.m_SettingNodeVerticalLayoutGroup == null) return true;
+            if (this.m_SettingTitleTextMeshProUGUI == null) return true;
+            if (this.m_SoundToggle == null) return true;
+            if (this.m_SoundBackgroundImage == null) return true;
+            if (this.m_SoundCheckmarkImage == null) return true;
+            if (this.m_SoundDescribeTextMeshProUGUI == null) return true;
+            if (this.m_SoundVolumeSlider == null) return true;
+            if (this.m_SoundVolumeBackgroundImage == null) return true;
+            if (this.m_SoundVolumeFilImage == null) return true;
+            if (this.m_SoundVolumeNodeRectTransform == null) return true;
+            if (this.m_UISoundToggle == null) return true;
+            if (this.m_UISoundBackgroundImage == null) return true;
+            if (this.m_UISoundCheckmarkImage == null) return true;
+            if (this.m_UISoundDescribeTextMeshProUGUI == null) return true;
+            if (this.m_UISoundVolumeSlider == null) return true;
+            if (this.m_UISoundVolumeBackgroundImage == null) return true;
+            if (this.m_UISoundVolumeFilImage == null) return true;
+            if (this.m_UISoundVolumeNodeRectTransform == null) return true;
+            if (this.m_ViewNodeRectTransform == null) return true;
+            return false;
+        }
+#endif
     }
 }

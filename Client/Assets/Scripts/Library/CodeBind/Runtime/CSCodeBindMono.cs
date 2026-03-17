@@ -30,24 +30,51 @@ namespace CodeBind
         [SerializeField]
         private string[] m_BindComponentNames;
 
-        public char SeparatorChar => m_SeparatorChar;
+        public char SeparatorChar
+        {
+            get => m_SeparatorChar;
+            set => m_SeparatorChar = value;
+        }
 
-        public UnityEditor.MonoScript BindScript => m_BindScript;
+        public UnityEditor.MonoScript BindScript
+        {
+            get => m_BindScript;
+            set => m_BindScript = value;
+        }
 
         public string[] BindComponentNames => m_BindComponentNames;
 
         public void SetBindComponents(string[] names, UnityEngine.Object[] components)
         {
-            if (names == null || components == null)
+            if (names == null && components != null)
             {
-                throw new Exception("Name and Component cant be null!");
+                throw new ArgumentException("Names cannot be null when components are provided!");
             }
-            if (names.Length != components.Length)
+            if (names != null && components == null)
             {
-                throw new Exception("Name count must be same with Component count!");
+                throw new ArgumentException("Components cannot be null when names are provided!");
+            }
+            if (names != null && components != null && names.Length != components.Length)
+            {
+                throw new ArgumentException("Name count must be same with component count!");
             }
             m_BindComponentNames = names;
             m_BindComponents = components;
+        }
+
+        public bool CheckBindDataExitEmpty()
+        {
+            if (m_BindComponents != null)
+            {
+                for (int i = 0; i < m_BindComponents.Length; i++)
+                {
+                    if (m_BindComponents[i] == null)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 #endif
 
@@ -56,7 +83,7 @@ namespace CodeBind
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public T GetCSCodeBindObject<T>() where T : ICSCodeBind, new()
+        public T GetCSCodeBindObject<T>() where T : class, ICSCodeBind, new()
         {
 #if UNITY_EDITOR
             Type bindType = m_BindScript.GetClass();

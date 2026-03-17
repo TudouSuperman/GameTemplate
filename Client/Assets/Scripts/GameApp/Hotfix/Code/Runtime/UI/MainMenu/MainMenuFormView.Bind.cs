@@ -24,5 +24,25 @@ namespace GameApp.Hotfix
         private TMPro.TextMeshProUGUI m_SettingDescribeTextMeshProUGUI;
 
 
+#if UNITY_EDITOR
+        [Sirenix.OdinInspector.HideLabel, Sirenix.OdinInspector.ReadOnly, Sirenix.OdinInspector.ShowInInspector]
+        [Sirenix.OdinInspector.GUIColor(1f, 0.8f, 0f), Sirenix.OdinInspector.PropertyOrder(-99999)]
+        [Sirenix.OdinInspector.ShowIf(nameof(CheckBindDataExitEmpty))]
+        private string BindDataExitEmptyWarning => "BindData contains empty reference, please check.";
+
+        private bool CheckBindDataExitEmpty()
+        {
+            if (this.m_BackgroundImage == null) return true;
+            if (this.m_ExitGameButton == null) return true;
+            if (this.m_ExitGameDescribeTextMeshProUGUI == null) return true;
+            if (this.m_LanguageButton == null) return true;
+            if (this.m_LanguageDescribeTextMeshProUGUI == null) return true;
+            if (this.m_NewGameButton == null) return true;
+            if (this.m_NewGameDescribeTextMeshProUGUI == null) return true;
+            if (this.m_SettingButton == null) return true;
+            if (this.m_SettingDescribeTextMeshProUGUI == null) return true;
+            return false;
+        }
+#endif
     }
 }

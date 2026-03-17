@@ -24,20 +24,53 @@ namespace CodeBind
         [SerializeField]
         private char m_SeparatorChar;
 
-        public char SeparatorChar => m_SeparatorChar;
+        public char SeparatorChar
+        {
+            get => m_SeparatorChar;
+            set => m_SeparatorChar = value;
+        }
 
         public void SetAutoBindComponents(string[] names, UnityEngine.Object[] components)
         {
-            if (names == null || components == null)
+            if (names == null && components != null)
             {
-                throw new Exception("Name and Component cant be null!");
+                throw new ArgumentException("Names cannot be null when components are provided!");
             }
-            if (names.Length != components.Length)
+            if (names != null && components == null)
             {
-                throw new Exception("Name count must be same with Component count!");
+                throw new ArgumentException("Components cannot be null when names are provided!");
+            }
+            if (names != null && components != null && names.Length != components.Length)
+            {
+                throw new ArgumentException("Name count must be same with component count!");
             }
             m_AutoBindComponentNames = names;
             m_AutoBindComponents = components;
+        }
+
+        public bool CheckBindDataExitEmpty()
+        {
+            if (m_BindGameObjects != null)
+            {
+                for (int i = 0; i < m_BindGameObjects.Length; i++)
+                {
+                    if (m_BindGameObjects[i] == null)
+                    {
+                        return true;
+                    }
+                }
+            }
+            if (m_AutoBindComponents != null)
+            {
+                for (int i = 0; i < m_AutoBindComponents.Length; i++)
+                {
+                    if (m_AutoBindComponents[i] == null)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 #endif
 

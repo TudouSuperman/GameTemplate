@@ -36,5 +36,31 @@ namespace GameApp.Hotfix
         private UnityEngine.RectTransform m_ViewNodeRectTransform;
 
 
+#if UNITY_EDITOR
+        [Sirenix.OdinInspector.HideLabel, Sirenix.OdinInspector.ReadOnly, Sirenix.OdinInspector.ShowInInspector]
+        [Sirenix.OdinInspector.GUIColor(1f, 0.8f, 0f), Sirenix.OdinInspector.PropertyOrder(-99999)]
+        [Sirenix.OdinInspector.ShowIf(nameof(CheckBindDataExitEmpty))]
+        private string BindDataExitEmptyWarning => "BindData contains empty reference, please check.";
+
+        private bool CheckBindDataExitEmpty()
+        {
+            if (this.m_BackgroundImage == null) return true;
+            if (this.m_CancelButton == null) return true;
+            if (this.m_CancelDescribeTextMeshProUGUI == null) return true;
+            if (this.m_CancelNodeRectTransform == null) return true;
+            if (this.m_ConfirmButton == null) return true;
+            if (this.m_ConfirmDescribeTextMeshProUGUI == null) return true;
+            if (this.m_ConfirmNodeRectTransform == null) return true;
+            if (this.m_MessageTextMeshProUGUI == null) return true;
+            if (this.m_ModeNodeHorizontalLayoutGroup == null) return true;
+            if (this.m_OtherButton == null) return true;
+            if (this.m_OtherDescribeTextMeshProUGUI == null) return true;
+            if (this.m_OtherNodeRectTransform == null) return true;
+            if (this.m_TitleTextMeshProUGUI == null) return true;
+            if (this.m_TitleBackgroundImage == null) return true;
+            if (this.m_ViewNodeRectTransform == null) return true;
+            return false;
+        }
+#endif
     }
 }

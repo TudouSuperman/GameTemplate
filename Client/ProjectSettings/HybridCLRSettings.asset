@@ -43,7 +43,6 @@ MonoBehaviour:
   - UnityGameFramework.Extension
   - UniTask
   - UniTask.Extension
-  - UnityUIExtensions
   - UnityWebSocket.Runtime
   - CodeBind
   - ZString

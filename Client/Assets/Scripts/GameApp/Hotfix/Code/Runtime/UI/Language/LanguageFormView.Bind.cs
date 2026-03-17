@@ -40,5 +40,33 @@ namespace GameApp.Hotfix
         private UnityEngine.RectTransform m_ViewNodeRectTransform;
 
 
+#if UNITY_EDITOR
+        [Sirenix.OdinInspector.HideLabel, Sirenix.OdinInspector.ReadOnly, Sirenix.OdinInspector.ShowInInspector]
+        [Sirenix.OdinInspector.GUIColor(1f, 0.8f, 0f), Sirenix.OdinInspector.PropertyOrder(-99999)]
+        [Sirenix.OdinInspector.ShowIf(nameof(CheckBindDataExitEmpty))]
+        private string BindDataExitEmptyWarning => "BindData contains empty reference, please check.";
+
+        private bool CheckBindDataExitEmpty()
+        {
+            if (this.m_BackgroundImage == null) return true;
+            if (this.m_ChineseToggle == null) return true;
+            if (this.m_ChineseBackgroundImage == null) return true;
+            if (this.m_ChineseCheckmarkImage == null) return true;
+            if (this.m_ChineseLabelTextMeshProUGUI == null) return true;
+            if (this.m_ChineseNodeRectTransform == null) return true;
+            if (this.m_EnglishToggle == null) return true;
+            if (this.m_EnglishBackgroundImage == null) return true;
+            if (this.m_EnglishCheckmarkImage == null) return true;
+            if (this.m_EnglishLabelTextMeshProUGUI == null) return true;
+            if (this.m_EnglishNodeRectTransform == null) return true;
+            if (this.m_LanguageNodeToggleGroup == null) return true;
+            if (this.m_LanguageNodeVerticalLayoutGroup == null) return true;
+            if (this.m_LanguageTitleTextMeshProUGUI == null) return true;
+            if (this.m_OKButton == null) return true;
+            if (this.m_OKDescribeTextMeshProUGUI == null) return true;
+            if (this.m_ViewNodeRectTransform == null) return true;
+            return false;
+        }
+#endif
     }
 }

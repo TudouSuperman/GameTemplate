@@ -80,6 +80,29 @@ namespace CodeBind.Editor
                 }
             }
 #endif
+            //CheckBindDataExitEmpty方法
+            stringBuilder.AppendLine("#if UNITY_EDITOR");
+            stringBuilder.AppendLine($"{indentation}\t[Sirenix.OdinInspector.HideLabel, Sirenix.OdinInspector.ReadOnly, Sirenix.OdinInspector.ShowInInspector]");
+            stringBuilder.AppendLine($"{indentation}\t[Sirenix.OdinInspector.GUIColor(1f, 0.8f, 0f), Sirenix.OdinInspector.PropertyOrder(-99999)]");
+            stringBuilder.AppendLine($"{indentation}\t[Sirenix.OdinInspector.ShowIf(nameof(CheckBindDataExitEmpty))]");
+            stringBuilder.AppendLine($"{indentation}\tprivate string BindDataExitEmptyWarning => \"BindData contains empty reference, please check.\";");
+            stringBuilder.AppendLine("");
+            stringBuilder.AppendLine($"{indentation}\tprivate bool CheckBindDataExitEmpty()");
+            stringBuilder.AppendLine($"{indentation}\t{{");
+            foreach (CodeBindData bindData in bindDatas)
+            {
+                stringBuilder.AppendLine($"{indentation}\t\tif (this.m_{bindData.BindName}{bindData.BindPrefix} == null) return true;");
+            }
+            foreach (KeyValuePair<string, List<CodeBindData>> kv in bindArrayDataDict)
+            {
+                stringBuilder.AppendLine($"{indentation}\t\tif (this.m_{kv.Key}Array == null || this.m_{kv.Key}Array.Length == 0) return true;");
+                stringBuilder.AppendLine($"{indentation}\t\tfor (int i = 0; i < this.m_{kv.Key}Array.Length; i++)");
+                stringBuilder.AppendLine($"{indentation}\t\t\tif (this.m_{kv.Key}Array[i] == null) return true;");
+            }
+            stringBuilder.AppendLine($"{indentation}\t\treturn false;");
+            stringBuilder.AppendLine($"{indentation}\t}}");
+            stringBuilder.AppendLine("#endif");
+
             stringBuilder.AppendLine($"{indentation}}}");
             if (needNameSpace)
             {
