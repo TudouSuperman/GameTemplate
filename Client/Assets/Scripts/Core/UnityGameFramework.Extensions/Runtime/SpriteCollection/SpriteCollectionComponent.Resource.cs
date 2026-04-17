@@ -24,14 +24,14 @@ namespace UnityGameFramework.Extension
         {
             ISetSpriteObject setSpriteObject = (ISetSpriteObject)userdata;
             m_SpriteCollectionBeingLoaded.Remove(setSpriteObject.CollectionPath);
-            if (m_WaitSetObjects.TryGetValue(setSpriteObject.CollectionPath, out HashSet<ISetSpriteObject> awaitSets))
+            if (m_WaitSetObjects.Remove(setSpriteObject.CollectionPath, out UGFHashSet<ISetSpriteObject> awaitSets))
             {
                 foreach (var awaitSet in awaitSets)
                 {
                     ReferencePool.Release(awaitSet);
                 }
 
-                awaitSets.Clear();
+                awaitSets.Dispose();
             }
 
             Log.Error("Can not load SpriteCollection from '{0}' with error message '{1}'.", assetName, errormessage);
@@ -44,19 +44,16 @@ namespace UnityGameFramework.Extension
             m_SpriteCollectionPool.Register(SpriteCollectionItemObject.Create(setSpriteObject.CollectionPath, collection, m_ResourceComponent), false);
             m_SpriteCollectionBeingLoaded.Remove(setSpriteObject.CollectionPath);
 
-            if (m_WaitSetObjects.TryGetValue(setSpriteObject.CollectionPath, out HashSet<ISetSpriteObject> awaitSets))
+            if (m_WaitSetObjects.Remove(setSpriteObject.CollectionPath, out UGFHashSet<ISetSpriteObject> awaitSets))
             {
-                if (awaitSets.Count > 0)
+                foreach (ISetSpriteObject awaitSet in awaitSets)
                 {
-                    foreach (ISetSpriteObject awaitSet in awaitSets)
-                    {
-                        m_SpriteCollectionPool.Spawn(setSpriteObject.CollectionPath);
-                        awaitSet.SetSprite(collection.GetSprite(awaitSet.SpritePath));
-                        m_LoadedSpriteObjectsLinkedList.AddLast(LoadSpriteObject.Create(awaitSet, collection));
-                    }
-
-                    awaitSets.Clear();
+                    m_SpriteCollectionPool.Spawn(setSpriteObject.CollectionPath);
+                    awaitSet.SetSprite(collection.GetSprite(awaitSet.SpritePath));
+                    m_LoadedSpriteObjectsLinkedList.AddLast(LoadSpriteObject.Create(awaitSet, collection));
                 }
+
+                awaitSets.Dispose();
             }
         }
 
@@ -76,7 +73,7 @@ namespace UnityGameFramework.Extension
 
             if (!m_WaitSetObjects.TryGetValue(setSpriteObject.CollectionPath, out var loadSp))
             {
-                loadSp = new HashSet<ISetSpriteObject>();
+                loadSp = UGFHashSet<ISetSpriteObject>.Create();
                 m_WaitSetObjects.Add(setSpriteObject.CollectionPath, loadSp);
             }
 

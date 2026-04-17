@@ -1,7 +1,7 @@
 using System.IO;
-using Cysharp.Threading.Tasks;
 using UnityEngine.UI;
 using UnityGameFramework.Extension;
+using Cysharp.Threading.Tasks;
 
 namespace GameApp
 {
@@ -15,7 +15,9 @@ namespace GameApp
         /// <param name="spritePath">精灵名称。</param>
         public static UniTask SetSpriteAsync(this Image image, string collectionPath, string spritePath)
         {
-            return GameEntry.SpriteCollection.SetSpriteAsync(WaitSetImage.Create(image, collectionPath, spritePath));
+            AutoResetUniTaskCompletionSource tcs = AutoResetUniTaskCompletionSource.Create();
+            GameEntry.SpriteCollection.SetSprite(WaitableSetImage.Create(image, collectionPath, spritePath, tcs));
+            return tcs.Task;
         }
 
         /// <summary>
@@ -25,7 +27,9 @@ namespace GameApp
         /// <param name="spritePath">精灵名称。</param>
         public static UniTask SetSpriteAsync(this Image image, string spritePath)
         {
-            return GameEntry.SpriteCollection.SetSpriteAsync(WaitSetImage.Create(image, Path.ChangeExtension(spritePath, ".asset"), spritePath));
+            AutoResetUniTaskCompletionSource tcs = AutoResetUniTaskCompletionSource.Create();
+            GameEntry.SpriteCollection.SetSprite(WaitableSetImage.Create(image, Path.ChangeExtension(spritePath, ".asset"), spritePath, tcs));
+            return tcs.Task;
         }
 
         /// <summary>

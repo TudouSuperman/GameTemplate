@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 namespace GameApp
 {
     /// <summary>
-    /// UI指针事件穿透工具类。
+    /// UI 指针事件穿透工具类。
     /// </summary>
     public static class PointerThroughUtility
     {
@@ -24,25 +24,31 @@ namespace GameApp
 
             s_RaycastResults.Clear();
             EventSystem.current.RaycastAll(eventData, s_RaycastResults);
-            var raycastTarget = eventData.pointerCurrentRaycast.gameObject;
-            if (raycastTarget == null)
+            var raycast = eventData.pointerCurrentRaycast.gameObject;
+            if (raycast == null)
             {
-                raycastTarget = current;
+                raycast = current;
             }
 
             bool isAfterSelf = false;
             foreach (var result in s_RaycastResults)
             {
-                if (!isAfterSelf && raycastTarget == result.gameObject)
+                var resultGameObject = result.gameObject;
+                if (!isAfterSelf && raycast == resultGameObject)
                 {
                     isAfterSelf = true;
                     continue;
                 }
 
-                if (isAfterSelf && !raycastTarget.transform.IsChildOf(result.gameObject.transform) && !result.gameObject.transform.IsChildOf(raycastTarget.transform))
+                if (isAfterSelf)
                 {
-                    target = result.gameObject;
-                    break;
+                    var resultTransform = resultGameObject.transform;
+                    var raycastTransform = raycast.transform;
+                    if (!raycastTransform.IsChildOf(resultTransform) && !resultTransform.IsChildOf(raycastTransform))
+                    {
+                        target = resultGameObject;
+                        break;
+                    }
                 }
             }
 

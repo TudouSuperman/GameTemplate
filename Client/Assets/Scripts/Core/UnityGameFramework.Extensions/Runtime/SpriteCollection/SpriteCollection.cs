@@ -140,6 +140,7 @@ namespace UnityGameFramework.Extension
                 m_CollectionObjects.Add(collectionObject);
             }
 
+            m_CollectionObjects.Reverse();
             return isDirty;
         }
 

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
+using UnityEngine;
 using GameFramework;
 using GameFramework.Resource;
-using UnityEngine;
 using UnityGameFramework.Runtime;
 
 namespace UnityGameFramework.Extension
@@ -26,14 +26,14 @@ namespace UnityGameFramework.Extension
             ResourceData resourceData = (ResourceData)userdata;
             string texturePath = resourceData.SetTexture2dObject.Texture2dFilePath;
             m_TextureBeingLoaded.Remove(texturePath);
-            if (m_WaitSetObjects.TryGetValue(texturePath, out HashSet<ISetTexture2dObject> awaitSets))
+            if (m_WaitSetObjects.Remove(texturePath, out UGFHashSet<ISetTexture2dObject> awaitSets))
             {
                 foreach (var awaitSet in awaitSets)
                 {
                     ReferencePool.Release(awaitSet);
                 }
 
-                awaitSets.Clear();
+                awaitSets.Dispose();
             }
 
             ReferencePool.Release(resourceData);
@@ -49,8 +49,7 @@ namespace UnityGameFramework.Extension
                 string texturePath = resourceData.SetTexture2dObject.Texture2dFilePath;
                 m_TexturePool.Register(TextureItemObject.Create(texturePath, texture, TextureLoad.FromResource, m_ResourceComponent), false);
                 m_TextureBeingLoaded.Remove(texturePath);
-
-                if (m_WaitSetObjects.TryGetValue(texturePath, out HashSet<ISetTexture2dObject> awaitSets))
+                if (m_WaitSetObjects.Remove(texturePath, out UGFHashSet<ISetTexture2dObject> awaitSets))
                 {
                     foreach (ISetTexture2dObject awaitSet in awaitSets)
                     {
@@ -58,7 +57,7 @@ namespace UnityGameFramework.Extension
                         SetTexture(awaitSet, texture);
                     }
 
-                    awaitSets.Clear();
+                    awaitSets.Dispose();
                 }
             }
             else
@@ -85,7 +84,7 @@ namespace UnityGameFramework.Extension
 
             if (!m_WaitSetObjects.TryGetValue(texturePath, out var awaitSets))
             {
-                awaitSets = new HashSet<ISetTexture2dObject>();
+                awaitSets = UGFHashSet<ISetTexture2dObject>.Create();
                 m_WaitSetObjects.Add(texturePath, awaitSets);
             }
 

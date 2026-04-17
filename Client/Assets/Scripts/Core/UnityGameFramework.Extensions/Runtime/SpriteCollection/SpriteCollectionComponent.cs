@@ -14,7 +14,7 @@ namespace UnityGameFramework.Extension
         /// 散图集合对象池
         /// </summary>
         private IObjectPool<SpriteCollectionItemObject> m_SpriteCollectionPool;
-
+        
         /// <summary>
         /// 检查是否可以释放间隔
         /// </summary>
@@ -50,8 +50,7 @@ namespace UnityGameFramework.Extension
         private float m_CheckCanReleaseTime = 0.0f;
 
         private HashSet<string> m_SpriteCollectionBeingLoaded;
-        private Dictionary<string, HashSet<ISetSpriteObject>> m_WaitSetObjects;
-        private Dictionary<string, AutoResetUniTaskCompletionSource<bool>> m_SpriteCollectionLoadingTcs;
+        private Dictionary<string, UGFHashSet<ISetSpriteObject>> m_WaitSetObjects;
 
         /// <summary>
         /// 对象池容量
@@ -89,12 +88,11 @@ namespace UnityGameFramework.Extension
             m_SpriteCollectionPool = objectPoolComponent.CreateMultiSpawnObjectPool<SpriteCollectionItemObject>("SpriteCollection", m_AutoReleaseInterval, m_PoolCapacity, m_PoolExpireTime, 0);
             m_LoadedSpriteObjectsLinkedList = new LinkedList<LoadSpriteObject>();
             m_SpriteCollectionBeingLoaded = new HashSet<string>();
-            m_WaitSetObjects = new Dictionary<string, HashSet<ISetSpriteObject>>();
-            m_SpriteCollectionLoadingTcs = new Dictionary<string, AutoResetUniTaskCompletionSource<bool>>();
+            m_WaitSetObjects = new Dictionary<string, UGFHashSet<ISetSpriteObject>>();
 
             InitializedResources();
         }
-
+        
         private void Update()
         {
             m_CheckCanReleaseTime += Time.unscaledDeltaTime;
@@ -102,7 +100,6 @@ namespace UnityGameFramework.Extension
                 return;
             ReleaseUnused();
         }
-
         /// <summary>
         /// 回收无引用的 Image 对应图集。
         /// </summary>
@@ -122,20 +119,24 @@ namespace UnityGameFramework.Extension
                     m_LoadedSpriteObjectsLinkedList.Remove(current);
                     ReferencePool.Release(current.Value);
                 }
-
                 current = next;
             }
-
             m_CheckCanReleaseTime = 0;
         }
 
         public void RemoveLoadingSetSprite(ISetSpriteObject setSpriteObject)
         {
-            if (m_WaitSetObjects.TryGetValue(setSpriteObject.CollectionPath, out HashSet<ISetSpriteObject> awaitSets))
+            if (m_WaitSetObjects.TryGetValue(setSpriteObject.CollectionPath, out UGFHashSet<ISetSpriteObject> awaitSets))
             {
                 if (awaitSets.Remove(setSpriteObject))
                 {
                     ReferencePool.Release(setSpriteObject);
+                }
+
+                if (awaitSets.Count == 0)
+                {
+                    m_WaitSetObjects.Remove(setSpriteObject.CollectionPath);
+                    awaitSets.Dispose();
                 }
             }
         }
@@ -148,9 +149,9 @@ namespace UnityGameFramework.Extension
                 {
                     ReferencePool.Release(awaitSet);
                 }
-
-                awaitSets.Clear();
+                awaitSets.Dispose();
             }
+            m_WaitSetObjects.Clear();
         }
     }
 }

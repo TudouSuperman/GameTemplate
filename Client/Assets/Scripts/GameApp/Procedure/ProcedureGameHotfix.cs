@@ -15,10 +15,7 @@ namespace GameApp
 
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
         {
-            if (!isShutdown)
-            {
-                GameEntry.CodeRunner.StopRun();
-            }
+            GameEntry.CodeRunner.StopRun();
             
             base.OnLeave(procedureOwner, isShutdown);
         }
