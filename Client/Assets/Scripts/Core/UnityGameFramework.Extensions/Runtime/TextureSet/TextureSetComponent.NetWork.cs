@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using GameFramework;
 using GameFramework.Event;
@@ -99,7 +98,9 @@ namespace UnityGameFramework.Extension
                 SaveTexture(webGetTextureData.FilePath, bytes);
             }
 
-            m_TexturePool.Register(TextureItemObject.Create(texturePath, tex, TextureLoad.FromNet), false);
+            TextureItemObject textureItemObject = TextureItemObject.Create(texturePath, tex, TextureLoad.FromNet);
+            textureItemObject.Locked = true;
+            m_TexturePool.Register(textureItemObject, false);
             m_TextureBeingLoaded.Remove(texturePath);
 
             if (m_WaitSetObjects.Remove(texturePath, out UGFHashSet<ISetTexture2dObject> awaitSets))
@@ -113,6 +114,7 @@ namespace UnityGameFramework.Extension
                 awaitSets.Dispose();
             }
 
+            textureItemObject.Locked = false;
             ReferencePool.Release(webGetTextureData);
         }
     }

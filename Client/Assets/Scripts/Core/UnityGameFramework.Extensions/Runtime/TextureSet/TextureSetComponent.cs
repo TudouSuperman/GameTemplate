@@ -4,7 +4,6 @@ using UnityEngine;
 using GameFramework;
 using GameFramework.ObjectPool;
 using UnityGameFramework.Runtime;
-using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 
 namespace UnityGameFramework.Extension
@@ -130,11 +129,12 @@ namespace UnityGameFramework.Extension
             while (current != null)
             {
                 var next = current.Next;
-                if (current.Value.Texture2dObject.IsCanRelease())
+                var value = current.Value;
+                if (value.Texture2dObject.IsCanRelease())
                 {
-                    m_TexturePool.Unspawn(current.Value.Texture2D);
-                    ReferencePool.Release(current.Value.Texture2dObject);
-                    ReferencePool.Release(current.Value);
+                    m_TexturePool.Unspawn(value.Texture2D);
+                    ReferencePool.Release(value.Texture2dObject);
+                    ReferencePool.Release(value);
                     m_LoadTextureObjectsLinkedList.Remove(current);
                 }
 

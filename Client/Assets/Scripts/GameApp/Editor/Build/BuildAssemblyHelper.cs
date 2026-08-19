@@ -1,10 +1,9 @@
-using System;
 using System.IO;
 using System.Threading;
-using GameFramework;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.Build.Player;
+using GameFramework;
 using UnityGameFramework.Editor.ResourceTools;
 using UnityGameFramework.Extension.Editor;
 
@@ -14,13 +13,6 @@ namespace GameApp.Editor
     {
         public static string ExternalHotfixAssemblyDir => "./Temp/HybridCLRBin";
         public static string BuildOutputDir => "./HybridCLRData/HotfixDlls";
-        private static SynchronizationContext s_UnitySynchronizationContext;
-
-        [InitializeOnLoadMethod]
-        static void Initialize()
-        {
-            s_UnitySynchronizationContext = SynchronizationContext.Current;
-        }
 
         public static string GetBuildTargetDir(BuildTarget target)
         {
@@ -31,39 +23,19 @@ namespace GameApp.Editor
         {
             //防止编辑器关闭了Auto Refresh
             AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
-            SynchronizationContext lastSynchronizationContext = null;
-            if (Application.isPlaying) //运行时编译需要UnitySynchronizationContext
-            {
-                lastSynchronizationContext = SynchronizationContext.Current;
-                SynchronizationContext.SetSynchronizationContext(s_UnitySynchronizationContext);
-            }
-            else
-            {
-                SynchronizationContext.SetSynchronizationContext(s_UnitySynchronizationContext);
-            }
-            try
-            {
-                string outDir = GetBuildTargetDir(target);
-                Directory.CreateDirectory(outDir);
-                BuildTargetGroup group = BuildPipeline.GetBuildTargetGroup(target);
-                ScriptCompilationSettings scriptCompilationSettings = new ScriptCompilationSettings();
-                scriptCompilationSettings.group = group;
-                scriptCompilationSettings.target = target;
-                scriptCompilationSettings.extraScriptingDefines = extraScriptingDefines;
-                scriptCompilationSettings.options = options;
-                PlayerBuildInterface.CompilePlayerScripts(scriptCompilationSettings, outDir);
+            string outDir = GetBuildTargetDir(target);
+            Directory.CreateDirectory(outDir);
+            BuildTargetGroup group = BuildPipeline.GetBuildTargetGroup(target);
+            ScriptCompilationSettings scriptCompilationSettings = new ScriptCompilationSettings();
+            scriptCompilationSettings.group = group;
+            scriptCompilationSettings.target = target;
+            scriptCompilationSettings.extraScriptingDefines = extraScriptingDefines;
+            scriptCompilationSettings.options = options;
+            PlayerBuildInterface.CompilePlayerScripts(scriptCompilationSettings, outDir);
 #if UNITY_2022
-                EditorUtility.ClearProgressBar();
+            EditorUtility.ClearProgressBar();
 #endif
-                Debug.Log("compile finish!!!");
-            }
-            finally
-            {
-                if (Application.isPlaying && lastSynchronizationContext != null)
-                {
-                    SynchronizationContext.SetSynchronizationContext(lastSynchronizationContext);
-                }
-            }
+            Debug.Log("compile finish!!!");
         }
 
         public static void CopyHotfixDlls(BuildTarget target, string desDir, string[] dllNames)

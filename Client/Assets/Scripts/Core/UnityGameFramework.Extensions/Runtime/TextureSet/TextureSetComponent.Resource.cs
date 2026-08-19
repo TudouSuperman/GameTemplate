@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using GameFramework;
 using GameFramework.Resource;
@@ -47,8 +46,11 @@ namespace UnityGameFramework.Extension
             if (texture != null)
             {
                 string texturePath = resourceData.SetTexture2dObject.Texture2dFilePath;
-                m_TexturePool.Register(TextureItemObject.Create(texturePath, texture, TextureLoad.FromResource, m_ResourceComponent), false);
+                var textureItemObject = TextureItemObject.Create(texturePath, texture, TextureLoad.FromResource, m_ResourceComponent);
+                textureItemObject.Locked = true;
+                m_TexturePool.Register(textureItemObject, false);
                 m_TextureBeingLoaded.Remove(texturePath);
+
                 if (m_WaitSetObjects.Remove(texturePath, out UGFHashSet<ISetTexture2dObject> awaitSets))
                 {
                     foreach (ISetTexture2dObject awaitSet in awaitSets)
@@ -59,6 +61,8 @@ namespace UnityGameFramework.Extension
 
                     awaitSets.Dispose();
                 }
+
+                textureItemObject.Locked = false;
             }
             else
             {

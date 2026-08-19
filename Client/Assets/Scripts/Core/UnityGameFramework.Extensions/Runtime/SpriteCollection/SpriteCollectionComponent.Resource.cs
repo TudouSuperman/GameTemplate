@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using GameFramework;
 using GameFramework.Resource;
 using UnityGameFramework.Runtime;
@@ -23,8 +22,9 @@ namespace UnityGameFramework.Extension
         private void OnLoadAssetFailure(string assetName, LoadResourceStatus status, string errormessage, object userdata)
         {
             ISetSpriteObject setSpriteObject = (ISetSpriteObject)userdata;
-            m_SpriteCollectionBeingLoaded.Remove(setSpriteObject.CollectionPath);
-            if (m_WaitSetObjects.Remove(setSpriteObject.CollectionPath, out UGFHashSet<ISetSpriteObject> awaitSets))
+            string collectionPath = setSpriteObject.CollectionPath;
+            m_SpriteCollectionBeingLoaded.Remove(collectionPath);
+            if (m_WaitSetObjects.Remove(collectionPath, out UGFHashSet<ISetSpriteObject> awaitSets))
             {
                 foreach (var awaitSet in awaitSets)
                 {
@@ -41,20 +41,30 @@ namespace UnityGameFramework.Extension
         {
             ISetSpriteObject setSpriteObject = (ISetSpriteObject)userdata;
             SpriteCollection collection = (SpriteCollection)asset;
-            m_SpriteCollectionPool.Register(SpriteCollectionItemObject.Create(setSpriteObject.CollectionPath, collection, m_ResourceComponent), false);
-            m_SpriteCollectionBeingLoaded.Remove(setSpriteObject.CollectionPath);
+            string collectionPath = setSpriteObject.CollectionPath;
 
-            if (m_WaitSetObjects.Remove(setSpriteObject.CollectionPath, out UGFHashSet<ISetSpriteObject> awaitSets))
+            var spriteCollectionItemObject = SpriteCollectionItemObject.Create(collectionPath, collection, m_ResourceComponent);
+            spriteCollectionItemObject.Locked = true; //防止 Register 时被对象池自动释放
+            m_SpriteCollectionPool.Register(spriteCollectionItemObject, false);
+            m_SpriteCollectionBeingLoaded.Remove(collectionPath);
+
+            if (m_WaitSetObjects.Remove(collectionPath, out UGFHashSet<ISetSpriteObject> awaitSets))
             {
                 foreach (ISetSpriteObject awaitSet in awaitSets)
                 {
-                    m_SpriteCollectionPool.Spawn(setSpriteObject.CollectionPath);
+                    if (m_SpriteCollectionPool.Spawn(collectionPath) == null)
+                    {
+                        throw new GameFrameworkException(Utility.Text.Format("Can not spawn SpriteCollectionItemObject for '{0}' from pool.", collectionPath));
+                    }
+
                     awaitSet.SetSprite(collection.GetSprite(awaitSet.SpritePath));
                     m_LoadedSpriteObjectsLinkedList.AddLast(LoadSpriteObject.Create(awaitSet, collection));
                 }
 
                 awaitSets.Dispose();
             }
+
+            spriteCollectionItemObject.Locked = false;
         }
 
         /// <summary>
@@ -63,28 +73,29 @@ namespace UnityGameFramework.Extension
         /// <param name="setSpriteObject">需要设置精灵的对象</param>
         public void SetSprite(ISetSpriteObject setSpriteObject)
         {
-            if (m_SpriteCollectionPool.CanSpawn(setSpriteObject.CollectionPath))
+            string collectionPath = setSpriteObject.CollectionPath;
+            if (m_SpriteCollectionPool.CanSpawn(collectionPath))
             {
-                SpriteCollection collectionItem = (SpriteCollection)m_SpriteCollectionPool.Spawn(setSpriteObject.CollectionPath).Target;
+                SpriteCollection collectionItem = (SpriteCollection)m_SpriteCollectionPool.Spawn(collectionPath).Target;
                 setSpriteObject.SetSprite(collectionItem.GetSprite(setSpriteObject.SpritePath));
                 m_LoadedSpriteObjectsLinkedList.AddLast(LoadSpriteObject.Create(setSpriteObject, collectionItem));
                 return;
             }
 
-            if (!m_WaitSetObjects.TryGetValue(setSpriteObject.CollectionPath, out var loadSp))
+            if (!m_WaitSetObjects.TryGetValue(collectionPath, out var loadSp))
             {
                 loadSp = UGFHashSet<ISetSpriteObject>.Create();
-                m_WaitSetObjects.Add(setSpriteObject.CollectionPath, loadSp);
+                m_WaitSetObjects.Add(collectionPath, loadSp);
             }
 
             loadSp.Add(setSpriteObject);
 
-            if (!m_SpriteCollectionBeingLoaded.Add(setSpriteObject.CollectionPath))
+            if (!m_SpriteCollectionBeingLoaded.Add(collectionPath))
             {
                 return;
             }
 
-            m_ResourceComponent.LoadAsset(setSpriteObject.CollectionPath, typeof(SpriteCollection), m_LoadAssetCallbacks, setSpriteObject);
+            m_ResourceComponent.LoadAsset(collectionPath, typeof(SpriteCollection), m_LoadAssetCallbacks, setSpriteObject);
         }
     }
 }
