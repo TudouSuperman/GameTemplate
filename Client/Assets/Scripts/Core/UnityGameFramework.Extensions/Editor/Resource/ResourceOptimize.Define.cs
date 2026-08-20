@@ -1,11 +1,9 @@
-using System.Runtime.InteropServices;
-
 namespace UnityGameFramework.Extension.Editor
 {
     public sealed partial class ResourceOptimize
     {
-        private class ABInfo {
-
+        private class ABInfo
+        {
             private readonly string m_Name;
             private readonly long m_Size;
             private readonly int m_ReferenceCount;
@@ -13,7 +11,7 @@ namespace UnityGameFramework.Extension.Editor
             public string Name => m_Name;
             public long Size => m_Size;
             public int ReferenceCount => m_ReferenceCount;
-  
+
             public ABInfo(string name, long size, int referenceCount)
             {
                 this.m_Name = name;
@@ -21,9 +19,8 @@ namespace UnityGameFramework.Extension.Editor
                 this.m_ReferenceCount = referenceCount;
             }
         }
-        
-        [StructLayout(LayoutKind.Auto)]
-        private struct Stamp
+
+        private class Stamp
         {
             private readonly string m_HostAssetName;
             private readonly string m_DependencyAssetName;
