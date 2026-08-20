@@ -287,7 +287,18 @@ namespace UnityGameFramework.Extension.Editor
                 long byteSize = GetAssetSize(assetPath);
                 if (byteSize < MAX_COMBINE_SHARE_AB_ITEM_SIZE)
                 {
-                    allCombines.Add(assetPath, new ABInfo(assetPath, byteSize, kv.Value.Count));
+                    SortedSet<string> referencingBundleNames = new SortedSet<string>(StringComparer.Ordinal);
+                    foreach (Asset asset in kv.Value)
+                    {
+                        if (asset.Resource != null)
+                        {
+                            referencingBundleNames.Add(asset.Resource.FullName);
+                        }
+                    }
+
+                    string[] names = new string[referencingBundleNames.Count];
+                    referencingBundleNames.CopyTo(names);
+                    allCombines.Add(assetPath, new ABInfo(assetPath, byteSize, kv.Value.Count, names));
                     allShareCanCombine++;
                 }
                 else

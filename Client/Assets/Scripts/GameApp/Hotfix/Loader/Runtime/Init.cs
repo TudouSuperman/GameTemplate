@@ -26,16 +26,18 @@ namespace GameApp.Hotfix
 
         private void OnDestroy()
         {
-            if (m_HotEntryGameObject != null)
+            if (this.m_HotEntryGameObject != null)
             {
-                DestroyImmediate(m_HotEntryGameObject);
-                m_HotEntryGameObject = null;
+                GameObject _hotEntryGameObject = this.m_HotEntryGameObject;
+                this.m_HotEntryGameObject = null;
+                DestroyImmediate(_hotEntryGameObject);
             }
 
-            if (m_HotEntryAsset != null)
+            if (this.m_HotEntryAsset != null)
             {
-                GameEntry.Resource.UnloadAsset(m_HotEntryAsset);
-                m_HotEntryAsset = null;
+                GameObject _hotEntryAsset = this.m_HotEntryAsset;
+                this.m_HotEntryAsset = null;
+                GameEntry.Resource.UnloadAsset(_hotEntryAsset);
             }
         }
 
