@@ -1,4 +1,3 @@
-using System;
 using GameFramework;
 using UnityGameFramework.Runtime;
 
@@ -7,7 +6,7 @@ namespace UnityGameFramework.Extension
     public static partial class Awaitable
     {
         public static bool IsValid { private set; get; }
-        
+
 #if UNITY_EDITOR
         private static bool s_IsSubscribeEvent = false;
 #endif
@@ -20,7 +19,7 @@ namespace UnityGameFramework.Extension
             {
                 throw new GameFrameworkException("Awaitable Task is not clean!");
             }
-            
+
             EventComponent eventComponent = GameEntry.GetComponent<EventComponent>();
             eventComponent.Subscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUIFormSuccess);
             eventComponent.Subscribe(OpenUIFormFailureEventArgs.EventId, OnOpenUIFormFailure);
@@ -47,7 +46,7 @@ namespace UnityGameFramework.Extension
             eventComponent.Subscribe(DownloadFailureEventArgs.EventId, OnDownloadFailure);
             eventComponent.Subscribe(DownloadStartEventArgs.EventId, OnDownloadStart);
             eventComponent.Subscribe(DownloadUpdateEventArgs.EventId, OnDownloadUpdate);
-            
+
             eventComponent.Subscribe(LoadDictionarySuccessEventArgs.EventId, OnLoadDictionarySuccess);
             eventComponent.Subscribe(LoadDictionaryFailureEventArgs.EventId, OnLoadDictionaryFailure);
             eventComponent.Subscribe(LoadDictionaryUpdateEventArgs.EventId, OnLoadDictionaryUpdate);
@@ -69,7 +68,7 @@ namespace UnityGameFramework.Extension
         {
             if (!s_IsSubscribeEvent)
             {
-                throw new Exception("Use await/async extensions must to subscribe event!");
+                throw new GameFrameworkException("Use await/async extensions must to subscribe event!");
             }
         }
 #endif

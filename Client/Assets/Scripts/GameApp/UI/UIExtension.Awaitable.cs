@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using GameFramework;
 using UnityGameFramework.Runtime;
 using UnityGameFramework.Extension;
 
@@ -8,7 +9,7 @@ namespace GameApp
 {
     public static partial class UIExtension
     {
-        public static async UniTask<UIForm> OpenUIFormAsync
+        public static UniTask<UIForm> OpenUIFormAsync
         (
             this UIComponent uiComponent,
             int uiFormId,
@@ -21,19 +22,22 @@ namespace GameApp
             DRUIForm drUIForm = GameEntry.DataTable.GetDataRow<DRUIForm>(uiFormId);
             if (drUIForm == null)
             {
-                return null;
+                string error = Utility.Text.Format("Can not load UI form '{0}' from data table.", uiFormId.ToString());
+                return UniTask.FromException<UIForm>(new GameFrameworkException(error));
             }
 
             DRUIFormGroup drUIFormGroup = GameEntry.DataTable.GetDataRow<DRUIFormGroup>(drUIForm.GroupId);
             if (drUIFormGroup == null)
             {
-                return null;
+                string error = Utility.Text.Format("Can not load UI form group '{0}' from data table.", uiFormId.ToString());
+                return UniTask.FromException<UIForm>(new GameFrameworkException(error));
             }
 
             DRAsset drAsset = GameEntry.DataTable.GetDataRow<DRAsset>(drUIForm.AssetId);
             if (drAsset == null)
             {
-                return null;
+                string error = Utility.Text.Format("Can not load Asset '{0}' from data table.", uiFormId.ToString());
+                return UniTask.FromException<UIForm>(new GameFrameworkException(error));
             }
 
             string assetName = drAsset.AssetPath;
@@ -41,16 +45,18 @@ namespace GameApp
             {
                 if (uiComponent.IsLoadingUIForm(assetName))
                 {
-                    return null;
+                    string error = Utility.Text.Format("UI form '{0}' is loading.", assetName);
+                    return UniTask.FromException<UIForm>(new GameFrameworkException(error));
                 }
 
                 if (uiComponent.HasUIForm(assetName))
                 {
-                    return null;
+                    string error = Utility.Text.Format("UI form '{0}' is already open.", assetName);
+                    return UniTask.FromException<UIForm>(new GameFrameworkException(error));
                 }
             }
 
-            return await uiComponent.OpenUIFormAsync(
+            return uiComponent.OpenUIFormAsync(
                 assetName,
                 drUIFormGroup.GroupName,
                 Constant.AssetPriority.UIForm_Asset,

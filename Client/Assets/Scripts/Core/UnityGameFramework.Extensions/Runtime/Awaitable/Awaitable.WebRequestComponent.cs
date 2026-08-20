@@ -27,6 +27,12 @@ namespace UnityGameFramework.Extension
 #if UNITY_EDITOR
             TipsSubscribeEvent();
 #endif
+            if (!IsValid)
+            {
+                // ReSharper disable once MethodSupportsCancellation
+                return UniTask.FromCanceled<WebRequestResult>();
+            }
+
             if (cancellationToken.IsCancellationRequested)
             {
                 return UniTask.FromCanceled<WebRequestResult>(cancellationToken);
@@ -44,7 +50,7 @@ namespace UnityGameFramework.Extension
             {
                 if (!IsValid)
                 {
-                    core.TrySetException(new GameFrameworkException("Awaitable is not valid."));
+                    core.TrySetCanceled();
                     return false;
                 }
 

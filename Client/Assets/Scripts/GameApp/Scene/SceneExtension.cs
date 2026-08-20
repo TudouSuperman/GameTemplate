@@ -24,6 +24,16 @@ namespace GameApp
             return sceneComponent.SceneIsLoaded(drAsset.AssetPath);
         }
 
+        public static bool SceneIsUnloading(this SceneComponent sceneComponent, int sceneId)
+        {
+            if (!TryGetTableData(sceneId, out DRScene drScene, out DRAsset drAsset))
+            {
+                return false;
+            }
+
+            return sceneComponent.SceneIsUnloading(drAsset.AssetPath);
+        }
+
         public static bool CanLoadScene(this SceneComponent sceneComponent, int sceneId)
         {
             if (!TryGetTableData(sceneId, out DRScene drScene, out DRAsset drAsset))
@@ -31,7 +41,7 @@ namespace GameApp
                 return false;
             }
 
-            return !sceneComponent.SceneIsLoading(drAsset.AssetPath) && sceneComponent.SceneIsLoaded(drAsset.AssetPath);
+            return !sceneComponent.SceneIsLoading(drAsset.AssetPath) && sceneComponent.SceneIsLoaded(drAsset.AssetPath) && !sceneComponent.SceneIsUnloading(drAsset.AssetPath);
         }
 
         public static void LoadScene(this SceneComponent sceneComponent, int sceneId, object userData = null)
