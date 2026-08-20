@@ -48,6 +48,13 @@ namespace UnityGameFramework.Extension
                     return false;
                 }
 
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    webRequestComponent.RemoveWebRequest(serialId);
+                    core.TrySetCanceled(cancellationToken);
+                    return false;
+                }
+
                 TaskInfo taskInfo = webRequestComponent.GetWebRequestInfo(serialId);
                 if (taskInfo.Status != TaskStatus.Done)
                 {
