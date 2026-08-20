@@ -160,7 +160,7 @@ namespace UnityGameFramework.Extension
                 ReferencePool.Release(loadAssetInfo);
             }
 
-            return NewUniTask<T>(MoveNext, cancellationToken, ReturnAction);
+            return NewUniTask<T>(MoveNext, ReturnAction);
         }
 
         private static void LoadAssetSuccessCallback(string _, object asset, float duration, object userData)

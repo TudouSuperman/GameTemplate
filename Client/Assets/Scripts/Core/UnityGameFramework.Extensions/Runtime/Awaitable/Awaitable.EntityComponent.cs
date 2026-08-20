@@ -111,7 +111,7 @@ namespace UnityGameFramework.Extension
                 ReferencePool.Release(eventData);
             }
 
-            return NewUniTask<Entity>(MoveNext, cancellationToken, ReturnAction);
+            return NewUniTask<Entity>(MoveNext, ReturnAction);
         }
 
         private sealed class ShowEntityEventData : IReference

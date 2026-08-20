@@ -91,7 +91,7 @@ namespace UnityGameFramework.Extension
                 ReferencePool.Release(eventData);
             }
 
-            return NewUniTask<WebRequestResult>(MoveNext, cancellationToken, ReturnAction);
+            return NewUniTask<WebRequestResult>(MoveNext, ReturnAction);
         }
 
         /// <summary>
@@ -175,7 +175,7 @@ namespace UnityGameFramework.Extension
                 ReferencePool.Release(eventData);
             }
 
-            return NewUniTask<WebRequestResult>(MoveNext, cancellationToken, ReturnAction);
+            return NewUniTask<WebRequestResult>(MoveNext, ReturnAction);
         }
 
         private sealed class WebRequestEventData : IReference

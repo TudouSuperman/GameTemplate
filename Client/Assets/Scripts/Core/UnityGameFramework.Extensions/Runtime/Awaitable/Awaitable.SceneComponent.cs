@@ -62,7 +62,7 @@ namespace UnityGameFramework.Extension
                 ReferencePool.Release(eventData);
             }
 
-            return NewUniTask<object>(MoveNext, returnAction: ReturnAction);
+            return NewUniTask<object>(MoveNext, ReturnAction);
         }
 
         /// <summary>
