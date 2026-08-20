@@ -90,6 +90,11 @@ namespace GameApp
             m_Owner = uGuiFormLogic;
         }
 
+        public virtual void SetInitialized(bool initialized)
+        {
+            m_Initialized = initialized;
+        }
+
         /// <summary>
         /// 界面初始化。
         /// </summary>

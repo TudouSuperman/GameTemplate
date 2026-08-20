@@ -69,6 +69,7 @@ namespace UnityGameFramework.Extension.Editor
                 throw new GameFrameworkException("ResourceCollection is invalid.");
             }
             m_ResourceCollection = resourceCollection;
+            RemoveOldCombineResources();
             OptimizeLoadType();
             OptimizeSprite();
             Analyze();
@@ -76,6 +77,18 @@ namespace UnityGameFramework.Extension.Editor
             Save();
         }
 
+        private void RemoveOldCombineResources()
+        {
+            Resource[] resources = m_ResourceCollection.GetResources();
+            foreach (Resource resource in resources)
+            {
+                if (resource.Name.StartsWith("Auto/Combine/", StringComparison.Ordinal))
+                {
+                    m_ResourceCollection.RemoveResource(resource.Name, resource.Variant);
+                }
+            }
+        }
+        
         private void OptimizeLoadType()
         {
 #if UNITY_WEBGL
@@ -105,50 +118,58 @@ namespace UnityGameFramework.Extension.Editor
 
         private void OptimizeSprite()
         {
-            var sprite2Collection = new Dictionary<string, string>();
+            var sprite2Atlas = new Dictionary<string, string>();
             var searchInFolders = new string[] { "Assets/Res" };
-            var scGuids = AssetDatabase.FindAssets("t:SpriteCollection", searchInFolders);
-            foreach (string scGuid in scGuids)
+            var saGuids = AssetDatabase.FindAssets("t:SpriteAtlas", searchInFolders);
+            foreach (string scGuid in saGuids)
             {
-                var scPath = AssetDatabase.GUIDToAssetPath(scGuid);
-                var sc = AssetDatabase.LoadAssetAtPath<SpriteCollection>(scPath);
-                sc.Pack();
-                foreach (Sprite sprite in sc.Sprites)
+                var saPath = AssetDatabase.GUIDToAssetPath(scGuid);
+                var sa = AssetDatabase.LoadAssetAtPath<SpriteAtlas>(saPath);
+                int spriteCount = sa.spriteCount;
+                var sprites = new Sprite[spriteCount];
+                sa.GetSprites(sprites);
+                foreach (Sprite sprite in sprites)
                 {
                     string spritePath = AssetDatabase.GetAssetPath(sprite);
-                    string spriteGuide = AssetDatabase.AssetPathToGUID(spritePath);
-                    if (!sprite2Collection.TryAdd(spriteGuide, scPath))
+                    string spriteGuid = AssetDatabase.AssetPathToGUID(spritePath);
+                    if (!sprite2Atlas.TryAdd(spriteGuid, saPath))
                     {
-                        throw new GameFrameworkException($"[{spritePath}]被重复添加进不同的SpriteCollection（[{sprite2Collection[spriteGuide]}]，[{scPath}]），请检查清理！");
+                        throw new GameFrameworkException($"[{spritePath}]被重复添加进不同的SpriteAtlas（[{sprite2Atlas[spriteGuid]}]，[{saPath}]），请检查清理！");
                     }
                 }
             }
+
             foreach (var asset in m_ResourceCollection.GetAssets())
             {
-                if (sprite2Collection.ContainsKey(asset.Guid) || scGuids.Contains(asset.Guid))
+                if (sprite2Atlas.ContainsKey(asset.Guid) || saGuids.Contains(asset.Guid))
                 {
                     asset.Resource.UnassignAsset(asset);
                 }
             }
-            foreach (var scGuid in scGuids)
+
+            foreach (var saGuid in saGuids)
             {
-                var scPath = AssetDatabase.GUIDToAssetPath(scGuid);
-                var sc = AssetDatabase.LoadAssetAtPath<SpriteCollection>(scPath);
-                var assets = new List<string>();
-                assets.Add(scPath);
-                foreach (var spritePath in sc.Names)
+                var saPath = AssetDatabase.GUIDToAssetPath(saGuid);
+                var sa = AssetDatabase.LoadAssetAtPath<SpriteAtlas>(saPath);
+                var assets = new SortedSet<string>(StringComparer.Ordinal) { saPath };
+                int spriteCount = sa.spriteCount;
+                Sprite[] sprites = new Sprite[spriteCount];
+                sa.GetSprites(sprites);
+                foreach (var sprite in sprites)
                 {
+                    string spritePath = AssetDatabase.GetAssetPath(sprite);
                     assets.Add(spritePath);
                 }
-                assets.Sort(string.CompareOrdinal);
-                var newBundleName = GetNewCombineName(assets);
+
+                var assetList = assets.ToList();
+                var newBundleName = GetNewCombineName(assetList);
 #if UNITY_WEBGL
                 //WebGL下不能使用LoadFromFile
                 m_ResourceCollection.AddResource(newBundleName, null, null, LoadType.LoadFromMemory, false);
 #else
                 m_ResourceCollection.AddResource(newBundleName, null, null, LoadType.LoadFromFile, false);
 #endif
-                foreach (var asset in assets)
+                foreach (var asset in assetList)
                 {
                     m_ResourceCollection.AssignAsset(AssetDatabase.AssetPathToGUID(asset), newBundleName, null);
                 }
@@ -273,14 +294,14 @@ namespace UnityGameFramework.Extension.Editor
             {
                 cur++;
                 EditorUtility.DisplayProgressBar("CalculateCombine (3/3)", Utility.Text.Format("{0}/{1} processing...", cur, count), (float)cur / count);
-                currentCombineBundles.Add(abInfo.Name);
-                currentCombineBundleSize += abInfo.Size;
-                if (currentCombineBundleSize > MAX_COMBINE_SHARE_AB_SIZE)
+                if (currentCombineBundles.Count > 0 && currentCombineBundleSize + abInfo.Size > MAX_COMBINE_SHARE_AB_SIZE)
                 {
                     m_CombineBundles[GetNewCombineName(currentCombineBundles)] = currentCombineBundles;
                     currentCombineBundles = new List<string>();
                     currentCombineBundleSize = 0;
                 }
+                currentCombineBundles.Add(abInfo.Name);
+                currentCombineBundleSize += abInfo.Size;
             }
             if (currentCombineBundles.Count > 0)
             {

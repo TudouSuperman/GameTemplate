@@ -5,11 +5,16 @@ namespace GameApp
 {
     public static partial class UIExtension
     {
-        public static bool HasUIForm(this UIComponent uiComponent, int uiFormId)
+        public static bool IsLoadingOrHasUIForm(this UIComponent uiComponent, int uiFormId)
         {
             if (!TryGetTableData(uiFormId, out DRUIForm drUIForm, out DRUIFormGroup drUIFormGroup, out DRAsset drAsset))
             {
                 return false;
+            }
+
+            if (uiComponent.IsLoadingUIForm(drAsset.AssetPath))
+            {
+                return true;
             }
 
             if (string.IsNullOrEmpty(drUIFormGroup.GroupName))

@@ -198,7 +198,7 @@ namespace GameApp
             foreach (UGuiWidgetLogicEx uGuiWidgetLogicEx in _uGuiWidgetLogicExList)
             {
                 if (uGuiWidgetLogicEx == this
-                    || uGuiWidgetLogicEx.Owner != null
+                    || uGuiWidgetLogicEx.Initialized
                     || uGuiWidgetLogicEx.GetComponentInParent<UGuiWidgetLogicEx>(true) != this)
                     continue;
                 AddUGuiWidget(uGuiWidgetLogicEx, userData);
@@ -341,7 +341,7 @@ namespace GameApp
 
             m_UGuiWidgetContainer.OpenUGuiWidget(uGuiWidgetLogicEx, userData);
         }
-        
+
         /// <summary>
         /// 打开所有的 UGuiWidget，不刷新 Depth，一般在 UIForm 的 OnOpen 中调用。
         /// </summary>

@@ -16,9 +16,9 @@ namespace GameApp
 
         public static UGuiWidgetContainer Create(UGuiFormLogic owner)
         {
-            UGuiWidgetContainer uGuiWidgetContainer = ReferencePool.Acquire<UGuiWidgetContainer>();
-            uGuiWidgetContainer.Owner = owner;
-            return uGuiWidgetContainer;
+            UGuiWidgetContainer _uGuiWidgetContainer = ReferencePool.Acquire<UGuiWidgetContainer>();
+            _uGuiWidgetContainer.Owner = owner;
+            return _uGuiWidgetContainer;
         }
 
         public void Clear()
@@ -40,6 +40,7 @@ namespace GameApp
             }
 
             m_UGuiWidgets.Add(uGuiWidgetLogic);
+            uGuiWidgetLogic.SetInitialized(true);
             uGuiWidgetLogic.SetOwner(Owner);
             uGuiWidgetLogic.OnInit(userData);
         }
@@ -57,9 +58,9 @@ namespace GameApp
             }
 
             results.Clear();
-            foreach (UGuiWidgetLogic uiWidget in m_UGuiWidgets)
+            foreach (UGuiWidgetLogic _uGuiWidgetLogic in m_UGuiWidgets)
             {
-                results.Add(uiWidget);
+                results.Add(_uGuiWidgetLogic);
             }
         }
 
@@ -77,6 +78,7 @@ namespace GameApp
 
             if (m_UGuiWidgets.Remove(uGuiWidgetLogic))
             {
+                uGuiWidgetLogic.SetInitialized(false);
                 uGuiWidgetLogic.SetOwner(null);
             }
             else
@@ -91,6 +93,7 @@ namespace GameApp
             {
                 foreach (UGuiWidgetLogic _uGuiWidgetLogic in m_UGuiWidgets)
                 {
+                    _uGuiWidgetLogic.SetInitialized(false);
                     _uGuiWidgetLogic.SetOwner(null);
                 }
 

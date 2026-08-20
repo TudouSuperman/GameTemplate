@@ -23,7 +23,11 @@ namespace GameApp
             GetComponentsInChildren(true, _uGuiWidgetLogicList);
             foreach (UGuiWidgetLogic _uGuiWidgetLogic in _uGuiWidgetLogicList)
             {
-                if (_uGuiWidgetLogic.Owner != null || _uGuiWidgetLogic.GetComponentInParent<UGuiFormLogic>() != this) continue;
+                if (_uGuiWidgetLogic.Initialized || _uGuiWidgetLogic.GetComponentInParent<UGuiFormLogic>() != this)
+                {
+                    continue;
+                }
+
                 AddUGuiWidget(_uGuiWidgetLogic, userData);
             }
 
