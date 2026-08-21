@@ -160,7 +160,7 @@ namespace GameApp.Hotfix
             IDataTable<DRGuide> _dtGuide = GameEntry.DataTable.GetDataTable<DRGuide>();
             foreach (DRGuide _drGuide in _dtGuide)
             {
-                Log.Debug("<color=#00FF00>Guide Table Row : {0} {1} {2}</color>", _drGuide.Id, _drGuide.StepName, _drGuide.NextStepId);
+                Log.Debug("Guide Table Row : {0} {1} {2}", _drGuide.Id, _drGuide.StepName, _drGuide.NextStepId);
             }
         }
 #endif
