@@ -52,9 +52,6 @@ namespace GameApp
 
         public void OnConnected(object channel)
         {
-            CSHello _csHello = GameFramework.ReferencePool.Acquire<CSHello>();
-            _csHello.Text = "Hello from Client!";
-            GameEntry.NetworkService.Send(_csHello);
         }
 
         public void OnDisconnected(object channel)
