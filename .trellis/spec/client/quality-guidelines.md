@@ -48,6 +48,12 @@ rg -n "automatically generated|自动生成，请勿直接修改" Client/Assets/
 - 检查 `DR*`、枚举、bytes/XML 的差异，不提交无关的大面积重生成。
 - Play Mode 实际读取目标数据行。
 
+### 资源与本地化
+
+- `Image` / `RawImage` 使用项目 SpriteCollection / TextureSet 入口，Owner 级资源通过 Container 对称释放。
+- 异步完成后确认目标仍存活；关闭 UI、隐藏 Entity 或销毁 Owner 后不能回写。
+- 修改 `$Localization.xlsx` 后检查 XML 与 `LocalizationKey.cs`，并验证启动加载和语言切换重启流程。
+
 ### HybridCLR
 
 - 修改热更程序集依赖、AOT 泛型、Loader 或构建逻辑时执行 `HybridCLR/Do All`。
@@ -59,6 +65,8 @@ rg -n "automatically generated|自动生成，请勿直接修改" Client/Assets/
 - 菜单项可见并能在目标选择状态运行。
 - 文件写入限制在预期目录，失败时提供可定位的错误。
 - 生成后调用必要的 `AssetDatabase.Refresh()`，但避免无条件重复刷新。
+- 构建前先确认 Active Build Target；不要把某个平台的 DLL、AOT 或 AssetBundle 产物用于另一平台。
+- 区分 `HybridCLR/Do All`、`GameApp/Copy Compile Dll` 和 Build Tool 的职责，不把其中任一按钮当成完整流水线。
 
 ## Review 重点
 
@@ -66,7 +74,7 @@ rg -n "automatically generated|自动生成，请勿直接修改" Client/Assets/
 - 是否复用了 `GameEntry`、Extension、Container、UI/Entity 基类和项目 Utility。
 - 事件订阅、资源加载、ReferencePool、CancellationToken 是否有对称清理。
 - 表格、预制体、生成代码和运行时代码是否作为一个整体交付。
-- 是否误引入 ET、服务端、Luban 或 Web 全栈模板约定。
+- 是否引入了当前代码库没有实现的模块、工具链或部署假设。
 
 ## 不接受的验证方式
 

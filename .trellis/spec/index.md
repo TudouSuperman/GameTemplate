@@ -11,23 +11,14 @@ GameTemplate 是一个以 UnityGameFramework（GF）为基础的纯 Unity 客户
 - 异步统一使用 UniTask。
 - UI 与 Entity 基于 GF，并使用 CodeBind 生成引用绑定代码。
 - 配置源位于 `ClientExcel/`，通过项目内 Unity Editor 工具生成运行时数据和枚举。
+- 动态图片使用 SpriteCollection / TextureSet，批量资源生命周期使用 `ResourceContainer`。
+- 构建、HybridCLR、DataTable 和 Toolbar 工具均位于 `GameApp.Editor`。
 
 ## 规范导航
 
 - [客户端规范](./client/index.md)：目录、程序集、热更新、UI、Entity、配置生成和质量检查。
 - [跨层思考指南](./guides/cross-layer-thinking-guide.md)：修改资源、表格、生成代码和运行时代码时的完整链路。
 - [代码复用指南](./guides/code-reuse-thinking-guide.md)：优先复用 GF 扩展、容器、基类和项目工具。
-
-## 当前明确不包含的范围
-
-以下内容没有真实实现，不应生成或套用对应开发规范：
-
-- ET Framework、ETTask、ETUI、ETEntity。
-- .NET 服务端、MongoDB、服务端热更新和服务端部署。
-- `Server/`、`ServerExcel/` 和 `Proto/` 当前只有占位文件，不能据此推断服务端或协议工作流。
-- React、TypeScript、Web 前端、ORM、数据库迁移等 Web 全栈模板内容。
-
-如果上述目录未来出现真实工程，应先重新分析源码，再新增独立规范；不要提前复制其他项目的约定。
 
 ## 规范使用原则
 

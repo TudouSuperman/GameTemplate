@@ -66,7 +66,6 @@ rg -n "class .*Extension|class .*Container" Client/Assets/Scripts/GameApp -g "*.
 ## 不要复用错层
 
 - 不把业务代码塞进 `Core/` 或 `Library/`，即使那里有相似工具。
-- 不直接复制参考项目的 ET、Luban 或服务端抽象。
 - 不继承生成类型来规避修改源配置。
 - 不用反射或字符串路径绕过已有强类型 ID/扩展，除非现有框架入口明确要求。
 

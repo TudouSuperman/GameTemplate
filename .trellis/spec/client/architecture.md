@@ -29,6 +29,7 @@ ClientExcel/
 - `Definition/`：常量、枚举和通用数据结构。
 - `Container/`：把资源、实体、事件的获取与释放绑定到 Owner 生命周期。
 - `UI/`、`Entity/`：GF 的项目级基类和扩展。
+- `SpriteCollection/`、`TextureSet/`、`Localization/`：动态图片与本地化的项目级入口。
 - `Procedure/`：资源检查、启动和进入热更层之前的常驻流程。
 - `Hotfix/Loader/`：加载热更 DLL/资源并创建热更入口，不参与业务迭代。
 - `Hotfix/Code/`：可热更新的游戏业务。
@@ -68,10 +69,4 @@ GameApp.Hotfix.Runtime
 - Editor 工具使用 `GameApp.Editor`。
 - 新文件跟随相邻模块的命名空间和程序集，不根据文件夹名机械创造新根命名空间。
 
-## 当前非目标目录
-
-`Server/` 只有 `Empty.txt`；`Proto/` 也没有实际协议定义。因此：
-
-- 不建立服务端、ET、数据库或协议生成规范。
-- 不把参考项目的 `DotNet/`、ET 模块或 MongoDB 前置条件迁入本项目。
-- 客户端 `Network/` 是现有客户端能力，但不能据此假定服务端实现、消息生成链路或部署方式。
+项目级非目标统一记录在 `../index.md`，专题规范只描述当前客户端已经存在的代码与工具链。

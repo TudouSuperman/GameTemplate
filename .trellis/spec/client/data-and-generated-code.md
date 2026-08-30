@@ -2,7 +2,7 @@
 
 ## 当前配置体系
 
-本项目使用 `ClientExcel/` 和自有 Unity Editor DataTableGenerator，不使用参考项目中的 Luban 工作流。
+本项目使用 `ClientExcel/` 和自有 Unity Editor DataTableGenerator。
 
 ```text
 ClientExcel/Game/*.xlsx
@@ -63,6 +63,17 @@ Entity：
 
 不要在 Excel、枚举和业务代码各维护一套互不关联的 ID。
 
+## 本地化生成与加载
+
+本地化源文件为 `ClientExcel/GameHotfix/$Localization.xlsx`。生成器会同步维护：
+
+- `Client/Assets/Res/Generate/TableData/Localization/<Language>.xml`
+- `Client/Assets/Scripts/GameApp/Hotfix/Code/Runtime/Generate/TableConst/LocalizationKey.cs`
+
+运行时由 `LocalizationExtension.LoadLanguageAsync` 清空旧字典、恢复随包内置字典，再按 `AssetPathUtility.GetDictionaryAsset(language, false)` 读取 XML。业务优先使用生成的 `HotConstant.LocalizationKey`，不要手工维护另一份热更 Key 常量。
+
+语言表改动后必须同时检查 XML 与 `LocalizationKey.cs` 差异，并在启动预加载或语言界面流程中验证实际读取。详细生命周期见 `resource-and-localization-guidelines.md`。
+
 ## 禁止直接编辑
 
 - `Client/Assets/Scripts/GameApp/Generate/TableCode/DR*.cs`
@@ -72,7 +83,3 @@ Entity：
 - `Client/Assets/Res/Generate/TableData/**`
 
 若生成器本身有缺陷，修改 `Client/Assets/Scripts/GameApp/Editor/DataTableGenerator/` 或对应 CodeBind/Input 配置，再重新生成并检查所有受影响产物。
-
-## 当前没有的生成链路
-
-`Proto/` 只有占位文件，`ServerExcel/` 没有真实表格；因此当前规范不定义 Proto、服务端表、Luban 或 ET 代码生成。未来添加真实源文件和工具后再补充。

@@ -6,5 +6,3 @@
 - [代码复用指南](./code-reuse-thinking-guide.md)：新增实现前先查找 GameEntry、Extension、Container、基类和 Utility。
 
 具体编码规则从 `../client/index.md` 进入。
-
-当前项目没有 Web 前后端或数据库层；不要使用 API/Service/Component/Database 的通用全栈检查表。

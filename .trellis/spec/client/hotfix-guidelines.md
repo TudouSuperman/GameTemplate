@@ -74,7 +74,13 @@ GameApp/Hotfix/
 - `Client/Assets/Scripts/GameApp/Editor/HybridCLR/`
 - `Client/Assets/Scripts/GameApp/Editor/Build/`
 
-不要手工复制某一个 DLL 后就认定构建链路完整；程序集、AOT 元数据、热更资源和 BuildSettings 应通过项目工具保持一致。
+当前入口职责必须按源码理解：
+
+- `HybridCLR/Do All` 当前只执行 `HybridCLR/Generate/All` 和 `HybridCLR/CopyAotDlls`。
+- `GameApp/Copy Compile Dll` 当前把已有的 `GameApp.Hotfix.Runtime.dll/.pdb` 复制到 `Assets/Res/Hotfix/Code` 与 `Temp/HybridCLRBin`；`BuildAssemblyTool` 中直接编译脚本的调用目前被注释，因此不能把这个菜单描述为“从源码完成编译”。
+- `GameApp/Build Tool Editor` 负责资源收集、AssetBundle 与 Player 构建，不替代上述热更准备步骤。
+
+热更 DLL 和 AOT 产物都与 Active Build Target 相关。先切换目标平台，再准备 DLL/AOT 和资源；不要手工复制某一个 DLL 后就认定构建链路完整。
 
 ## 修改后验证
 
@@ -82,3 +88,4 @@ GameApp/Hotfix/
 2. 若改动热更程序集依赖、AOT 泛型或构建逻辑，执行 `HybridCLR/Do All`。
 3. 在编辑器运行，确认 Loader 能创建 `HotfixEntry` 并进入 `ProcedureLaunch`。
 4. 退出 Play Mode，确认入口销毁且没有重复订阅、未释放资源或重复加载程序集错误。
+5. 构建验证时检查 `Assets/Res/Hotfix/Code`、`Assets/Res/HybridCLR` 和 `HybridCLRConfig.asset` 均来自同一目标平台与本次生成结果。

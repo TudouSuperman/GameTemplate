@@ -1,6 +1,6 @@
 # UI 开发规范
 
-本项目 UI 使用 GF UIComponent、项目级 `UGuiFormLogic` / `UGuiFormView`、CodeBind 和配置表，不使用 ETUI。
+本项目 UI 使用 GF UIComponent、项目级 `UGuiFormLogic` / `UGuiFormView`、CodeBind 和配置表。
 
 ## 一条完整 UI 链路
 
@@ -67,6 +67,7 @@ UI Prefab
 - 配置为不允许多实例时，不绕过扩展直接重复打开相同资源。
 - UI 自己关闭使用 `CloseSelf()`；外部关闭已保存的 Logic 时使用 `GameEntry.UI.CloseUIForm(logic.UIForm)`。
 - 打开成功事件必须用 `UserData` 过滤归属，参考 `ProcedureGame.OnOpenUIFormSuccess`。
+- `Image` / `RawImage` 的运行时换图遵循 `resource-and-localization-guidelines.md`，不要让单个界面重新包装资源加载与释放。
 
 ## 常见错误
 
@@ -75,4 +76,3 @@ UI Prefab
 - 在 View 中切换 Procedure、读写 Model 或执行网络业务。
 - 在 `OnOpen` 保存的引用没有在 `OnClose` 清空。
 - 新建预制体和代码后忘记更新 Excel、生成枚举/表数据或 CodeBind。
-- 复制参考项目的 ETUI Model/HotfixView 双层写法；本项目没有 ET。

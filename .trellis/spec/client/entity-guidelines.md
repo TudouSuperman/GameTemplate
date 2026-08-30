@@ -1,6 +1,6 @@
 # Entity 开发规范
 
-本项目 Entity 使用 GF EntityComponent、`UGFEntityData`、`UGFEntityLogic`、`UGFEntityView` 和 CodeBind，不使用 ETEntity。
+本项目 Entity 使用 GF EntityComponent、`UGFEntityData`、`UGFEntityLogic`、`UGFEntityView` 和 CodeBind。
 
 ## 一条完整 Entity 链路
 
@@ -60,7 +60,6 @@ Entity Prefab
 - 根据配置显示时使用 `GameEntry.Entity.ShowEntity<T>(entityData)` 或项目的强类型扩展。
 - `EntityExtension.TryGetTableData` 会通过 `DREntity`、`DREntityGroup`、`DRAsset` 解析资源和分组，不绕过该链路硬编码。
 - 当前纯客户端临时实体使用 `GenerateSerialId()` 产生递减的负数。
-- 代码中保留了“正值可用于远端实体”的兼容约定，但当前没有服务端或协议实现；不要基于这个注释扩展服务端规范。未来接入真实协议时再定义远端 ID 所有权。
 
 ## 生命周期和资源
 
@@ -77,4 +76,3 @@ Entity Prefab
 - 只创建 Logic，没有预制体、表配置、Data 或生成枚举。
 - 在 View 中访问 Procedure/Model，或把业务状态存在生成绑定字段中。
 - 手改 `HostEntityView.Bind.cs`、`DREntity.cs` 或 `EEntityID.cs`。
-- 为当前占位 `Server/` 编写 ETEntity 或服务端同步规则。

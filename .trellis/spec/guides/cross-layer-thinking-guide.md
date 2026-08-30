@@ -18,6 +18,15 @@ GameApp.Runtime 契约 → Hotfix.Loader → Hotfix.Runtime → HotfixEntry → 
 
 异步资源:
 Owner → Container/CancellationToken → GameEntry.Resource → 完成回调 → 对称卸载
+
+动态图片:
+Image/RawImage → SpriteCollection/TextureSet → 等待项 → 目标替换或销毁时回收
+
+本地化:
+$Localization.xlsx → XML + LocalizationKey.cs → ProcedureLaunch/Preload → GameEntry.Localization
+
+构建:
+Active Build Target → 热更 DLL/AOT → ResourceCollection → AssetBundle → Launcher Player
 ```
 
 在开始修改前，明确入口、配置源、生成产物、运行时消费者和清理点。
@@ -57,6 +66,8 @@ Owner → Container/CancellationToken → GameEntry.Resource → 完成回调 �
 6. 热更枚举是否仍匹配 ID。
 
 不要只修改 `DR*.cs`；下一次生成会覆盖，而且二进制布局仍旧不一致。
+
+本地化还要检查语言枚举、资源变体、生成 Key 和语言界面的重启策略；具体规则见 `../client/resource-and-localization-guidelines.md`。
 
 ## 生命周期一致性
 
