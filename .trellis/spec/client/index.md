@@ -26,6 +26,7 @@ Odin Inspector 是项目已有的付费依赖；不要用未经提交的本机�
 | [HybridCLR 热更新](./hotfix-guidelines.md) | 修改热更入口、Loader、程序集或构建流程 |
 | [UI 开发](./ui-guidelines.md) | 新建或修改 UIForm、View、CodeBind 和 UI 表 |
 | [Entity 开发](./entity-guidelines.md) | 新建实体、数据、逻辑、View、预制体和配置 |
+| [客户端网络](./network-guidelines.md) | 新增或修改客户端数据包、处理器和网络通道 |
 | [资源与本地化](./resource-and-localization-guidelines.md) | 设置 Sprite/Texture、管理资源生命周期、修改语言表和切换语言 |
 | [配置与生成代码](./data-and-generated-code.md) | 修改 Excel、表代码、枚举、Input 和 Bind 文件 |
 | [Editor 与构建工具](./editor-and-build-guidelines.md) | 修改 Toolbar、场景入口、AssetBundle、Player 或热更构建工具 |
@@ -39,6 +40,7 @@ Odin Inspector 是项目已有的付费依赖；不要用未经提交的本机�
 - 图片/纹理是否应走 SpriteCollection、TextureSet 或 Owner 级 `ResourceContainer`？
 - 是否触及 Build Target、资源收集、热更 DLL 或 AOT 元数据？
 - 是否需要在生命周期结束时取消异步、退订事件、释放资源或归还引用池对象？
+- 网络包的方向、协议 ID、处理器 ID 和 `Clear()` 是否一致？
 - 是否跨越 `.asmdef` 边界，且依赖方向正确？
 
 涉及多个环节时，同时阅读 `../guides/cross-layer-thinking-guide.md`。

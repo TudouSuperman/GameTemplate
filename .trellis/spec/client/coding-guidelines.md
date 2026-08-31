@@ -34,6 +34,7 @@
 
 - Unity/GF 异步统一返回 `UniTask` 或 `UniTask<T>`，不要引入另一套业务异步抽象。
 - 可取消操作应接收或持有 `CancellationToken`；Owner 销毁、UI 关闭、Entity 隐藏或容器清理时必须取消。
+- 复用 `Client/Assets/Scripts/Library/Extension/UniTask/` 下的取消与完成源扩展；不要为单个功能再实现一套并行的 Token/CompletionSource 封装。
 - `.Forget()` 只用于 Unity 生命周期或事件回调这类不能返回 Task 的边界，并把实际逻辑放进明确命名的异步方法。
 - 资源、UI、Entity、Scene 等操作先复用已有 Awaitable 扩展，不再把 GF 回调手写包装一遍。
 - 调用者需要处理失败时，返回异常任务或抛出 `GameFrameworkException`，不要静默吞掉加载失败。
@@ -44,6 +45,8 @@
 - `Client/Assets/Scripts/GameApp/UI/UIExtension.Awaitable.cs`
 - `Client/Assets/Scripts/GameApp/Entity/EntityExtension.Awaitable.cs`
 - `Client/Assets/Scripts/GameApp/Container/ResourceContainer.cs`
+- `Client/Assets/Scripts/Library/Extension/UniTask/UniTask.Cancel.cs`
+- `Client/Assets/Scripts/Library/Extension/UniTask/CancellationTokenSourcePlus.cs`
 
 ## 事件和生命周期配对
 
