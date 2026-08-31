@@ -20,6 +20,7 @@ namespace GameApp
 {
     public class NetworkChannelHelper : INetworkChannelHelper
     {
+        private const int PacketHeaderSize = sizeof(int) * 2;
         private readonly Dictionary<int, Type> m_ServerToClientPacketTypes = new Dictionary<int, Type>();
         private readonly MemoryStream m_CachedStream = new MemoryStream(1024 * 8);
         private INetworkChannel m_NetworkChannel = null;
@@ -31,7 +32,7 @@ namespace GameApp
         {
             get
             {
-                return sizeof(int);
+                return PacketHeaderSize;
             }
         }
 
@@ -136,17 +137,16 @@ namespace GameApp
                 return false;
             }
 
-            m_CachedStream.SetLength(m_CachedStream.Capacity); // 此行防止 Array.Copy 的数据无法写入
+            m_CachedStream.SetLength(0);
+            Serializer.Serialize(m_CachedStream, packet);
+
+            WriteInt32(destination, packet.Id);
+            WriteInt32(destination, (int)m_CachedStream.Length);
+
             m_CachedStream.Position = 0L;
-
-            CSPacketHeader packetHeader = ReferencePool.Acquire<CSPacketHeader>();
-            Serializer.Serialize(m_CachedStream, packetHeader);
-            ReferencePool.Release(packetHeader);
-
-            Serializer.SerializeWithLengthPrefix(m_CachedStream, packet, PrefixStyle.Fixed32);
-            ReferencePool.Release((IReference)packet);
-
             m_CachedStream.WriteTo(destination);
+            ReferencePool.Release(packet);
+
             return true;
         }
 
@@ -160,11 +160,20 @@ namespace GameApp
         {
             // 注意：此函数并不在主线程调用！
             customErrorData = null;
-            return (IPacketHeader)RuntimeTypeModel.Default.Deserialize(source, ReferencePool.Acquire<SCPacketHeader>(), typeof(SCPacketHeader));
+            source.Position = 0L;
+
+            SCPacketHeader packetHeader = ReferencePool.Acquire<SCPacketHeader>();
+            packetHeader.Id = ReadInt32(source);
+            packetHeader.PacketLength = ReadInt32(source);
+            Log.Info("Deserialize packet header bytes '{0}', id '{1}', length '{2}'.",
+                GetHeaderBytesText(source),
+                packetHeader.Id.ToString(),
+                packetHeader.PacketLength.ToString());
+            return packetHeader;
         }
 
         /// <summary>
-        /// 反序列化消息包。
+        /// 反序列化消息包。 
         /// </summary>
         /// <param name="packetHeader">消息包头。</param>
         /// <param name="source">要反序列化的来源流。</param>
@@ -174,6 +183,7 @@ namespace GameApp
         {
             // 注意：此函数并不在主线程调用！
             customErrorData = null;
+            source.Position = 0L;
 
             SCPacketHeader scPacketHeader = packetHeader as SCPacketHeader;
             if (scPacketHeader == null)
@@ -188,7 +198,7 @@ namespace GameApp
                 Type packetType = GetServerToClientPacketType(scPacketHeader.Id);
                 if (packetType != null)
                 {
-                    packet = (Packet)RuntimeTypeModel.Default.DeserializeWithLengthPrefix(source, ReferencePool.Acquire(packetType), packetType, PrefixStyle.Fixed32, 0);
+                    packet = (Packet)RuntimeTypeModel.Default.Deserialize(source, ReferencePool.Acquire(packetType), packetType);
                 }
                 else
                 {
@@ -213,6 +223,46 @@ namespace GameApp
             }
 
             return null;
+        }
+
+        private static void WriteInt32(Stream destination, int value)
+        {
+            destination.WriteByte((byte)value);
+            destination.WriteByte((byte)(value >> 8));
+            destination.WriteByte((byte)(value >> 16));
+            destination.WriteByte((byte)(value >> 24));
+        }
+
+        private static int ReadInt32(Stream source)
+        {
+            int byte0 = source.ReadByte();
+            int byte1 = source.ReadByte();
+            int byte2 = source.ReadByte();
+            int byte3 = source.ReadByte();
+            if ((byte0 | byte1 | byte2 | byte3) < 0)
+            {
+                throw new EndOfStreamException("Can not read packet header.");
+            }
+
+            return byte0 | (byte1 << 8) | (byte2 << 16) | (byte3 << 24);
+        }
+
+        private static string GetHeaderBytesText(Stream source)
+        {
+            MemoryStream memoryStream = source as MemoryStream;
+            if (memoryStream == null)
+            {
+                return string.Empty;
+            }
+
+            byte[] buffer = memoryStream.GetBuffer();
+            int count = Math.Min(PacketHeaderSize, (int)memoryStream.Length);
+            if (count <= 0)
+            {
+                return string.Empty;
+            }
+
+            return BitConverter.ToString(buffer, 0, count);
         }
 
         private void OnNetworkConnected(object sender, GameEventArgs e)

@@ -24,6 +24,16 @@ namespace GameApp.Hotfix
             GameEntry.UI.OpenUIForm((int)EUIFormID.MainMenuForm, this);
 
             GameEntry.Entity.ShowHostEntity(HostEntityData.Create(GameEntry.Entity.GenerateSerialId(), (int)EEntityID.HostEntity));
+
+            GameEntry.NetworkService.InitServiceNetworkHelper(new NetworkServiceHelper());
+            GameEntry.NetworkService.Connect(this);
+            
+            GameEntry.Timer.AddOnceTimer(3000,() =>
+            {
+                CSHello _csHello = GameFramework.ReferencePool.Acquire<CSHello>();
+                _csHello.Text = "定时发送给服务端";
+                GameEntry.NetworkService.Send(_csHello);
+            });
         }
 
         protected override void OnLeave(HotfixProcedureOwner procedureOwner, bool isShutdown)

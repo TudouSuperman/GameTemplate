@@ -17,13 +17,13 @@ namespace GameApp
             get;
         }
 
-        public int Id
+        public abstract int Id
         {
             get;
             set;
         }
 
-        public int PacketLength
+        public abstract int PacketLength
         {
             get;
             set;

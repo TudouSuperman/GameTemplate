@@ -5,8 +5,12 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using System;
+using ProtoBuf;
+
 namespace GameApp
 {
+    [Serializable, ProtoContract(Name = "@CSPacketHeader")]
     public sealed class CSPacketHeader : PacketHeaderBase
     {
         public override PacketType PacketType
@@ -15,6 +19,20 @@ namespace GameApp
             {
                 return PacketType.ClientToServer;
             }
+        }
+        
+        [ProtoMember(1)]
+        public override int Id
+        {
+            get; 
+            set;
+        }
+
+        [ProtoMember(2)]
+        public override int PacketLength
+        {
+            get; 
+            set;
         }
     }
 }
