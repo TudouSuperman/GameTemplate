@@ -96,6 +96,15 @@ python ./.trellis/scripts/get_context.py --mode packages            # available 
 python ./.trellis/scripts/get_context.py --mode phase --step <X.Y>  # detailed guide for a workflow step
 ```
 
+### 工具路由优先级
+
+- 当任务所需能力由已配置且可用的 MCP 覆盖时，优先调用对应 MCP；Rider MCP 和 Unity MCP 是常见示例，但不限制其他可用 MCP。
+- 进行 C# 符号、定义、调用关系、继承关系和诊断分析时，优先使用可用的 Rider MCP 或其他代码语义 MCP。
+- 处理 Unity 场景、Prefab、GameObject、资源、Console 和测试时，优先使用可用的 Unity MCP 或其他 Unity 编辑器 MCP。
+- 同时涉及代码语义和 Unity 编辑器状态时，分别使用对应的 MCP。
+- MCP 不可用或能力不足时，说明限制后再使用必要的文件系统或命令行工具；不要为了使用 MCP 而改变任务范围。
+- 不得把个人机器上的 MCP 路径、服务器地址、密钥或配置复制到项目中。
+
 ---
 
 <!--

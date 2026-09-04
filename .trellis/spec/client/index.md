@@ -23,6 +23,7 @@ Odin Inspector 是项目已有的付费依赖；不要用未经提交的本机�
 | --- | --- |
 | [架构与目录](./architecture.md) | 判断代码放置位置、命名空间和程序集依赖 |
 | [C# 与生命周期](./coding-guidelines.md) | 编写业务代码、异步逻辑、事件和错误处理 |
+| [运行时性能](./performance-guidelines.md) | 高频更新、对象池、缓存、生命周期和性能验证 |
 | [HybridCLR 热更新](./hotfix-guidelines.md) | 修改热更入口、Loader、程序集或构建流程 |
 | [UI 开发](./ui-guidelines.md) | 新建或修改 UIForm、View、CodeBind 和 UI 表 |
 | [Entity 开发](./entity-guidelines.md) | 新建实体、数据、逻辑、View、预制体和配置 |
@@ -40,6 +41,7 @@ Odin Inspector 是项目已有的付费依赖；不要用未经提交的本机�
 - 图片/纹理是否应走 SpriteCollection、TextureSet 或 Owner 级 `ResourceContainer`？
 - 是否触及 Build Target、资源收集、热更 DLL 或 AOT 元数据？
 - 是否需要在生命周期结束时取消异步、退订事件、释放资源或归还引用池对象？
+- 代码是否运行在高频路径，是否需要阅读[运行时性能](./performance-guidelines.md)？
 - 网络包的方向、协议 ID、处理器 ID 和 `Clear()` 是否一致？
 - 是否跨越 `.asmdef` 边界，且依赖方向正确？
 

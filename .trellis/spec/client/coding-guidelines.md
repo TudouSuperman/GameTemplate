@@ -17,6 +17,14 @@
 - `Client/Assets/Scripts/GameApp/Entity/EntityExtension.cs`
 - `Client/Assets/Scripts/GameApp/Hotfix/Code/Runtime/Procedure/ProcedureGame.cs`
 
+## 源码编码与最小修改
+
+- 项目源码、中文注释和 Trellis 文档统一使用 UTF-8；不使用 GBK 作为读取、写回或降级编码。
+- 写回文件时使用 UTF-8，并按照项目规则保留正确的换行符。
+- 编码不确定时，只做定点修改，不要重写整个文件。
+- 现存非 UTF-8 文件不在普通功能修改中批量转换；如需迁移，必须单独确认范围。
+- 不要为了套用新规范批量格式化未修改的旧代码。
+
 ## 使用项目入口和基类
 
 - 通过 `GameEntry` 获取 GF 与项目组件，不在业务代码重复维护全局单例。
@@ -29,6 +37,12 @@
 - `Client/Assets/Scripts/GameApp/Base/GameEntry.Custom.cs`
 - `Client/Assets/Scripts/GameApp/Container/ResourceContainer.cs`
 - `Client/Assets/Scripts/GameApp/Container/EventContainer.cs`
+
+## 可选对象、常量与注释
+
+- 访问可选的功能、资源、Entity 或组件时，优先使用项目已有的 `TryGet...` 方法和提前返回，不要假设对象一定存在。
+- 新增逻辑中的数值、字符串和时间转换应避免直接写死；项目已有配置、枚举、常量或转换工具时，优先复用现有定义。
+- 只有在生命周期、状态转换或业务规则不直观时，才添加简洁中文注释；不要添加重复代码含义的注释。
 
 ## UniTask 约定
 
@@ -83,6 +97,7 @@ public static HostEntityData Create(int serialId, int typeId)
 - 使用 `UnityGameFramework.Runtime.Log`；需要按领域开关时使用 `GLog.Entity`、`GLog.UI`、`GLog.Resource` 等标签。
 - 不新增无上下文的 `Debug.Log`，错误日志至少包含资源名、表 ID、状态或异常信息。
 - 不用空 `catch` 隐藏失败；若降级是预期行为，日志中说明降级路径。
+- 前置条件失败、类型不合法或资源缺失时，必须按调用契约返回 `false`、`null` 或异常并记录明确原因；不得为掩盖错误添加静默 fallback、自动修正、兼容分支或第二套状态。
 
 参考：
 

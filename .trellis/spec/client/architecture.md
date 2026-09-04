@@ -45,6 +45,12 @@ ClientExcel/
 - `Client/Assets/Scripts/GameApp/Hotfix/Loader/Runtime/GameApp.Hotfix.Loader.Runtime.asmdef`
 - `Client/Assets/Scripts/GameApp/Hotfix/Code/Runtime/GameApp.Hotfix.Runtime.asmdef`
 
+## 文件与生成内容边界
+
+- 持久文档、命令和规范只使用项目相对路径，不保存个人机器上的绝对路径。
+- `Library/`、`Temp/`、`Logs/` 和 `obj/` 等 Unity 生成目录不可手工编辑或提交。
+- Unity 生成的 `.sln` 和 `.csproj` 只用于 IDE 浏览，不通过修改它们解决程序集问题。
+
 ## 程序集依赖方向
 
 ```text

@@ -2,6 +2,12 @@
 
 本规范适用于 `Client/Assets/Scripts/GameApp/Editor/`。Editor 工具可以修改资源、生成代码和构建产物，因此必须明确入口、输出目录、Build Target 和失败边界。
 
+## 资源引用与编辑器验证
+
+- 移动或重命名 Unity 资源时，必须同时保留对应的 `.meta` 文件和 GUID；资源移动优先通过 Unity 编辑器或 Unity 资源 API 完成。
+- 修改 Scene、Prefab、Addressables 或其他序列化资源后，必须在 Unity 编辑器中刷新或重新导入，检查序列化引用、Prefab 覆盖项和 Console。
+- 文本 YAML 或 Git diff 只能作为辅助，不能替代 Unity 编辑器中的实际验证。
+
 ## 当前入口
 
 | 入口 | 作用 | 实现 |
@@ -58,7 +64,8 @@
 
 - 生成/构建输出只能落在工具声明的 `Assets/Res/Generate`、`Assets/Res/Hotfix`、`Assets/Res/HybridCLR`、`HybridCLRData`、`Temp` 和 `ClientBuild` 范围。
 - 不修改 Unity 生成的 `.sln` / `.csproj` 来解决程序集问题。
-- 失败前尽量校验目录和输入；清理目录前必须解析并确认目标是本次构建输出。
+- 构建前必须检查输入目录、输出目录和 Active Build Target；前置条件失败时应立即停止，不得静默继续并生成看似成功的产物。
+- 清理目录前必须解析并确认目标属于本次构建输出，不得删除源码资源或用户未授权的目录。
 - 生成后只在确有新资产时刷新 AssetDatabase，避免循环导入。
 
 ## 验证清单
