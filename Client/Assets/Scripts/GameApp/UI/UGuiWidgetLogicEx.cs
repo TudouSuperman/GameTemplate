@@ -193,7 +193,7 @@ namespace GameApp
         {
             base.OnInit(userData);
 
-            UGFList<UGuiWidgetLogicEx> _uGuiWidgetLogicExList = new UGFList<UGuiWidgetLogicEx>();
+            using UGFList<UGuiWidgetLogicEx> _uGuiWidgetLogicExList = UGFList<UGuiWidgetLogicEx>.Create();
             GetComponentsInChildren(true, _uGuiWidgetLogicExList);
             foreach (UGuiWidgetLogicEx uGuiWidgetLogicEx in _uGuiWidgetLogicExList)
             {
@@ -203,8 +203,6 @@ namespace GameApp
                     continue;
                 AddUGuiWidget(uGuiWidgetLogicEx, userData);
             }
-
-            _uGuiWidgetLogicExList.Dispose();
         }
 
         protected internal override void OnRecycle()

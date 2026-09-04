@@ -19,7 +19,7 @@ namespace GameApp
             base.OnInit(userData);
             
             // 初始化所有 UGuiWidget。
-            UGFList<UGuiWidgetLogic> _uGuiWidgetLogicList = new UGFList<UGuiWidgetLogic>();
+            using UGFList<UGuiWidgetLogic> _uGuiWidgetLogicList = UGFList<UGuiWidgetLogic>.Create();
             GetComponentsInChildren(true, _uGuiWidgetLogicList);
             foreach (UGuiWidgetLogic _uGuiWidgetLogic in _uGuiWidgetLogicList)
             {
@@ -30,8 +30,6 @@ namespace GameApp
 
                 AddUGuiWidget(_uGuiWidgetLogic, userData);
             }
-
-            _uGuiWidgetLogicList.Dispose();
         }
 
         private void ClearContainer()

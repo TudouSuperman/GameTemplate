@@ -90,6 +90,15 @@ public static HostEntityData Create(int serialId, int typeId)
 
 新增字段时同步扩展 `Clear()`；派生实现应在需要时调用 `base.Clear()`。参考 `UGFEntityData.cs` 和 `HostEntityData.cs`。
 
+## 框架集合与通用容器
+
+`Client/Assets/Scripts/Core/UnityGameFramework.Extensions/Runtime/Collection/` 下的 `UGFList<T>`、`UGFDictionary<K, V>`、`UGFHashSet<T>`、`UGFQueue<T>`、`UGFStack<T>` 和 `UGFStringBuilder` 都是 `IReference` + `IDisposable` 的引用池包装：
+
+- 只能通过 `Create()` 获取，禁止直接 `new UGF...`；`Dispose()` 会调用 `ReferencePool.Release`，释放后不得继续访问。
+- 临时集合优先使用 `using UGFList<T> values = UGFList<T>.Create();`；无法用作用域表达时使用 `try/finally`，确保正常结束、异常和提前返回都归还。
+- 长期持有必须明确 Owner，并在移除、关闭和销毁时成对释放；普通长期状态没有池化需求时使用标准集合。
+- `IReference.Clear()` 必须清空所有可变状态；新增通用池化类型需要有明确复用价值、参数化 API 和统一 `Create()` 工厂，不能为单一功能制作。
+
 ## 错误和日志
 
 - 缺少初始化、类型不合法等编程不变量使用 `GameFrameworkException` 或明确异常，例如 `HotfixProcedureComponent.CurrentProcedure`。
