@@ -5,7 +5,7 @@
 ## 资源引用与编辑器验证
 
 - 移动或重命名 Unity 资源时，必须同时保留对应的 `.meta` 文件和 GUID；资源移动优先通过 Unity 编辑器或 Unity 资源 API 完成。
-- 修改 Scene、Prefab、Addressables 或其他序列化资源后，必须在 Unity 编辑器中刷新或重新导入，检查序列化引用、Prefab 覆盖项和 Console。
+- 修改 Scene、Prefab 或其他 Unity 序列化资源后，必须在 Unity 编辑器中刷新或重新导入，检查序列化引用、Prefab 覆盖项和 Console。
 - 文本 YAML 或 Git diff 只能作为辅助，不能替代 Unity 编辑器中的实际验证。
 
 ## 当前入口

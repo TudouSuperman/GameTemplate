@@ -31,6 +31,8 @@
 
 可在命令行做的辅助检查：
 
+涉及符号、定义和引用时优先使用可用的 Rider MCP 或其他代码语义工具；没有合适 MCP 时再使用 `rg`，`rg` 不可用时使用 IDE 搜索或当前平台的只读文本搜索能力。
+
 ```powershell
 git diff --check
 git status --short

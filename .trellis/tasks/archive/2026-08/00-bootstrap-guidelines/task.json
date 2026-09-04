@@ -25,6 +25,6 @@
     ".trellis/spec/client/",
     ".trellis/spec/guides/"
   ],
-  "notes": "Bootstrap Unity client specs from the current GameTemplate codebase; reference E:/Other/GameDevelopmentKit/AGENTS.md was adapted, while ET/server/MongoDB/Luban guidance was excluded.",
+  "notes": "Bootstrap Unity client specs from the current GameTemplate codebase; external references were filtered so absent stacks, tools, and machine-specific paths were not adopted.",
   "meta": {}
 }

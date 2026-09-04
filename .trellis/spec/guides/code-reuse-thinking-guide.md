@@ -11,7 +11,7 @@
 5. `Client/Assets/Scripts/GameApp/Utility/` 和 `Definition/`
 6. `Core/UnityGameFramework.Extensions/` 的通用能力
 
-使用 `rg` 搜索领域词和基类，例如：
+查找符号、定义和引用时优先使用可用的 Rider MCP 或其他代码语义工具；没有合适 MCP 时使用 `rg`，`rg` 不可用时再使用 IDE 搜索或当前平台的只读文本搜索能力。例如：
 
 ```powershell
 rg -n "OpenUIForm|ShowEntity|LoadAsset|Subscribe" Client/Assets/Scripts/GameApp -g "*.cs"

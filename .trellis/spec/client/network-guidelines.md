@@ -43,6 +43,8 @@ public sealed class SCExampleHandler : PacketHandlerBase
 
 ## 通道和协议边界
 
+当前 `ServiceType` 只实现 `Tcp` 和 `TcpWithSyncReceive`，`NetworkServiceHelper` 当前创建的也是 TCP 通道。UDP、KCP 和多通道战斗同步尚未接入；在对应传输实现、生命周期和验证链路完成前，不得把它们写成项目现有能力。
+
 - 复用 `NetworkChannelHelper`、`NetworkServiceHelper` 和已有 `GameEntry` 网络组件，不在业务模块直接创建第二套 Socket/通道生命周期。
 - 包头长度、字节序、序列化方式或 ID 布局属于线协议契约。修改其中任何一项时，必须同步检查 `PacketHeaderBase`、`CSPacketHeader`、`SCPacketHeader`、`NetworkChannelHelper` 和实际对端协议；不能只改一个数据包就假定兼容。
 - `NetworkServiceHelper.SendAsync` 当前是否可用以源码实现为准；若仍抛出 `NotImplementedException`，不得把异步请求/响应写成已完成能力。

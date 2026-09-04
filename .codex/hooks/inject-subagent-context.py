@@ -798,7 +798,7 @@ To get structured package info, run: `python ./{DIR_WORKFLOW}/scripts/get_contex
 
 - Spec files: `{spec_path}/**/*.md`
 - Code search: Use Glob and Grep tools
-- Tech solutions: Use mcp__exa__web_search_exa or mcp__exa__get_code_context_exa"""
+- External research: Prefer an available MCP or authoritative documentation tool that fits the task; otherwise use another read-only search method."""
 
     context_parts.append(project_structure)
 
@@ -843,8 +843,7 @@ You are a documenter, not a reviewer.
 | Glob | Search by filename pattern |
 | Grep | Search by content |
 | Read | Read file content |
-| mcp__exa__web_search_exa | External web search |
-| mcp__exa__get_code_context_exa | External code/doc search |
+| Available task-appropriate MCP or authoritative documentation tool | External research |
 
 ## Strict Boundaries
 

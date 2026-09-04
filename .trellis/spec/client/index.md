@@ -46,3 +46,10 @@ Odin Inspector 是项目已有的付费依赖；不要用未经提交的本机�
 - 是否跨越 `.asmdef` 边界，且依赖方向正确？
 
 涉及多个环节时，同时阅读 `../guides/cross-layer-thinking-guide.md`。
+
+## Quality Check
+
+- 详细质量门见[质量检查](./quality-guidelines.md)。
+- 在 Unity 2022.3.15f1c1 中完成脚本刷新，确认 Console 没有与本次改动相关的编译错误。
+- 按改动范围执行最小 Play Mode、Editor 工具或资源流程冒烟验证；没有实际运行时必须说明未验证部分。
+- 检查 Git 差异、生成文件和资源配置，只保留本次目标所需变更。

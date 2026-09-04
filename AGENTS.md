@@ -19,3 +19,7 @@ If you're using Codex or another agent-capable tool, additional project-scoped h
 Managed by Trellis. Edits outside this block are preserved; edits inside may be overwritten by a future `trellis update`.
 
 <!-- TRELLIS:END -->
+
+## Project Tool Routing
+
+主会话和子代理在已配置且可用的 MCP 能覆盖任务时，优先使用对应 MCP；C# 语义分析优先 Rider MCP 或其他代码语义 MCP，Unity 编辑器状态与操作优先 Unity MCP 或其他 Unity 编辑器 MCP。详细降级和配置边界以 `.trellis/workflow.md` 为准。

@@ -21,7 +21,7 @@
 
 - 项目源码、中文注释和 Trellis 文档统一使用 UTF-8；不使用 GBK 作为读取、写回或降级编码。
 - 写回文件时使用 UTF-8，并按照项目规则保留正确的换行符。
-- 编码不确定时，只做定点修改，不要重写整个文件。
+- 编码不确定时，只允许使用能够保持未修改字节和原换行符的定点修改；无法保证时停止写回并说明情况，不要重写整个文件。
 - 现存非 UTF-8 文件不在普通功能修改中批量转换；如需迁移，必须单独确认范围。
 - 不要为了套用新规范批量格式化未修改的旧代码。
 
@@ -93,11 +93,10 @@ public static HostEntityData Create(int serialId, int typeId)
 ## 错误和日志
 
 - 缺少初始化、类型不合法等编程不变量使用 `GameFrameworkException` 或明确异常，例如 `HotfixProcedureComponent.CurrentProcedure`。
-- 表行、资源或运行时对象缺失这类可恢复问题，按调用契约返回 `false`/`null` 并记录 Warning/Error，或返回异常 `UniTask`。
+- 前置条件失败、类型不合法，或表行、资源、运行时对象缺失时，按调用契约返回 `false`、`null`、抛出明确异常或返回异常 `UniTask`，并记录定位所需的原因；不得通过静默 fallback、自动修正、兼容分支或第二套状态掩盖失败。
 - 使用 `UnityGameFramework.Runtime.Log`；需要按领域开关时使用 `GLog.Entity`、`GLog.UI`、`GLog.Resource` 等标签。
 - 不新增无上下文的 `Debug.Log`，错误日志至少包含资源名、表 ID、状态或异常信息。
 - 不用空 `catch` 隐藏失败；若降级是预期行为，日志中说明降级路径。
-- 前置条件失败、类型不合法或资源缺失时，必须按调用契约返回 `false`、`null` 或异常并记录明确原因；不得为掩盖错误添加静默 fallback、自动修正、兼容分支或第二套状态。
 
 参考：
 
