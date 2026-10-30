@@ -1,4 +1,4 @@
-# CodeBind - Unity 组件绑定代码生成工具
+# CodeBind - Unity Hierarchy 绑定代码生成工具
 
 <p align="center">
   <img src="https://img.shields.io/badge/Unity-2019.4%2B-blue" alt="Unity Version"/>
@@ -6,331 +6,275 @@
   <img src="https://img.shields.io/badge/Language-C%23-brightgreen" alt="Language"/>
 </p>
 
-> 🚀 基于节点命名规则的智能代码生成工具，告别手动拖拽组件的繁琐操作！
+CodeBind 根据 Unity Hierarchy 节点名称收集目标，生成 partial C# 绑定代码并写入序列化引用。它支持直接绑定 `MonoBehaviour`、由 Unity Host 承载普通 C# 类，以及按字符串 key 访问引用。
 
-CodeBind 是一款为 Unity 开发者设计的高效代码生成工具，通过简单的命名规则和特性标记，自动生成与预制体绑定的脚本代码。**零侵入性设计**，无需修改现有代码结构，即可大幅提升开发效率。
+## 核心特性
 
----
+- 节点名称支持类型 token、缩写模糊匹配、多个目标和 `*` wildcard。
+- 使用 `(0)`、`(1)` 等后缀生成数组成员。
+- 支持嵌套 `BindingRootAttribute` 边界，避免父级重复收集子绑定根。
+- 支持自定义名称分隔符、输出路径和命名空间。
+- 通过 `IBindingTargetTokenConfig` 批量扩展 token 映射。
+- 通过 `IBindingCodeCustomizer` 自定义生成字段、属性和附加源码。
+- 生成结果使用 partial class，不修改业务实现。
 
-## ✨ 核心特性
+## 安装
 
-### 🎯 智能命名识别
-- **模糊匹配**：节点名称支持缩写识别，`Self_Tr` 自动识别为 `Transform`，生成属性 `SelfTransform`
-- **多组件绑定**：单节点支持绑定多个组件，如 `Self_Transform_Button` 生成 `SelfTransform` 和 `SelfButton`
-- **全匹配模式**：使用通配符 `*` 绑定节点所有脚本，如 `Self_*`
-- **数组支持**：通过括号标记自动生成数组，如 `Item (0)`、`Item (1)` 生成 `ItemTransformArray`
+在 Unity Package Manager 中选择 **Add package from git URL**，输入：
 
-### 🔧 灵活配置
-- **自定义分隔符**：根据团队命名习惯自由设置分隔字符
-- **命名空间支持**：自动生成指定命名空间的代码
-- **路径记忆**：自动记住上次使用的代码生成路径
+```text
+https://github.com/XuToWei/CodeBind.git
+```
 
-### 🏗️ 两种工作模式
-- **MonoBehaviour 模式**：直接在 MonoBehaviour 类上使用，最便捷的使用方式
-- **纯 C# 模式**：通过 `ICSCodeBind` 接口支持非 MonoBehaviour 类，适合需要分离逻辑的场景
+也可以下载仓库并放入项目的 `Packages` 目录。
 
-### 🎨 开发体验优化
-- **零侵入性**：生成的代码使用 partial class，不影响原有代码结构
-- **嵌套支持**：智能识别已绑定节点，避免重复绑定子节点，非常适合列表项（List Item）等场景
-- **引用丢失提示**：自动检测绑定数据中的空引用，及时在 Inspector 中显示警告信息
-- **多种操作方式**：支持 Inspector 面板按钮操作（Generate Bind Code / Generate Serialization）和右键快捷菜单快速创建
+### 依赖
 
----
+CodeBind 需要 [Odin Inspector](https://assetstore.unity.com/packages/tools/utilities/odin-inspector-and-serializer-89041)。
 
-## 📦 安装方式
+CodeBind 本身不依赖 UGUI。导入 Demo 前，请先在项目中安装 **Unity UI**（`com.unity.ugui`）；UGUI 的 `UnityEngine.UI` 程序集引用仅配置在 Demo 的 Runtime 和 Editor asmdef 中。
 
-### 方法一：通过 Unity Package Manager（推荐）
+## Hierarchy 命名规则
 
-1. 打开 Unity 编辑器
-2. 打开 **Window > Package Manager**
-3. 点击左上角 **+** 按钮
-4. 选择 **Add package from git URL**
-5. 输入：`https://github.com/XuToWei/CodeBind.git`
-6. 点击 **Add**
+默认格式：
 
-### 方法二：手动下载
+```text
+[变量名]_[目标类型 token][_目标类型 token...][ (数组索引)]
+```
 
-下载本仓库并将其解压到项目的 `Packages` 文件夹中。
+示例：
 
----
+| 节点名称 | 生成成员 | 说明 |
+|---|---|---|
+| `Player_Transform` | `PlayerTransform` | 绑定 Transform |
+| `UI_Button_Image` | `UIButton`、`UIImage` | 同一节点绑定多个目标 |
+| `Panel_*` | `PanelGameObject`、`PanelTransform` 及该节点上其他已映射组件 | wildcard 使用实际目标 token，不生成 `PanelStar` |
+| `Item_Transform (0)`、`Item_Transform (1)` | `ItemTransformArray` | 按索引后缀收集数组 |
 
-## ⚙️ 依赖项
+类型 token 支持模糊补全，例如 `Self_Tr` 可规范化为 `Self_Transform`。默认配置仅包含 `GameObject` 和 `Transform`。Demo 的 `DemoBindingTargetTokenConfig` 补充了 `RectTransform`、`Button`、`Text`、`Image`、`Slider` 等 UI token，以及 `Animation`、`Animator`、`SpriteRenderer` 等组件映射。本文的 UI 示例需要导入 Demo，或在项目中通过 `IBindingTargetTokenConfig` 注册相应映射。
 
-本项目依赖以下插件（需自行安装）：
+> CodeBind 直接将 `变量名 + 目标 token` 交给当前 `IBindingCodeCustomizer`。默认实现不会自动转换大小写；若希望生成 PascalCase，请在 Hierarchy 变量名或 customizer 中明确实现。
 
-- [**Odin Inspector**](https://assetstore.unity.com/packages/tools/utilities/odin-inspector-and-serializer-89041) - 增强编辑器界面和序列化功能
+## MonoBehaviour 绑定
 
----
-
-## 🚀 快速开始
-
-### 方式一：MonoBehaviour 模式（推荐）
-
-#### 1️⃣ 添加特性标记
-
-在你的 MonoBehaviour 类上添加 `[MonoCodeBind]` 特性：
+在业务脚本上添加 `MonoBehaviourBindingAttribute`：
 
 ```csharp
-using UnityEngine;
 using CodeBind;
+using UnityEngine;
 
 namespace Game
 {
-    [MonoCodeBind('_')] // '_' 为分隔符，可自定义
-    public partial class TestMono : MonoBehaviour
+    [MonoBehaviourBinding('_')]
+    public partial class PlayerView : MonoBehaviour
     {
-        // 你的业务代码
         private void Start()
         {
-            // 自动生成的属性可以直接使用
-            SelfTransform.position = Vector3.zero;
-            SelfButton.onClick.AddListener(OnButtonClick);
+            RootTransform.position = Vector3.zero;
+            SubmitButton.onClick.AddListener(Submit);
         }
 
-        private void OnButtonClick()
+        private void Submit()
         {
-            Debug.Log("Button Clicked!");
+            Debug.Log("Submitted");
         }
     }
 }
 ```
 
-#### 2️⃣ 设置节点命名
+对应节点：
 
-在 Unity Hierarchy 中按照命名规则设置节点名称：
-
-```
-TestGameObject
-├── Self_Transform      // 绑定 Transform 组件
-├── Self_Button         // 绑定 Button 组件
-├── Title_Text          // 绑定 Text 组件
-├── Items_Transform_*   // 绑定所有组件
-└── ListItems
-    ├── Item (0)        // 数组元素
-    ├── Item (1)
-    └── Item (2)
+```text
+PlayerView
+├── Root_Transform
+└── Submit_Button
 ```
 
-#### 3️⃣ 生成代码和数据
-
-在 Inspector 面板中点击以下按钮：
-
-- **Generate Bind Code** - 生成绑定代码（.Bind.cs 文件）
-- **Generate Serialization** - 生成序列化数据（将组件引用保存到预制体）
-
-![MonoBehaviour 模式示例](Images~/1.png)
-
-#### 4️⃣ 生成的代码示例
-
-工具会自动生成 `TestMono.Bind.cs` 文件：
+生成的 `PlayerView.Bind.cs` 类似：
 
 ```csharp
-// This is automatically generated by CodeBind. Please do not modify it.
-
 namespace Game
 {
-    public partial class TestMono
+    public partial class PlayerView
     {
-        // 私有字段（带 m_ 前缀）
-        [UnityEngine.SerializeField] private UnityEngine.Transform m_SelfTransform;
-        [UnityEngine.SerializeField] private UnityEngine.UI.Button m_SelfButton;
-        [UnityEngine.SerializeField] private UnityEngine.UI.Text m_TitleText;
-        [UnityEngine.SerializeField] private UnityEngine.Transform[] m_ItemTransformArray;
+        [UnityEngine.SerializeField]
+        private UnityEngine.Transform m_RootTransform;
 
-        // 公共属性访问器
-        public UnityEngine.Transform SelfTransform => m_SelfTransform;
-        public UnityEngine.UI.Button SelfButton => m_SelfButton;
-        public UnityEngine.UI.Text TitleText => m_TitleText;
-        public UnityEngine.Transform[] ItemTransformArray => m_ItemTransformArray;
+        [UnityEngine.SerializeField]
+        private UnityEngine.UI.Button m_SubmitButton;
+
+        public UnityEngine.Transform RootTransform => m_RootTransform;
+        public UnityEngine.UI.Button SubmitButton => m_SubmitButton;
     }
 }
 ```
 
----
+在 Odin Inspector 中使用 **Generate Binding Source** 和 **Generate Serialization**。新建脚本也可以使用 Hierarchy 菜单：
 
-### 方式二：纯 C# 模式
+```text
+GameObject > CodeBind > MonoBehaviour Binding Generator
+```
 
-适用于不希望继承 MonoBehaviour 的场景。
+## PlainClass 绑定
 
-#### 1️⃣ 创建 C# 类
+PlainClass 模式适合不继承 `MonoBehaviour` 的普通 C# 类。业务主脚本只需要声明为 partial；生成的 `.Bind.cs` 会实现 `IPlainClassBinding`：
+
+```csharp
+namespace Game
+{
+    public partial class PlayerPresenter
+    {
+        public void Show()
+        {
+            TitleText.text = "Hello CodeBind";
+        }
+    }
+}
+```
+
+1. 在 GameObject 上添加 `PlainClassBindingHost`。
+2. 将业务脚本赋给 Host 的 **Binding Class Script**。
+3. 生成绑定源码和序列化数据。
+4. 通过扩展方法取得缓存实例：
+
+```csharp
+PlayerPresenter presenter = gameObject.GetPlainClassBinding<PlayerPresenter>();
+presenter.Show();
+```
+
+生成协议提供：
+
+```csharp
+public PlainClassBindingHost BindingHost { get; private set; }
+public Transform RootTransform { get; private set; }
+public void Bind(PlainClassBindingHost host);
+public void Unbind();
+```
+
+新建 PlainClass 脚本可以使用：
+
+```text
+GameObject > CodeBind > Plain Class Binding Generator
+```
+
+## NamedReference 绑定
+
+`NamedReferenceBindingHost` 支持两类引用：
+
+- Inspector 手动维护的 key 到 `GameObject` 映射。
+- 根据 Hierarchy 命名自动生成的 key 到目标映射。
+
+运行时 API：
+
+```csharp
+GameObject panel = host.GetManualGameObject("Panel");
+Button submit = host.GetGeneratedReference<Button>("SubmitButton");
+List<Image> icons = host.GetGeneratedReferences<Image>("IconImageArray");
+```
+
+## 自定义 BindingTargetToken
+
+对于单个自定义 `Component`，可以直接标记 token：
 
 ```csharp
 using CodeBind;
+using UnityEngine;
 
-namespace Game
+[BindingTargetToken("HealthBar")]
+public sealed class HealthBar : MonoBehaviour
 {
-    public partial class TestCS : ICSCodeBind
-    {
-        public void Initialize()
-        {
-            // 使用生成的绑定属性
-            TitleText.text = "Hello CodeBind!";
-        }
-    }
 }
 ```
 
-#### 2️⃣ 添加 CSCodeBindMono 组件
-
-在 GameObject 上添加 `CSCodeBindMono` 组件，并拖入你的 C# 脚本。
-
-![纯 C# 模式示例](Images~/2.png)
-
-#### 3️⃣ 获取绑定对象
-
-```csharp
-// 自动缓存，无需担心性能
-TestCS testCS = gameObject.GetCSCodeBindObject<TestCS>();
-testCS.Initialize();
-```
-
----
-
-## 📝 命名规则详解
-
-### 基础格式
-
-```
-[变量名]_[组件类型][_组件类型2...][(数组索引)]
-```
-
-### 组件类型缩写
-
-支持模糊匹配，常用缩写包括：
-
-| 全称 | 缩写示例 |
-|------|---------|
-| Transform | Tr, Trans |
-| Button | But, Btn |
-| Text | Txt |
-| Image | Img |
-| RectTransform | Rect, RectTr |
-| GameObject | Go, Obj |
-
-你也可以通过 `CodeBindNameAttribute` 和 `CodeBindNameTypeAttribute` 自定义命名规则。
-
-### 示例
-
-| 节点命名 | 生成的属性名 | 说明 |
-|---------|------------|------|
-| `Player_Transform` | `PlayerTransform` | Transform 组件 |
-| `UI_Button_Image` | `UIButton`, `UIImage` | 同时绑定 Button 和 Image |
-| `Items_*` | `ItemsStar` | 通配符绑定所有组件 |
-| `ListItem (0)` | `ListItemTransformArray` | 数组元素，自动生成数组 |
-| `Child_Nested_Transform` | - | 如果 Child 有 CodeBind 特性，Nested 不会被识别 |
-
-> **注意**：生成的属性名会移除分隔符并转换为 PascalCase 格式。例如 `Self_Transform` 生成 `SelfTransform`。
-
----
-
-## 🛠️ 高级功能
-
-### 右键快速生成 MonoBehaviour
-
-1. 在 Hierarchy 中选中一个 GameObject
-2. 右键选择 **GameObject > CodeBind > Mono Code Creator**
-3. 在弹出窗口中设置：
-   - **Code Name**：类名
-   - **Code Namespace**：命名空间
-   - **Code Path**：保存路径
-   - **Separator Char**：分隔符
-4. 点击 **Create Code File** 即可生成代码并自动添加到该 GameObject
-
-### 自定义命名类型
-
-通过 `CodeBindNameTypeAttribute` 扩展不可变的类型识别（应用于 static Dictionary 字段）：
+需要批量配置、别名或 `GameObject` 映射时，实现 `IBindingTargetTokenConfig`：
 
 ```csharp
 using System;
 using System.Collections.Generic;
-using UnityEngine;
-using CodeBind;
+using CodeBind.Editor;
 
-public static class CustomBindTypeConfig
+public sealed class ProjectBindingTargetTokenConfig : IBindingTargetTokenConfig
 {
-    [CodeBindNameType]
-    public static Dictionary<string, Type> CustomBindTypes = new Dictionary<string, Type>
-    {
-        { "MyCustomComponent", typeof(MyCustomComponent) },
-        { "MCC", typeof(MyCustomComponent) },
-        { "PlayerController", typeof(PlayerController) },
-        { "PC", typeof(PlayerController) }
-    };
+    public int Priority => 100;
+
+    public IReadOnlyDictionary<string, Type> TargetTypesByToken { get; } =
+        new Dictionary<string, Type>
+        {
+            { "HealthBar", typeof(HealthBar) },
+            { "HB", typeof(HealthBar) },
+        };
 }
 ```
 
-通过 `CodeBindNameAttribute` 处理业务代码中的自定义类型（应用于 Component 类）：
+发现优先级为：`BindingTargetTokenAttribute` > `IBindingTargetTokenConfig`（按 `Priority` 从高到低）> 默认配置。
+
+## 自定义生成代码
+
+实现 `IBindingCodeCustomizer` 即可自定义生成成员名称和附加源码。最高 `Priority` 的实现生效；默认实现优先级为 `0`。
 
 ```csharp
-using UnityEngine;
-using CodeBind;
+using System.Collections.Generic;
+using CodeBind.Editor;
 
-[CodeBindName("MyCustomComponent")]
-public class MyCustomComponent : MonoBehaviour 
-{ 
-    // 你的自定义组件代码
+public sealed class ProjectBindingCodeCustomizer : IBindingCodeCustomizer
+{
+    public int Priority => 100;
+
+    public string GetSerializedFieldName(string memberName) => $"_{memberName}";
+
+    public string GetPublicPropertyName(string memberName) => memberName;
+
+    public string BuildAdditionalSource(
+        string namespaceName,
+        string className,
+        List<BindingDescriptor> singleBindings,
+        SortedDictionary<string, List<BindingDescriptor>> arrayBindingsByMemberName,
+        string indentation)
+    {
+        return string.Empty;
+    }
 }
 ```
 
----
+框架传入的 `memberName` 已经是 `MemberNamePrefix + TargetToken`；数组还会预先追加固定的 `Array` 后缀。不要在 customizer 中再次拼接 token 或数组后缀。
 
-## ❓ 常见问题
+`BindingDescriptor` 提供：
 
-<details>
-<summary><b>Q: 生成的代码文件在哪里？</b></summary>
+```csharp
+public string MemberNamePrefix { get; }
+public Type TargetType { get; }
+public string TargetToken { get; }
+public Transform SourceTransform { get; }
+```
 
-生成的代码文件默认与原脚本同目录，文件名为 `原类名.Bind.cs`。
+## 批量刷新
 
-</details>
+选中一个或多个根 GameObject 后，可以使用：
 
-<details>
-<summary><b>Q: 修改节点名称后需要重新生成吗？</b></summary>
+```text
+GameObject > CodeBind > Refresh All Binding Sources
+GameObject > CodeBind > Refresh All Serialized Bindings
+```
 
-是的，修改节点命名或结构后，需要重新点击 `Generate Bind Code` 和 `Generate Serialization`。
+## 常见问题
 
-</details>
+### 生成文件在哪里？
 
-<details>
-<summary><b>Q: 支持嵌套预制体吗？</b></summary>
+已有脚本的生成文件位于原脚本旁边，名称为 `原类名.Bind.cs`。Generator Window 使用所选输出目录。
 
-支持。已经标记了 `MonoCodeBind` 或 `CodeBindAttribute` 的节点，其子节点不会被父级识别，避免重复绑定。这个特性非常适合处理列表场景，例如：ScrollView 中的每个 ListItem 可以有自己的绑定脚本，父级 ScrollView 的绑定不会影响到 ListItem 内部的节点。
+### 修改 Hierarchy 后需要重新生成吗？
 
-</details>
+需要。生成绑定源码后，再生成序列化数据。MonoBehaviour Inspector 在脚本重载后会自动完成待处理的序列化步骤。
 
-<details>
-<summary><b>Q: 是否支持其他编辑器扩展？</b></summary>
+### 支持嵌套绑定吗？
 
-需要依赖 Odin Inspector，其他编辑器扩展不影响使用。
+支持。带 `BindingRootAttribute` 的组件会形成扫描边界，父绑定不会收集嵌套绑定根内部的节点。
 
-</details>
-
----
-
-## 💬 交流与反馈
+## 交流与反馈
 
 - **QQ 交流群**：949482664
 - **问题反馈**：[GitHub Issues](https://github.com/XuToWei/CodeBind/issues)
 
----
-
-## 📄 许可证
+## License
 
 本项目基于 [MIT License](LICENSE) 开源。
-
----
-
-## 🌟 为什么选择 CodeBind？
-
-| 传统方式 | 使用 CodeBind |
-|---------|--------------|
-| ❌ 手动拖拽几十个组件到脚本 | ✅ 按命名规则自动生成 |
-| ❌ 修改 UI 后重新拖拽 | ✅ 重新生成即可 |
-| ❌ 代码与数据耦合 | ✅ partial class 分离生成代码 |
-| ❌ 容易遗漏或拖错组件 | ✅ 自动识别，不会出错 |
-| ❌ 团队协作易冲突 | ✅ 生成代码规范统一 |
-
----
-
-<p align="center">
-  ⭐ 如果这个工具对你有帮助，请给我们一个 Star！
-</p>

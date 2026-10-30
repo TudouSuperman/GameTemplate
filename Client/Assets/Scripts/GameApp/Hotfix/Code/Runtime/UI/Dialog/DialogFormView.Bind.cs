@@ -4,45 +4,46 @@ namespace GameApp.Hotfix
 {
     public partial class DialogFormView
     {
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.Image m_BackgroundImage;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.Button m_CancelButton;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private TMPro.TextMeshProUGUI m_CancelDescribeTextMeshProUGUI;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.RectTransform m_CancelNodeRectTransform;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.Button m_ConfirmButton;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private TMPro.TextMeshProUGUI m_ConfirmDescribeTextMeshProUGUI;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.RectTransform m_ConfirmNodeRectTransform;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private TMPro.TextMeshProUGUI m_MessageTextMeshProUGUI;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.HorizontalLayoutGroup m_ModeNodeHorizontalLayoutGroup;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.Button m_OtherButton;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private TMPro.TextMeshProUGUI m_OtherDescribeTextMeshProUGUI;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.RectTransform m_OtherNodeRectTransform;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private TMPro.TextMeshProUGUI m_TitleTextMeshProUGUI;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.Image m_TitleBackgroundImage;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.RectTransform m_ViewNodeRectTransform;
 
 
 #if UNITY_EDITOR
-        [Sirenix.OdinInspector.HideLabel, Sirenix.OdinInspector.ReadOnly, Sirenix.OdinInspector.ShowInInspector]
-        [Sirenix.OdinInspector.GUIColor(1f, 0.8f, 0f), Sirenix.OdinInspector.PropertyOrder(-99999)]
-        [Sirenix.OdinInspector.ShowIf(nameof(CheckBindDataExitEmpty))]
-        private string BindDataExitEmptyWarning => "BindData contains empty reference, please check.";
+        [Sirenix.OdinInspector.OnInspectorGUI, Sirenix.OdinInspector.PropertyOrder(-99999), Sirenix.OdinInspector.ShowIf(nameof(HasMissingTargets))]
+        private void DrawMissingTargetsWarning()
+        {
+            Sirenix.Utilities.Editor.SirenixEditorGUI.MessageBox("Binding targets contain missing references.", UnityEditor.MessageType.Warning);
+        }
 
-        private bool CheckBindDataExitEmpty()
+        private bool HasMissingTargets()
         {
             if (this.m_BackgroundImage == null) return true;
             if (this.m_CancelButton == null) return true;
@@ -62,5 +63,6 @@ namespace GameApp.Hotfix
             return false;
         }
 #endif
+
     }
 }

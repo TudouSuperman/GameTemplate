@@ -4,13 +4,29 @@ namespace GameApp.Hotfix
 {
     public partial class HostEntityView
     {
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.SpriteRenderer m_AvatarSpriteRenderer;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.InputSystem.PlayerInput m_ControlNodePlayerInput;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.Transform m_SelfNodeTransform;
 
+
+#if UNITY_EDITOR
+        [Sirenix.OdinInspector.OnInspectorGUI, Sirenix.OdinInspector.PropertyOrder(-99999), Sirenix.OdinInspector.ShowIf(nameof(HasMissingTargets))]
+        private void DrawMissingTargetsWarning()
+        {
+            Sirenix.Utilities.Editor.SirenixEditorGUI.MessageBox("Binding targets contain missing references.", UnityEditor.MessageType.Warning);
+        }
+
+        private bool HasMissingTargets()
+        {
+            if (this.m_AvatarSpriteRenderer == null) return true;
+            if (this.m_ControlNodePlayerInput == null) return true;
+            if (this.m_SelfNodeTransform == null) return true;
+            return false;
+        }
+#endif
 
     }
 }

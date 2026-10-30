@@ -3,7 +3,7 @@ using CodeBind;
 
 namespace GameApp.Hotfix
 {
-    [MonoCodeBind('-')]
+    [MonoBehaviourBinding('-')]
     public sealed partial class SettingFormView : UGuiFormView
     {
         public event GameFrameworkAction<bool> OnMusicMuteChanged;

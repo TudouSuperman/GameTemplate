@@ -4,75 +4,76 @@ namespace GameApp.Hotfix
 {
     public partial class SettingFormView
     {
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.Image m_BackgroundImage;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.Toggle m_MusicToggle;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.Image m_MusicBackgroundImage;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.Image m_MusicCheckmarkImage;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private TMPro.TextMeshProUGUI m_MusicDescribeTextMeshProUGUI;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.Slider m_MusicVolumeSlider;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.Image m_MusicVolumeBackgroundImage;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.Image m_MusicVolumeFilImage;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.RectTransform m_MusicVolumeNodeRectTransform;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.Button m_OKButton;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private TMPro.TextMeshProUGUI m_OKDescribeTextMeshProUGUI;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.VerticalLayoutGroup m_SettingNodeVerticalLayoutGroup;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private TMPro.TextMeshProUGUI m_SettingTitleTextMeshProUGUI;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.Toggle m_SoundToggle;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.Image m_SoundBackgroundImage;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.Image m_SoundCheckmarkImage;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private TMPro.TextMeshProUGUI m_SoundDescribeTextMeshProUGUI;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.Slider m_SoundVolumeSlider;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.Image m_SoundVolumeBackgroundImage;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.Image m_SoundVolumeFilImage;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.RectTransform m_SoundVolumeNodeRectTransform;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.Toggle m_UISoundToggle;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.Image m_UISoundBackgroundImage;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.Image m_UISoundCheckmarkImage;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private TMPro.TextMeshProUGUI m_UISoundDescribeTextMeshProUGUI;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.Slider m_UISoundVolumeSlider;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.Image m_UISoundVolumeBackgroundImage;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.UI.Image m_UISoundVolumeFilImage;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.RectTransform m_UISoundVolumeNodeRectTransform;
-        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("BindData"), Sirenix.OdinInspector.ReadOnly]
+        [UnityEngine.SerializeField, Sirenix.OdinInspector.FoldoutGroup("Binding Targets"), Sirenix.OdinInspector.ReadOnly]
         private UnityEngine.RectTransform m_ViewNodeRectTransform;
 
 
 #if UNITY_EDITOR
-        [Sirenix.OdinInspector.HideLabel, Sirenix.OdinInspector.ReadOnly, Sirenix.OdinInspector.ShowInInspector]
-        [Sirenix.OdinInspector.GUIColor(1f, 0.8f, 0f), Sirenix.OdinInspector.PropertyOrder(-99999)]
-        [Sirenix.OdinInspector.ShowIf(nameof(CheckBindDataExitEmpty))]
-        private string BindDataExitEmptyWarning => "BindData contains empty reference, please check.";
+        [Sirenix.OdinInspector.OnInspectorGUI, Sirenix.OdinInspector.PropertyOrder(-99999), Sirenix.OdinInspector.ShowIf(nameof(HasMissingTargets))]
+        private void DrawMissingTargetsWarning()
+        {
+            Sirenix.Utilities.Editor.SirenixEditorGUI.MessageBox("Binding targets contain missing references.", UnityEditor.MessageType.Warning);
+        }
 
-        private bool CheckBindDataExitEmpty()
+        private bool HasMissingTargets()
         {
             if (this.m_BackgroundImage == null) return true;
             if (this.m_MusicToggle == null) return true;
@@ -107,5 +108,6 @@ namespace GameApp.Hotfix
             return false;
         }
 #endif
+
     }
 }

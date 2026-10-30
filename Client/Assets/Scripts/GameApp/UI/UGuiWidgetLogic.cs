@@ -4,7 +4,7 @@ using CodeBind;
 
 namespace GameApp
 {
-    [CodeBind]
+    [BindingRoot]
     [DisallowMultipleComponent]
     public abstract class UGuiWidgetLogic : MonoBehaviour
     {

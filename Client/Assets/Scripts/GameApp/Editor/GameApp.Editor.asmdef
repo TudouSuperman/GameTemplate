@@ -12,6 +12,7 @@
         "Unity.TextMeshPro",
         "Unity.InternalAPIEngineBridge.006",
         "CodeBind",
+        "CodeBind.Editor",
         "ToolbarExtension.Editor",
         "HybridCLR.Runtime",
         "HybridCLR.Editor",

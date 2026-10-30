@@ -3,7 +3,7 @@ using CodeBind;
 
 namespace GameApp.Hotfix
 {
-    [MonoCodeBind('-')]
+    [MonoBehaviourBinding('-')]
     public sealed partial class LanguageFormView : UGuiFormView
     {
         public event GameFrameworkAction<bool> OnChineseChanged;

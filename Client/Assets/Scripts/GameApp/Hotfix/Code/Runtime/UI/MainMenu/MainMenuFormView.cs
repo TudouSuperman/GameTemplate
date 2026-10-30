@@ -3,7 +3,7 @@ using CodeBind;
 
 namespace GameApp.Hotfix
 {
-    [MonoCodeBind('-')]
+    [MonoBehaviourBinding('-')]
     public sealed partial class MainMenuFormView : UGuiFormView
     {
         public event GameFrameworkAction OnNewGameClicked;

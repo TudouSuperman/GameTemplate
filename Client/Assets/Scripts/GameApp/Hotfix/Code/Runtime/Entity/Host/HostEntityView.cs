@@ -3,7 +3,7 @@ using CodeBind;
 
 namespace GameApp.Hotfix
 {
-    [MonoCodeBind('-')]
+    [MonoBehaviourBinding('-')]
     public sealed partial class HostEntityView : UGFEntityView
     {
         public override void OnInit()
