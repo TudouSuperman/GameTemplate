@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.code-philosophy.hybridclr": {
-      "version": "https://gitee.com/focus-creative-games/hybridclr_unity.git",
+      "version": "https://gitee.com/focus-creative-games/hybridclr_unity.git#ee7af5c5926c12402b3ccd121408646f1cf3128f",
       "depth": 0,
       "source": "git",
       "dependencies": {},
@@ -14,7 +14,7 @@
       "dependencies": {
         "com.unity.ugui": "1.0.0"
       },
-      "hash": "f9868197c056b3d178852c7fc78baf8720bf29c8"
+      "hash": "4d00ad8c608bf42c8668fdf192130fc16e21a130"
     },
     "com.coffee.ui-effect": {
       "version": "https://github.com/mob-sakai/UIEffect.git?path=Packages/src",
@@ -23,7 +23,7 @@
       "dependencies": {
         "com.unity.ugui": "1.0.0"
       },
-      "hash": "6f90044ec83adbd66475a6d2b5baa38e85678809"
+      "hash": "ff824c234121cd6dde7038c8e8ca4904d7f4d7f3"
     },
     "com.coffee.ui-particle": {
       "version": "https://github.com/mob-sakai/ParticleEffectForUGUI.git",
@@ -33,7 +33,7 @@
         "com.unity.ugui": "1.0.0",
         "com.unity.modules.particlesystem": "1.0.0"
       },
-      "hash": "4b98abd7469b10d55c9c623830cb6e1518f72731"
+      "hash": "433071025490c0bcfc5f72508b3e1453f321789c"
     },
     "com.coffee.unmask": {
       "version": "https://github.com/mob-sakai/UnmaskForUGUI.git",
@@ -61,7 +61,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "5fefbaa7df300643e53954cf07a73b3299665883"
+      "hash": "b9c1d8a8a10d37f344b63384d3c44ed814fda1d7"
     },
     "com.psygames.unitywebsocket": {
       "version": "https://github.com/psygames/UnityWebSocket.git#upm",
@@ -319,7 +319,7 @@
       "url": "https://packages.unity.cn"
     },
     "com.unity.nuget.newtonsoft-json": {
-      "version": "3.2.1",
+      "version": "3.2.2",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
@@ -477,14 +477,14 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "6b41e24c6a9f504c2bd3fe004998ed0acdda89ba"
+      "hash": "dc420338450a62bb9cd1883fbc8ead7e155e0633"
     },
     "me.xw.toolbarextension": {
       "version": "https://github.com/XuToWei/ToolbarExtension.git",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "29b61c47e5ff4ba7f1976918ec0d4b9b4ecb1576"
+      "hash": "ecb4645d33e69f481cf70ceb2eec385ff89c5287"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
