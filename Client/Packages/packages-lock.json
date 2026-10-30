@@ -472,6 +472,13 @@
       },
       "url": "https://packages.unity.cn"
     },
+    "me.xw.reactivebinding": {
+      "version": "https://github.com/XuToWei/ReactiveBinding.git?path=Unity#d2de4560cf6938d511e0d31962f436053c594561",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "d2de4560cf6938d511e0d31962f436053c594561"
+    },
     "me.xw.statecontroller": {
       "version": "https://github.com/XuToWei/StateController.git",
       "depth": 0,
@@ -485,6 +492,16 @@
       "source": "git",
       "dependencies": {},
       "hash": "ecb4645d33e69f481cf70ceb2eec385ff89c5287"
+    },
+    "me.xw.unityagentbridge": {
+      "version": "https://github.com/XuToWei/UnityAgentBridge.git?path=Unity",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "3.2.1",
+        "com.unity.test-framework": "1.1.33"
+      },
+      "hash": "c19ff7565b9d153db06dd36a79734c00e37bf911"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",

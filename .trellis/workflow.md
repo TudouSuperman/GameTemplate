@@ -101,8 +101,12 @@ python ./.trellis/scripts/get_context.py --mode phase --step <X.Y>  # detailed g
 - 当任务所需能力由已配置且可用的 MCP 覆盖时，优先调用对应 MCP；Rider MCP 和 Unity MCP 是常见示例，但不限制其他可用 MCP。
 - 进行 C# 符号、定义、调用关系、继承关系和诊断分析时，优先使用可用的 Rider MCP 或其他代码语义 MCP。
 - 处理 Unity 场景、Prefab、GameObject、资源、Console 和测试时，优先使用可用的 Unity MCP 或其他 Unity 编辑器 MCP。
-- 同时涉及代码语义和 Unity 编辑器状态时，分别使用对应的 MCP。
-- MCP 不可用或能力不足时，说明限制后再使用必要的文件系统或命令行工具；不要为了使用 MCP 而改变任务范围。
+- Unity MCP 未配置、不可用或无法覆盖当前操作时，必须继续检查本工程的 Unity Agent Bridge。已授权任务内，Bridge 可用且支持所需操作就直接使用，简要说明采用 Bridge 即可；不要要求用户先安装 MCP、重复确认工具选择，或仅因没有 MCP 就跳过编辑器验证。MCP 可覆盖的操作仍优先走 MCP，项目专用 Bridge 扩展可补充 MCP 缺少的能力。
+- AgentBridge 可用性不能只看包引用或目录：先定位 `Client/` 的已安装包并阅读其 `AGENT.md`，确认已有 `Client/.agentbridge/`，按协议完成本 session 首次 `list_commands`，根据真实响应及启用命令的 schema 判断是否支持目标操作。目录存在不代表宿主运行；找不到 root 时不自行创建。未启用或无响应时说明具体状态，保留未完成 exchange，不把“已安装”当成“可调用”。
+- 使用 Bridge 必须遵守官方协议的原子发布、唯一 id、single-flight、完整读取响应后等待 `processing.json` 消失再 ack，以及 `commandsVersion` 刷新规则。读写通讯文件是调用编辑器的传输方式，不能与直接编辑 Unity 资产文件混为一谈；命令和参数从实时 discovery 获取。主会话和子代理不得并发写同一个 Bridge root，由一个调用方串行协调。
+- 切换工具前检查已有操作的结果：MCP 或 Bridge 写操作超时、断连且结果不明时，先查询实际状态或继续等待原 exchange，不得换通道直接重发，避免重复创建、重复修改。用户禁用命令或权限拒绝不属于工具缺失，不得通过另一通道绕过。
+- 同时涉及代码语义和 Unity 编辑器状态时，语义分析使用对应的代码 MCP，编辑器操作按上述 MCP → AgentBridge 顺序选择；Bridge 不替代 C# 语义分析工具。
+- 对 Unity 操作，只有 MCP 与 Bridge 都不可用或能力不足后，才说明具体限制并使用必要的其他工具；需要编辑器状态才能判断的结果，不能仅凭源码/YAML 宣称已经验证。其他任务在对应 MCP 不可用或能力不足时可使用必要的文件系统或命令行工具；不要为了使用某种工具而改变任务范围。
 - 不得把个人机器上的 MCP 路径、服务器地址、密钥或配置复制到项目中。
 
 ---

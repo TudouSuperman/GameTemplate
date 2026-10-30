@@ -19,7 +19,8 @@
         "Coffee.SoftMaskForUGUI",
         "Coffee.UnmaskForUGUI",
         "GameApp.Runtime",
-        "GameApp.Hotfix.Loader.Runtime"
+        "GameApp.Hotfix.Loader.Runtime",
+        "ReactiveBinding"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -13,6 +13,8 @@
         "Unity.InternalAPIEngineBridge.006",
         "CodeBind",
         "CodeBind.Editor",
+        "AgentBridge.Editor",
+        "StateController",
         "ToolbarExtension.Editor",
         "HybridCLR.Runtime",
         "HybridCLR.Editor",

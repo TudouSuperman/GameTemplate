@@ -11,6 +11,7 @@
 | 热更新 | HybridCLR |
 | 异步 | UniTask |
 | UI 绑定 | CodeBind |
+| 数据变化检测（可选） | ReactiveBinding `2.0.2` |
 | 配置源 | `ClientExcel/` |
 | 主程序集 | `GameApp.Runtime` |
 | 热更程序集 | `GameApp.Hotfix.Runtime` |
@@ -26,11 +27,13 @@ Odin Inspector 是项目已有的付费依赖；不要用未经提交的本机�
 | [运行时性能](./performance-guidelines.md) | 高频更新、对象池、缓存、生命周期和性能验证 |
 | [HybridCLR 热更新](./hotfix-guidelines.md) | 修改热更入口、Loader、程序集或构建流程 |
 | [UI 开发](./ui-guidelines.md) | 新建或修改 UIForm、View、CodeBind 和 UI 表 |
+| [ReactiveBinding](./reactive-binding-guidelines.md) | 使用数据变化检测、生成器、版本字段和集合 |
 | [Entity 开发](./entity-guidelines.md) | 新建实体、数据、逻辑、View、预制体和配置 |
 | [客户端网络](./network-guidelines.md) | 新增或修改客户端数据包、处理器和网络通道 |
 | [资源与本地化](./resource-and-localization-guidelines.md) | 设置 Sprite/Texture、管理资源生命周期、修改语言表和切换语言 |
 | [配置与生成代码](./data-and-generated-code.md) | 修改 Excel、表代码、枚举、Input 和 Bind 文件 |
 | [Editor 与构建工具](./editor-and-build-guidelines.md) | 修改 Toolbar、场景入口、AssetBundle、Player 或热更构建工具 |
+| [Agent Bridge 扩展](./agent-bridge-guidelines.md) | 调用或修改 CodeBind、状态控制器、Excel 桥接命令与流程验证 |
 | [质量检查](./quality-guidelines.md) | 提交前编译、生成、Play Mode 和差异检查 |
 
 ## 开发前检查

@@ -18,7 +18,8 @@
         "Coffee.SoftMaskForUGUI",
         "Coffee.UnmaskForUGUI",
         "CodeBind",
-        "HybridCLR.Runtime"
+        "HybridCLR.Runtime",
+        "ReactiveBinding"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
