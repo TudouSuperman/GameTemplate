@@ -29,7 +29,7 @@ ClientExcel/
 - `Definition/`：常量、枚举和通用数据结构。
 - `Container/`：把资源、实体、事件的获取与释放绑定到 Owner 生命周期。
 - `UI/`、`Entity/`：GF 的项目级基类和扩展。
-- `SpriteCollection/`、`TextureSet/`、`Localization/`：动态图片与本地化的项目级入口。
+- `AssetSet/`、`Localization/`：动态图片与本地化的项目级入口。
 - `Procedure/`：资源检查、启动和进入热更层之前的常驻流程。
 - `Hotfix/Loader/`：加载热更 DLL/资源并创建热更入口，不参与业务迭代。
 - `Hotfix/Code/`：可热更新的游戏业务。

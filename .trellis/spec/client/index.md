@@ -38,7 +38,7 @@ Odin Inspector 是项目已有的付费依赖；不要用未经提交的本机�
 - 目标代码属于常驻层还是热更新层？
 - 是否已有基类、Extension、Container 或 Utility 可以复用？
 - 是否涉及 Excel、预制体、CodeBind 或其他生成产物？
-- 图片/纹理是否应走 SpriteCollection、TextureSet 或 Owner 级 `ResourceContainer`？
+- 单张图片是否应走 AssetSet；一组资源跟随 Owner 释放时是否应走 `ResourceContainer`？
 - 是否触及 Build Target、资源收集、热更 DLL 或 AOT 元数据？
 - 是否需要在生命周期结束时取消异步、退订事件、释放资源或归还引用池对象？
 - 代码是否运行在高频路径，是否需要阅读[运行时性能](./performance-guidelines.md)？

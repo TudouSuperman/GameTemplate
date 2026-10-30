@@ -30,7 +30,7 @@ rg -n "class .*Extension|class .*Container" Client/Assets/Scripts/GameApp -g "*.
 - Entity：`EntityExtension` 和 `EntityExtension.Awaitable`
 - Scene：`SceneExtension.Awaitable`
 - Event：`EventExtension.TryUnsubscribe`
-- Sound、Localization、SpriteCollection、TextureSet 等领域也已有扩展
+- Sound、Localization、AssetSet 等领域也已有扩展
 
 新增重载时保留已有的表解析、优先级、CancellationToken 和错误语义。
 

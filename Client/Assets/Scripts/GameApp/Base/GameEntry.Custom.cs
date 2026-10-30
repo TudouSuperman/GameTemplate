@@ -62,13 +62,7 @@ namespace GameApp
             private set;
         }
         
-        public static TextureSetComponent TextureSet
-        {
-            get;
-            private set;
-        }
-        
-        public static SpriteCollectionComponent SpriteCollection
+        public static AssetSetComponent AssetSet
         {
             get;
             private set;
@@ -91,8 +85,7 @@ namespace GameApp
             NetworkService = UnityGameFramework.Runtime.GameEntry.GetComponent<NetworkServiceComponent>();
             Timer = UnityGameFramework.Runtime.GameEntry.GetComponent<TimerComponent>();
             TimingWheel = UnityGameFramework.Runtime.GameEntry.GetComponent<TimingWheelComponent>();
-            TextureSet = UnityGameFramework.Runtime.GameEntry.GetComponent<TextureSetComponent>();
-            SpriteCollection = UnityGameFramework.Runtime.GameEntry.GetComponent<SpriteCollectionComponent>();
+            AssetSet = UnityGameFramework.Runtime.GameEntry.GetComponent<AssetSetComponent>();
             CodeRunner = UnityGameFramework.Runtime.GameEntry.GetComponent<CodeRunnerComponent>();
         }
     }

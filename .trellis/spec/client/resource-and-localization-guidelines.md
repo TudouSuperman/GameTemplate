@@ -1,41 +1,29 @@
 # 资源设置与本地化规范
 
-本规范覆盖运行时图片设置、Owner 级资源生命周期和本地化加载。实际入口以 SpriteCollection、TextureSet、`ResourceContainer` 和 GF Localization 为准。
+本规范覆盖运行时图片设置、Owner 级资源生命周期和本地化加载。单张图片通过 AssetSet 设置；一组资源跟随 UI、Widget 或 Entity 生命周期时使用 `ResourceContainer`。
 
-## 能力选择
+## 图片接口
 
-| 场景 | 当前入口 | 关键文件 |
+| 场景 | API | 资源类型 |
 | --- | --- | --- |
-| `Image` 动态设置 Sprite | `SetSprite` / `SetSpriteAsync` | `GameApp/SpriteCollection/SetSpriteExtension.cs` |
-| `RawImage` 设置本地、资源或网络 Texture | `SetTextureByFileSystem` / `SetTextureByResources*` / `SetTextureByNetwork*` | `GameApp/TextureSet/SetTextureExtension.cs` |
-| 一组任意资源跟随 UI、Widget 或 Entity 释放 | `ResourceContainer`，优先通过 `*LogicEx` 暴露的方法使用 | `GameApp/Container/ResourceContainer.cs` |
-| UIForm / Entity 主资源 | Excel 配置 + `UIExtension` / `EntityExtension` | 对应 UI、Entity 规范 |
-| 语言字典 | `$Localization.xlsx` + `LocalizationExtension.LoadLanguageAsync` | `GameApp/Localization/` |
+| `Image` 加载 Sprite | `SetSprite` / `SetSpriteAsync` | GF Resource，Sprite 完整路径 |
+| `RawImage` 加载 Resource 纹理 | `SetTextureByResource` / `SetTextureByResourceAsync` | GF Resource，Texture2D 完整路径 |
+| `RawImage` 读取 AssetSet 缓存 | `SetTextureByFileSystem` / `SetTextureByFileSystemAsync` | AssetSet 文件系统键 |
+| `RawImage` 下载并缓存图片 | `SetTextureByWebRequest` / `SetTextureByWebRequestAsync` | URL；默认持久化 |
 
-## SpriteCollection 契约
+只需触发加载时使用同步返回的接口；后续逻辑依赖资源设置完成时使用 Async。Async 被目标换图、加载失败或等待项清理取消时会抛出 `OperationCanceledException`；它不提供底层失败原因，具体资源错误查看 GF 日志。
 
-可用签名：
+## AssetSet 生命周期
 
-```csharp
-UniTask SetSpriteAsync(this Image image, string collectionPath, string spritePath)
-UniTask SetSpriteAsync(this Image image, string spritePath)
-void SetSprite(this Image image, string collectionPath, string spritePath)
-void SetSprite(this Image image, string spritePath)
-```
+通过 `GameEntry.AssetSet` 使用统一组件。它按“路径 + Unity 类型”合并 Resource 加载和缓存键，因此同一图片路径可分别作为 Sprite 和 Texture2D 使用。
 
-- 只传 `spritePath` 的重载会用 `Path.ChangeExtension(spritePath, ".asset")` 推导收集器路径；只有资源命名满足该约定时才使用。
-- 后续逻辑依赖图片已经设置完成时使用 Async 重载；只需触发设置时使用 void 重载。
-- 不绕过 `GameEntry.SpriteCollection` 为每个界面重新实现 Sprite 缓存、等待队列和释放逻辑。
+同一个目标发起新设置时，组件会移除旧等待项；已完成的旧资源在定期释放检查中回收。目标销毁、贴图替换或主动调用 `ReleaseUnused()` 也会触发回收。Resource 资源最终通过 GF `UnloadAsset` 释放；文件系统和下载生成的 Unity 对象通过 `Destroy` 释放。
 
-## TextureSet 契约
+AssetSet 的网络缓存使用 URL 作为下载地址和磁盘缓存键。图片更新应使用版本化 URL。`DeleteByFileSystem(url)` 只删除磁盘缓存，内存对象池中的同键对象仍可能命中。
 
-`RawImage` 根据来源选择接口：
+`SetTextureByFileSystem` 只读取 AssetSet 自己的虚拟文件系统，不支持任意磁盘路径。文件系统初始容量、缓冲区、池容量和过期时间由 `AssetSetComponent` 配置。
 
-- GF Resource：`SetTextureByResources` / `SetTextureByResourcesAsync`。
-- 网络：`SetTextureByNetwork` / `SetTextureByNetworkAsync`；需要落盘时显式传 `saveFilePath`。
-- TextureSet 文件系统：`SetTextureByFileSystem`。
-
-文件系统入口不是任意磁盘读取 API；调用方必须提供 TextureSet 能识别的键或缓存路径。需要等待结果再继续时只能使用已有 Async 重载，不要用固定帧延迟猜测加载完成。
+自定义目标继承 `AssetSet<T>`，实现赋值、释放判断和清理。实例使用 `ReferencePool.Acquire/Release`。从文件系统读取还需实现 `ISerializeAssetSet`；使用 WebRequest 需实现 `ISerializeAssetSet` 和 `ISaveAbleAssetSet`。
 
 ## Owner 级资源生命周期
 
@@ -71,10 +59,11 @@ ClientExcel/GameHotfix/$Localization.xlsx
 
 | 场景 | 期望行为 / 检查 |
 | --- | --- |
-| Sprite 收集器或资源键错误 | Async 不应被当成成功；检查 SpriteCollection 日志与资源收集配置 |
-| 网络 Texture 失败 | 不继续使用未完成结果；记录 URL/缓存键并检查 TextureSet 日志 |
-| Owner 在加载完成前销毁 | 取消或版本检查阻止回写，已加载资源被卸载 |
+| Sprite 或 Texture 资源键错误 | Async 任务取消并检查 GF Resource 日志 |
+| WebRequest 下载失败 | 等待任务取消并检查 URL 与 GF WebRequest 日志 |
+| 目标在加载完成前销毁或换图 | 旧设置取消或回收，不能覆盖新图片 |
+| Owner 销毁 | `ResourceContainer` 取消等待并卸载已加载资源 |
 | 本地化 Key 重复 | XML 解析失败并记录 Warning，修复 Excel 源后重新生成 |
 | 新增语言 | XML、Key、启动语言、资源 Variant 和语言 UI 一起验证 |
 
-错误做法是直接在 UI 中 `GameEntry.Resource.LoadAsset` 后长期保存引用；正确做法是根据目标类型走 SpriteCollection/TextureSet，或让 `*LogicEx` 的 `ResourceContainer` 管理完整生命周期。
+不要在 UI 中直接调用 `GameEntry.Resource.LoadAsset` 后长期持有引用；按目标类型使用 AssetSet，Owner 级资源使用 `ResourceContainer`。

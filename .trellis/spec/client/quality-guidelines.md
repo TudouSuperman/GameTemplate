@@ -64,7 +64,7 @@ rg -n "automatically generated|自动生成，请勿直接修改" Client/Assets/
 
 ### 资源与本地化
 
-- `Image` / `RawImage` 使用项目 SpriteCollection / TextureSet 入口，Owner 级资源通过 Container 对称释放。
+- `Image` / `RawImage` 使用项目 AssetSet 入口，Owner 级资源通过 Container 对称释放。
 - 异步完成后确认目标仍存活；关闭 UI、隐藏 Entity 或销毁 Owner 后不能回写。
 - 修改 `$Localization.xlsx` 后检查 XML 与 `LocalizationKey.cs`，并验证启动加载和语言切换重启流程。
 

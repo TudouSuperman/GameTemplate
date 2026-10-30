@@ -11,7 +11,7 @@ GameTemplate 是一个以 UnityGameFramework（GF）为基础的纯 Unity 客户
 - 异步统一使用 UniTask。
 - UI 与 Entity 基于 GF，并使用 CodeBind 生成引用绑定代码。
 - 配置源位于 `ClientExcel/`，通过项目内 Unity Editor 工具生成运行时数据和枚举。
-- 动态图片使用 SpriteCollection / TextureSet，批量资源生命周期使用 `ResourceContainer`。
+- 动态图片使用 AssetSet，批量资源生命周期使用 `ResourceContainer`。
 - 构建、HybridCLR、DataTable 和 Toolbar 工具均位于 `GameApp.Editor`。
 
 ## 规范导航

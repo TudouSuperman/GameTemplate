@@ -20,7 +20,7 @@ GameApp.Runtime 契约 → Hotfix.Loader → Hotfix.Runtime → HotfixEntry → 
 Owner → Container/CancellationToken → GameEntry.Resource → 完成回调 → 对称卸载
 
 动态图片:
-Image/RawImage → SpriteCollection/TextureSet → 等待项 → 目标替换或销毁时回收
+Image/RawImage → GameEntry.AssetSet → 等待项 → 目标替换或销毁时回收
 
 本地化:
 $Localization.xlsx → XML + LocalizationKey.cs → ProcedureLaunch/Preload → GameEntry.Localization
